@@ -3,6 +3,7 @@ package tw.kid7.command;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import tw.kid7.util.MessageUtil;
 
 public class BannerMakerCommand extends AbstractCommand {
     //指令名稱
@@ -36,7 +37,7 @@ public class BannerMakerCommand extends AbstractCommand {
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
         if (!isSenderPlayer()) {
-            sender.sendMessage(ChatColor.RED + "This command can only be used by players in game");
+            sender.sendMessage(MessageUtil.format(true, "&cThis command can only be used by players in game"));
             return;
         }
     }
