@@ -1,0 +1,20 @@
+name: BannerMaker
+main: tw.kid7.BannerMaker
+version: 1.0
+author: KID
+commands:
+    BannerMaker:
+        description: BannerMaker
+        usage: /<command>
+        aliases: [bm]
+        permission: BannerMaker.use
+        permission-message: Lacking permission <permission>
+permissions:
+    BannerMaker.*:
+        description: Whole permission of BannerMaker
+        default: op
+        children:
+            BannerMaker.use: true
+    BannerMaker.use:
+        description: Permission of using BannerMaker
+        default: op
