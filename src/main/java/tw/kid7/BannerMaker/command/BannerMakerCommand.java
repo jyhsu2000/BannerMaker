@@ -1,8 +1,23 @@
 package tw.kid7.BannerMaker.command;
 
+import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Wool;
+import tw.kid7.BannerMaker.util.InventoryUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 
 public class BannerMakerCommand extends AbstractCommand {
     //指令名稱
@@ -35,9 +50,13 @@ public class BannerMakerCommand extends AbstractCommand {
      */
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
+        //只能由玩家使用
         if (!isSenderPlayer()) {
             sender.sendMessage(MessageUtil.format(true, "&cThis command can only be used by players in game"));
             return;
         }
+        Player player = (Player) sender;
+        //開啟選單
+        InventoryUtil.openMenu(player);
     }
 }
