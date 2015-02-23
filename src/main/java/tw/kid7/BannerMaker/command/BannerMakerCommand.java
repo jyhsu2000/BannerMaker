@@ -1,23 +1,10 @@
 package tw.kid7.BannerMaker.command;
 
-import org.bukkit.Bukkit;
-import org.bukkit.DyeColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Wool;
 import tw.kid7.BannerMaker.util.InventoryUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.ListIterator;
 
 public class BannerMakerCommand extends AbstractCommand {
     //指令名稱

@@ -1,6 +1,7 @@
 package tw.kid7.BannerMaker;
 
 import com.google.common.collect.Maps;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import tw.kid7.BannerMaker.listener.InventoryClickEventListener;
 
@@ -9,6 +10,9 @@ import java.util.HashMap;
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     public HashMap<String, State> stateMap = Maps.newHashMap();
+    public HashMap<String, Integer> selectedColor = Maps.newHashMap();
+    public HashMap<String, ItemStack> currentBanner = Maps.newHashMap();
+    public HashMap<String, Boolean> morePatterns = Maps.newHashMap();
 
     @Override
     public void onEnable() {
