@@ -1,9 +1,8 @@
-package tw.kid7.command;
+package tw.kid7.BannerMaker.command;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import tw.kid7.util.MessageUtil;
+import tw.kid7.BannerMaker.util.MessageUtil;
 
 public class BannerMakerCommand extends AbstractCommand {
     //指令名稱

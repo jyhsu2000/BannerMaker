@@ -1,5 +1,5 @@
 name: BannerMaker
-main: tw.kid7.BannerMaker
+main: tw.kid7.BannerMaker.BannerMaker
 version: 1.0
 author: KID
 commands:

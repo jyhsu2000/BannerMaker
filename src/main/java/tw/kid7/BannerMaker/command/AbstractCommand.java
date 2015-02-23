@@ -1,4 +1,4 @@
-package tw.kid7.command;
+package tw.kid7.BannerMaker.command;
 
 /*
  * #%L
@@ -32,7 +32,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.entity.Player;
-import tw.kid7.util.MessageUtil;
+import tw.kid7.BannerMaker.util.MessageUtil;
 
 /**
  * Abstract command class that our commands extend.

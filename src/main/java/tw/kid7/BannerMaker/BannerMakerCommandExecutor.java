@@ -1,10 +1,10 @@
-package tw.kid7;
+package tw.kid7.BannerMaker;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import tw.kid7.command.AbstractCommand;
-import tw.kid7.command.BannerMakerCommand;
+import tw.kid7.BannerMaker.command.BannerMakerCommand;
+import tw.kid7.BannerMaker.command.AbstractCommand;
 
 public class BannerMakerCommandExecutor implements CommandExecutor {
     @Override

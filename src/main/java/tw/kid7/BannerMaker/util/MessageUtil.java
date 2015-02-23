@@ -1,4 +1,4 @@
-package tw.kid7.util;
+package tw.kid7.BannerMaker.util;
 
 import org.bukkit.ChatColor;
 

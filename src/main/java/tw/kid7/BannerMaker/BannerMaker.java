@@ -1,4 +1,4 @@
-package tw.kid7;
+package tw.kid7.BannerMaker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
