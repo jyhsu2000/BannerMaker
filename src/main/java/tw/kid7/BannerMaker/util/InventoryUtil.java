@@ -30,8 +30,10 @@ public class InventoryUtil {
                 openCreateBanner(player);
                 break;
             case BANNER_INFO:
+                openBannerInfo(player);
                 break;
             case CRAFT_RECIPT:
+                openBannerRecipe(player);
                 break;
             case MAIN_MENU:
             default:
@@ -43,6 +45,7 @@ public class InventoryUtil {
     static public void openMainMenu(Player player) {
         //建立選單
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rMain menu"));
+        //TODO 顯示現有旗幟
         //新增按鈕
         ItemStack btnCreateBanner = new Wool(DyeColor.GREEN).toItemStack(1);
         ItemMeta im = btnCreateBanner.getItemMeta();
@@ -57,7 +60,25 @@ public class InventoryUtil {
         //建立選單
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rCreate banner"));
         //新增按鈕
+        //TODO
+        //開啟選單
+        player.openInventory(menu);
+    }
 
+    static public void openBannerInfo(Player player) {
+        //建立選單
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rBanner info"));
+        //新增按鈕
+        //TODO
+        //開啟選單
+        player.openInventory(menu);
+    }
+
+    static public void openBannerRecipe(Player player) {
+        //建立選單
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rBanner recipe"));
+        //新增按鈕
+        //TODO
         //開啟選單
         player.openInventory(menu);
     }
