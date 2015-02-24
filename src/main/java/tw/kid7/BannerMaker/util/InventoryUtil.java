@@ -33,9 +33,6 @@ public class InventoryUtil {
             case BANNER_INFO:
                 openBannerInfo(player);
                 break;
-            case CRAFT_RECIPT:
-                openBannerRecipe(player);
-                break;
             case MAIN_MENU:
             default:
                 openMainMenu(player);
@@ -177,18 +174,6 @@ public class InventoryUtil {
         //刪除
         ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&cDELETE")).build();
         menu.setItem(47, btnDelete);
-        //TODO
-        //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&cBack")).build();
-        menu.setItem(45, btnBackToMenu);
-        //開啟選單
-        player.openInventory(menu);
-    }
-
-    static public void openBannerRecipe(Player player) {
-        //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rBanner recipe"));
-        //新增按鈕
         //TODO
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&cBack")).build();
