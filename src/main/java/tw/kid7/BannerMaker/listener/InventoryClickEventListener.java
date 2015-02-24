@@ -46,8 +46,6 @@ public class InventoryClickEventListener implements Listener {
             case BANNER_INFO:
                 onClickBannerInfo(event);
                 break;
-            case CRAFT_RECIPT:
-                break;
             case MAIN_MENU:
             default:
                 onClickMainMenu(event);
@@ -61,6 +59,8 @@ public class InventoryClickEventListener implements Listener {
             //TODO 點擊旗幟
             //記錄選擇的索引值
             BannerMaker.getInstance().selectedIndex.put(player.getName(), event.getRawSlot());
+            //重置頁數
+            BannerMaker.getInstance().currentRecipePage.put(player.getName(), 1);
             //切換畫面
             BannerMaker.getInstance().stateMap.put(player.getName(), State.BANNER_INFO);
             //重新開啟選單
@@ -147,12 +147,20 @@ public class InventoryClickEventListener implements Listener {
     public void onClickBannerInfo(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         ItemStack itemStack = event.getCurrentItem();
-        if (event.getRawSlot() >= 45) {
+        if (event.getRawSlot() == 22 || event.getRawSlot() == 26 || event.getRawSlot() >= 45) {
             //點擊按鈕
             String buttonName = itemStack.getItemMeta().getDisplayName();
             buttonName = ChatColor.stripColor(buttonName).toLowerCase();
+            //當前頁數
+            int currentRecipePage = BannerMaker.getInstance().currentRecipePage.get(player.getName());
             //修改狀態
             switch (buttonName) {
+                case "prev page":
+                    BannerMaker.getInstance().currentRecipePage.put(player.getName(), currentRecipePage - 1);
+                    break;
+                case "next page":
+                    BannerMaker.getInstance().currentRecipePage.put(player.getName(), currentRecipePage + 1);
+                    break;
                 case "delete":
                     int index = BannerMaker.getInstance().selectedIndex.get(player.getName());
                     IOUtil.removeBanner(player, index);
