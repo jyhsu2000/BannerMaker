@@ -72,8 +72,21 @@ public class InventoryClickEventListener implements Listener {
             //點擊按鈕
             String buttonName = itemStack.getItemMeta().getDisplayName();
             buttonName = ChatColor.stripColor(buttonName).toLowerCase();
+            //當前頁數
+            int currentBannerPage = 1;
+            if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
+                currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
+            } else {
+                BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
+            }
             //修改狀態
             switch (buttonName) {
+                case "prev page":
+                    BannerMaker.getInstance().currentBannerPage.put(player.getName(), currentBannerPage - 1);
+                    break;
+                case "next page":
+                    BannerMaker.getInstance().currentBannerPage.put(player.getName(), currentBannerPage + 1);
+                    break;
                 case "create banner":
                     BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_BANNER);
             }
@@ -174,7 +187,7 @@ public class InventoryClickEventListener implements Listener {
                         //顯示訊息
                         player.sendMessage(MessageUtil.format(true, "&aGet banner &r#" + index));
                     } else {
-                        player.sendMessage(MessageUtil.format(true, "&cLacking permission BannerMaker.getBanner"));
+                        player.sendMessage(MessageUtil.format(true, "&cNo permission"));
                     }
                     break;
                 case "delete":

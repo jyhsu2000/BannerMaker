@@ -5,6 +5,7 @@ import org.bukkit.block.Banner;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
 
 import java.util.ArrayList;
@@ -40,9 +41,21 @@ public class IOUtil {
         String fileName = player.getName() + ".yml";
         ConfigManager.load(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
+        //當前頁數
+        int currentBannerPage = 1;
+        if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
+            currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
+        } else {
+            BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
+        }
+        //起始索引值
+        int startIndex = Math.max(0, (currentBannerPage - 1) * 45);
         //旗幟
         Set<String> keySet = config.getKeys(false);
-        for (String key : keySet) {
+        List<String> keyList = new ArrayList<>();
+        keyList.addAll(keySet);
+        for (int i = startIndex; i < keyList.size(); i++) {
+            String key = keyList.get(i);
             //檢查是否為物品
             if (!config.isItemStack(key)) {
                 continue;
@@ -65,6 +78,15 @@ public class IOUtil {
         Set<String> keySet = config.getKeys(false);
         List<String> keyList = new ArrayList<>();
         keyList.addAll(keySet);
+        //當前頁數
+        int currentBannerPage = 1;
+        if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
+            currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
+        } else {
+            BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
+        }
+        //索引值調整
+        index += Math.max(0, (currentBannerPage - 1) * 45);
         //檢查索引值
         if (index >= keySet.size()) {
             return;

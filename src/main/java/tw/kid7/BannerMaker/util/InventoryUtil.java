@@ -14,8 +14,6 @@ import org.bukkit.material.Dye;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -48,14 +46,33 @@ public class InventoryUtil {
     static public void openMainMenu(Player player) {
         //建立選單
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rMain menu"));
+        //當前頁數
+        int currentBannerPage = 1;
+        if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
+            currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
+        } else {
+            BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
+        }
         //顯示現有旗幟
-        //TODO 分頁功能
         List<ItemStack> bannerList = IOUtil.loadBanner(player);
         for (int i = 0; i < bannerList.size() && i < 45; i++) {
             ItemStack banner = bannerList.get(i);
             menu.setItem(i, banner);
         }
+        //總頁數
+        int totalPage = (int) Math.ceil(bannerList.size() / 45.0);
         //新增按鈕
+        //換頁按鈕
+        //上一頁
+        if (currentBannerPage > 1) {
+            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentBannerPage - 1).name(MessageUtil.format("&aPrev Page")).build();
+            menu.setItem(45, prevPage);
+        }
+        //下一頁
+        if (currentBannerPage < totalPage) {
+            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentBannerPage + 1).name(MessageUtil.format("&aNext Page")).build();
+            menu.setItem(53, nextPage);
+        }
         //Create banner
         ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&aCreate Banner")).build();
         menu.setItem(49, btnCreateBanner);
