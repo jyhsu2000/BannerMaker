@@ -15,6 +15,10 @@ permissions:
         default: op
         children:
             BannerMaker.use: true
+            BannerMaker.getBanner: true
     BannerMaker.use:
         description: Permission of using BannerMaker
+        default: op
+    BannerMaker.getBanner:
+        description: Permission to get banners from BannerMaker
         default: op

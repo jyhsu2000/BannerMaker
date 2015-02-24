@@ -176,7 +176,7 @@ public class InventoryUtil {
         }
         menu.setItem(1, signPatternCount);
         if (patternCount <= 6) {
-            //TODO 合成表
+            //合成表
             //當前頁數
             int currentRecipePage = BannerMaker.getInstance().currentRecipePage.get(player.getName());
             //總頁數
@@ -214,7 +214,12 @@ public class InventoryUtil {
         //刪除
         ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&cDELETE")).build();
         menu.setItem(47, btnDelete);
-        //TODO
+        //取得旗幟
+        if (player.hasPermission("BannerMaker.getBanner")) {
+            ItemStack btnGetBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&aGet this banner")).build();
+            menu.setItem(49, btnGetBanner);
+        }
+        //TODO 產生指令
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&cBack")).build();
         menu.setItem(45, btnBackToMenu);

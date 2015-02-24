@@ -13,6 +13,9 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
 import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.InventoryUtil;
+import tw.kid7.BannerMaker.util.MessageUtil;
+
+import java.util.List;
 
 import static tw.kid7.BannerMaker.State.MAIN_MENU;
 
@@ -151,6 +154,8 @@ public class InventoryClickEventListener implements Listener {
             //點擊按鈕
             String buttonName = itemStack.getItemMeta().getDisplayName();
             buttonName = ChatColor.stripColor(buttonName).toLowerCase();
+            //當前索引值
+            int index = BannerMaker.getInstance().selectedIndex.get(player.getName());
             //當前頁數
             int currentRecipePage = BannerMaker.getInstance().currentRecipePage.get(player.getName());
             //修改狀態
@@ -161,8 +166,18 @@ public class InventoryClickEventListener implements Listener {
                 case "next page":
                     BannerMaker.getInstance().currentRecipePage.put(player.getName(), currentRecipePage + 1);
                     break;
+                case "get this banner":
+                    if (player.hasPermission("BannerMaker.getBanner")) {
+                        List<ItemStack> bannerList = IOUtil.loadBanner(player);
+                        ItemStack banner = bannerList.get(index);
+                        player.getInventory().addItem(banner);
+                        //顯示訊息
+                        player.sendMessage(MessageUtil.format(true, "&aGet banner &r#" + index));
+                    } else {
+                        player.sendMessage(MessageUtil.format(true, "&cLacking permission BannerMaker.getBanner"));
+                    }
+                    break;
                 case "delete":
-                    int index = BannerMaker.getInstance().selectedIndex.get(player.getName());
                     IOUtil.removeBanner(player, index);
                     BannerMaker.getInstance().selectedIndex.remove(player.getName());
                     BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
