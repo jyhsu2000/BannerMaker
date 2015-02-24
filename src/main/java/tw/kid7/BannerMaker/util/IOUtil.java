@@ -54,7 +54,7 @@ public class IOUtil {
         Set<String> keySet = config.getKeys(false);
         List<String> keyList = new ArrayList<>();
         keyList.addAll(keySet);
-        for (int i = startIndex; i < keyList.size(); i++) {
+        for (int i = startIndex; i < keyList.size() && i < startIndex + 45; i++) {
             String key = keyList.get(i);
             //檢查是否為物品
             if (!config.isItemStack(key)) {
@@ -99,5 +99,31 @@ public class IOUtil {
         ConfigManager.save(fileName);
         //顯示訊息
         player.sendMessage(MessageUtil.format(true, "&aRemove banner &r#" + index));
+    }
+
+    //取得旗幟總數
+    static public int getBannerCount(Player player) {
+        //設定檔
+        String fileName = player.getName() + ".yml";
+        ConfigManager.load(fileName);
+        FileConfiguration config = ConfigManager.get(fileName);
+        Set<String> keySet = config.getKeys(false);
+        List<String> keyList = new ArrayList<>();
+        keyList.addAll(keySet);
+        int count = 0;
+        //載入並計算
+        for (String key : keyList) {
+            //檢查是否為物品
+            if (!config.isItemStack(key)) {
+                continue;
+            }
+            ItemStack banner = config.getItemStack(key);
+            //只計算旗幟
+            if (banner == null || !banner.getType().equals(Material.BANNER)) {
+                continue;
+            }
+            count++;
+        }
+        return count;
     }
 }

@@ -184,8 +184,12 @@ public class InventoryClickEventListener implements Listener {
                         List<ItemStack> bannerList = IOUtil.loadBanner(player);
                         ItemStack banner = bannerList.get(index);
                         player.getInventory().addItem(banner);
+                        //所在頁數
+                        int currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
+                        //索引值
+                        int showIndex = index + (currentBannerPage - 1) * 45;
                         //顯示訊息
-                        player.sendMessage(MessageUtil.format(true, "&aGet banner &r#" + index));
+                        player.sendMessage(MessageUtil.format(true, "&aGet banner &r#" + showIndex));
                     } else {
                         player.sendMessage(MessageUtil.format(true, "&cNo permission"));
                     }

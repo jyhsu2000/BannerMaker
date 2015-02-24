@@ -60,7 +60,7 @@ public class InventoryUtil {
             menu.setItem(i, banner);
         }
         //總頁數
-        int totalPage = (int) Math.ceil(bannerList.size() / 45.0);
+        int totalPage = (int) Math.ceil(IOUtil.getBannerCount(player) / 45.0);
         //新增按鈕
         //換頁按鈕
         //上一頁
