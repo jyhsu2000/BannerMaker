@@ -46,7 +46,13 @@ public class InventoryUtil {
     static public void openMainMenu(Player player) {
         //建立選單
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rMain menu"));
-        //TODO 顯示現有旗幟
+        //顯示現有旗幟
+        //TODO 分頁功能
+        List<ItemStack> bannerList = IOUtil.loadBanner(player);
+        for (int i = 0; i < bannerList.size() && i < 45; i++) {
+            ItemStack banner = bannerList.get(i);
+            menu.setItem(i, banner);
+        }
         //新增按鈕
         //Create banner
         ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&aCreate Banner")).build();
@@ -70,7 +76,7 @@ public class InventoryUtil {
             //新增按鈕
             //當前旗幟
             menu.setItem(0, currentBanner);
-            //TODO patterns過多的警告
+            //patterns過多的警告
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 6) {
                 ItemStack warning = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&cUncraftable Warning"))
                         .lore("More than 6 patterns.").build();
@@ -109,13 +115,13 @@ public class InventoryUtil {
             ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&aMore patterns")).build();
             menu.setItem(51, btnMorePattern);
         }
-        //Create banner
-        ItemStack btnCreate = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&aCreate")).build();
-        menu.setItem(53, btnCreate);
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&cBack")).build();
         menu.setItem(45, btnBackToMenu);
         if (currentBanner != null) {
+            //建立旗幟
+            ItemStack btnCreate = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&aCreate")).build();
+            menu.setItem(53, btnCreate);
             //刪除
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&cDELETE")).build();
             menu.setItem(47, btnDelete);
@@ -132,7 +138,45 @@ public class InventoryUtil {
     static public void openBannerInfo(Player player) {
         //建立選單
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rBanner info"));
+        //索引值
+        if (!BannerMaker.getInstance().selectedIndex.containsKey(player.getName())) {
+            //回到主選單
+            BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+            //重新開啟選單
+            InventoryUtil.openMenu(player);
+            return;
+        }
+        int index = BannerMaker.getInstance().selectedIndex.get(player.getName());
+        //新增旗幟
+        List<ItemStack> bannerList = IOUtil.loadBanner(player);
+        ItemStack banner = bannerList.get(index);
+        if (banner == null || !banner.getType().equals(Material.BANNER)) {
+            //回到主選單
+            BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+            //重新開啟選單
+            InventoryUtil.openMenu(player);
+            return;
+        }
+        menu.setItem(0, banner);
+        //patterns數量
+        int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();
+        String patternCountStr = "";
+        if (patternCount > 0) {
+            patternCountStr = patternCount + " pattern(s)";
+        } else {
+            patternCountStr = "No patterns";
+        }
+        ItemStack signPatternCount;
+        if (patternCount <= 6) {
+            signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).build();
+        } else {
+            signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&cUncraftable")).build();
+        }
+        menu.setItem(1, signPatternCount);
         //新增按鈕
+        //刪除
+        ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&cDELETE")).build();
+        menu.setItem(47, btnDelete);
         //TODO
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&cBack")).build();

@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
+import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.InventoryUtil;
 
 import static tw.kid7.BannerMaker.State.MAIN_MENU;
@@ -43,6 +44,7 @@ public class InventoryClickEventListener implements Listener {
                 onClickCreateBanner(event);
                 break;
             case BANNER_INFO:
+                onClickBannerInfo(event);
                 break;
             case CRAFT_RECIPT:
                 break;
@@ -55,8 +57,14 @@ public class InventoryClickEventListener implements Listener {
     public void onClickMainMenu(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         ItemStack itemStack = event.getCurrentItem();
-        if (itemStack.getType().equals(Material.BANNER)) {
+        if (event.getRawSlot() < 45) {
             //TODO 點擊旗幟
+            //記錄選擇的索引值
+            BannerMaker.getInstance().selectedIndex.put(player.getName(), event.getRawSlot());
+            //切換畫面
+            BannerMaker.getInstance().stateMap.put(player.getName(), State.BANNER_INFO);
+            //重新開啟選單
+            InventoryUtil.openMenu(player);
         } else {
             //點擊按鈕
             String buttonName = itemStack.getItemMeta().getDisplayName();
@@ -119,16 +127,44 @@ public class InventoryClickEventListener implements Listener {
                     }
                     break;
                 case "create":
+                    IOUtil.saveBanner(player, currentBanner);
+                    BannerMaker.getInstance().currentBanner.remove(player.getName());
+                    BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
                     break;
                 case "delete":
                     BannerMaker.getInstance().currentBanner.remove(player.getName());
                     break;
                 case "back":
                     BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                    break;
             }
             //重新開啟選單
             InventoryUtil.openMenu(player);
         }
 
+    }
+
+    public void onClickBannerInfo(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        ItemStack itemStack = event.getCurrentItem();
+        if (event.getRawSlot() >= 45) {
+            //點擊按鈕
+            String buttonName = itemStack.getItemMeta().getDisplayName();
+            buttonName = ChatColor.stripColor(buttonName).toLowerCase();
+            //修改狀態
+            switch (buttonName) {
+                case "delete":
+                    int index = BannerMaker.getInstance().selectedIndex.get(player.getName());
+                    IOUtil.removeBanner(player, index);
+                    BannerMaker.getInstance().selectedIndex.remove(player.getName());
+                    BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                    break;
+                case "back":
+                    BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                    break;
+            }
+            //重新開啟選單
+            InventoryUtil.openMenu(player);
+        }
     }
 }

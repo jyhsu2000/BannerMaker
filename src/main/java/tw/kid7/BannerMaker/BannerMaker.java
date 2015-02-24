@@ -13,6 +13,7 @@ public class BannerMaker extends JavaPlugin {
     public HashMap<String, Integer> selectedColor = Maps.newHashMap();
     public HashMap<String, ItemStack> currentBanner = Maps.newHashMap();
     public HashMap<String, Boolean> morePatterns = Maps.newHashMap();
+    public HashMap<String, Integer> selectedIndex = Maps.newHashMap();
 
     @Override
     public void onEnable() {
