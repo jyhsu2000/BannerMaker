@@ -1,4 +1,10 @@
 # BannerMaker
+## Link
+* [BukkitDev](http://dev.bukkit.org/bukkit-plugins/bannermaker/)
+* [Spigot Resource](http://www.spigotmc.org/resources/bannermaker.4380/)
+* [巴哈姆特](http://forum.gamer.com.tw/C.php?bsn=18673&snA=123519&tnum=1)
+* [巴哈小屋](http://home.gamer.com.tw/creationDetail.php?sn=2760067)
+* MCBBS
 
 ## English / 英文
 
@@ -95,12 +101,12 @@ v1.0 (for 1.8)
 
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 ## Pictures / 圖片
-Main menu 主選單
+Main menu 主選單  
 ![Main menu](http://i.imgur.com/IcXVbFI.png)
 
-Create banner 建立旗幟
+Create banner 建立旗幟  
 ![Create banner 1](http://i.imgur.com/2RhPSUm.png)
 ![Create banner 2](http://i.imgur.com/ssVKwIT.png)
 
-Banner info 旗幟資訊
+Banner info 旗幟資訊  
 ![Banner info](http://i.imgur.com/LIxJo0Z.png)
