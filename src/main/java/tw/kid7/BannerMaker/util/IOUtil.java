@@ -33,7 +33,7 @@ public class IOUtil {
         player.sendMessage(MessageUtil.format(true, "&aSave success."));
     }
 
-    //讀取旗幟
+    //讀取旗幟清單
     static public List<ItemStack> loadBannerList(Player player) {
         List<ItemStack> bannerList = new ArrayList<>();
         //設定檔
@@ -55,18 +55,32 @@ public class IOUtil {
         keyList.addAll(keySet);
         for (int i = startIndex; i < keyList.size() && i < startIndex + 45; i++) {
             String key = keyList.get(i);
-            //檢查是否為物品
-            if (!config.isItemStack(key)) {
-                continue;
-            }
-            ItemStack banner = config.getItemStack(key);
-            //只處理旗幟
-            if (!BannerUtil.isBanner(banner)) {
+            //嘗試讀取旗幟
+            ItemStack banner = loadBanner(player, key);
+            if (banner == null) {
                 continue;
             }
             bannerList.add(banner);
         }
         return bannerList;
+    }
+
+    //讀取旗幟
+    static public ItemStack loadBanner(Player player, String key) {
+        //設定檔
+        String fileName = getFileName(player);
+        ConfigManager.load(fileName);
+        FileConfiguration config = ConfigManager.get(fileName);
+        //檢查是否為物品
+        if (!config.isItemStack(key)) {
+            return null;
+        }
+        ItemStack banner = config.getItemStack(key);
+        //只處理旗幟
+        if (!BannerUtil.isBanner(banner)) {
+            return null;
+        }
+        return banner;
     }
 
     //刪除旗幟
