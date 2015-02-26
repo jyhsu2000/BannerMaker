@@ -11,6 +11,6 @@ public class PlayerJoinEventListener implements Listener{
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         //更新資料
-        IOUtil.update(player);
+        IOUtil.update(player.getName());
     }
 }

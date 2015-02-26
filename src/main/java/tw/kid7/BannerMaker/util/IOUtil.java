@@ -88,34 +88,28 @@ public class IOUtil {
         FileConfiguration config = ConfigManager.get(fileName);
         //檢查是否為物品
         ItemStack banner = null;
-        if (!config.isItemStack(key)) {
-            //檢查是否為新格式
-            if (config.isInt(key + ".color") && (!config.contains(key + ".patterns") || config.isList(key + ".patterns"))) {
-                //嘗試以新格式讀取
-                try {
-                    //建立旗幟
-                    banner = new ItemStack(Material.BANNER, 1, (short) config.getInt(key + ".color"));
-                    BannerMeta bm = (BannerMeta) banner.getItemMeta();
-                    //新增Patterns
-                    if (config.contains(key + ".patterns")) {
-                        List<String> patternsList = config.getStringList(key + ".patterns");
-                        for (String str : patternsList) {
-                            String strPattern = str.split(":")[0];
-                            String strColor = str.split(":")[1];
-                            Pattern pattern = new Pattern(DyeColor.valueOf(strColor), PatternType.getByIdentifier(strPattern));
-                            bm.addPattern(pattern);
-                        }
-                        banner.setItemMeta(bm);
+        //檢查是否為正確格式
+        if (config.isInt(key + ".color") && (!config.contains(key + ".patterns") || config.isList(key + ".patterns"))) {
+            //嘗試以新格式讀取
+            try {
+                //建立旗幟
+                banner = new ItemStack(Material.BANNER, 1, (short) config.getInt(key + ".color"));
+                BannerMeta bm = (BannerMeta) banner.getItemMeta();
+                //新增Patterns
+                if (config.contains(key + ".patterns")) {
+                    List<String> patternsList = config.getStringList(key + ".patterns");
+                    for (String str : patternsList) {
+                        String strPattern = str.split(":")[0];
+                        String strColor = str.split(":")[1];
+                        Pattern pattern = new Pattern(DyeColor.valueOf(strColor), PatternType.getByIdentifier(strPattern));
+                        bm.addPattern(pattern);
                     }
-                } catch (Exception e) {
-                    banner = null;
+                    banner.setItemMeta(bm);
                 }
+            } catch (Exception e) {
+                banner = null;
             }
-        } else {
-            //舊格式
-            banner = config.getItemStack(key);
         }
-
         //只處理旗幟
         if (!BannerUtil.isBanner(banner)) {
             return null;
@@ -164,37 +158,30 @@ public class IOUtil {
         List<String> keyList = new ArrayList<>();
         keyList.addAll(keySet);
         int count = 0;
-        //FIXME 載入並計算
+        //載入並計算
         for (String key : keyList) {
             ItemStack banner = null;
-            //檢查是否為物品
-            if (!config.isItemStack(key)) {
-                //新格式
-                //檢查是否為新格式
-                if (config.isInt(key + ".color") && (!config.contains(key + ".patterns") || config.isList(key + ".patterns"))) {
-                    //嘗試以新格式讀取
-                    try {
-                        //建立旗幟
-                        banner = new ItemStack(Material.BANNER, 1, (short) config.getInt(key + ".color"));
-                        BannerMeta bm = (BannerMeta) banner.getItemMeta();
-                        //新增Patterns
-                        if (config.contains(key + ".patterns")) {
-                            List<String> patternsList = config.getStringList(key + ".patterns");
-                            for (String str : patternsList) {
-                                String strPattern = str.split(":")[0];
-                                String strColor = str.split(":")[1];
-                                Pattern pattern = new Pattern(DyeColor.valueOf(strColor), PatternType.getByIdentifier(strPattern));
-                                bm.addPattern(pattern);
-                            }
-                            banner.setItemMeta(bm);
+            //檢查是否為正確格式
+            if (config.isInt(key + ".color") && (!config.contains(key + ".patterns") || config.isList(key + ".patterns"))) {
+                //嘗試以新格式讀取
+                try {
+                    //建立旗幟
+                    banner = new ItemStack(Material.BANNER, 1, (short) config.getInt(key + ".color"));
+                    BannerMeta bm = (BannerMeta) banner.getItemMeta();
+                    //新增Patterns
+                    if (config.contains(key + ".patterns")) {
+                        List<String> patternsList = config.getStringList(key + ".patterns");
+                        for (String str : patternsList) {
+                            String strPattern = str.split(":")[0];
+                            String strColor = str.split(":")[1];
+                            Pattern pattern = new Pattern(DyeColor.valueOf(strColor), PatternType.getByIdentifier(strPattern));
+                            bm.addPattern(pattern);
                         }
-                    } catch (Exception e) {
-                        banner = null;
+                        banner.setItemMeta(bm);
                     }
+                } catch (Exception e) {
+                    banner = null;
                 }
-            } else {
-                //舊格式
-                banner = config.getItemStack(key);
             }
             //只計算旗幟
             if (!BannerUtil.isBanner(banner)) {
@@ -207,14 +194,18 @@ public class IOUtil {
 
     //旗幟檔案路徑
     static public String getFileName(Player player) {
-        String fileName = "banner/" + player.getName() + ".yml";
+        return getFileName(player.getName());
+    }
+
+    static public String getFileName(String configFileName) {
+        String fileName = "banner/" + configFileName + ".yml";
         return fileName;
     }
 
     //更新旗幟資料
-    static public void update(Player player) {
+    static public void update(String configFileName) {
         //設定檔
-        String fileName = getFileName(player);
+        String fileName = getFileName(configFileName);
         ConfigManager.load(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
         Set<String> keySet = config.getKeys(false);
@@ -246,7 +237,7 @@ public class IOUtil {
             //儲存
             ConfigManager.save(fileName);
             //顯示訊息
-            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, "Update " + change + " banner(s) for " + player.getName()));
+            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, "&rUpdate &a" + change + " &rbanner(s) for &6" + configFileName));
         }
     }
 }
