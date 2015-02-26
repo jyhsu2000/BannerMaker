@@ -4,8 +4,9 @@ import com.google.common.collect.Maps;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import tw.kid7.BannerMaker.listener.InventoryClickEventListener;
-import tw.kid7.BannerMaker.listener.PlayerJoinEventListener;
+import tw.kid7.BannerMaker.util.IOUtil;
 
+import java.io.File;
 import java.util.HashMap;
 
 public class BannerMaker extends JavaPlugin {
@@ -25,7 +26,15 @@ public class BannerMaker extends JavaPlugin {
         this.getCommand("BannerMaker").setExecutor(new BannerMakerCommandExecutor());
         //Listener
         this.getServer().getPluginManager().registerEvents(new InventoryClickEventListener(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerJoinEventListener(), this);
+        //check and update banner data
+        File folder = new File(getDataFolder() + "/banner");
+        File[] fileList = folder.listFiles();
+        for (File file : fileList) {
+            if (file.isFile()) {
+                String fileName = file.getName().replace(".yml", "");
+                IOUtil.update(fileName);
+            }
+        }
     }
 
     @Override
