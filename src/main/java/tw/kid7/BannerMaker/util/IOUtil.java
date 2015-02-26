@@ -16,7 +16,7 @@ public class IOUtil {
     //儲存旗幟
     static public void saveBanner(Player player, ItemStack banner) {
         //只處理旗幟
-        if (banner == null || !banner.getType().equals(Material.BANNER)) {
+        if (!BannerUtil.isBanner(banner)) {
             player.sendMessage(MessageUtil.format(true, "&cSave failed."));
             return;
         }
@@ -61,7 +61,7 @@ public class IOUtil {
             }
             ItemStack banner = config.getItemStack(key);
             //只處理旗幟
-            if (banner == null || !banner.getType().equals(Material.BANNER)) {
+            if (!BannerUtil.isBanner(banner)) {
                 continue;
             }
             bannerList.add(banner);
@@ -118,7 +118,7 @@ public class IOUtil {
             }
             ItemStack banner = config.getItemStack(key);
             //只計算旗幟
-            if (banner == null || !banner.getType().equals(Material.BANNER)) {
+            if (!BannerUtil.isBanner(banner)) {
                 continue;
             }
             count++;
