@@ -1,7 +1,6 @@
 package tw.kid7.BannerMaker.util;
 
 import org.bukkit.Material;
-import org.bukkit.block.Banner;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -22,7 +21,7 @@ public class IOUtil {
             return;
         }
         //設定檔
-        String fileName = player.getName() + ".yml";
+        String fileName = getFileName(player);
         ConfigManager.load(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
         //索引值（時間戳記，不會重複）
@@ -38,7 +37,7 @@ public class IOUtil {
     static public List<ItemStack> loadBanner(Player player) {
         List<ItemStack> bannerList = new ArrayList<>();
         //設定檔
-        String fileName = player.getName() + ".yml";
+        String fileName = getFileName(player);
         ConfigManager.load(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
         //當前頁數
@@ -73,7 +72,7 @@ public class IOUtil {
     //刪除旗幟
     static public void removeBanner(Player player, int index) {
         //設定檔
-        String fileName = player.getName() + ".yml";
+        String fileName = getFileName(player);
         FileConfiguration config = ConfigManager.get(fileName);
         Set<String> keySet = config.getKeys(false);
         List<String> keyList = new ArrayList<>();
@@ -104,7 +103,7 @@ public class IOUtil {
     //取得旗幟總數
     static public int getBannerCount(Player player) {
         //設定檔
-        String fileName = player.getName() + ".yml";
+        String fileName = getFileName(player);
         ConfigManager.load(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
         Set<String> keySet = config.getKeys(false);
@@ -125,5 +124,11 @@ public class IOUtil {
             count++;
         }
         return count;
+    }
+
+    //旗幟檔案路徑
+    static public String getFileName(Player player) {
+        String fileName = "banner/" + player.getName() + ".yml";
+        return fileName;
     }
 }
