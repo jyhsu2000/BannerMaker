@@ -54,7 +54,7 @@ public class InventoryUtil {
             BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
         }
         //顯示現有旗幟
-        List<ItemStack> bannerList = IOUtil.loadBanner(player);
+        List<ItemStack> bannerList = IOUtil.loadBannerList(player);
         for (int i = 0; i < bannerList.size() && i < 45; i++) {
             ItemStack banner = bannerList.get(i);
             menu.setItem(i, banner);
@@ -167,7 +167,7 @@ public class InventoryUtil {
         }
         int index = BannerMaker.getInstance().selectedIndex.get(player.getName());
         //新增旗幟
-        List<ItemStack> bannerList = IOUtil.loadBanner(player);
+        List<ItemStack> bannerList = IOUtil.loadBannerList(player);
         ItemStack banner = bannerList.get(index);
         if (banner == null || !banner.getType().equals(Material.BANNER)) {
             //回到主選單

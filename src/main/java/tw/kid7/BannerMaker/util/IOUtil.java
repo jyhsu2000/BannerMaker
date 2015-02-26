@@ -34,7 +34,7 @@ public class IOUtil {
     }
 
     //讀取旗幟
-    static public List<ItemStack> loadBanner(Player player) {
+    static public List<ItemStack> loadBannerList(Player player) {
         List<ItemStack> bannerList = new ArrayList<>();
         //設定檔
         String fileName = getFileName(player);
