@@ -48,6 +48,11 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
+v1.1 (for 1.8)
+- Move banner data to folder "banner"
+- More clear and smaller data format  
+(Move all &lt;player&gt;.yml to folder "banner" and it will be auto update to new data format)
+
 v1.0 (for 1.8)
 - First Release
 
@@ -96,6 +101,11 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
+v1.1 (for 1.8)
+- 旗幟資料移至「banner」資料夾
+- 更清晰、更小的資料格式  
+（將所有 &lt;玩家&gt;.yml 移至「banner」資料夾，它將會自動更新到新格式）
+
 v1.0 (for 1.8)
 - 第一次釋出
 
