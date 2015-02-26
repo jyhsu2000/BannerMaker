@@ -29,10 +29,12 @@ public class BannerMaker extends JavaPlugin {
         //check and update banner data
         File folder = new File(getDataFolder() + "/banner");
         File[] fileList = folder.listFiles();
-        for (File file : fileList) {
-            if (file.isFile()) {
-                String fileName = file.getName().replace(".yml", "");
-                IOUtil.update(fileName);
+        if (fileList != null && fileList.length > 0) {
+            for (File file : fileList) {
+                if (file.isFile()) {
+                    String fileName = file.getName().replace(".yml", "");
+                    IOUtil.update(fileName);
+                }
             }
         }
     }
