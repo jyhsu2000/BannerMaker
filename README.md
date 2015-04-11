@@ -21,7 +21,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 * Look up recipe of banner
 * Support UUID
 * Multi language support  
- (Setting in config.yml, Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn))
+ (Setting in config.yml. Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn))
 
 ### How to use
 * Look at pictures at bottom of page
@@ -55,7 +55,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 v1.2 (for 1.8)
 - Support UUID
 - Multi language support  
-(Setting in config.yml, Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn))
+(Setting in config.yml. Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn))
 
 v1.1 (for 1.8)
 - Move banner data to folder "banner"
