@@ -19,6 +19,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 ### Features
 * Design and save banner
 * Look up recipe of banner
+* Support UUID
+* Multi language support  
+ (Setting in config.yml, Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn))
 
 ### How to use
 * Look at pictures at bottom of page
@@ -27,6 +30,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 |**Command**|**Description**|
 |---|---|
 |/bm|Open main gui|
+|/bm reload|Reload config|
 
 ### Permissions
 |**Permission**|**Description**|
@@ -34,9 +38,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 |BannerMaker.*|Whole permission|
 |BannerMaker.use|Use /bm|
 |BannerMaker.getBanner|Get banners from GUI|
+|BannerMaker.reload|Use /bm reload|
 
 ### Features in future
-* Multi language support
 * Material estimates
 * Generate give command
 * Generate summon command
@@ -48,6 +52,11 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
+v1.2 (for 1.8)
+- Support UUID
+- Multi language support  
+(Setting in config.yml, Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn))
+
 v1.1 (for 1.8)
 - Move banner data to folder "banner"
 - More clear and smaller data format  
@@ -72,6 +81,9 @@ v1.0 (for 1.8)
 ### 功能
 * 設計並儲存旗幟
 * 查詢旗幟合成表
+* 支援UUID
+* 多國語言  
+（在config.yml設定，目前支援英文(en)、正體中文(zh-tw)、簡體中文(zh-cn)）
 
 ### 使用方法
 * 請見最下方圖片
@@ -80,6 +92,7 @@ v1.0 (for 1.8)
 |**指令**|**描述**|
 |---|---|
 |/bm|開啟主要介面|
+|/bm reload|重新載入設定檔|
 
 ### 權限
 |**權限**|**描述**|
@@ -87,9 +100,9 @@ v1.0 (for 1.8)
 |BannerMaker.*|完整權限|
 |BannerMaker.use|使用/bm|
 |BannerMaker.getBanner|從介面取得旗幟|
+|BannerMaker.reload|使用/bm reload|
 
 ### 未來功能
-* 多國語言
 * 材料估算
 * 產生give指令
 * 產生summon指令
@@ -101,6 +114,11 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
+v1.2 (for 1.8)
+- 支援UUID
+- 多國語言  
+（在config.yml設定，目前支援英文(en)、正體中文(zh-tw)、簡體中文(zh-cn)）
+
 v1.1 (for 1.8)
 - 旗幟資料移至「banner」資料夾
 - 更清晰、更小的資料格式  
