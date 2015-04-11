@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import tw.kid7.BannerMaker.listener.InventoryClickEventListener;
+import tw.kid7.BannerMaker.listener.PlayerJoinEventListener;
 import tw.kid7.BannerMaker.util.IOUtil;
 
 import java.io.File;
@@ -26,6 +27,7 @@ public class BannerMaker extends JavaPlugin {
         this.getCommand("BannerMaker").setExecutor(new BannerMakerCommandExecutor());
         //Listener
         this.getServer().getPluginManager().registerEvents(new InventoryClickEventListener(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerJoinEventListener(), this);
         //check and update banner data
         File folder = new File(getDataFolder() + "/banner");
         File[] fileList = folder.listFiles();

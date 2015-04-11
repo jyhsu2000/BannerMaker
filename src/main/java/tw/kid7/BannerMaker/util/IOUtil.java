@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -194,7 +195,7 @@ public class IOUtil {
 
     //旗幟檔案路徑
     static public String getFileName(Player player) {
-        return getFileName(player.getName());
+        return getFileName(player.getUniqueId().toString());
     }
 
     static public String getFileName(String configFileName) {
@@ -238,6 +239,27 @@ public class IOUtil {
             ConfigManager.save(fileName);
             //顯示訊息
             BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, "&rUpdate &a" + change + " &rbanner(s) for &6" + configFileName));
+        }
+    }
+
+    //更新檔案名稱
+    static public void updateFileNameToUUID(Player player) {
+        try {
+            File oldFile = new File(BannerMaker.getInstance().getDataFolder(), getFileName(player.getName()));
+            File newFile = new File(BannerMaker.getInstance().getDataFolder(), getFileName(player.getUniqueId().toString()));
+            //舊檔名不存在，或新檔名存在，則無須更新
+            if (!oldFile.exists() || newFile.exists()) {
+                return;
+            }
+            String message = "";
+            //嘗試重新命名
+            if (oldFile.renameTo(newFile)) {
+                message = "&rUpdate file name of&a " + player.getName() + "&r to UUID";
+            } else {
+                message = "&rUpdate file name of&a " + player.getName() + "&r FAILED";
+            }
+            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, message));
+        } catch (Exception ignored) {
         }
     }
 }
