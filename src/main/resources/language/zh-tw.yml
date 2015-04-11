@@ -1,2 +1,30 @@
 general:
-  reload: 重新載入
+  reload: "\u91cd\u65b0\u8f09\u5165"
+  no-permission: "\u6b0a\u9650\u4e0d\u8db3"
+io:
+  save-failed: "\u5132\u5b58\u5931\u6557"
+  save-success: "\u5132\u5b58\u6210\u529f"
+  remove-banner: "\u79fb\u9664\u65d7\u5e5f &r#{0}"
+command:
+  player-only: "\u9019\u500b\u6307\u4ee4\u53ea\u80fd\u7531\u904a\u6232\u4e2d\u7684\u73a9\u5bb6\u4f7f\u7528"
+config:
+  add-setting: "\u65b0\u589e {0} \u500b\u65b0\u8a2d\u5b9a"
+gui:
+  main-menu: "\u4e3b\u9078\u55ae"
+  prev-page: "\u4e0a\u4e00\u9801"
+  next-page: "\u4e0b\u4e00\u9801"
+  create-banner: "\u5efa\u7acb\u65d7\u5e5f"
+  uncraftable-warning: "\u7121\u6cd5\u5408\u6210\u8b66\u544a"
+  uncraftable: "\u7121\u6cd5\u5408\u6210"
+  more-than-6-patterns: "\u8d85\u904e6\u500b\u5716\u5f62"
+  more-patterns: "\u66f4\u591a\u5716\u5f62"
+  back: "\u8fd4\u56de"
+  create: "\u5efa\u7acb"
+  delete: "\u522a\u9664"
+  remove-last-pattern: "\u79fb\u9664\u6700\u5f8c\u4e00\u500b\u5716\u5f62"
+  banner-info: "\u65d7\u5e5f\u8cc7\u8a0a"
+  pattern-s: "\u500b\u5716\u5f62"
+  no-patterns: "\u6c92\u6709\u5716\u5f62"
+  craft-recipe: "\u5408\u6210\u8868"
+  get-this-banner: "\u53d6\u5f97\u9019\u500b\u65d7\u5e5f"
+  get-banner: "\u53d6\u5f97\u65d7\u5e5f &r#{0}"

@@ -178,9 +178,9 @@ public class InventoryClickEventListener implements Listener {
                     //索引值
                     int showIndex = index + (currentBannerPage - 1) * 45;
                     //顯示訊息
-                    player.sendMessage(MessageUtil.format(true, "&aGet banner &r#" + showIndex));
+                    player.sendMessage(MessageUtil.format(true, "&a" + Language.get("gui.get-banner", showIndex)));
                 } else {
-                    player.sendMessage(MessageUtil.format(true, "&cNo permission"));
+                    player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-permission")));
                 }
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
                 IOUtil.removeBanner(player, index);

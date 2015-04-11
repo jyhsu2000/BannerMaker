@@ -1,0 +1,30 @@
+general:
+  reload: 重新載入
+  no-permission: 權限不足
+io:
+  save-failed: 儲存失敗
+  save-success: 儲存成功
+  remove-banner: 移除旗幟 &r#{0}
+command:
+  player-only: 這個指令只能由遊戲中的玩家使用
+config:
+  add-setting: 新增 {0} 個新設定
+gui:
+  main-menu: 主選單
+  prev-page: 上一頁
+  next-page: 下一頁
+  create-banner: 建立旗幟
+  uncraftable-warning: 無法合成警告
+  uncraftable: 無法合成
+  more-than-6-patterns: 超過6個圖形
+  more-patterns: 更多圖形
+  back: 返回
+  create: 建立
+  delete: 刪除
+  remove-last-pattern: 移除最後一個圖形
+  banner-info: 旗幟資訊
+  pattern-s: 個圖形
+  no-patterns: 沒有圖形
+  craft-recipe: 合成表
+  get-this-banner: 取得這個旗幟
+  get-banner: 取得旗幟 &r#{0}

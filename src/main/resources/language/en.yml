@@ -27,3 +27,4 @@ gui:
   no-patterns: No patterns
   craft-recipe: Craft Recipe
   get-this-banner: Get this banner
+  get-banner: Get banner &r#{0}
