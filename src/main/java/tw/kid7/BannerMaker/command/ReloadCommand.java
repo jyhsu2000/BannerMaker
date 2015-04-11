@@ -2,20 +2,19 @@ package tw.kid7.BannerMaker.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.configuration.Language;
-import tw.kid7.BannerMaker.util.InventoryUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
-public class BannerMakerCommand extends AbstractCommand {
+public class ReloadCommand extends AbstractCommand {
     //指令名稱
-    public static final String NAME = "BannerMaker";
+    public static final String NAME = "Reload";
     //指令說明
-    public static final String DESCRIPTION = "Show menu of BannerMaker";
+    public static final String DESCRIPTION = "Reload all config";
     //指令權限
-    public static final String PERMISSION = "";
+    public static final String PERMISSION = "BannerMaker.reload";
     //指令用途
-    public static final String USAGE = "/BannerMaker";
+    public static final String USAGE = "/bm reload";
     //子指令權限
     public static final String[] SUB_PERMISSIONS = {""};
 
@@ -24,7 +23,7 @@ public class BannerMakerCommand extends AbstractCommand {
      *
      * @param sender the command sender
      */
-    public BannerMakerCommand(CommandSender sender) {
+    public ReloadCommand(CommandSender sender) {
         super(sender, NAME, DESCRIPTION, PERMISSION, SUB_PERMISSIONS, USAGE);
     }
 
@@ -38,13 +37,11 @@ public class BannerMakerCommand extends AbstractCommand {
      */
     @Override
     public void execute(CommandSender sender, Command command, String label, String[] args) {
-        //只能由玩家使用
-        if (!isSenderPlayer()) {
-            sender.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.player-only")));
+        if (!hasPermission()) {
+            sender.sendMessage(MessageUtil.format(true, Language.get("general.no-permission")));
             return;
         }
-        Player player = (Player) sender;
-        //開啟選單
-        InventoryUtil.openMenu(player);
+        BannerMaker.reload();
+        sender.sendMessage(MessageUtil.format(true, Language.get("general.reload")));
     }
 }

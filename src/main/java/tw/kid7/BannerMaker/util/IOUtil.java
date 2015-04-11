@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
+import tw.kid7.BannerMaker.configuration.Language;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class IOUtil {
     static public void saveBanner(Player player, ItemStack banner) {
         //只處理旗幟
         if (!BannerUtil.isBanner(banner)) {
-            player.sendMessage(MessageUtil.format(true, "&cSave failed."));
+            player.sendMessage(MessageUtil.format(true, "&c" + Language.get("io.save-failed")));
             return;
         }
         //設定檔
@@ -44,7 +45,7 @@ public class IOUtil {
         }
         ConfigManager.save(fileName);
         //訊息
-        player.sendMessage(MessageUtil.format(true, "&aSave success."));
+        player.sendMessage(MessageUtil.format(true, "&a" + Language.get("io.save-success")));
     }
 
     //讀取旗幟清單
@@ -146,7 +147,7 @@ public class IOUtil {
         //儲存
         ConfigManager.save(fileName);
         //顯示訊息
-        player.sendMessage(MessageUtil.format(true, "&aRemove banner &r#" + index));
+        player.sendMessage(MessageUtil.format(true, "&a" + Language.get("io.remove-banner", index)));
     }
 
     //取得旗幟總數

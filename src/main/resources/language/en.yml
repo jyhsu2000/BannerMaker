@@ -1,0 +1,29 @@
+general:
+  reload: Reload config
+  no-permission: No permission
+io:
+  save-failed: Save failed.
+  save-success: Save success.
+  remove-banner: Remove banner &r#{0}
+command:
+  player-only: This command can only be used by players in game
+config:
+  add-setting: Add {0} new settings
+gui:
+  main-menu: Main menu
+  prev-page: Prev Page
+  next-page: Next Page
+  create-banner: Create Banner
+  uncraftable-warning: Uncraftable Warning
+  uncraftable: Uncraftable
+  more-than-6-patterns: More than 6 patterns.
+  more-patterns: More patterns
+  back: Back
+  create: Create
+  delete: DELETE
+  remove-last-pattern: Remove last pattern
+  banner-info: Banner info
+  pattern-s: pattern(s)
+  no-patterns: No patterns
+  craft-recipe: Craft Recipe
+  get-this-banner: Get this banner

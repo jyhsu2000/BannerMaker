@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.material.Dye;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
+import tw.kid7.BannerMaker.configuration.Language;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class InventoryUtil {
 
     static public void openMainMenu(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rMain menu"));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("&f[&4BM&f] &r" + Language.get("gui.main-menu")), 32));
         //當前頁數
         int currentBannerPage = 1;
         if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
@@ -65,16 +66,16 @@ public class InventoryUtil {
         //換頁按鈕
         //上一頁
         if (currentBannerPage > 1) {
-            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentBannerPage - 1).name(MessageUtil.format("&aPrev Page")).build();
+            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentBannerPage - 1).name(MessageUtil.format("&a" + Language.get("gui.prev-page"))).build();
             menu.setItem(45, prevPage);
         }
         //下一頁
         if (currentBannerPage < totalPage) {
-            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentBannerPage + 1).name(MessageUtil.format("&aNext Page")).build();
+            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentBannerPage + 1).name(MessageUtil.format("&a" + Language.get("gui.next-page"))).build();
             menu.setItem(53, nextPage);
         }
         //Create banner
-        ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&aCreate Banner")).build();
+        ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.create-banner"))).build();
         menu.setItem(49, btnCreateBanner);
         //開啟選單
         player.openInventory(menu);
@@ -82,7 +83,7 @@ public class InventoryUtil {
 
     static public void openCreateBanner(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rCreate banner"));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("&f[&4BM&f] &r" + Language.get("gui.create-banner")), 32));
         //取得當前編輯中的旗幟
         ItemStack currentBanner = BannerMaker.getInstance().currentBanner.get(player.getName());
         if (currentBanner == null) {
@@ -97,8 +98,8 @@ public class InventoryUtil {
             menu.setItem(0, currentBanner);
             //patterns過多的警告
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 6) {
-                ItemStack warning = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&cUncraftable Warning"))
-                        .lore("More than 6 patterns.").build();
+                ItemStack warning = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&c" + Language.get("gui.uncraftable-warning")))
+                    .lore(Language.get("gui.more-than-6-patterns")).build();
                 menu.setItem(9, warning);
             }
             //顏色
@@ -131,22 +132,22 @@ public class InventoryUtil {
                 menu.setItem(i + 19 + (i / 8), banner);
             }
             //更多Pattern
-            ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&aMore patterns")).build();
+            ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + Language.get("gui.more-patterns"))).build();
             menu.setItem(51, btnMorePattern);
         }
         //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&cBack")).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
         menu.setItem(45, btnBackToMenu);
         if (currentBanner != null) {
             //建立旗幟
-            ItemStack btnCreate = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&aCreate")).build();
+            ItemStack btnCreate = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.create"))).build();
             menu.setItem(53, btnCreate);
             //刪除
-            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&cDELETE")).build();
+            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.delete"))).build();
             menu.setItem(47, btnDelete);
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
                 //移除Pattern
-                ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&cRemove last pattern")).build();
+                ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.remove-last-pattern"))).build();
                 menu.setItem(49, btnRemovePattern);
             }
         }
@@ -156,7 +157,7 @@ public class InventoryUtil {
 
     static public void openBannerInfo(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&f[&4BM&f] &rBanner info"));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("&f[&4BM&f] &r" + Language.get("gui.banner-info")), 32));
         //索引值
         if (!BannerMaker.getInstance().selectedIndex.containsKey(player.getName())) {
             //回到主選單
@@ -181,15 +182,15 @@ public class InventoryUtil {
         int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();
         String patternCountStr = "";
         if (patternCount > 0) {
-            patternCountStr = patternCount + " pattern(s)";
+            patternCountStr = patternCount + " " + Language.get("gui.pattern-s");
         } else {
-            patternCountStr = "No patterns";
+            patternCountStr = Language.get("gui.no-patterns");
         }
         ItemStack signPatternCount;
         if (patternCount <= 6) {
             signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).build();
         } else {
-            signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&cUncraftable")).build();
+            signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + Language.get("gui.uncraftable"))).build();
         }
         menu.setItem(1, signPatternCount);
         if (patternCount <= 6) {
@@ -199,8 +200,8 @@ public class InventoryUtil {
             //總頁數
             int totalPage = patternCount + 1;
             //外框
-            ItemStack workbench = new ItemBuilder(Material.WORKBENCH).amount(currentRecipePage).name(MessageUtil.format("&aCraft Recipe"))
-                    .lore(MessageUtil.format("(" + currentRecipePage + "/" + totalPage + ")")).build();
+            ItemStack workbench = new ItemBuilder(Material.WORKBENCH).amount(currentRecipePage).name(MessageUtil.format("&a" + Language.get("gui.craft-recipe")))
+                .lore(MessageUtil.format("(" + currentRecipePage + "/" + totalPage + ")")).build();
             menu.setItem(6, workbench);
             ItemStack border = new ItemBuilder(Material.STAINED_GLASS_PANE).amount(1).durability(12).name(" ").build();
             List<Integer> borderPosition = Arrays.asList(4, 5, 7, 8, 13, 17, 22, 26, 31, 35, 40, 41, 42, 43, 44);
@@ -210,12 +211,12 @@ public class InventoryUtil {
             //換頁按鈕
             //上一頁
             if (currentRecipePage > 1) {
-                ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&aPrev Page")).build();
+                ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&a" + Language.get("gui.prev-page"))).build();
                 menu.setItem(22, prevPage);
             }
             //下一頁
             if (currentRecipePage < totalPage) {
-                ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&aNext Page")).build();
+                ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&a" + Language.get("gui.next-page"))).build();
                 menu.setItem(26, nextPage);
             }
             //合成表
@@ -229,16 +230,16 @@ public class InventoryUtil {
         }
         //新增按鈕
         //刪除
-        ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&cDELETE")).build();
+        ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.delete"))).build();
         menu.setItem(47, btnDelete);
         //取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
-            ItemStack btnGetBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&aGet this banner")).build();
+            ItemStack btnGetBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.get-this-banner"))).build();
             menu.setItem(49, btnGetBanner);
         }
         //TODO 產生指令
         //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&cBack")).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
         menu.setItem(45, btnBackToMenu);
         //開啟選單
         player.openInventory(menu);
@@ -246,44 +247,44 @@ public class InventoryUtil {
 
     static private List<PatternType> getPatternTypeList() {
         List<PatternType> list = Arrays.asList(
-                PatternType.BORDER,
-                PatternType.BRICKS,
-                PatternType.CIRCLE_MIDDLE,
-                PatternType.CREEPER,
-                PatternType.CROSS,
-                PatternType.CURLY_BORDER,
-                PatternType.DIAGONAL_LEFT,
-                PatternType.DIAGONAL_LEFT_MIRROR,
-                PatternType.DIAGONAL_RIGHT,
-                PatternType.DIAGONAL_RIGHT_MIRROR,
-                PatternType.FLOWER,
-                PatternType.GRADIENT,
-                PatternType.GRADIENT_UP,
-                PatternType.HALF_HORIZONTAL,
-                PatternType.HALF_HORIZONTAL_MIRROR,
-                PatternType.HALF_VERTICAL,
-                PatternType.HALF_VERTICAL_MIRROR,
-                PatternType.MOJANG,
-                PatternType.RHOMBUS_MIDDLE,
-                PatternType.SKULL,
-                PatternType.SQUARE_BOTTOM_LEFT,
-                PatternType.SQUARE_BOTTOM_RIGHT,
-                PatternType.SQUARE_TOP_LEFT,
-                PatternType.SQUARE_TOP_RIGHT,
-                PatternType.STRAIGHT_CROSS,
-                PatternType.STRIPE_BOTTOM,
-                PatternType.STRIPE_CENTER,
-                PatternType.STRIPE_DOWNLEFT,
-                PatternType.STRIPE_DOWNRIGHT,
-                PatternType.STRIPE_LEFT,
-                PatternType.STRIPE_MIDDLE,
-                PatternType.STRIPE_RIGHT,
-                PatternType.STRIPE_SMALL,
-                PatternType.STRIPE_TOP,
-                PatternType.TRIANGLE_BOTTOM,
-                PatternType.TRIANGLE_TOP,
-                PatternType.TRIANGLES_BOTTOM,
-                PatternType.TRIANGLES_TOP
+            PatternType.BORDER,
+            PatternType.BRICKS,
+            PatternType.CIRCLE_MIDDLE,
+            PatternType.CREEPER,
+            PatternType.CROSS,
+            PatternType.CURLY_BORDER,
+            PatternType.DIAGONAL_LEFT,
+            PatternType.DIAGONAL_LEFT_MIRROR,
+            PatternType.DIAGONAL_RIGHT,
+            PatternType.DIAGONAL_RIGHT_MIRROR,
+            PatternType.FLOWER,
+            PatternType.GRADIENT,
+            PatternType.GRADIENT_UP,
+            PatternType.HALF_HORIZONTAL,
+            PatternType.HALF_HORIZONTAL_MIRROR,
+            PatternType.HALF_VERTICAL,
+            PatternType.HALF_VERTICAL_MIRROR,
+            PatternType.MOJANG,
+            PatternType.RHOMBUS_MIDDLE,
+            PatternType.SKULL,
+            PatternType.SQUARE_BOTTOM_LEFT,
+            PatternType.SQUARE_BOTTOM_RIGHT,
+            PatternType.SQUARE_TOP_LEFT,
+            PatternType.SQUARE_TOP_RIGHT,
+            PatternType.STRAIGHT_CROSS,
+            PatternType.STRIPE_BOTTOM,
+            PatternType.STRIPE_CENTER,
+            PatternType.STRIPE_DOWNLEFT,
+            PatternType.STRIPE_DOWNRIGHT,
+            PatternType.STRIPE_LEFT,
+            PatternType.STRIPE_MIDDLE,
+            PatternType.STRIPE_RIGHT,
+            PatternType.STRIPE_SMALL,
+            PatternType.STRIPE_TOP,
+            PatternType.TRIANGLE_BOTTOM,
+            PatternType.TRIANGLE_TOP,
+            PatternType.TRIANGLES_BOTTOM,
+            PatternType.TRIANGLES_TOP
         );
         return list;
     }

@@ -15,4 +15,11 @@ public class MessageUtil {
         }
         return ChatColor.translateAlternateColorCodes('&', message);
     }
+
+    public static String cutString(String string, int length) {
+        if (string.length() > length) {
+            string = string.substring(0, length);
+        }
+        return string;
+    }
 }

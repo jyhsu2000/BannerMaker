@@ -16,9 +16,13 @@ permissions:
         children:
             BannerMaker.use: true
             BannerMaker.getBanner: true
+            BannerMaker.reload: true
     BannerMaker.use:
         description: Permission of using BannerMaker
         default: op
     BannerMaker.getBanner:
         description: Permission to get banners from BannerMaker
+        default: op
+    BannerMaker.reload:
+        description: Permission to reload all config
         default: op
