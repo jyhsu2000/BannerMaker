@@ -44,6 +44,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 * Material estimates
 * Generate give command
 * Generate summon command
+* Economic support
 * ...and tell me what you want
 
 ### Installation
@@ -106,6 +107,7 @@ v1.0 (for 1.8)
 * 材料估算
 * 產生give指令
 * 產生summon指令
+* 支援經濟功能
 * ...告訴我你還想要什麼
 
 ### 安裝
