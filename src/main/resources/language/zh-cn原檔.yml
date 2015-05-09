@@ -1,6 +1,8 @@
 general:
   reload: 重新载入
   no-permission: 权限不足
+  no-money: 金钱不足
+  money-transaction: 使用 {0} 取得旗帜，现在你还有 {1}
 io:
   save-failed: 储存失败
   save-success: 储存成功
@@ -28,3 +30,4 @@ gui:
   craft-recipe: 合成表
   get-this-banner: 取得这个旗帜
   get-banner: 取得旗帜 &r#{0}
+  price: 费用: {0}

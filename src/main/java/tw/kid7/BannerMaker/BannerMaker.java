@@ -71,22 +71,22 @@ public class BannerMaker extends JavaPlugin {
     }
 
     public static void reload() {
-        //經濟
-        econ = null;
-        if (getInstance().setupEconomy()) {
-            getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, "&aVault dependency found! Enable economy supported"));
-        } else {
-            getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, "&cDisable economy supported"));
-        }
         //載入語言包
         Language.loadLanguage();
         //Reload Config
         ConfigManager.reloadAll();
         //Check Default Config
         new DefaultConfig().checkConfig();
+        //經濟
+        if (getInstance().setupEconomy()) {
+            getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, "&aVault dependency found! Enable economy supported"));
+        } else {
+            getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, "&cDisable economy supported"));
+        }
     }
 
     private boolean setupEconomy() {
+        econ = null;
         //檢查設定
         String configFileName = "config.yml";
         FileConfiguration config = ConfigManager.get(configFileName);

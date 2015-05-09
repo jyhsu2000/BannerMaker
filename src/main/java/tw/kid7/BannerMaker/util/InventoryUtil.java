@@ -6,6 +6,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -13,6 +14,7 @@ import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.material.Dye;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
+import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.Language;
 
 import java.util.Arrays;
@@ -234,7 +236,14 @@ public class InventoryUtil {
         menu.setItem(47, btnDelete);
         //取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
-            ItemStack btnGetBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.get-this-banner"))).build();
+            //檢查是否啟用經濟
+            ItemBuilder btnGetBannerBuilder = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.get-this-banner")));
+            if (BannerMaker.econ != null) {
+                FileConfiguration config = ConfigManager.get("config.yml");
+                Double price = config.getDouble("Economy.Price", 100);
+                btnGetBannerBuilder.lore(MessageUtil.format("&a" + Language.get("gui.price", BannerMaker.econ.format(price))));
+            }
+            ItemStack btnGetBanner = btnGetBannerBuilder.build();
             menu.setItem(49, btnGetBanner);
         }
         //TODO 產生指令

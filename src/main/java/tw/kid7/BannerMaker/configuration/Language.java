@@ -96,6 +96,8 @@ public class Language {
 
         defaultLanguage.put("general.reload", "Reload config");
         defaultLanguage.put("general.no-permission", "No permission");
+        defaultLanguage.put("general.no-money", "Not enough money");
+        defaultLanguage.put("general.money-transaction", "Use {0} to get banner. Now you have {1}");
 
         defaultLanguage.put("io.save-failed", "Save failed.");
         defaultLanguage.put("io.save-success", "Save success.");
@@ -122,6 +124,7 @@ public class Language {
         defaultLanguage.put("gui.no-patterns", "No patterns");
         defaultLanguage.put("gui.craft-recipe", "Craft Recipe");
         defaultLanguage.put("gui.get-this-banner", "Get this banner");
+        defaultLanguage.put("gui.price", "Price: {0}");
 
         FileConfiguration config = ConfigManager.get(getFileName(lang));
 

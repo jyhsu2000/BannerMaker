@@ -1,6 +1,8 @@
 general:
   reload: Reload config
   no-permission: No permission
+  no-money: Not enough money
+  money-transaction: Use {0} to get banner. Now you have {1}
 io:
   save-failed: Save failed.
   save-success: Save success.
@@ -28,3 +30,4 @@ gui:
   craft-recipe: Craft Recipe
   get-this-banner: Get this banner
   get-banner: Get banner &r#{0}
+  price: Price: {0}

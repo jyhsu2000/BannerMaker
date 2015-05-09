@@ -1,8 +1,10 @@
 package tw.kid7.BannerMaker.listener;
 
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
+import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.InventoryUtil;
@@ -169,16 +172,42 @@ public class InventoryClickEventListener implements Listener {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.next-page"))) {
                 BannerMaker.getInstance().currentRecipePage.put(player.getName(), currentRecipePage + 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.get-this-banner"))) {
+                //取得旗幟
                 if (player.hasPermission("BannerMaker.getBanner")) {
+                    //交易成功的標記
+                    boolean success = false;
                     List<ItemStack> bannerList = IOUtil.loadBannerList(player);
                     ItemStack banner = bannerList.get(index);
-                    player.getInventory().addItem(banner);
-                    //所在頁數
-                    int currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
-                    //索引值
-                    int showIndex = index + (currentBannerPage - 1) * 45;
-                    //顯示訊息
-                    player.sendMessage(MessageUtil.format(true, "&a" + Language.get("gui.get-banner", showIndex)));
+                    //檢查是否啟用經濟
+                    if (BannerMaker.econ != null) {
+                        FileConfiguration config = ConfigManager.get("config.yml");
+                        Double price = config.getDouble("Economy.Price", 100);
+                        //檢查財產是否足夠
+                        if (BannerMaker.econ.has(player, price)) {
+                            EconomyResponse response = BannerMaker.econ.withdrawPlayer(player, price);
+                            //檢查交易是否成功
+                            if (response.transactionSuccess()) {
+                                player.getInventory().addItem(banner);
+                                player.sendMessage(MessageUtil.format(true, "&a" + Language.get("general.money-transaction", BannerMaker.econ.format(response.amount), BannerMaker.econ.format(response.balance))));
+                                success = true;
+                            } else {
+                                player.sendMessage(MessageUtil.format(true, "&aError: " + response.errorMessage));
+                            }
+                        } else {
+                            player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-money")));
+                        }
+                    } else {
+                        player.getInventory().addItem(banner);
+                        success = true;
+                    }
+                    if (success) {
+                        //所在頁數
+                        int currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
+                        //索引值
+                        int showIndex = index + (currentBannerPage - 1) * 45;
+                        //顯示訊息
+                        player.sendMessage(MessageUtil.format(true, "&a" + Language.get("gui.get-banner", showIndex)));
+                    }
                 } else {
                     player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-permission")));
                 }

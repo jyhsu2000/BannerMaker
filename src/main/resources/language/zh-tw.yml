@@ -1,6 +1,8 @@
 general:
   reload: "\u91cd\u65b0\u8f09\u5165"
   no-permission: "\u6b0a\u9650\u4e0d\u8db3"
+  no-money: "\u91d1\u9322\u4e0d\u8db3"
+  money-transaction: "\u4f7f\u7528 {0} \u53d6\u5f97\u65d7\u5e5f\uff0c\u73fe\u5728\u4f60\u9084\u6709 {1}"
 io:
   save-failed: "\u5132\u5b58\u5931\u6557"
   save-success: "\u5132\u5b58\u6210\u529f"
@@ -28,3 +30,4 @@ gui:
   craft-recipe: "\u5408\u6210\u8868"
   get-this-banner: "\u53d6\u5f97\u9019\u500b\u65d7\u5e5f"
   get-banner: "\u53d6\u5f97\u65d7\u5e5f &r#{0}"
+  price: "\u8cbb\u7528: {0}"
