@@ -2,6 +2,7 @@ name: BannerMaker
 main: tw.kid7.BannerMaker.BannerMaker
 version: 1.2
 author: KID
+softdepend: [Vault]
 commands:
     BannerMaker:
         description: BannerMaker
@@ -22,6 +23,9 @@ permissions:
         default: op
     BannerMaker.getBanner:
         description: Permission to get banners from BannerMaker
+        default: op
+    BannerMaker.getBanner.free:
+        description: Bypass fee of get Banner
         default: op
     BannerMaker.reload:
         description: Permission to reload all config

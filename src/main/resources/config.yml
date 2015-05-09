@@ -1,1 +1,4 @@
 Language: en
+Economy:
+  Enable: true
+  Price: 100

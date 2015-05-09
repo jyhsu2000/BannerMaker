@@ -14,6 +14,8 @@ public class DefaultConfig {
         //設定檔的預設值
         HashMap<String, Object> defaultOptions = Maps.newHashMap();
         defaultOptions.put("Language", "en");
+        defaultOptions.put("Economy.Enable", true);
+        defaultOptions.put("Economy.Price", 100);
         defaultConfigs.put("config", defaultOptions);
     }
 
