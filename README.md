@@ -22,6 +22,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 * Support UUID
 * Multi language support  
  (Setting in config.yml. Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn))
+* Economic support (need Vault)
 
 ### How to use
 * Look at pictures at bottom of page
@@ -44,7 +45,6 @@ You don't need to know how to craft. All you need to know is how it will looks l
 * Material estimates
 * Generate give command
 * Generate summon command
-* Economic support
 * ...and tell me what you want
 
 ### Installation
@@ -53,6 +53,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
+v1.3 (for 1.8)
+- Add Economic support (need Vault)
+
 v1.2 (for 1.8)
 - Support UUID
 - Multi language support  
@@ -85,6 +88,7 @@ v1.0 (for 1.8)
 * 支援UUID
 * 多國語言  
 （在config.yml設定，目前支援英文(en)、正體中文(zh-tw)、簡體中文(zh-cn)）
+* 支援經濟功能（需要Vault）
 
 ### 使用方法
 * 請見最下方圖片
@@ -107,7 +111,6 @@ v1.0 (for 1.8)
 * 材料估算
 * 產生give指令
 * 產生summon指令
-* 支援經濟功能
 * ...告訴我你還想要什麼
 
 ### 安裝
@@ -116,6 +119,9 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
+v1.3 (for 1.8)
+- 新增支援經濟功能（需要Vault）
+
 v1.2 (for 1.8)
 - 支援UUID
 - 多國語言  
