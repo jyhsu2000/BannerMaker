@@ -39,6 +39,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 |BannerMaker.*|Whole permission|
 |BannerMaker.use|Use /bm|
 |BannerMaker.getBanner|Get banners from GUI|
+|BannerMaker.getBanner.free|Get banners for free|
 |BannerMaker.reload|Use /bm reload|
 
 ### Features in future
@@ -105,6 +106,7 @@ v1.0 (for 1.8)
 |BannerMaker.*|完整權限|
 |BannerMaker.use|使用/bm|
 |BannerMaker.getBanner|從介面取得旗幟|
+|BannerMaker.getBanner.free|免費從介面取得旗幟|
 |BannerMaker.reload|使用/bm reload|
 
 ### 未來功能
