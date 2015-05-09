@@ -179,7 +179,7 @@ public class InventoryClickEventListener implements Listener {
                     List<ItemStack> bannerList = IOUtil.loadBannerList(player);
                     ItemStack banner = bannerList.get(index);
                     //檢查是否啟用經濟
-                    if (BannerMaker.econ != null) {
+                    if (BannerMaker.econ != null && !player.hasPermission("BannerMaker.getBanner.free")) {
                         FileConfiguration config = ConfigManager.get("config.yml");
                         Double price = config.getDouble("Economy.Price", 100);
                         //檢查財產是否足夠
