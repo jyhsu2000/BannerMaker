@@ -124,6 +124,7 @@ public class Language {
         defaultLanguage.put("gui.no-patterns", "No patterns");
         defaultLanguage.put("gui.craft-recipe", "Craft Recipe");
         defaultLanguage.put("gui.get-this-banner", "Get this banner");
+        defaultLanguage.put("gui.get-banner", "Get banner &r#{0}");
         defaultLanguage.put("gui.price", "Price: {0}");
 
         FileConfiguration config = ConfigManager.get(getFileName(lang));
