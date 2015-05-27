@@ -30,4 +30,4 @@ gui:
   craft-recipe: Craft Recipe
   get-this-banner: Get this banner
   get-banner: Get banner &r#{0}
-  price: Price: {0}
+  price: 'Price: {0}'

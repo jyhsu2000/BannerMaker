@@ -105,7 +105,7 @@ public class Language {
 
         defaultLanguage.put("command.player-only", "This command can only be used by players in game");
 
-        defaultLanguage.put("config.add-setting", " Add {0} new settings");
+        defaultLanguage.put("config.add-setting", "Add {0} new settings");
 
         defaultLanguage.put("gui.main-menu", "Main menu");
         defaultLanguage.put("gui.prev-page", "Prev Page");
