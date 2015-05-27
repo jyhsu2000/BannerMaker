@@ -54,6 +54,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
+v1.3.1 (for 1.8)
+- Fixed some bug
+
 v1.3 (for 1.8)
 - Add Economic support (need Vault)
 
@@ -121,6 +124,9 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
+v1.3.1 (for 1.8)
+- 修正一些錯誤
+
 v1.3 (for 1.8)
 - 新增支援經濟功能（需要Vault）
 
