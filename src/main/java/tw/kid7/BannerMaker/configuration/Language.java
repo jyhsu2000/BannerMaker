@@ -7,8 +7,6 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
