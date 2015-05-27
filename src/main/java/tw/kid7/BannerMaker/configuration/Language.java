@@ -53,7 +53,7 @@ public class Language {
     }
 
     private static String getFileName(String lang) {
-        return "language/" + lang + ".yml";
+        return "language" + File.separator + lang + ".yml";
     }
 
     public static String get(String path, Object... args) {
