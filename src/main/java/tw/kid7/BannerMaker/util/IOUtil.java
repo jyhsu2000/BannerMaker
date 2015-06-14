@@ -200,7 +200,7 @@ public class IOUtil {
     }
 
     static public String getFileName(String configFileName) {
-        String fileName = "banner/" + configFileName + ".yml";
+        String fileName = "banner" + File.separator + configFileName + ".yml";
         return fileName;
     }
 
