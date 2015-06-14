@@ -66,7 +66,7 @@ public class ConfigManager {
             try {
                 PLUGIN.saveResource(fileName, false);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
         if (!isFileLoaded(fileName)) {
@@ -175,7 +175,7 @@ public class ConfigManager {
             try {
                 configs.get(fileName).load(file);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
     }
