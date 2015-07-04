@@ -19,6 +19,7 @@ import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.InventoryUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static tw.kid7.BannerMaker.State.MAIN_MENU;
@@ -187,7 +188,10 @@ public class InventoryClickEventListener implements Listener {
                             EconomyResponse response = BannerMaker.econ.withdrawPlayer(player, price);
                             //檢查交易是否成功
                             if (response.transactionSuccess()) {
-                                player.getInventory().addItem(banner);
+                                HashMap<Integer, ItemStack> itemsCanNotAddToInv = player.getInventory().addItem(banner);
+                                if (!itemsCanNotAddToInv.isEmpty()) {
+                                    player.getWorld().dropItem(player.getLocation(), itemsCanNotAddToInv.get(0));
+                                }
                                 player.sendMessage(MessageUtil.format(true, "&a" + Language.get("general.money-transaction", BannerMaker.econ.format(response.amount), BannerMaker.econ.format(response.balance))));
                                 success = true;
                             } else {
@@ -197,7 +201,10 @@ public class InventoryClickEventListener implements Listener {
                             player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-money")));
                         }
                     } else {
-                        player.getInventory().addItem(banner);
+                        HashMap<Integer, ItemStack> itemsCanNotAddToInv = player.getInventory().addItem(banner);
+                        if (!itemsCanNotAddToInv.isEmpty()) {
+                            player.getWorld().dropItem(player.getLocation(), itemsCanNotAddToInv.get(0));
+                        }
                         success = true;
                     }
                     if (success) {
