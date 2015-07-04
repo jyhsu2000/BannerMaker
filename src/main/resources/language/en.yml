@@ -20,6 +20,7 @@ gui:
   uncraftable: Uncraftable
   more-than-6-patterns: More than 6 patterns.
   more-patterns: More patterns
+  preview-mode: Preview Mode
   back: Back
   create: Create
   delete: DELETE

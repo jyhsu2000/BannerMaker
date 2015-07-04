@@ -20,6 +20,7 @@ gui:
   uncraftable: 無法合成
   more-than-6-patterns: 超過6個圖形
   more-patterns: 更多圖形
+  preview-mode: 預覽模式
   back: 返回
   create: 建立
   delete: 刪除

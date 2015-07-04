@@ -114,6 +114,7 @@ public class Language {
         defaultLanguage.put("gui.uncraftable", "Uncraftable");
         defaultLanguage.put("gui.more-than-6-patterns", "More than 6 patterns.");
         defaultLanguage.put("gui.more-patterns", "More patterns");
+        defaultLanguage.put("gui.preview-mode", "Preview Mode");
         defaultLanguage.put("gui.back", "Back");
         defaultLanguage.put("gui.create", "Create");
         defaultLanguage.put("gui.delete", "DELETE");
