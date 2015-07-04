@@ -241,6 +241,7 @@ public class InventoryUtil {
             if (BannerMaker.econ != null) {
                 FileConfiguration config = ConfigManager.get("config.yml");
                 Double price = config.getDouble("Economy.Price", 100);
+                //FIXME 可能造成 IndexOutOfBoundsException: No group 1
                 btnGetBannerBuilder.lore(MessageUtil.format("&a" + Language.get("gui.price", BannerMaker.econ.format(price))));
             }
             ItemStack btnGetBanner = btnGetBannerBuilder.build();
