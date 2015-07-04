@@ -54,6 +54,12 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
+v1.3.2 (for 1.8.x)
+- Remove unnecessary debug messages
+- Drop banner on the ground if get banner when inventory is full
+- Tried to fix IndexOutOfBoundsException
+- Create a toggle button preview mode in create-banner-menu
+
 v1.3.1 (for 1.8)
 - Fixed some bug
 
@@ -124,6 +130,12 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
+v1.3.2 (for 1.8.x)
+- 移除非必要之除錯訊息
+- 若包包已滿，取得旗幟時，旗幟將會掉在地上
+- 嘗試修復IndexOutOfBoundsException
+- 在建立旗幟頁面新增切換預覽模式的按鈕
+
 v1.3.1 (for 1.8)
 - 修正一些錯誤
 
