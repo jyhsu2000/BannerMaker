@@ -80,7 +80,8 @@ public class Language {
 
     public static String replaceArgument(String message, Object... args) {
         for (int i = 0; i < args.length; i++) {
-            message = message.replaceAll("\\{" + i + "\\}", String.valueOf(args[i]));
+            //message = message.replaceAll("\\{" + i + "\\}", String.valueOf(args[i]));
+            message = message.replace("{" + i + "}", String.valueOf(args[i]));
         }
         return message;
     }
