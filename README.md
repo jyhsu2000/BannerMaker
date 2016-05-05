@@ -54,7 +54,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
-v1.4 (for 1.9.x)
+v1.4 (for 1.8.x, 1.9.x)
 - Update to 1.9.2
 - Remove old preview mode (banner icons will never disappear)
 - Make message prefix editable
@@ -136,7 +136,7 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
-v1.4 (for 1.9.x)
+v1.4 (for 1.8.x, 1.9.x)
 - 升級至1.9.2
 - 移除舊的預覽模式（旗幟圖標將不會再消失）
 - 令訊息前綴可編輯
