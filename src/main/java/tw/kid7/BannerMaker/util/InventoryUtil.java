@@ -125,14 +125,8 @@ public class InventoryUtil {
                 if (patternIndex >= getPatternTypeList().size()) {
                     break;
                 }
-                ItemStack banner;
-                //預覽模式
-                //TODO 記錄玩家選擇的模式
-                if (BannerMaker.getInstance().noPreviewMode.containsKey(player.getName()) && BannerMaker.getInstance().noPreviewMode.get(player.getName())) {
-                    banner = new ItemStack(Material.BANNER, 1, currentBanner.getDurability());
-                } else {
-                    banner = currentBanner.clone();
-                }
+                //預覽旗幟
+                ItemStack banner = new ItemStack(Material.BANNER, 1, currentBanner.getDurability());
                 BannerMeta bm = (BannerMeta) banner.getItemMeta();
                 PatternType patternType = getPatternTypeList().get(patternIndex);
                 bm.addPattern(new Pattern(DyeColor.getByDyeData((byte) selectedColor), patternType));
@@ -143,9 +137,6 @@ public class InventoryUtil {
             //更多Pattern
             ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + Language.get("gui.more-patterns"))).build();
             menu.setItem(51, btnMorePattern);
-            //預覽模式開關
-            ItemStack btnPreviewMode = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + Language.get("gui.preview-mode"))).build();
-            menu.setItem(52, btnPreviewMode);
         }
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();

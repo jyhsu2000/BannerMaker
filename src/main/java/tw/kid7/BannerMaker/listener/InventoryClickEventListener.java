@@ -134,12 +134,6 @@ public class InventoryClickEventListener implements Listener {
                 } else {
                     BannerMaker.getInstance().morePatterns.put(player.getName(), true);
                 }
-            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.preview-mode"))) {
-                if (BannerMaker.getInstance().noPreviewMode.containsKey(player.getName())) {
-                    BannerMaker.getInstance().noPreviewMode.put(player.getName(), !BannerMaker.getInstance().noPreviewMode.get(player.getName()));
-                } else {
-                    BannerMaker.getInstance().noPreviewMode.put(player.getName(), true);
-                }
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.remove-last-pattern"))) {
                 if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
                     BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();

@@ -20,7 +20,6 @@ gui:
   uncraftable: "\u7121\u6cd5\u5408\u6210"
   more-than-6-patterns: "\u8d85\u904e6\u500b\u5716\u5f62"
   more-patterns: "\u66f4\u591a\u5716\u5f62"
-  preview-mode: "\u9810\u89bd\u6a21\u5f0f"
   back: "\u8fd4\u56de"
   create: "\u5efa\u7acb"
   delete: "\u522a\u9664"

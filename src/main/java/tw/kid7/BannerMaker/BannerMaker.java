@@ -29,7 +29,6 @@ public class BannerMaker extends JavaPlugin {
     public HashMap<String, Integer> selectedIndex = Maps.newHashMap();
     public HashMap<String, Integer> currentRecipePage = Maps.newHashMap();
     public HashMap<String, Integer> currentBannerPage = Maps.newHashMap();
-    public HashMap<String, Boolean> noPreviewMode = Maps.newHashMap();
     List<String> configList;
 
     @Override

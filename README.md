@@ -56,6 +56,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 ### Change Logs
 v1.4 (for 1.9.x)
 - Update to 1.9.2
+- Remove old preview mode (banner icons will never disappear)
 
 v1.3.2 (for 1.8.x)
 - Remove unnecessary debug messages
@@ -135,6 +136,7 @@ v1.0 (for 1.8)
 ### 更新紀錄
 v1.4 (for 1.9.x)
 - 升級至1.9.2
+- 移除舊的預覽模式（旗幟圖標將不會再消失）
 
 v1.3.2 (for 1.8.x)
 - 移除非必要之除錯訊息
