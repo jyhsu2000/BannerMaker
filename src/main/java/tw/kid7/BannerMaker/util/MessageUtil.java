@@ -17,6 +17,7 @@ public class MessageUtil {
     }
 
     public static String cutString(String string, int length) {
+        //TODO: 可能需要忽略顏色代碼的開關參數
         if (string.length() > length) {
             string = string.substring(0, length);
         }
