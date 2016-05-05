@@ -32,3 +32,4 @@ gui:
   get-this-banner: 取得这个旗帜
   get-banner: 取得旗帜 &r#{0}
   price: 费用: {0}
+  clone-and-edit: 复制并编辑

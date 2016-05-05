@@ -32,3 +32,4 @@ gui:
   get-this-banner: "\u53d6\u5f97\u8fd9\u4e2a\u65d7\u5e1c"
   get-banner: "\u53d6\u5f97\u65d7\u5e1c &r#{0}"
   price: "\u8d39\u7528: {0}"
+  clone-and-edit: "\u590d\u5236\u5e76\u7f16\u8f91"

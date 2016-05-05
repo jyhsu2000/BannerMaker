@@ -32,3 +32,4 @@ gui:
   get-this-banner: 取得這個旗幟
   get-banner: 取得旗幟 &r#{0}
   price: 費用: {0}
+  clone-and-edit: 複製並編輯

@@ -248,6 +248,10 @@ public class InventoryUtil {
             ItemStack btnGetBanner = btnGetBannerBuilder.build();
             menu.setItem(49, btnGetBanner);
         }
+        //複製並編輯
+        ItemStack btnCloneAndEdit = new ItemBuilder(Material.BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + Language.get("gui.clone-and-edit"))).build();
+        menu.setItem(51, btnCloneAndEdit);
+
         //TODO 產生指令
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();

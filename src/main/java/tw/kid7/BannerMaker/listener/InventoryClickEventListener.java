@@ -218,6 +218,14 @@ public class InventoryClickEventListener implements Listener {
                 } else {
                     player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-permission")));
                 }
+            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.clone-and-edit"))) {
+                //取得當前旗幟
+                List<ItemStack> bannerList = IOUtil.loadBannerList(player);
+                ItemStack banner = bannerList.get(index);
+                //設定為編輯中旗幟
+                BannerMaker.getInstance().currentBanner.put(player.getName(), banner);
+                BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_BANNER);
+
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
                 IOUtil.removeBanner(player, index);
                 BannerMaker.getInstance().selectedIndex.remove(player.getName());

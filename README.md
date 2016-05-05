@@ -58,6 +58,7 @@ v1.4 (for 1.9.x)
 - Update to 1.9.2
 - Remove old preview mode (banner icons will never disappear)
 - Make message prefix editable
+- Add "Clone & Edit" button
 
 v1.3.2 (for 1.8.x)
 - Remove unnecessary debug messages
@@ -139,6 +140,7 @@ v1.4 (for 1.9.x)
 - 升級至1.9.2
 - 移除舊的預覽模式（旗幟圖標將不會再消失）
 - 令訊息前綴可編輯
+- 新增「複製並編輯」按鈕
 
 v1.3.2 (for 1.8.x)
 - 移除非必要之除錯訊息
