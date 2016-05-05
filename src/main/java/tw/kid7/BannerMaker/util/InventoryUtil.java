@@ -48,7 +48,7 @@ public class InventoryUtil {
 
     static public void openMainMenu(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("&f[&4BM&f] &r" + Language.get("gui.main-menu")), 32));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("[BM]" + Language.get("gui.main-menu")), 32));
         //當前頁數
         int currentBannerPage = 1;
         if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
@@ -85,7 +85,7 @@ public class InventoryUtil {
 
     static public void openCreateBanner(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("&f[&4BM&f] &r" + Language.get("gui.create-banner")), 32));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("[BM]" + Language.get("gui.create-banner")), 32));
         //取得當前編輯中的旗幟
         ItemStack currentBanner = BannerMaker.getInstance().currentBanner.get(player.getName());
         if (currentBanner == null) {
@@ -160,7 +160,7 @@ public class InventoryUtil {
 
     static public void openBannerInfo(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("&f[&4BM&f] &r" + Language.get("gui.banner-info")), 32));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("[BM]" + Language.get("gui.banner-info")), 32));
         //索引值
         if (!BannerMaker.getInstance().selectedIndex.containsKey(player.getName())) {
             //回到主選單
