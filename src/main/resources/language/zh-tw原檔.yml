@@ -1,4 +1,5 @@
 general:
+  prefix: "&6[&aBannerMaker&6]&r "
   reload: 重新載入
   no-permission: 權限不足
   no-money: 金錢不足

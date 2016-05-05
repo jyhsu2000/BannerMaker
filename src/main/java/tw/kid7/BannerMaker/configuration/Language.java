@@ -93,6 +93,7 @@ public class Language {
     public static void checkConfig(String lang) {
         HashMap<String, Object> defaultLanguage = Maps.newHashMap();
 
+        defaultLanguage.put("general.prefix", "&6[&aBannerMaker&6]&r");
         defaultLanguage.put("general.reload", "Reload config");
         defaultLanguage.put("general.no-permission", "No permission");
         defaultLanguage.put("general.no-money", "Not enough money");

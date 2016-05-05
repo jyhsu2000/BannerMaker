@@ -1,4 +1,5 @@
 general:
+  prefix: "&6[&aBannerMaker&6]&r "
   reload: "\u91cd\u65b0\u8f09\u5165"
   no-permission: "\u6b0a\u9650\u4e0d\u8db3"
   no-money: "\u91d1\u9322\u4e0d\u8db3"

@@ -1,9 +1,9 @@
 package tw.kid7.BannerMaker.util;
 
 import org.bukkit.ChatColor;
+import tw.kid7.BannerMaker.configuration.Language;
 
 public class MessageUtil {
-    private static String prefix = "&6[&aBannerMaker&6]&r ";
 
     public static String format(String message) {
         return format(false, message);
@@ -11,7 +11,7 @@ public class MessageUtil {
 
     public static String format(boolean addPrefix, String message) {
         if (addPrefix) {
-            message = prefix + message;
+            message = Language.get("general.prefix") + message;
         }
         return ChatColor.translateAlternateColorCodes('&', message);
     }

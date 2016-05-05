@@ -1,4 +1,5 @@
 general:
+  prefix: "&6[&aBannerMaker&6]&r "
   reload: Reload config
   no-permission: No permission
   no-money: Not enough money
