@@ -197,6 +197,15 @@ public class InventoryUtil {
         }
         menu.setItem(1, signPatternCount);
         if (patternCount <= 6) {
+            //材料清單
+            List<Integer> materialPosition = Arrays.asList(9, 10, 11, 12, 18, 19, 20, 21, 27, 28, 29, 30, 36, 37, 38, 39);
+            List<ItemStack> materialList = BannerUtil.getMaterials(banner);
+            for (int i = 0; i < materialList.size(); i++) {
+                ItemStack materialItem = materialList.get(i);
+                int position = materialPosition.get(i);
+                menu.setItem(position, materialItem);
+            }
+
             //合成表
             //當前頁數
             int currentRecipePage = BannerMaker.getInstance().currentRecipePage.get(player.getName());
@@ -317,10 +326,7 @@ public class InventoryUtil {
             if (step == 1) {
                 //第一步，旗幟合成
                 //顏色
-                int color = banner.getDurability();
-                if (color != 0) {
-                    color = 15 - color;
-                }
+                int color = 15 - banner.getDurability();
                 //羊毛
                 ItemStack wool = new ItemStack(Material.WOOL, 1, (short) color);
                 for (int i = 0; i < 6; i++) {
