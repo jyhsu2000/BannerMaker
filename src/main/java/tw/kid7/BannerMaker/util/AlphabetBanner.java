@@ -7,6 +7,14 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
+/*
+ * 無框字母
+ * https://www.youtube.com/watch?v=jLYvPD_vbZg
+ * 有框字母
+ * https://www.youtube.com/watch?v=PncIlxt8TtI
+ * 數字＆問號＆驚嘆號＆句號
+ * https://www.youtube.com/watch?v=xODU7WWTXYE
+ */
 public class AlphabetBanner {
 
     public static ItemStack get(String alphabet) {
