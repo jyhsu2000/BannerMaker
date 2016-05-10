@@ -107,6 +107,7 @@ public class Language {
 
         defaultLanguage.put("config.add-setting", "Add {0} new settings");
 
+        defaultLanguage.put("gui.prefix", "&f[&4BM&f]&r ");
         defaultLanguage.put("gui.main-menu", "Main menu");
         defaultLanguage.put("gui.prev-page", "Prev Page");
         defaultLanguage.put("gui.next-page", "Next Page");

@@ -13,6 +13,7 @@ command:
 config:
   add-setting: "\u65b0\u589e {0} \u4e2a\u65b0\u8bbe\u5b9a"
 gui:
+  prefix: "&f[&4BM&f]&r "
   main-menu: "\u4e3b\u9009\u5355"
   prev-page: "\u4e0a\u4e00\u9875"
   next-page: "\u4e0b\u4e00\u9875"

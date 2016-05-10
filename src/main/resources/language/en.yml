@@ -13,6 +13,7 @@ command:
 config:
   add-setting: Add {0} new settings
 gui:
+  prefix: "&f[&4BM&f]&r "
   main-menu: Main menu
   prev-page: Prev Page
   next-page: Next Page

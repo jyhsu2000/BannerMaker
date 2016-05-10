@@ -13,6 +13,7 @@ command:
 config:
   add-setting: 新增 {0} 個新設定
 gui:
+  prefix: "&f[&4BM&f]&r "
   main-menu: 主選單
   prev-page: 上一頁
   next-page: 下一頁
