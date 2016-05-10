@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Dye;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
@@ -79,6 +80,13 @@ public class InventoryUtil {
         //Create banner
         ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.create-banner"))).build();
         menu.setItem(49, btnCreateBanner);
+        //建立字母
+        ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
+        //FIXME: 加入語系檔
+        ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
+        btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&aCreate Alphabet"));
+        btnCreateAlphabet.setItemMeta(btnCreateAlphabetItemMeta);
+        menu.setItem(51, btnCreateAlphabet);
         //開啟選單
         player.openInventory(menu);
     }
