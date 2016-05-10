@@ -23,6 +23,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 * Multi language support  
  (Setting in config.yml. Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn))
 * Economic support (need Vault)
+* Material estimates
 
 ### How to use
 * Look at pictures at bottom of page
@@ -43,7 +44,6 @@ You don't need to know how to craft. All you need to know is how it will looks l
 |BannerMaker.reload|Use /bm reload|
 
 ### Features in future
-* Material estimates
 * Generate give command
 * Generate summon command
 * ...and tell me what you want
@@ -109,6 +109,7 @@ v1.0 (for 1.8)
 * 多國語言  
 （在config.yml設定，目前支援英文(en)、正體中文(zh-tw)、簡體中文(zh-cn)）
 * 支援經濟功能（需要Vault）
+* 材料估算
 
 ### 使用方法
 * 請見最下方圖片
@@ -129,7 +130,6 @@ v1.0 (for 1.8)
 |BannerMaker.reload|使用/bm reload|
 
 ### 未來功能
-* 材料估算
 * 產生give指令
 * 產生summon指令
 * ...告訴我你還想要什麼
@@ -141,7 +141,7 @@ v1.0 (for 1.8)
 
 ### 更新紀錄
 v1.4.1 (for 1.8.x, 1.9.x)
-- 新增合成材料計算
+- 新增合成材料估算
 - 修正黑色旗幟的羊毛顏色錯誤
 
 v1.4 (for 1.8.x, 1.9.x)
