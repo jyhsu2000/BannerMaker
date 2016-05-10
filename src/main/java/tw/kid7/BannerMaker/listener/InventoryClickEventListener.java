@@ -27,7 +27,7 @@ import static tw.kid7.BannerMaker.State.MAIN_MENU;
 public class InventoryClickEventListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!ChatColor.stripColor(event.getInventory().getName()).contains("[BM]")) {
+        if (!event.getInventory().getName().contains(ChatColor.translateAlternateColorCodes('&',"&b&m"))) {
             return;
         }
         //取消事件
