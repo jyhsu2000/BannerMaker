@@ -37,6 +37,9 @@ public class InventoryUtil {
             case CREATE_BANNER:
                 openCreateBanner(player);
                 break;
+            case CREATE_ALPHABET:
+                openCreateAlphabet(player);
+                break;
             case BANNER_INFO:
                 openBannerInfo(player);
                 break;
@@ -49,7 +52,7 @@ public class InventoryUtil {
 
     static public void openMainMenu(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.main-menu")), 32));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.main-menu")));
         //當前頁數
         int currentBannerPage = 1;
         if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
@@ -93,7 +96,7 @@ public class InventoryUtil {
 
     static public void openCreateBanner(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.create-banner")), 32));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.create-banner")));
         //取得當前編輯中的旗幟
         ItemStack currentBanner = BannerMaker.getInstance().currentBanner.get(player.getName());
         if (currentBanner == null) {
@@ -166,9 +169,37 @@ public class InventoryUtil {
         player.openInventory(menu);
     }
 
+    static public void openCreateAlphabet(Player player) {
+        //TODO
+        //建立選單
+        //FIXME: 新增至語系檔
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + "Create Alphabet"));
+        //取得當前編輯中的字母
+        ItemStack currentAlphabet = BannerMaker.getInstance().currentAlphabet.get(player.getName());
+        if (currentAlphabet == null) {
+            //選擇字母
+            char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+            for (int i = 0; i < alphabetArray.length && i < 54; i++) {
+                char alphabet = alphabetArray[i];
+                ItemStack alphabetItem = AlphabetBanner.get(String.valueOf(alphabet));
+                menu.setItem(i, alphabetItem);
+            }
+        } else {
+            //選擇顏色
+            //TODO: 選擇底色
+            //TODO: 選擇主要顏色
+            //TODO: 取得旗幟按鈕
+        }
+        //返回
+        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
+        menu.setItem(45, btnBackToMenu);
+        //開啟選單
+        player.openInventory(menu);
+    }
+
     static public void openBannerInfo(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.cutString(MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.banner-info")), 32));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.banner-info")));
         //索引值
         if (!BannerMaker.getInstance().selectedIndex.containsKey(player.getName())) {
             //回到主選單

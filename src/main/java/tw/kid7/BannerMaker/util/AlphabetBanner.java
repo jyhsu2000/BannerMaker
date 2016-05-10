@@ -21,6 +21,7 @@ public class AlphabetBanner {
         //建立旗幟
         ItemStack banner = new ItemStack(Material.BANNER, 1, (short) (15 - baseColor.getData()));
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+        bannerMeta.setDisplayName(MessageUtil.format("&a" + alphabet));
         //繪製字母
         if (!bordered) {
             //無框

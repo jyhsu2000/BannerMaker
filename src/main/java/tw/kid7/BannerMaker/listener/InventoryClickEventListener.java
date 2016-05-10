@@ -27,7 +27,7 @@ import static tw.kid7.BannerMaker.State.MAIN_MENU;
 public class InventoryClickEventListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!event.getInventory().getName().startsWith(ChatColor.translateAlternateColorCodes('&',"&b&m"))) {
+        if (!event.getInventory().getName().startsWith(ChatColor.translateAlternateColorCodes('&', "&b&m"))) {
             return;
         }
         //取消事件
@@ -50,6 +50,9 @@ public class InventoryClickEventListener implements Listener {
         switch (state) {
             case CREATE_BANNER:
                 onClickCreateBanner(event);
+                break;
+            case CREATE_ALPHABET:
+                onClickCreateAlphabet(event);
                 break;
             case BANNER_INFO:
                 onClickBannerInfo(event);
@@ -91,6 +94,9 @@ public class InventoryClickEventListener implements Listener {
                 BannerMaker.getInstance().currentBannerPage.put(player.getName(), currentBannerPage + 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create-banner"))) {
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_BANNER);
+            } else if (buttonName.equalsIgnoreCase("Create Alphabet")) {
+                //FIXME: 新增至語系檔
+                BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_ALPHABET);
             }
             //重新開啟選單
             InventoryUtil.openMenu(player);
@@ -154,6 +160,45 @@ public class InventoryClickEventListener implements Listener {
             InventoryUtil.openMenu(player);
         }
 
+    }
+
+    public void onClickCreateAlphabet(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        ItemStack itemStack = event.getCurrentItem();
+        //取得當前編輯中的字母
+        ItemStack currentAlphabet = BannerMaker.getInstance().currentAlphabet.get(player.getName());
+        if (currentAlphabet == null) {
+            if (event.getRawSlot() < 45) {
+                //選擇字母
+                BannerMaker.getInstance().currentAlphabet.put(player.getName(), itemStack);
+            } else {
+                //點擊按鈕
+                String buttonName = itemStack.getItemMeta().getDisplayName();
+                buttonName = ChatColor.stripColor(buttonName);
+                if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
+                    BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                }
+            }
+            //重新開啟選單
+            InventoryUtil.openMenu(player);
+        } else {
+            //選擇顏色
+            if (event.getRawSlot() < 18) {
+                //TODO: 選擇底色
+            } else if (event.getRawSlot() < 36) {
+                //TODO: 選擇主要顏色
+            } else {
+                //點擊按鈕
+                String buttonName = itemStack.getItemMeta().getDisplayName();
+                buttonName = ChatColor.stripColor(buttonName);
+                //TODO: 取得旗幟按鈕
+                if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
+                    BannerMaker.getInstance().currentAlphabet.remove(player.getName());
+                }
+            }
+            //重新開啟選單
+            InventoryUtil.openMenu(player);
+        }
     }
 
     public void onClickBannerInfo(InventoryClickEvent event) {

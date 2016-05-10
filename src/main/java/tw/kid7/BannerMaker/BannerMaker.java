@@ -25,6 +25,7 @@ public class BannerMaker extends JavaPlugin {
     public HashMap<String, State> stateMap = Maps.newHashMap();
     public HashMap<String, Integer> selectedColor = Maps.newHashMap();
     public HashMap<String, ItemStack> currentBanner = Maps.newHashMap();
+    public HashMap<String, ItemStack> currentAlphabet = Maps.newHashMap();
     public HashMap<String, Boolean> morePatterns = Maps.newHashMap();
     public HashMap<String, Integer> selectedIndex = Maps.newHashMap();
     public HashMap<String, Integer> currentRecipePage = Maps.newHashMap();
