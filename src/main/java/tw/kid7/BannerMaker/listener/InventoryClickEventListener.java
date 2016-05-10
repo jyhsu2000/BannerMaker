@@ -2,6 +2,7 @@ package tw.kid7.BannerMaker.listener;
 
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,6 +16,7 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.Language;
+import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.InventoryUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
@@ -171,6 +173,9 @@ public class InventoryClickEventListener implements Listener {
             if (event.getRawSlot() < 45) {
                 //選擇字母
                 BannerMaker.getInstance().currentAlphabet.put(player.getName(), itemStack);
+                BannerMaker.getInstance().currentAlphabetBaseColor.put(player.getName(), DyeColor.WHITE);
+                BannerMaker.getInstance().currentAlphabetDyeColor.put(player.getName(), DyeColor.BLACK);
+                BannerMaker.getInstance().currentAlphabetBordered.put(player.getName(), true);
             } else {
                 //點擊按鈕
                 String buttonName = itemStack.getItemMeta().getDisplayName();
@@ -182,17 +187,38 @@ public class InventoryClickEventListener implements Listener {
             //重新開啟選單
             InventoryUtil.openMenu(player);
         } else {
+            String alphabet = ChatColor.stripColor(currentAlphabet.getItemMeta().getDisplayName());
+            DyeColor currentAlphabetBaseColor = BannerMaker.getInstance().currentAlphabetBaseColor.get(player.getName());
+            DyeColor currentAlphabetDyeColor = BannerMaker.getInstance().currentAlphabetDyeColor.get(player.getName());
+            boolean currentAlphabetBordered = BannerMaker.getInstance().currentAlphabetBordered.get(player.getName());
             //選擇顏色
-            if (event.getRawSlot() < 18) {
-                //TODO: 選擇底色
+            if (event.getRawSlot() < 1) {
+                //預覽圖
+            } else if (event.getRawSlot() < 18) {
+                //選擇底色
+                currentAlphabetBaseColor = DyeColor.getByDyeData((byte) itemStack.getDurability());
+                BannerMaker.getInstance().currentAlphabetBaseColor.put(player.getName(), currentAlphabetBaseColor);
+                currentAlphabet = AlphabetBanner.get(alphabet, currentAlphabetBaseColor, currentAlphabetDyeColor, currentAlphabetBordered);
+                BannerMaker.getInstance().currentAlphabet.put(player.getName(), currentAlphabet);
             } else if (event.getRawSlot() < 36) {
-                //TODO: 選擇主要顏色
+                //選擇主要顏色
+                currentAlphabetDyeColor = DyeColor.getByDyeData((byte) itemStack.getDurability());
+                BannerMaker.getInstance().currentAlphabetDyeColor.put(player.getName(), currentAlphabetDyeColor);
+                currentAlphabet = AlphabetBanner.get(alphabet, currentAlphabetBaseColor, currentAlphabetDyeColor, currentAlphabetBordered);
+                BannerMaker.getInstance().currentAlphabet.put(player.getName(), currentAlphabet);
             } else {
                 //點擊按鈕
                 String buttonName = itemStack.getItemMeta().getDisplayName();
                 buttonName = ChatColor.stripColor(buttonName);
                 //TODO: 取得旗幟按鈕
-                if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
+                if (buttonName.equalsIgnoreCase("Toggle Border")) {
+                    //TODO: 新增至語系檔
+                    //切換有無邊框
+                    currentAlphabetBordered = !currentAlphabetBordered;
+                    BannerMaker.getInstance().currentAlphabetBordered.put(player.getName(), currentAlphabetBordered);
+                    currentAlphabet = AlphabetBanner.get(alphabet, currentAlphabetBaseColor, currentAlphabetDyeColor, currentAlphabetBordered);
+                    BannerMaker.getInstance().currentAlphabet.put(player.getName(), currentAlphabet);
+                } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                     BannerMaker.getInstance().currentAlphabet.remove(player.getName());
                 }
             }

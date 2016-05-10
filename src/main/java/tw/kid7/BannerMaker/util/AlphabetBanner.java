@@ -30,7 +30,7 @@ public class AlphabetBanner {
         ItemStack banner = new ItemStack(Material.BANNER, 1, (short) (15 - baseColor.getData()));
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
         bannerMeta.setDisplayName(MessageUtil.format("&a" + alphabet));
-        //繪製字母
+        //TODO: 繪製字母
         if (!bordered) {
             //無框
             switch (alphabet) {

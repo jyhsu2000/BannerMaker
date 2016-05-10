@@ -186,9 +186,27 @@ public class InventoryUtil {
             }
         } else {
             //選擇顏色
-            //TODO: 選擇底色
-            //TODO: 選擇主要顏色
+            menu.setItem(0, currentAlphabet);
+            //選擇底色
+            for (int i = 0; i < 16; i++) {
+                ItemStack banner = new ItemStack(Material.BANNER, 1, (short) i);
+                menu.setItem(i + 1 + (i / 8), banner);
+            }
+            //選擇主要顏色
+            for (int i = 0; i < 16; i++) {
+                ItemStack dye = new ItemBuilder(Material.INK_SACK).amount(1).durability(i).build();
+                menu.setItem(18 + i + 1 + (i / 8), dye);
+            }
+            //切換有無邊框
+            ItemStack borderedBanner = new ItemStack(Material.BANNER, 1, (short) 15);
+            BannerMeta borderedBannerMeta = (BannerMeta) borderedBanner.getItemMeta();
+            //TODO: 新增至語系檔
+            borderedBannerMeta.setDisplayName(MessageUtil.format("&aToggle Border"));
+            borderedBannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
+            borderedBanner.setItemMeta(borderedBannerMeta);
+            menu.setItem(37, borderedBanner);
             //TODO: 取得旗幟按鈕
+            //TODO: 檢視旗幟資訊按鈕
         }
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();

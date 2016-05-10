@@ -2,6 +2,7 @@ package tw.kid7.BannerMaker;
 
 import com.google.common.collect.Maps;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.DyeColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -26,6 +27,9 @@ public class BannerMaker extends JavaPlugin {
     public HashMap<String, Integer> selectedColor = Maps.newHashMap();
     public HashMap<String, ItemStack> currentBanner = Maps.newHashMap();
     public HashMap<String, ItemStack> currentAlphabet = Maps.newHashMap();
+    public HashMap<String, DyeColor> currentAlphabetBaseColor = Maps.newHashMap();
+    public HashMap<String, DyeColor> currentAlphabetDyeColor = Maps.newHashMap();
+    public HashMap<String, Boolean> currentAlphabetBordered = Maps.newHashMap();
     public HashMap<String, Boolean> morePatterns = Maps.newHashMap();
     public HashMap<String, Integer> selectedIndex = Maps.newHashMap();
     public HashMap<String, Integer> currentRecipePage = Maps.newHashMap();
