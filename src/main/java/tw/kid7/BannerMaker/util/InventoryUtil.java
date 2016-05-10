@@ -200,7 +200,7 @@ public class InventoryUtil {
             //材料清單
             List<Integer> materialPosition = Arrays.asList(9, 10, 11, 12, 18, 19, 20, 21, 27, 28, 29, 30, 36, 37, 38, 39);
             List<ItemStack> materialList = BannerUtil.getMaterials(banner);
-            for (int i = 0; i < materialList.size(); i++) {
+            for (int i = 0; i < materialList.size() && i < materialPosition.size(); i++) {
                 ItemStack materialItem = materialList.get(i);
                 int position = materialPosition.get(i);
                 menu.setItem(position, materialItem);
