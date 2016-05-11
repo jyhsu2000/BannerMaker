@@ -41,8 +41,7 @@ public class InventoryUtil {
                 openCreateAlphabet(player);
                 break;
             case BANNER_INFO:
-                ItemStack viewInfoBanner = BannerMaker.getInstance().viewInfoBanner.get(player.getName());
-                openBannerInfo(player, viewInfoBanner);
+                openBannerInfo(player);
                 break;
             case MAIN_MENU:
             default:
@@ -217,22 +216,8 @@ public class InventoryUtil {
     }
 
     static public void openBannerInfo(Player player) {
-        //索引值
-        if (!BannerMaker.getInstance().selectedIndex.containsKey(player.getName())) {
-            //回到主選單
-            BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
-            //重新開啟選單
-            InventoryUtil.openMenu(player);
-            return;
-        }
-        int index = BannerMaker.getInstance().selectedIndex.get(player.getName());
-        //新增旗幟
-        List<ItemStack> bannerList = IOUtil.loadBannerList(player);
-        ItemStack banner = bannerList.get(index);
-        openBannerInfo(player, banner);
-    }
-
-    static public void openBannerInfo(Player player, ItemStack banner) {
+        //取得欲查看旗幟
+        ItemStack banner = BannerMaker.getInstance().viewInfoBanner.get(player.getName());
         //僅限旗幟
         if (!BannerUtil.isBanner(banner)) {
             //回到主選單
