@@ -12,6 +12,7 @@ import tw.kid7.BannerMaker.configuration.DefaultConfig;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.listener.InventoryClickEventListener;
 import tw.kid7.BannerMaker.listener.PlayerJoinEventListener;
+import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
@@ -26,10 +27,7 @@ public class BannerMaker extends JavaPlugin {
     public HashMap<String, State> stateMap = Maps.newHashMap();
     public HashMap<String, Integer> selectedColor = Maps.newHashMap();
     public HashMap<String, ItemStack> currentBanner = Maps.newHashMap();
-    public HashMap<String, ItemStack> currentAlphabet = Maps.newHashMap();
-    public HashMap<String, DyeColor> currentAlphabetBaseColor = Maps.newHashMap();
-    public HashMap<String, DyeColor> currentAlphabetDyeColor = Maps.newHashMap();
-    public HashMap<String, Boolean> currentAlphabetBordered = Maps.newHashMap();
+    public HashMap<String, AlphabetBanner> currentAlphabetBanner = Maps.newHashMap();
     public HashMap<String, Boolean> morePatterns = Maps.newHashMap();
     public HashMap<String, Integer> selectedIndex = Maps.newHashMap();
     public HashMap<String, Integer> currentRecipePage = Maps.newHashMap();

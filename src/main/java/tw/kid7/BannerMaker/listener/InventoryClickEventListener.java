@@ -168,14 +168,12 @@ public class InventoryClickEventListener implements Listener {
         Player player = (Player) event.getWhoClicked();
         ItemStack itemStack = event.getCurrentItem();
         //取得當前編輯中的字母
-        ItemStack currentAlphabet = BannerMaker.getInstance().currentAlphabet.get(player.getName());
-        if (currentAlphabet == null) {
+        AlphabetBanner currentAlphabetBanner = BannerMaker.getInstance().currentAlphabetBanner.get(player.getName());
+        if (currentAlphabetBanner == null) {
             if (event.getRawSlot() < 45) {
                 //選擇字母
-                BannerMaker.getInstance().currentAlphabet.put(player.getName(), itemStack);
-                BannerMaker.getInstance().currentAlphabetBaseColor.put(player.getName(), DyeColor.WHITE);
-                BannerMaker.getInstance().currentAlphabetDyeColor.put(player.getName(), DyeColor.BLACK);
-                BannerMaker.getInstance().currentAlphabetBordered.put(player.getName(), true);
+                currentAlphabetBanner = new AlphabetBanner(itemStack.getItemMeta().getDisplayName());
+                BannerMaker.getInstance().currentAlphabetBanner.put(player.getName(), currentAlphabetBanner);
             } else {
                 //點擊按鈕
                 String buttonName = itemStack.getItemMeta().getDisplayName();
@@ -187,25 +185,17 @@ public class InventoryClickEventListener implements Listener {
             //重新開啟選單
             InventoryUtil.openMenu(player);
         } else {
-            String alphabet = ChatColor.stripColor(currentAlphabet.getItemMeta().getDisplayName());
-            DyeColor currentAlphabetBaseColor = BannerMaker.getInstance().currentAlphabetBaseColor.get(player.getName());
-            DyeColor currentAlphabetDyeColor = BannerMaker.getInstance().currentAlphabetDyeColor.get(player.getName());
-            boolean currentAlphabetBordered = BannerMaker.getInstance().currentAlphabetBordered.get(player.getName());
             //選擇顏色
             if (event.getRawSlot() < 1) {
                 //預覽圖
             } else if (event.getRawSlot() < 18) {
                 //選擇底色
-                currentAlphabetBaseColor = DyeColor.getByDyeData((byte) itemStack.getDurability());
-                BannerMaker.getInstance().currentAlphabetBaseColor.put(player.getName(), currentAlphabetBaseColor);
-                currentAlphabet = AlphabetBanner.get(alphabet, currentAlphabetBaseColor, currentAlphabetDyeColor, currentAlphabetBordered);
-                BannerMaker.getInstance().currentAlphabet.put(player.getName(), currentAlphabet);
+                currentAlphabetBanner.baseColor = DyeColor.getByDyeData((byte) itemStack.getDurability());
+                BannerMaker.getInstance().currentAlphabetBanner.put(player.getName(), currentAlphabetBanner);
             } else if (event.getRawSlot() < 36) {
                 //選擇主要顏色
-                currentAlphabetDyeColor = DyeColor.getByDyeData((byte) itemStack.getDurability());
-                BannerMaker.getInstance().currentAlphabetDyeColor.put(player.getName(), currentAlphabetDyeColor);
-                currentAlphabet = AlphabetBanner.get(alphabet, currentAlphabetBaseColor, currentAlphabetDyeColor, currentAlphabetBordered);
-                BannerMaker.getInstance().currentAlphabet.put(player.getName(), currentAlphabet);
+                currentAlphabetBanner.dyeColor = DyeColor.getByDyeData((byte) itemStack.getDurability());
+                BannerMaker.getInstance().currentAlphabetBanner.put(player.getName(), currentAlphabetBanner);
             } else {
                 //點擊按鈕
                 String buttonName = itemStack.getItemMeta().getDisplayName();
@@ -214,12 +204,10 @@ public class InventoryClickEventListener implements Listener {
                 if (buttonName.equalsIgnoreCase("Toggle Border")) {
                     //TODO: 新增至語系檔
                     //切換有無邊框
-                    currentAlphabetBordered = !currentAlphabetBordered;
-                    BannerMaker.getInstance().currentAlphabetBordered.put(player.getName(), currentAlphabetBordered);
-                    currentAlphabet = AlphabetBanner.get(alphabet, currentAlphabetBaseColor, currentAlphabetDyeColor, currentAlphabetBordered);
-                    BannerMaker.getInstance().currentAlphabet.put(player.getName(), currentAlphabet);
+                    currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
+                    BannerMaker.getInstance().currentAlphabetBanner.put(player.getName(), currentAlphabetBanner);
                 } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
-                    BannerMaker.getInstance().currentAlphabet.remove(player.getName());
+                    BannerMaker.getInstance().currentAlphabetBanner.remove(player.getName());
                 }
             }
             //重新開啟選單

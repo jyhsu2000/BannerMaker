@@ -175,8 +175,8 @@ public class InventoryUtil {
         //FIXME: 新增至語系檔
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + "Create Alphabet"));
         //取得當前編輯中的字母
-        ItemStack currentAlphabet = BannerMaker.getInstance().currentAlphabet.get(player.getName());
-        if (currentAlphabet == null) {
+        AlphabetBanner currentAlphabetBanner = BannerMaker.getInstance().currentAlphabetBanner.get(player.getName());
+        if (currentAlphabetBanner == null) {
             //選擇字母
             char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
             for (int i = 0; i < alphabetArray.length && i < 54; i++) {
@@ -186,7 +186,7 @@ public class InventoryUtil {
             }
         } else {
             //選擇顏色
-            menu.setItem(0, currentAlphabet);
+            menu.setItem(0, currentAlphabetBanner.toItemStack());
             //選擇底色
             for (int i = 0; i < 16; i++) {
                 ItemStack banner = new ItemStack(Material.BANNER, 1, (short) i);
