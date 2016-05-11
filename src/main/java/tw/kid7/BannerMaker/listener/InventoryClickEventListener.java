@@ -208,6 +208,12 @@ public class InventoryClickEventListener implements Listener {
                     //切換有無邊框
                     currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
                     BannerMaker.getInstance().currentAlphabetBanner.put(player.getName(), currentAlphabetBanner);
+                } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.banner-info"))) {
+                    //檢視旗幟資訊
+                    BannerMaker.getInstance().viewInfoBanner.put(player.getName(), currentAlphabetBanner.toItemStack());
+                    //重置頁數
+                    BannerMaker.getInstance().currentRecipePage.put(player.getName(), 1);
+                    BannerMaker.getInstance().stateMap.put(player.getName(), State.BANNER_INFO);
                 } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                     BannerMaker.getInstance().currentAlphabetBanner.remove(player.getName());
                 }
@@ -225,7 +231,13 @@ public class InventoryClickEventListener implements Listener {
             String buttonName = itemStack.getItemMeta().getDisplayName();
             buttonName = ChatColor.stripColor(buttonName);
             //當前索引值
-            int index = BannerMaker.getInstance().selectedIndex.get(player.getName());
+            //FIXME: 此方法應該移除index
+            int index = 0;
+            if (BannerMaker.getInstance().selectedIndex.containsKey(player.getName())) {
+                index = BannerMaker.getInstance().selectedIndex.get(player.getName());
+            }
+            //取得欲查看旗幟
+            ItemStack banner = BannerMaker.getInstance().viewInfoBanner.get(player.getName());
             //當前頁數
             int currentRecipePage = BannerMaker.getInstance().currentRecipePage.get(player.getName());
             //修改狀態
@@ -238,8 +250,6 @@ public class InventoryClickEventListener implements Listener {
                 if (player.hasPermission("BannerMaker.getBanner")) {
                     //交易成功的標記
                     boolean success = false;
-                    List<ItemStack> bannerList = IOUtil.loadBannerList(player);
-                    ItemStack banner = bannerList.get(index);
                     //檢查是否啟用經濟
                     if (BannerMaker.econ != null && !player.hasPermission("BannerMaker.getBanner.free")) {
                         FileConfiguration config = ConfigManager.get("config.yml");
@@ -274,15 +284,13 @@ public class InventoryClickEventListener implements Listener {
                         //索引值
                         int showIndex = index + (currentBannerPage - 1) * 45;
                         //顯示訊息
+                        //FIXME: 訊息不該只有index，尤其英文字母旗幟不會有index，應顯示對應字母，且對特殊旗幟顯示index會顯示錯誤
                         player.sendMessage(MessageUtil.format(true, "&a" + Language.get("gui.get-banner", showIndex)));
                     }
                 } else {
                     player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-permission")));
                 }
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.clone-and-edit"))) {
-                //取得當前旗幟
-                List<ItemStack> bannerList = IOUtil.loadBannerList(player);
-                ItemStack banner = bannerList.get(index);
                 //設定為編輯中旗幟
                 BannerMaker.getInstance().currentBanner.put(player.getName(), banner);
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_BANNER);
@@ -292,6 +300,8 @@ public class InventoryClickEventListener implements Listener {
                 BannerMaker.getInstance().selectedIndex.remove(player.getName());
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
+                //返回
+                //FIXME: 若是Alphabet旗幟，須返回Alphabet旗幟頁面
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
             }
             //重新開啟選單

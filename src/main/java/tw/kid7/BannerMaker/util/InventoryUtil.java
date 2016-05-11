@@ -206,7 +206,9 @@ public class InventoryUtil {
             borderedBanner.setItemMeta(borderedBannerMeta);
             menu.setItem(37, borderedBanner);
             //TODO: 取得旗幟按鈕
-            //TODO: 檢視旗幟資訊按鈕
+            //檢視旗幟資訊按鈕
+            ItemStack btnBannerInfo = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.banner-info"))).build();
+            menu.setItem(49, btnBannerInfo);
         }
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
