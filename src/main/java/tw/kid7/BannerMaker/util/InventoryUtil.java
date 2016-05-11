@@ -292,6 +292,7 @@ public class InventoryUtil {
         }
         //新增按鈕
         //刪除
+        //FIXME: 若為Alphabet旗幟，不該顯示刪除按鈕
         ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.delete"))).build();
         menu.setItem(47, btnDelete);
         //取得旗幟
