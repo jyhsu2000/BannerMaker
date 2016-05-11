@@ -41,7 +41,8 @@ public class InventoryUtil {
                 openCreateAlphabet(player);
                 break;
             case BANNER_INFO:
-                openBannerInfo(player);
+                ItemStack viewInfoBanner = BannerMaker.getInstance().viewInfoBanner.get(player.getName());
+                openBannerInfo(player, viewInfoBanner);
                 break;
             case MAIN_MENU:
             default:
@@ -216,8 +217,6 @@ public class InventoryUtil {
     }
 
     static public void openBannerInfo(Player player) {
-        //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.banner-info")));
         //索引值
         if (!BannerMaker.getInstance().selectedIndex.containsKey(player.getName())) {
             //回到主選單
@@ -230,13 +229,20 @@ public class InventoryUtil {
         //新增旗幟
         List<ItemStack> bannerList = IOUtil.loadBannerList(player);
         ItemStack banner = bannerList.get(index);
-        if (banner == null || !banner.getType().equals(Material.BANNER)) {
+        openBannerInfo(player, banner);
+    }
+
+    static public void openBannerInfo(Player player, ItemStack banner) {
+        //僅限旗幟
+        if (!BannerUtil.isBanner(banner)) {
             //回到主選單
             BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
             //重新開啟選單
             InventoryUtil.openMenu(player);
             return;
         }
+        //建立選單
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.banner-info")));
         menu.setItem(0, banner);
         //patterns數量
         int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();

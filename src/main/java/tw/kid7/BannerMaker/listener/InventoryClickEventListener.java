@@ -72,6 +72,8 @@ public class InventoryClickEventListener implements Listener {
             //點擊旗幟
             //記錄選擇的索引值
             BannerMaker.getInstance().selectedIndex.put(player.getName(), event.getRawSlot());
+            //記錄選擇的旗幟
+            BannerMaker.getInstance().viewInfoBanner.put(player.getName(), itemStack);
             //重置頁數
             BannerMaker.getInstance().currentRecipePage.put(player.getName(), 1);
             //切換畫面
