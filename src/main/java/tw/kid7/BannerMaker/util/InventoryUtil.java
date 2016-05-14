@@ -50,7 +50,7 @@ public class InventoryUtil {
 
     }
 
-    static public void openMainMenu(Player player) {
+    private static void openMainMenu(Player player) {
         //建立選單
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.main-menu")));
         //當前頁數
@@ -94,7 +94,7 @@ public class InventoryUtil {
         player.openInventory(menu);
     }
 
-    static public void openCreateBanner(Player player) {
+    private static void openCreateBanner(Player player) {
         //建立選單
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.create-banner")));
         //取得當前編輯中的旗幟
@@ -169,7 +169,7 @@ public class InventoryUtil {
         player.openInventory(menu);
     }
 
-    static public void openCreateAlphabet(Player player) {
+    private static void openCreateAlphabet(Player player) {
         //TODO
         //建立選單
         //FIXME: 新增至語系檔
@@ -217,7 +217,7 @@ public class InventoryUtil {
         player.openInventory(menu);
     }
 
-    static public void openBannerInfo(Player player) {
+    private static void openBannerInfo(Player player) {
         //取得欲查看旗幟
         ItemStack banner = BannerMaker.getInstance().viewInfoBanner.get(player.getName());
         //僅限旗幟
@@ -364,7 +364,7 @@ public class InventoryUtil {
         return list;
     }
 
-    static public HashMap<Integer, ItemStack> getPatternRecipe(final ItemStack banner, int step) {
+    private static HashMap<Integer, ItemStack> getPatternRecipe(final ItemStack banner, int step) {
         HashMap<Integer, ItemStack> recipe = Maps.newHashMap();
         //填滿空氣
         for (int i = 0; i < 10; i++) {

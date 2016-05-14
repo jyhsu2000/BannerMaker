@@ -65,7 +65,7 @@ public class InventoryClickEventListener implements Listener {
         }
     }
 
-    public void onClickMainMenu(InventoryClickEvent event) {
+    private void onClickMainMenu(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         ItemStack itemStack = event.getCurrentItem();
         if (event.getRawSlot() < 45) {
@@ -108,7 +108,7 @@ public class InventoryClickEventListener implements Listener {
 
     }
 
-    public void onClickCreateBanner(InventoryClickEvent event) {
+    private void onClickCreateBanner(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         ItemStack itemStack = event.getCurrentItem();
         //取得當前編輯中的旗幟
@@ -166,7 +166,7 @@ public class InventoryClickEventListener implements Listener {
 
     }
 
-    public void onClickCreateAlphabet(InventoryClickEvent event) {
+    private void onClickCreateAlphabet(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         ItemStack itemStack = event.getCurrentItem();
         //取得當前編輯中的字母
@@ -223,7 +223,7 @@ public class InventoryClickEventListener implements Listener {
         }
     }
 
-    public void onClickBannerInfo(InventoryClickEvent event) {
+    private void onClickBannerInfo(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         ItemStack itemStack = event.getCurrentItem();
         if (event.getRawSlot() == 22 || event.getRawSlot() == 26 || event.getRawSlot() >= 45) {
