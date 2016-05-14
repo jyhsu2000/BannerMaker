@@ -58,6 +58,7 @@ v1.4.1 (for 1.8.x, 1.9.x)
 - Add craft material estimates
 - Make GUI title prefix editable
 - Fix wrong wool color of black banner
+- Optimize performance
 
 v1.4 (for 1.8.x, 1.9.x)
 - Update to 1.9.2
@@ -145,6 +146,7 @@ v1.4.1 (for 1.8.x, 1.9.x)
 - 新增合成材料估算
 - 令GUI標題前綴可編輯
 - 修正黑色旗幟的羊毛顏色錯誤
+- 優化效能
 
 v1.4 (for 1.8.x, 1.9.x)
 - 升級至1.9.2
