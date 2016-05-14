@@ -1,6 +1,6 @@
 name: BannerMaker
 main: tw.kid7.BannerMaker.BannerMaker
-version: 1.4
+version: 1.4.1
 author: KID
 softdepend: [Vault]
 commands:
