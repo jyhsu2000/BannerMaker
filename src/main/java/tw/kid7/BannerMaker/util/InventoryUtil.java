@@ -175,7 +175,7 @@ public class InventoryUtil {
         AlphabetBanner currentAlphabetBanner = BannerMaker.getInstance().currentAlphabetBanner.get(player.getName());
         if (currentAlphabetBanner == null) {
             //選擇字母
-            char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+            char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.".toCharArray();
             for (int i = 0; i < alphabetArray.length && i < 54; i++) {
                 char alphabet = alphabetArray[i];
                 ItemStack alphabetItem = AlphabetBanner.get(String.valueOf(alphabet));
