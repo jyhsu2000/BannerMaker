@@ -185,12 +185,7 @@ v1.0 (for 1.8)
 
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 ## Pictures / 圖片
-Main menu 主選單  
-![Main menu](http://i.imgur.com/IcXVbFI.png)
-
-Create banner 建立旗幟  
-![Create banner 1](http://i.imgur.com/2RhPSUm.png)
-![Create banner 2](http://i.imgur.com/ssVKwIT.png)
-
-Banner info 旗幟資訊  
-![Banner info](http://i.imgur.com/LIxJo0Z.png)
+![Main menu](http://i.imgur.com/rMTTfsE.png)  
+![Create banner](http://i.imgur.com/HB6Dhm3.png)  
+![Banner info](http://i.imgur.com/Xydmcbj.png)  
+![Alphabet & Number](http://i.imgur.com/tGHmakp.png)
