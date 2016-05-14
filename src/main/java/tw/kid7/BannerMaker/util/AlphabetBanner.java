@@ -325,8 +325,267 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
                     break;
-                //TODO: 完成其餘字母
-                //TODO: 完成數字
+                case "B":
+                case "8":
+                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_CENTER));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "C":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "D":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.DIAGONAL_RIGHT_MIRROR));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "E":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "F":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "G":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "H":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "I":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_CENTER));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "J":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "K":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CROSS));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "L":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "M":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLE_TOP));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.TRIANGLES_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "N":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.DIAGONAL_RIGHT_MIRROR));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "O":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "P":
+                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "Q":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_RIGHT));
+                    break;
+                case "R":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CROSS));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "S":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "T":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_CENTER));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "U":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "V":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.TRIANGLES_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "W":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.TRIANGLES_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "X":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_CENTER));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CROSS));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "Y":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CROSS));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "Z":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "1":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_TOP_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_CENTER));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "2":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "3":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "4":
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "5":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.CURLY_BORDER));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "6":
+                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "7":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.DIAGONAL_RIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "9":
+                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "0":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "?":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case "!":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
+                case ".":
+                    bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    break;
             }
         }
         banner.setItemMeta(bannerMeta);
