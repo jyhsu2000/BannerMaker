@@ -173,14 +173,26 @@ public class InventoryUtil {
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.alphabet-and-number")));
         //取得當前編輯中的字母
         AlphabetBanner currentAlphabetBanner = BannerMaker.getInstance().currentAlphabetBanner.get(player.getName());
+        //邊框切換按鈕
+        ItemStack btnBorderedBanner = new ItemStack(Material.BANNER, 1, (short) 15);
+        BannerMeta borderedBannerMeta = (BannerMeta) btnBorderedBanner.getItemMeta();
+        borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.toggle-border")));
+        borderedBannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
+        btnBorderedBanner.setItemMeta(borderedBannerMeta);
         if (currentAlphabetBanner == null) {
             //選擇字母
+            boolean alphabetBorder = true;
+            if (BannerMaker.getInstance().alphabetBorder.containsKey(player.getName())) {
+                alphabetBorder = BannerMaker.getInstance().alphabetBorder.get(player.getName());
+            }
             char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.".toCharArray();
             for (int i = 0; i < alphabetArray.length && i < 54; i++) {
                 char alphabet = alphabetArray[i];
-                ItemStack alphabetItem = AlphabetBanner.get(String.valueOf(alphabet));
+                ItemStack alphabetItem = AlphabetBanner.get(String.valueOf(alphabet), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
                 menu.setItem(i, alphabetItem);
             }
+            //切換有無邊框
+            menu.setItem(49, btnBorderedBanner);
         } else {
             //選擇顏色
             menu.setItem(0, currentAlphabetBanner.toItemStack());
@@ -195,12 +207,7 @@ public class InventoryUtil {
                 menu.setItem(18 + i + 1 + (i / 8), dye);
             }
             //切換有無邊框
-            ItemStack borderedBanner = new ItemStack(Material.BANNER, 1, (short) 15);
-            BannerMeta borderedBannerMeta = (BannerMeta) borderedBanner.getItemMeta();
-            borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.toggle-border")));
-            borderedBannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
-            borderedBanner.setItemMeta(borderedBannerMeta);
-            menu.setItem(37, borderedBanner);
+            menu.setItem(37, btnBorderedBanner);
             //檢視旗幟資訊按鈕
             ItemStack btnBannerInfo = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.banner-info"))).build();
             menu.setItem(49, btnBannerInfo);

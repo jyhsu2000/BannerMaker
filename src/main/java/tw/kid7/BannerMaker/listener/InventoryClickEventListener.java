@@ -93,6 +93,7 @@ public class InventoryClickEventListener implements Listener {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create-banner"))) {
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_BANNER);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.alphabet-and-number"))) {
+                BannerMaker.getInstance().currentAlphabetBanner.remove(player.getName());
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_ALPHABET);
             }
             //重新開啟選單
@@ -167,13 +168,25 @@ public class InventoryClickEventListener implements Listener {
         if (currentAlphabetBanner == null) {
             if (event.getRawSlot() < 45) {
                 //選擇字母
-                currentAlphabetBanner = new AlphabetBanner(itemStack.getItemMeta().getDisplayName());
+                boolean alphabetBorder = true;
+                if (BannerMaker.getInstance().alphabetBorder.containsKey(player.getName())) {
+                    alphabetBorder = BannerMaker.getInstance().alphabetBorder.get(player.getName());
+                }
+                currentAlphabetBanner = new AlphabetBanner(itemStack.getItemMeta().getDisplayName(), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
                 BannerMaker.getInstance().currentAlphabetBanner.put(player.getName(), currentAlphabetBanner);
             } else {
                 //點擊按鈕
                 String buttonName = itemStack.getItemMeta().getDisplayName();
                 buttonName = ChatColor.stripColor(buttonName);
-                if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
+                if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.toggle-border"))) {
+                    //切換有無邊框
+                    boolean alphabetBorder = true;
+                    if (BannerMaker.getInstance().alphabetBorder.containsKey(player.getName())) {
+                        alphabetBorder = BannerMaker.getInstance().alphabetBorder.get(player.getName());
+                    }
+                    alphabetBorder = !alphabetBorder;
+                    BannerMaker.getInstance().alphabetBorder.put(player.getName(), alphabetBorder);
+                } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                     BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
                 }
             }
