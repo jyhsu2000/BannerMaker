@@ -92,8 +92,7 @@ public class InventoryClickEventListener implements Listener {
                 BannerMaker.getInstance().currentBannerPage.put(player.getName(), currentBannerPage + 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create-banner"))) {
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_BANNER);
-            } else if (buttonName.equalsIgnoreCase("Create Alphabet")) {
-                //FIXME: 新增至語系檔
+            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.alphabet-and-number"))) {
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_ALPHABET);
             }
             //重新開啟選單
@@ -196,9 +195,7 @@ public class InventoryClickEventListener implements Listener {
                 //點擊按鈕
                 String buttonName = itemStack.getItemMeta().getDisplayName();
                 buttonName = ChatColor.stripColor(buttonName);
-                //TODO: 取得旗幟按鈕
-                if (buttonName.equalsIgnoreCase("Toggle Border")) {
-                    //TODO: 新增至語系檔
+                if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.toggle-border"))) {
                     //切換有無邊框
                     currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
                     BannerMaker.getInstance().currentAlphabetBanner.put(player.getName(), currentAlphabetBanner);

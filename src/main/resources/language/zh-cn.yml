@@ -34,3 +34,5 @@ gui:
   get-banner: "\u53d6\u5f97\u65d7\u5e1c &r#{0}"
   price: "\u8d39\u7528: {0}"
   clone-and-edit: "\u590d\u5236\u5e76\u7f16\u8f91"
+  alphabet-and-number: "\u5b57\u6bcd\u4e0e\u6570\u5b57"
+  toggle-border: "\u5207\u6362\u8fb9\u6846"

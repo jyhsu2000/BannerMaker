@@ -128,6 +128,8 @@ public class Language {
         defaultLanguage.put("gui.get-banner", "Get banner &r#{0}");
         defaultLanguage.put("gui.price", "Price: {0}");
         defaultLanguage.put("gui.clone-and-edit", "Clone & Edit");
+        defaultLanguage.put("gui.alphabet-and-number", "Alphabet & Number");
+        defaultLanguage.put("gui.toggle-border", "Toggle border");
 
         FileConfiguration config = ConfigManager.get(getFileName(lang));
 

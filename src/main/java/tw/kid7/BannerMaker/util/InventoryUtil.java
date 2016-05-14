@@ -85,9 +85,8 @@ public class InventoryUtil {
         menu.setItem(49, btnCreateBanner);
         //建立字母
         ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
-        //FIXME: 加入語系檔
         ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
-        btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&aCreate Alphabet"));
+        btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.alphabet-and-number")));
         btnCreateAlphabet.setItemMeta(btnCreateAlphabetItemMeta);
         menu.setItem(51, btnCreateAlphabet);
         //開啟選單
@@ -170,10 +169,8 @@ public class InventoryUtil {
     }
 
     private static void openCreateAlphabet(Player player) {
-        //TODO
         //建立選單
-        //FIXME: 新增至語系檔
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + "Create Alphabet"));
+        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.alphabet-and-number")));
         //取得當前編輯中的字母
         AlphabetBanner currentAlphabetBanner = BannerMaker.getInstance().currentAlphabetBanner.get(player.getName());
         if (currentAlphabetBanner == null) {
@@ -200,12 +197,10 @@ public class InventoryUtil {
             //切換有無邊框
             ItemStack borderedBanner = new ItemStack(Material.BANNER, 1, (short) 15);
             BannerMeta borderedBannerMeta = (BannerMeta) borderedBanner.getItemMeta();
-            //TODO: 新增至語系檔
-            borderedBannerMeta.setDisplayName(MessageUtil.format("&aToggle Border"));
+            borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.toggle-border")));
             borderedBannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
             borderedBanner.setItemMeta(borderedBannerMeta);
             menu.setItem(37, borderedBanner);
-            //TODO: 取得旗幟按鈕
             //檢視旗幟資訊按鈕
             ItemStack btnBannerInfo = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.banner-info"))).build();
             menu.setItem(49, btnBannerInfo);

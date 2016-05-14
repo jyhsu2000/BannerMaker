@@ -34,3 +34,5 @@ gui:
   get-banner: Get banner &r#{0}
   price: 'Price: {0}'
   clone-and-edit: 'Clone & Edit'
+  alphabet-and-number: 'Alphabet & Number'
+  toggle-border: Toggle border
