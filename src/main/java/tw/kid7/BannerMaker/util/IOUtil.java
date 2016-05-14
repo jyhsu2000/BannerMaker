@@ -13,9 +13,7 @@ import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.Language;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class IOUtil {
 
@@ -82,6 +80,10 @@ public class IOUtil {
 
     //讀取旗幟
     static public ItemStack loadBanner(Player player, String key) {
+        return loadBanner(player, key, true);
+    }
+
+    static public ItemStack loadBanner(Player player, String key, boolean withKey) {
         //設定檔
         String fileName = getFileName(player);
         ConfigManager.load(fileName);
@@ -106,6 +108,11 @@ public class IOUtil {
                     }
                     banner.setItemMeta(bm);
                 }
+                //將key藏於Lore
+                if (withKey) {
+                    bm.setLore(Arrays.asList(HiddenStringUtil.encodeString(key)));
+                    banner.setItemMeta(bm);
+                }
             } catch (Exception e) {
                 banner = null;
             }
@@ -118,6 +125,18 @@ public class IOUtil {
     }
 
     //刪除旗幟
+    static public void removeBanner(Player player, String key) {
+        //設定檔
+        String fileName = getFileName(player);
+        FileConfiguration config = ConfigManager.get(fileName);
+        //移除
+        config.set(key, null);
+        //儲存
+        ConfigManager.save(fileName);
+        //顯示訊息
+        player.sendMessage(MessageUtil.format(true, "&a" + Language.get("io.remove-banner", key)));
+    }
+
     static public void removeBanner(Player player, int page, int index) {
         //設定檔
         String fileName = getFileName(player);

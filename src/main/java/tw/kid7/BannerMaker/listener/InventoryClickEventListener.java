@@ -16,13 +16,9 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.Language;
-import tw.kid7.BannerMaker.util.AlphabetBanner;
-import tw.kid7.BannerMaker.util.IOUtil;
-import tw.kid7.BannerMaker.util.InventoryUtil;
-import tw.kid7.BannerMaker.util.MessageUtil;
+import tw.kid7.BannerMaker.util.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static tw.kid7.BannerMaker.State.MAIN_MENU;
 
@@ -296,8 +292,11 @@ public class InventoryClickEventListener implements Listener {
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_BANNER);
 
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
-                //FIXME: 若為Alphabet旗幟，不該擁有刪除功能
-                IOUtil.removeBanner(player, currentRecipePage, index);
+                String key = BannerUtil.getKey(banner);
+                if (key != null) {
+                    //有KEY時（儲存於玩家資料時），才能刪除
+                    IOUtil.removeBanner(player, key);
+                }
                 BannerMaker.getInstance().selectedIndex.remove(player.getName());
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {

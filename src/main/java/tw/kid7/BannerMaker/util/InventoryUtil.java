@@ -291,10 +291,14 @@ public class InventoryUtil {
             }
         }
         //新增按鈕
+        //嘗試取德key
+        String key = BannerUtil.getKey(banner);
         //刪除
-        //FIXME: 若為Alphabet旗幟，不該顯示刪除按鈕
-        ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.delete"))).build();
-        menu.setItem(47, btnDelete);
+        if (key != null) {
+            //有KEY時（儲存於玩家資料時），才顯示刪除按鈕
+            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.delete"))).build();
+            menu.setItem(47, btnDelete);
+        }
         //取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
             //檢查是否啟用經濟

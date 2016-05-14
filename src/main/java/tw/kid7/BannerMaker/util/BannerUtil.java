@@ -160,4 +160,25 @@ public class BannerUtil {
 
         return materialList;
     }
+
+    /**
+     * 取得旗幟在玩家存檔中的Key
+     *
+     * @param itemStack 欲檢查之旗幟
+     * @return String
+     */
+    static public String getKey(ItemStack itemStack) {
+        //只檢查旗幟
+        if (!isBanner(itemStack)) {
+            return null;
+        }
+        String key = null;
+        //嘗試取出key
+        try {
+            key = HiddenStringUtil.extractHiddenString(itemStack.getItemMeta().getLore().get(0));
+        } catch (Exception exception) {
+            return null;
+        }
+        return key;
+    }
 }
