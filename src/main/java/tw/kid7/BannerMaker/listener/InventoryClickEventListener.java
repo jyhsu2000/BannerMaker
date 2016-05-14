@@ -66,8 +66,6 @@ public class InventoryClickEventListener implements Listener {
         ItemStack itemStack = event.getCurrentItem();
         if (event.getRawSlot() < 45) {
             //點擊旗幟
-            //記錄選擇的索引值
-            BannerMaker.getInstance().selectedIndex.put(player.getName(), event.getRawSlot());
             //記錄選擇的旗幟
             BannerMaker.getInstance().viewInfoBanner.put(player.getName(), itemStack);
             //重置頁數
@@ -226,12 +224,6 @@ public class InventoryClickEventListener implements Listener {
             //點擊按鈕
             String buttonName = itemStack.getItemMeta().getDisplayName();
             buttonName = ChatColor.stripColor(buttonName);
-            //當前索引值
-            //FIXME: 此方法應該移除index
-            int index = 0;
-            if (BannerMaker.getInstance().selectedIndex.containsKey(player.getName())) {
-                index = BannerMaker.getInstance().selectedIndex.get(player.getName());
-            }
             //取得欲查看旗幟
             ItemStack banner = BannerMaker.getInstance().viewInfoBanner.get(player.getName());
             //當前頁數
@@ -275,13 +267,10 @@ public class InventoryClickEventListener implements Listener {
                         success = true;
                     }
                     if (success) {
-                        //所在頁數
-                        int currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
-                        //索引值
-                        int showIndex = index + (currentBannerPage - 1) * 45;
+                        //顯示名稱
+                        String showName = BannerUtil.getName(banner);
                         //顯示訊息
-                        //FIXME: 訊息不該只有index，尤其英文字母旗幟不會有index，應顯示對應字母，且對特殊旗幟顯示index會顯示錯誤
-                        player.sendMessage(MessageUtil.format(true, "&a" + Language.get("gui.get-banner", showIndex)));
+                        player.sendMessage(MessageUtil.format(true, "&a" + Language.get("gui.get-banner", showName)));
                     }
                 } else {
                     player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-permission")));
@@ -297,7 +286,6 @@ public class InventoryClickEventListener implements Listener {
                     //有KEY時（儲存於玩家資料時），才能刪除
                     IOUtil.removeBanner(player, key);
                 }
-                BannerMaker.getInstance().selectedIndex.remove(player.getName());
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                 //返回

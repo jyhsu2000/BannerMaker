@@ -168,7 +168,7 @@ public class BannerUtil {
      * @return String
      */
     static public String getKey(ItemStack itemStack) {
-        //只檢查旗幟
+        //只處理旗幟
         if (!isBanner(itemStack)) {
             return null;
         }
@@ -180,5 +180,28 @@ public class BannerUtil {
             return null;
         }
         return key;
+    }
+
+    /**
+     * 取得旗幟名稱，若無名稱則嘗試取得KEY
+     *
+     * @param itemStack 欲檢查之旗幟
+     * @return String
+     */
+    static public String getName(ItemStack itemStack) {
+        //只處理旗幟
+        if (!isBanner(itemStack)) {
+            return null;
+        }
+        String showName = "";
+        if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()) {
+            showName = itemStack.getItemMeta().getDisplayName();
+        } else {
+            String key = BannerUtil.getKey(itemStack);
+            if (key != null) {
+                showName = key;
+            }
+        }
+        return showName;
     }
 }
