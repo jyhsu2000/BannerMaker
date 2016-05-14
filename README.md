@@ -55,6 +55,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 
 ### Change Logs
 v1.4.1 (for 1.8.x, 1.9.x)
+- Add menu of Alphabet & Number
 - Add craft material estimates
 - Make GUI title prefix editable
 - Fix wrong wool color of black banner
@@ -143,6 +144,7 @@ v1.0 (for 1.8)
 
 ### 更新紀錄
 v1.4.1 (for 1.8.x, 1.9.x)
+- 新增字母與數字選單
 - 新增合成材料估算
 - 令GUI標題前綴可編輯
 - 修正黑色旗幟的羊毛顏色錯誤
