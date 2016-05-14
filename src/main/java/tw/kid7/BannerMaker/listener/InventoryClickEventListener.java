@@ -301,8 +301,13 @@ public class InventoryClickEventListener implements Listener {
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                 //返回
-                //FIXME: 若是Alphabet旗幟，須返回Alphabet旗幟頁面
-                BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                String key = BannerUtil.getKey(banner);
+                if (key == null) {
+                    //若無KEY（Alphabet旗幟），回到Alphabet旗幟頁面
+                    BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_ALPHABET);
+                } else {
+                    BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                }
             }
             //重新開啟選單
             InventoryUtil.openMenu(player);
