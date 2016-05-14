@@ -50,6 +50,10 @@ public class IOUtil {
 
     //讀取旗幟清單
     static public List<ItemStack> loadBannerList(Player player) {
+        return loadBannerList(player, 0);
+    }
+
+    static public List<ItemStack> loadBannerList(Player player, int page) {
         List<ItemStack> bannerList = new ArrayList<>();
         //設定檔
         String fileName = getFileName(player);
@@ -57,20 +61,14 @@ public class IOUtil {
         //強制重新讀取，以避免選單內容未即時更新
         ConfigManager.reload(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
-        //當前頁數
-        int currentBannerPage = 1;
-        if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
-            currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
-        } else {
-            BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
-        }
         //起始索引值
-        int startIndex = Math.max(0, (currentBannerPage - 1) * 45);
+        int startIndex = Math.max(0, (page - 1) * 45);
         //旗幟
         Set<String> keySet = config.getKeys(false);
         List<String> keyList = new ArrayList<>();
         keyList.addAll(keySet);
-        for (int i = startIndex; i < keyList.size() && i < startIndex + 45; i++) {
+        //載入該頁旗幟，若無指定頁碼，則載入全部
+        for (int i = startIndex; i < keyList.size() && (i < startIndex + 45 || page == 0); i++) {
             String key = keyList.get(i);
             //嘗試讀取旗幟
             ItemStack banner = loadBanner(player, key);
@@ -120,22 +118,15 @@ public class IOUtil {
     }
 
     //刪除旗幟
-    static public void removeBanner(Player player, int index) {
+    static public void removeBanner(Player player, int page, int index) {
         //設定檔
         String fileName = getFileName(player);
         FileConfiguration config = ConfigManager.get(fileName);
         Set<String> keySet = config.getKeys(false);
         List<String> keyList = new ArrayList<>();
         keyList.addAll(keySet);
-        //當前頁數
-        int currentBannerPage = 1;
-        if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
-            currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
-        } else {
-            BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
-        }
         //索引值調整
-        index += Math.max(0, (currentBannerPage - 1) * 45);
+        index += Math.max(0, (page - 1) * 45);
         //檢查索引值
         if (index >= keySet.size()) {
             return;
@@ -152,46 +143,8 @@ public class IOUtil {
 
     //取得旗幟總數
     static public int getBannerCount(Player player) {
-        //設定檔
-        String fileName = getFileName(player);
-        ConfigManager.load(fileName);
-        FileConfiguration config = ConfigManager.get(fileName);
-        Set<String> keySet = config.getKeys(false);
-        List<String> keyList = new ArrayList<>();
-        keyList.addAll(keySet);
-        int count = 0;
-        //載入並計算
-        for (String key : keyList) {
-            ItemStack banner = null;
-            //檢查是否為正確格式
-            if (config.isInt(key + ".color") && (!config.contains(key + ".patterns") || config.isList(key + ".patterns"))) {
-                //嘗試以新格式讀取
-                try {
-                    //建立旗幟
-                    banner = new ItemStack(Material.BANNER, 1, (short) config.getInt(key + ".color"));
-                    BannerMeta bm = (BannerMeta) banner.getItemMeta();
-                    //新增Patterns
-                    if (config.contains(key + ".patterns")) {
-                        List<String> patternsList = config.getStringList(key + ".patterns");
-                        for (String str : patternsList) {
-                            String strPattern = str.split(":")[0];
-                            String strColor = str.split(":")[1];
-                            Pattern pattern = new Pattern(DyeColor.valueOf(strColor), PatternType.getByIdentifier(strPattern));
-                            bm.addPattern(pattern);
-                        }
-                        banner.setItemMeta(bm);
-                    }
-                } catch (Exception e) {
-                    banner = null;
-                }
-            }
-            //只計算旗幟
-            if (!BannerUtil.isBanner(banner)) {
-                continue;
-            }
-            count++;
-        }
-        return count;
+        List<ItemStack> bannerList = loadBannerList(player, 0);
+        return bannerList.size();
     }
 
     //旗幟檔案路徑

@@ -297,7 +297,7 @@ public class InventoryClickEventListener implements Listener {
 
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
                 //FIXME: 若為Alphabet旗幟，不該擁有刪除功能
-                IOUtil.removeBanner(player, index);
+                IOUtil.removeBanner(player, currentRecipePage, index);
                 BannerMaker.getInstance().selectedIndex.remove(player.getName());
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {

@@ -61,7 +61,7 @@ public class InventoryUtil {
             BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
         }
         //顯示現有旗幟
-        List<ItemStack> bannerList = IOUtil.loadBannerList(player);
+        List<ItemStack> bannerList = IOUtil.loadBannerList(player, currentBannerPage);
         for (int i = 0; i < bannerList.size() && i < 45; i++) {
             ItemStack banner = bannerList.get(i);
             menu.setItem(i, banner);
