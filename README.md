@@ -44,6 +44,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 |BannerMaker.reload|Use /bm reload|
 
 ### Features in future
+* Use craft materials to get banner
 * Generate give command
 * Generate summon command
 * ...and tell me what you want
@@ -133,6 +134,7 @@ v1.0 (for 1.8)
 |BannerMaker.reload|使用/bm reload|
 
 ### 未來功能
+* 使用合成材料來取得旗幟
 * 產生give指令
 * 產生summon指令
 * ...告訴我你還想要什麼
