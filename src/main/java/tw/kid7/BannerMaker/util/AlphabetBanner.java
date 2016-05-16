@@ -451,8 +451,10 @@ public class AlphabetBanner {
                 case "S":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS_MIDDLE));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.CURLY_BORDER));
                     break;
                 case "T":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
