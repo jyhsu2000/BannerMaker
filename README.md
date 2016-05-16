@@ -55,6 +55,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
+v1.4.2 (for 1.8.x, 1.9.x)
+- Update recipe of bordered alphabet S
+
 v1.4.1 (for 1.8.x, 1.9.x)
 - Add menu of Alphabet & Number
 - Add craft material estimates
@@ -145,6 +148,9 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
+v1.4.2 (for 1.8.x, 1.9.x)
+- 更新有框字母S的合成表
+
 v1.4.1 (for 1.8.x, 1.9.x)
 - 新增字母與數字選單
 - 新增合成材料估算
