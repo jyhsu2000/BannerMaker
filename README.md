@@ -2,7 +2,7 @@
 ## Link
 * [BukkitDev](http://dev.bukkit.org/bukkit-plugins/bannermaker/)
 * [Spigot Resource](http://www.spigotmc.org/resources/bannermaker.4380/)
-* [巴哈姆特](http://forum.gamer.com.tw/C.php?bsn=18673&snA=123519&tnum=1)
+* ~~[巴哈姆特](http://forum.gamer.com.tw/C.php?bsn=18673&snA=123519&tnum=1)~~（已自動消失）
 * [巴哈小屋](http://home.gamer.com.tw/creationDetail.php?sn=2760067)
 * [MCBBS](http://www.mcbbs.net/thread-415289-1-1.html)
 
