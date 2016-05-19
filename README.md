@@ -1,4 +1,5 @@
 # BannerMaker
+[![Build Status](https://ci.kid7.club/job/BannerMaker/badge/icon)](https://ci.kid7.club/job/BannerMaker/)
 ## Link
 * [BukkitDev](http://dev.bukkit.org/bukkit-plugins/bannermaker/)
 * [Spigot Resource](http://www.spigotmc.org/resources/bannermaker.4380/)
