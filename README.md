@@ -22,7 +22,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 * Look up recipe of banner
 * Support UUID
 * Multi language support  
- (Setting in config.yml. Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn))
+ (Setting in config.yml. Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn), German(de))
 * Economic support (need Vault)
 * Material estimates
 
@@ -58,6 +58,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 ### Change Logs
 v1.4.2 (for 1.8.x, 1.9.x)
 - Update recipe of bordered alphabet S
+- Add German(de) Translation (Thanks [Marrarus](https://github.com/Marrarus))
 
 v1.4.1 (for 1.8.x, 1.9.x)
 - Add menu of Alphabet & Number
@@ -115,7 +116,7 @@ v1.0 (for 1.8)
 * 查詢旗幟合成表
 * 支援UUID
 * 多國語言  
-（在config.yml設定，目前支援英文(en)、正體中文(zh-tw)、簡體中文(zh-cn)）
+（在config.yml設定，目前支援英文(en)、正體中文(zh-tw)、簡體中文(zh-cn)、德文(de)）
 * 支援經濟功能（需要Vault）
 * 材料估算
 
@@ -151,6 +152,7 @@ v1.0 (for 1.8)
 ### 更新紀錄
 v1.4.2 (for 1.8.x, 1.9.x)
 - 更新有框字母S的合成表
+- 新增德文(de)翻譯（感謝 [Marrarus](https://github.com/Marrarus)）
 
 v1.4.1 (for 1.8.x, 1.9.x)
 - 新增字母與數字選單

@@ -1,0 +1,34 @@
+general:
+  reload: Reload config
+  no-permission: No permission
+  no-money: Nicht genug Geld
+  money-transaction: Du brauchst {0} für das Banner. Du hast grade {1}
+io:
+  save-failed: Speichern fehlgeschlagen.
+  save-success: Erfolgreich gespeichert.
+  remove-banner: Lösche Banner &r#{0}
+command:
+  player-only: Dieser Befehl kann nur von Spielern genutzt werden.
+config:
+  add-setting: Add {0} new settings
+gui:
+  main-menu: Hauptmenü
+  prev-page: Letzte Seite
+  next-page: Nächste Seite
+  create-banner: Banner erstellen
+  uncraftable-warning: Uncraftable Warning
+  uncraftable: Nicht Craftbar
+  more-than-6-patterns: Mehr als 6 Muster.
+  more-patterns: Mehr Muster
+  preview-mode: Vorschau
+  back: Zurück
+  create: erstellen
+  delete: LÖSCHEN
+  remove-last-pattern: Letztes Muster entfernen
+  banner-info: Banner Info
+  pattern-s: Muster
+  no-patterns: Keine Muster
+  craft-recipe: Rezept
+  get-this-banner: Banner bekommen
+  get-banner: Banner &r#{0} bekommen
+  price: 'Preis: {0}'
