@@ -21,8 +21,11 @@ You don't need to know how to craft. All you need to know is how it will looks l
 * Design and save banner
 * Look up recipe of banner
 * Support UUID
-* Multi language support  
- (Setting in config.yml. Now support English(en),Traditional Chinese(zh-tw), Simplified Chinese(zh-cn), German(de))
+* Multi language support (Setting in config.yml)  
+  * English(en)
+  * Traditional Chinese(zh-tw)
+  * Simplified Chinese(zh-cn)
+  * German(de) (Thanks [Marrarus](https://github.com/Marrarus))
 * Economic support (need Vault)
 * Material estimates
 
@@ -115,8 +118,11 @@ v1.0 (for 1.8)
 * 設計並儲存旗幟
 * 查詢旗幟合成表
 * 支援UUID
-* 多國語言  
-（在config.yml設定，目前支援英文(en)、正體中文(zh-tw)、簡體中文(zh-cn)、德文(de)）
+* 多國語言（在config.yml設定）  
+  * 英文(en)
+  * 正體中文(zh-tw)
+  * 簡體中文(zh-cn)
+  * 德文(de)（感謝 [Marrarus](https://github.com/Marrarus)）
 * 支援經濟功能（需要Vault）
 * 材料估算
 
