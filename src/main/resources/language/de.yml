@@ -1,8 +1,9 @@
 general:
-  reload: Reload config
-  no-permission: No permission
+  prefix: "&6[&aBannerMaker&6]&r "
+  reload: config wird neu geladen
+  no-permission: Keine Rechte
   no-money: Nicht genug Geld
-  money-transaction: Du brauchst {0} für das Banner. Du hast grade {1}
+  money-transaction: Du brauchst {0} für das Banner. Du hast gerade {1}
 io:
   save-failed: Speichern fehlgeschlagen.
   save-success: Erfolgreich gespeichert.
@@ -12,15 +13,15 @@ command:
 config:
   add-setting: Add {0} new settings
 gui:
+  prefix: "&f[&4BM&f]&r "
   main-menu: Hauptmenü
   prev-page: Letzte Seite
   next-page: Nächste Seite
   create-banner: Banner erstellen
-  uncraftable-warning: Uncraftable Warning
+  uncraftable-warning: Warnung! Nicht Craftbar
   uncraftable: Nicht Craftbar
   more-than-6-patterns: Mehr als 6 Muster.
   more-patterns: Mehr Muster
-  preview-mode: Vorschau
   back: Zurück
   create: erstellen
   delete: LÖSCHEN
@@ -32,3 +33,6 @@ gui:
   get-this-banner: Banner bekommen
   get-banner: Banner &r#{0} bekommen
   price: 'Preis: {0}'
+  clone-and-edit: 'kopieren & bearbeiten'
+  alphabet-and-number: 'Alphabet & Zahlen'
+  toggle-border: Rand Ein-/Ausschalten
