@@ -73,7 +73,7 @@ public class InventoryClickEventListener implements Listener {
             //切換畫面
             BannerMaker.getInstance().stateMap.put(player.getName(), State.BANNER_INFO);
             //重新開啟選單
-            InventoryUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player);
         } else {
             //點擊按鈕
             String buttonName = itemStack.getItemMeta().getDisplayName();
@@ -97,7 +97,7 @@ public class InventoryClickEventListener implements Listener {
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_ALPHABET);
             }
             //重新開啟選單
-            InventoryUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player);
         }
 
     }
@@ -116,7 +116,7 @@ public class InventoryClickEventListener implements Listener {
                 BannerMaker.getInstance().selectedColor.put(player.getName(), (int) itemStack.getDurability());
             }
             //重新開啟選單
-            InventoryUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player);
         } else if (event.getRawSlot() >= 19 && event.getRawSlot() <= 44 && event.getRawSlot() % 9 != 0) {
             //新增Pattern
             BannerMeta bm = (BannerMeta) itemStack.getItemMeta();
@@ -126,7 +126,7 @@ public class InventoryClickEventListener implements Listener {
             currentBanner.setItemMeta(currentBm);
             BannerMaker.getInstance().currentBanner.put(player.getName(), currentBanner);
             //重新開啟選單
-            InventoryUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player);
         } else if (event.getRawSlot() >= 45) {
             //點擊按鈕
             String buttonName = itemStack.getItemMeta().getDisplayName();
@@ -155,7 +155,7 @@ public class InventoryClickEventListener implements Listener {
                 BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
             }
             //重新開啟選單
-            InventoryUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player);
         }
 
     }
@@ -191,7 +191,7 @@ public class InventoryClickEventListener implements Listener {
                 }
             }
             //重新開啟選單
-            InventoryUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player);
         } else {
             //選擇顏色
             if (event.getRawSlot() < 1) {
@@ -223,7 +223,7 @@ public class InventoryClickEventListener implements Listener {
                 }
             }
             //重新開啟選單
-            InventoryUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player);
         }
     }
 
@@ -308,7 +308,7 @@ public class InventoryClickEventListener implements Listener {
                 }
             }
             //重新開啟選單
-            InventoryUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player);
         }
     }
 }

@@ -25,7 +25,7 @@ import java.util.List;
 
 import static tw.kid7.BannerMaker.State.MAIN_MENU;
 
-public class InventoryUtil {
+public class InventoryMenuUtil {
 
     static public void openMenu(Player player) {
         //取得玩家狀態
@@ -228,7 +228,7 @@ public class InventoryUtil {
             //回到主選單
             BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
             //重新開啟選單
-            InventoryUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player);
             return;
         }
         //建立選單
