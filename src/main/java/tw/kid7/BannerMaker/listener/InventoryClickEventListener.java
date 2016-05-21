@@ -40,10 +40,7 @@ public class InventoryClickEventListener implements Listener {
         }
         //取得玩家狀態
         Player player = (Player) event.getWhoClicked();
-        State state = MAIN_MENU;
-        if (BannerMaker.getInstance().stateMap.containsKey(player.getName())) {
-            state = BannerMaker.getInstance().stateMap.get(player.getName());
-        }
+        State state = State.get(player);
         //根據狀態決定行為
         switch (state) {
             case CREATE_BANNER:
@@ -71,7 +68,7 @@ public class InventoryClickEventListener implements Listener {
             //重置頁數
             BannerMaker.getInstance().currentRecipePage.put(player.getName(), 1);
             //切換畫面
-            BannerMaker.getInstance().stateMap.put(player.getName(), State.BANNER_INFO);
+            State.set(player, State.BANNER_INFO);
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
         } else {
@@ -91,10 +88,10 @@ public class InventoryClickEventListener implements Listener {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.next-page"))) {
                 BannerMaker.getInstance().currentBannerPage.put(player.getName(), currentBannerPage + 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create-banner"))) {
-                BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_BANNER);
+                State.set(player, State.CREATE_BANNER);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.alphabet-and-number"))) {
                 BannerMaker.getInstance().currentAlphabetBanner.remove(player.getName());
-                BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_ALPHABET);
+                State.set(player, State.CREATE_ALPHABET);
             }
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
@@ -148,11 +145,11 @@ public class InventoryClickEventListener implements Listener {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create"))) {
                 IOUtil.saveBanner(player, currentBanner);
                 BannerMaker.getInstance().currentBanner.remove(player.getName());
-                BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                State.set(player, State.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
                 BannerMaker.getInstance().currentBanner.remove(player.getName());
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
-                BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                State.set(player, State.MAIN_MENU);
             }
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
@@ -187,7 +184,7 @@ public class InventoryClickEventListener implements Listener {
                     alphabetBorder = !alphabetBorder;
                     BannerMaker.getInstance().alphabetBorder.put(player.getName(), alphabetBorder);
                 } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
-                    BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                    State.set(player, State.MAIN_MENU);
                 }
             }
             //重新開啟選單
@@ -217,7 +214,7 @@ public class InventoryClickEventListener implements Listener {
                     BannerMaker.getInstance().viewInfoBanner.put(player.getName(), currentAlphabetBanner.toItemStack());
                     //重置頁數
                     BannerMaker.getInstance().currentRecipePage.put(player.getName(), 1);
-                    BannerMaker.getInstance().stateMap.put(player.getName(), State.BANNER_INFO);
+                    State.set(player, State.BANNER_INFO);
                 } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                     BannerMaker.getInstance().currentAlphabetBanner.remove(player.getName());
                 }
@@ -282,7 +279,7 @@ public class InventoryClickEventListener implements Listener {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.clone-and-edit"))) {
                 //設定為編輯中旗幟
                 BannerMaker.getInstance().currentBanner.put(player.getName(), banner);
-                BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_BANNER);
+                State.set(player, State.CREATE_BANNER);
 
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
                 String key = BannerUtil.getKey(banner);
@@ -290,15 +287,15 @@ public class InventoryClickEventListener implements Listener {
                     //有KEY時（儲存於玩家資料時），才能刪除
                     IOUtil.removeBanner(player, key);
                 }
-                BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                State.set(player, State.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                 //返回
                 String key = BannerUtil.getKey(banner);
                 if (key == null) {
                     //若無KEY（Alphabet旗幟），回到Alphabet旗幟頁面
-                    BannerMaker.getInstance().stateMap.put(player.getName(), State.CREATE_ALPHABET);
+                    State.set(player, State.CREATE_ALPHABET);
                 } else {
-                    BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+                    State.set(player, State.MAIN_MENU);
                 }
             }
             //重新開啟選單

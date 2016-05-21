@@ -24,7 +24,6 @@ import java.util.List;
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     public static Economy econ = null;
-    public HashMap<String, State> stateMap = Maps.newHashMap();
     public HashMap<String, Integer> selectedColor = Maps.newHashMap();
     public HashMap<String, ItemStack> currentBanner = Maps.newHashMap();
     public HashMap<String, AlphabetBanner> currentAlphabetBanner = Maps.newHashMap();

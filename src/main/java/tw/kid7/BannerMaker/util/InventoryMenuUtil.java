@@ -29,10 +29,7 @@ public class InventoryMenuUtil {
 
     static public void openMenu(Player player) {
         //取得玩家狀態
-        State state = MAIN_MENU;
-        if (BannerMaker.getInstance().stateMap.containsKey(player.getName())) {
-            state = BannerMaker.getInstance().stateMap.get(player.getName());
-        }
+        State state = State.get(player);
         //根據狀態決定行為
         switch (state) {
             case CREATE_BANNER:
@@ -226,7 +223,7 @@ public class InventoryMenuUtil {
         //僅限旗幟
         if (!BannerUtil.isBanner(banner)) {
             //回到主選單
-            BannerMaker.getInstance().stateMap.put(player.getName(), State.MAIN_MENU);
+            State.set(player, State.MAIN_MENU);
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
             return;
