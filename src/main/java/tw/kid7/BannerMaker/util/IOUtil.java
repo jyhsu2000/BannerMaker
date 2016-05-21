@@ -167,11 +167,11 @@ public class IOUtil {
     }
 
     //旗幟檔案路徑
-    static public String getFileName(Player player) {
+    private static String getFileName(Player player) {
         return getFileName(player.getUniqueId().toString());
     }
 
-    static public String getFileName(String configFileName) {
+    private static String getFileName(String configFileName) {
         String fileName = "banner" + File.separator + configFileName + ".yml";
         return fileName;
     }

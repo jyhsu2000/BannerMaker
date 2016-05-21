@@ -8,7 +8,7 @@ import tw.kid7.BannerMaker.util.MessageUtil;
 import java.util.*;
 
 public class DefaultConfig {
-    HashMap<String, HashMap<String, Object>> defaultConfigs = Maps.newHashMap();
+    private HashMap<String, HashMap<String, Object>> defaultConfigs = Maps.newHashMap();
 
     public DefaultConfig() {
         //設定檔的預設值

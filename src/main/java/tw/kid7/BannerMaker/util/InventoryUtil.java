@@ -19,6 +19,7 @@ import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.Language;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -411,20 +412,20 @@ public class InventoryUtil {
                 //旗幟位置
                 int bannerPosition = 4;
                 //染料位置
-                List<Integer> dyePosition = Arrays.asList();
+                List<Integer> dyePosition = Collections.emptyList();
                 //根據Pattern決定位置
                 switch (pattern.getPattern()) {
                     case SQUARE_BOTTOM_LEFT:
-                        dyePosition = Arrays.asList(6);
+                        dyePosition = Collections.singletonList(6);
                         break;
                     case SQUARE_BOTTOM_RIGHT:
-                        dyePosition = Arrays.asList(8);
+                        dyePosition = Collections.singletonList(8);
                         break;
                     case SQUARE_TOP_LEFT:
-                        dyePosition = Arrays.asList(0);
+                        dyePosition = Collections.singletonList(0);
                         break;
                     case SQUARE_TOP_RIGHT:
-                        dyePosition = Arrays.asList(2);
+                        dyePosition = Collections.singletonList(2);
                         break;
                     case STRIPE_BOTTOM:
                         dyePosition = Arrays.asList(6, 7, 8);
@@ -493,7 +494,7 @@ public class InventoryUtil {
                         break;
                     case CIRCLE_MIDDLE:
                         bannerPosition = 1;
-                        dyePosition = Arrays.asList(4);
+                        dyePosition = Collections.singletonList(4);
                         break;
                     case RHOMBUS_MIDDLE:
                         dyePosition = Arrays.asList(1, 3, 5, 7);
@@ -520,13 +521,13 @@ public class InventoryUtil {
                     case CURLY_BORDER:
                         recipe.put(1, new ItemStack(Material.VINE));
                         if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                            dyePosition = Arrays.asList(7);
+                            dyePosition = Collections.singletonList(7);
                         }
                         break;
                     case CREEPER:
                         recipe.put(1, new ItemStack(Material.SKULL_ITEM, 1, (short) 4));
                         if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                            dyePosition = Arrays.asList(7);
+                            dyePosition = Collections.singletonList(7);
                         }
                         break;
                     case GRADIENT:
@@ -540,25 +541,25 @@ public class InventoryUtil {
                     case BRICKS:
                         recipe.put(1, new ItemStack(Material.BRICK));
                         if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                            dyePosition = Arrays.asList(7);
+                            dyePosition = Collections.singletonList(7);
                         }
                         break;
                     case SKULL:
                         recipe.put(1, new ItemStack(Material.SKULL_ITEM, 1, (short) 1));
                         if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                            dyePosition = Arrays.asList(7);
+                            dyePosition = Collections.singletonList(7);
                         }
                         break;
                     case FLOWER:
                         recipe.put(1, new ItemStack(Material.RED_ROSE, 1, (short) 8));
                         if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                            dyePosition = Arrays.asList(7);
+                            dyePosition = Collections.singletonList(7);
                         }
                         break;
                     case MOJANG:
                         recipe.put(1, new ItemStack(Material.GOLDEN_APPLE, 1, (short) 1));
                         if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                            dyePosition = Arrays.asList(7);
+                            dyePosition = Collections.singletonList(7);
                         }
                         break;
                 }

@@ -66,7 +66,7 @@ public class Language {
         return replaceArgument((String) config.get(path), args);
     }
 
-    public static String getFromDefaultLanguage(String path, Object... args) {
+    private static String getFromDefaultLanguage(String path, Object... args) {
         if (!ConfigManager.isFileLoaded(getFileName(defaultLanguage))) {
             return null;
         }
@@ -78,7 +78,7 @@ public class Language {
         return replaceArgument((String) config.get(path), args);
     }
 
-    public static String replaceArgument(String message, Object... args) {
+    private static String replaceArgument(String message, Object... args) {
         for (int i = 0; i < args.length; i++) {
             //message = message.replaceAll("\\{" + i + "\\}", String.valueOf(args[i]));
             message = message.replace("{" + i + "}", String.valueOf(args[i]));
@@ -90,7 +90,7 @@ public class Language {
         return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', get(path, args)));
     }
 
-    public static void checkConfig(String lang) {
+    private static void checkConfig(String lang) {
         HashMap<String, Object> defaultLanguage = Maps.newHashMap();
 
         defaultLanguage.put("general.prefix", "&6[&aBannerMaker&6]&r");
