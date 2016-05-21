@@ -137,29 +137,6 @@ public class IOUtil {
         player.sendMessage(MessageUtil.format(true, "&a" + Language.get("io.remove-banner", key)));
     }
 
-    static public void removeBanner(Player player, int page, int index) {
-        //設定檔
-        String fileName = getFileName(player);
-        FileConfiguration config = ConfigManager.get(fileName);
-        Set<String> keySet = config.getKeys(false);
-        List<String> keyList = new ArrayList<>();
-        keyList.addAll(keySet);
-        //索引值調整
-        index += Math.max(0, (page - 1) * 45);
-        //檢查索引值
-        if (index >= keySet.size()) {
-            return;
-        }
-        //設定檔路徑
-        String path = keyList.get(index);
-        //移除
-        config.set(path, null);
-        //儲存
-        ConfigManager.save(fileName);
-        //顯示訊息
-        player.sendMessage(MessageUtil.format(true, "&a" + Language.get("io.remove-banner", index)));
-    }
-
     //取得旗幟總數
     static public int getBannerCount(Player player) {
         List<ItemStack> bannerList = loadBannerList(player, 0);
