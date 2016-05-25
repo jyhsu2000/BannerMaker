@@ -22,22 +22,8 @@ public class InventoryMenuUtil {
     static public void openMenu(Player player) {
         //取得玩家狀態
         State state = State.get(player);
-        AbstractInventoryMenu menu = null;
-        //根據狀態決定行為
-        switch (state) {
-            case CREATE_BANNER:
-                menu = CreateBannerInventoryMenu.getInstance();
-                break;
-            case CREATE_ALPHABET:
-                menu = CreateAlphabetInventoryMenu.getInstance();
-                break;
-            case BANNER_INFO:
-                menu = BannerInfoInventoryMenu.getInstance();
-                break;
-            case MAIN_MENU:
-            default:
-                menu = MainInventoryMenu.getInstance();
-        }
+        //取得該狀態的GUI選單
+        AbstractInventoryMenu menu = state.getInventoryMenu();
         //開啟選單
         if (menu != null) {
             menu.open(player);
