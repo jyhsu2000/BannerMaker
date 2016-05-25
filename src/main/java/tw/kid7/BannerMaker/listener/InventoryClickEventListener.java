@@ -30,8 +30,7 @@ public class InventoryClickEventListener implements Listener {
         State state = State.get(player);
         //取得該狀態的GUI選單
         AbstractInventoryMenu menu = state.getInventoryMenu();
-        if (menu != null) {
-            menu.onClick(event);
-        }
+        //觸發點擊事件
+        menu.onClick(event);
     }
 }

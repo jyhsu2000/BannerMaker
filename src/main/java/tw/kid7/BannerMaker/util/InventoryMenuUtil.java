@@ -25,9 +25,7 @@ public class InventoryMenuUtil {
         //取得該狀態的GUI選單
         AbstractInventoryMenu menu = state.getInventoryMenu();
         //開啟選單
-        if (menu != null) {
-            menu.open(player);
-        }
+        menu.open(player);
     }
 
     static public List<PatternType> getPatternTypeList() {
