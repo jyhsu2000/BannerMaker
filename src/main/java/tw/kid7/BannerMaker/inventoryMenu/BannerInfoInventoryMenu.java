@@ -32,7 +32,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
-//取得欲查看旗幟
+        //取得欲查看旗幟
         ItemStack banner = BannerMaker.getInstance().viewInfoBanner.get(player.getName());
         //僅限旗幟
         if (!BannerUtil.isBanner(banner)) {
