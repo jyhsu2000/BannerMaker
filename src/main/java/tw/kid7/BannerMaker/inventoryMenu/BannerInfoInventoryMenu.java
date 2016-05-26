@@ -96,7 +96,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 menu.setItem(26, nextPage);
             }
             //合成表
-            HashMap<Integer, ItemStack> patternRecipe = InventoryMenuUtil.getPatternRecipe(banner, currentRecipePage);
+            HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
             List<Integer> craftPosition = Arrays.asList(14, 15, 16, 23, 24, 25, 32, 33, 34, 42);
             for (int i = 0; i < 10; i++) {
                 int position = craftPosition.get(i);

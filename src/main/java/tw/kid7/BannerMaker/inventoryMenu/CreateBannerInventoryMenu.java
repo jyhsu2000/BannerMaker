@@ -1,6 +1,5 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
-import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -12,19 +11,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
-import org.bukkit.material.Dye;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
 import tw.kid7.BannerMaker.configuration.Language;
-import tw.kid7.BannerMaker.util.IOUtil;
-import tw.kid7.BannerMaker.util.InventoryMenuUtil;
-import tw.kid7.BannerMaker.util.ItemBuilder;
-import tw.kid7.BannerMaker.util.MessageUtil;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import tw.kid7.BannerMaker.util.*;
 
 public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     private static CreateBannerInventoryMenu instance = null;
@@ -76,13 +66,13 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                         patternIndex += 24;
                     }
                 }
-                if (patternIndex >= InventoryMenuUtil.getPatternTypeList().size()) {
+                if (patternIndex >= BannerUtil.getPatternTypeList().size()) {
                     break;
                 }
                 //預覽旗幟
                 ItemStack banner = new ItemStack(Material.BANNER, 1, currentBanner.getDurability());
                 BannerMeta bm = (BannerMeta) banner.getItemMeta();
-                PatternType patternType = InventoryMenuUtil.getPatternTypeList().get(patternIndex);
+                PatternType patternType = BannerUtil.getPatternTypeList().get(patternIndex);
                 bm.addPattern(new Pattern(DyeColor.getByDyeData((byte) selectedColor), patternType));
                 banner.setItemMeta(bm);
 
