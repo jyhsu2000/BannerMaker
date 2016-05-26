@@ -9,15 +9,15 @@ import tw.kid7.BannerMaker.util.MessageUtil;
 
 public class BannerMakerCommand extends AbstractCommand {
     //指令名稱
-    public static final String NAME = "BannerMaker";
+    private static final String NAME = "BannerMaker";
     //指令說明
-    public static final String DESCRIPTION = "Show menu of BannerMaker";
+    private static final String DESCRIPTION = "Show menu of BannerMaker";
     //指令權限
-    public static final String PERMISSION = "";
+    private static final String PERMISSION = "";
     //指令用途
-    public static final String USAGE = "/BannerMaker";
+    private static final String USAGE = "/BannerMaker";
     //子指令權限
-    public static final String[] SUB_PERMISSIONS = {""};
+    private static final String[] SUB_PERMISSIONS = {""};
 
     /**
      * Construct out object.

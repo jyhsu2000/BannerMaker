@@ -12,7 +12,7 @@ public enum State {
     CREATE_ALPHABET,
     BANNER_INFO;
 
-    private static HashMap<String, State> stateMap = Maps.newHashMap();
+    private static final HashMap<String, State> stateMap = Maps.newHashMap();
 
     /**
      * 設定玩家狀態

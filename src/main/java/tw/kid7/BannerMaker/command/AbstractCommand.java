@@ -12,10 +12,10 @@ package tw.kid7.BannerMaker.command;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -79,7 +79,7 @@ public abstract class AbstractCommand {
      * @param permission  the permission to use the command
      * @param usage       the proper usage of the command
      */
-    public AbstractCommand(CommandSender sender, String name, String description, String permission, String[] subPermissions, String usage) {
+    AbstractCommand(CommandSender sender, String name, String description, String permission, String[] subPermissions, String usage) {
         this.sender = sender;
         this.name = name;
         this.description = description;
@@ -147,7 +147,7 @@ public abstract class AbstractCommand {
      *
      * @return does the sender have permission
      */
-    public boolean hasPermission() {
+    boolean hasPermission() {
         return sender.hasPermission(permission) || isSenderConsole() || isSenderRemoteConsole();
     }
 
@@ -176,7 +176,7 @@ public abstract class AbstractCommand {
      *
      * @return is the sender a player
      */
-    public boolean isSenderPlayer() {
+    boolean isSenderPlayer() {
         return (sender instanceof Player);
     }
 
@@ -185,7 +185,7 @@ public abstract class AbstractCommand {
      *
      * @return is the sender console
      */
-    public boolean isSenderConsole() {
+    private boolean isSenderConsole() {
         return (sender instanceof ConsoleCommandSender);
     }
 
@@ -194,7 +194,7 @@ public abstract class AbstractCommand {
      *
      * @return is the sender rcon
      */
-    public boolean isSenderRemoteConsole() {
+    private boolean isSenderRemoteConsole() {
         return (sender instanceof RemoteConsoleCommandSender);
     }
 

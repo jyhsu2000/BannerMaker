@@ -2,7 +2,6 @@ package tw.kid7.BannerMaker;
 
 import com.google.common.collect.Maps;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.DyeColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -24,15 +23,15 @@ import java.util.List;
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     public static Economy econ = null;
-    public HashMap<String, Integer> selectedColor = Maps.newHashMap();
-    public HashMap<String, ItemStack> currentBanner = Maps.newHashMap();
-    public HashMap<String, AlphabetBanner> currentAlphabetBanner = Maps.newHashMap();
-    public HashMap<String, ItemStack> viewInfoBanner = Maps.newHashMap();
-    public HashMap<String, Boolean> morePatterns = Maps.newHashMap();
-    public HashMap<String, Boolean> alphabetBorder = Maps.newHashMap();
-    public HashMap<String, Integer> currentRecipePage = Maps.newHashMap();
-    public HashMap<String, Integer> currentBannerPage = Maps.newHashMap();
-    List<String> configList;
+    public final HashMap<String, Integer> selectedColor = Maps.newHashMap();
+    public final HashMap<String, ItemStack> currentBanner = Maps.newHashMap();
+    public final HashMap<String, AlphabetBanner> currentAlphabetBanner = Maps.newHashMap();
+    public final HashMap<String, ItemStack> viewInfoBanner = Maps.newHashMap();
+    public final HashMap<String, Boolean> morePatterns = Maps.newHashMap();
+    public final HashMap<String, Boolean> alphabetBorder = Maps.newHashMap();
+    public final HashMap<String, Integer> currentRecipePage = Maps.newHashMap();
+    public final HashMap<String, Integer> currentBannerPage = Maps.newHashMap();
+    private List<String> configList;
 
     @Override
     public void onEnable() {

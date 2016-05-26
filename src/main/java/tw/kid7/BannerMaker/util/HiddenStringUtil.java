@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
  * @link https://bukkit.org/threads/storing-hidden-data-in-itemstacks-using-colors-persistent-no-nms.319970/
  * @link https://gist.github.com/filoghost/f53ecb7b014c40b66bdc
  */
-public class HiddenStringUtil {
+class HiddenStringUtil {
     // String constants. TODO Change them to something unique to avoid conflict with other plugins!
     private static final String SEQUENCE_HEADER = "" + ChatColor.RESET + ChatColor.UNDERLINE + ChatColor.RESET;
     private static final String SEQUENCE_FOOTER = "" + ChatColor.RESET + ChatColor.ITALIC + ChatColor.RESET;
@@ -20,9 +20,8 @@ public class HiddenStringUtil {
     }
 
     public static boolean hasHiddenString(String input) {
-        if (input == null) return false;
+        return input != null && input.contains(SEQUENCE_HEADER) && input.contains(SEQUENCE_FOOTER);
 
-        return input.contains(SEQUENCE_HEADER) && input.contains(SEQUENCE_FOOTER);
     }
 
     public static String extractHiddenString(String input) {

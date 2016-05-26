@@ -79,11 +79,11 @@ public class IOUtil {
     }
 
     //讀取旗幟
-    static public ItemStack loadBanner(Player player, String key) {
+    private static ItemStack loadBanner(Player player, String key) {
         return loadBanner(player, key, true);
     }
 
-    static public ItemStack loadBanner(Player player, String key, boolean withKey) {
+    private static ItemStack loadBanner(Player player, String key, boolean withKey) {
         //設定檔
         String fileName = getFileName(player);
         ConfigManager.load(fileName);
@@ -149,8 +149,7 @@ public class IOUtil {
     }
 
     private static String getFileName(String configFileName) {
-        String fileName = "banner" + File.separator + configFileName + ".yml";
-        return fileName;
+        return "banner" + File.separator + configFileName + ".yml";
     }
 
     //更新旗幟資料
@@ -201,7 +200,7 @@ public class IOUtil {
             if (!oldFile.exists() || newFile.exists()) {
                 return;
             }
-            String message = "";
+            String message;
             //嘗試重新命名
             if (oldFile.renameTo(newFile)) {
                 message = "&rUpdate file name of&a " + player.getName() + "&r to UUID";

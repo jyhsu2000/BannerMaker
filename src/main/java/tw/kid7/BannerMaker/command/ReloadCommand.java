@@ -8,15 +8,15 @@ import tw.kid7.BannerMaker.util.MessageUtil;
 
 public class ReloadCommand extends AbstractCommand {
     //指令名稱
-    public static final String NAME = "Reload";
+    private static final String NAME = "Reload";
     //指令說明
-    public static final String DESCRIPTION = "Reload all config";
+    private static final String DESCRIPTION = "Reload all config";
     //指令權限
-    public static final String PERMISSION = "BannerMaker.reload";
+    private static final String PERMISSION = "BannerMaker.reload";
     //指令用途
-    public static final String USAGE = "/bm reload";
+    private static final String USAGE = "/bm reload";
     //子指令權限
-    public static final String[] SUB_PERMISSIONS = {""};
+    private static final String[] SUB_PERMISSIONS = {""};
 
     /**
      * Construct out object.

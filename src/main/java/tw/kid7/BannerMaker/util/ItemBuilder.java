@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -34,7 +35,7 @@ public class ItemBuilder implements Listener {
 
     private static final Plugin plugin = BannerMaker.getInstance();
     private static boolean listener = false;
-    private static final HashMap<String, PotionEffect> effects = new HashMap<String, PotionEffect>();
+    private static final HashMap<String, PotionEffect> effects = Maps.newHashMap();
 
     private final ItemStack is;
 
@@ -95,7 +96,7 @@ public class ItemBuilder implements Listener {
         final ItemMeta meta = is.getItemMeta();
         List<String> lore = meta.getLore();
         if (lore == null) {
-            lore = new ArrayList<String>();
+            lore = new ArrayList<>();
         }
         lore.add(text);
         meta.setLore(lore);

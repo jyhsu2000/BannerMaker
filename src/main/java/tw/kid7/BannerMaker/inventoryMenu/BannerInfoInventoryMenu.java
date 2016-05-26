@@ -47,7 +47,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         menu.setItem(0, banner);
         //patterns數量
         int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();
-        String patternCountStr = "";
+        String patternCountStr;
         if (patternCount > 0) {
             patternCountStr = patternCount + " " + Language.get("gui.pattern-s");
         } else {

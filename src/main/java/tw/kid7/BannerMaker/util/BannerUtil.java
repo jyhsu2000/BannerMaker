@@ -21,13 +21,7 @@ public class BannerUtil {
      * @return boolean
      */
     static public boolean isBanner(ItemStack itemStack) {
-        if (itemStack == null) {
-            return false;
-        }
-        if (itemStack.getType().equals(Material.BANNER)) {
-            return true;
-        }
-        return false;
+        return itemStack != null && itemStack.getType().equals(Material.BANNER);
     }
 
     /**
@@ -37,7 +31,7 @@ public class BannerUtil {
      * @return List<ItemStack>
      */
     static public List<ItemStack> getMaterials(ItemStack itemStack) {
-        List<ItemStack> materialList = new ArrayList<ItemStack>();
+        List<ItemStack> materialList = new ArrayList<>();
         //只檢查旗幟
         if (!isBanner(itemStack)) {
             return materialList;
@@ -144,7 +138,7 @@ public class BannerUtil {
             }
         }
         //加到暫存清單
-        List<ItemStack> patternMaterials = new ArrayList<ItemStack>();
+        List<ItemStack> patternMaterials = new ArrayList<>();
         Collections.addAll(patternMaterials, materialInventory.getContents());
         //移除空值
         patternMaterials.removeAll(Collections.singletonList(null));
@@ -174,7 +168,7 @@ public class BannerUtil {
         if (!isBanner(itemStack)) {
             return null;
         }
-        String key = null;
+        String key;
         //嘗試取出key
         try {
             key = HiddenStringUtil.extractHiddenString(itemStack.getItemMeta().getLore().get(0));

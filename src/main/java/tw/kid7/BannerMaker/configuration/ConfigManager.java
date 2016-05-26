@@ -23,6 +23,7 @@
  */
 package tw.kid7.BannerMaker.configuration;
 
+import com.google.common.collect.Maps;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -43,7 +44,7 @@ import java.util.Map;
 public class ConfigManager {
 
     private static final Plugin PLUGIN = JavaPlugin.getProvidingPlugin(ConfigManager.class);
-    private static Map<String, FileConfiguration> configs = new HashMap();
+    private static final Map<String, FileConfiguration> configs = Maps.newHashMap();
 
     /**
      * Checks to see if the ConfigManager knows about fileName
@@ -158,10 +159,7 @@ public class ConfigManager {
      * @return True if path exists, otherwise false.
      */
     public static boolean contains(String fileName, String path) {
-        if (isFileLoaded(fileName)) {
-            return configs.get(fileName).contains(path);
-        }
-        return false;
+        return isFileLoaded(fileName) && configs.get(fileName).contains(path);
     }
 
     /**
