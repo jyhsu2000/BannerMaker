@@ -62,6 +62,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 v1.4.2 (for 1.8.x, 1.9.x)
 - Update recipe of bordered alphabet S
 - Add German(de) Translation (Thanks [Marrarus](https://github.com/Marrarus))
+- Optimize code
 
 v1.4.1 (for 1.8.x, 1.9.x)
 - Add menu of Alphabet & Number
@@ -159,6 +160,7 @@ v1.0 (for 1.8)
 v1.4.2 (for 1.8.x, 1.9.x)
 - 更新有框字母S的合成表
 - 新增德文(de)翻譯（感謝 [Marrarus](https://github.com/Marrarus)）
+- 優化程式碼
 
 v1.4.1 (for 1.8.x, 1.9.x)
 - 新增字母與數字選單
