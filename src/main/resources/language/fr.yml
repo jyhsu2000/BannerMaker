@@ -1,0 +1,38 @@
+general:
+  prefix: "&6[&aBannerMaker&6]&r "
+  reload: Rechargement de la configuration
+  no-permission: Pas la permission
+  no-money: Pas assez d'argent
+  money-transaction: Utilisez {0} pour obtenir la bannière. Maintenant, vous avez {1}
+io:
+  save-failed: Sauvegarde échouée.
+  save-success: Sauvegarde effectuée avec succès.
+  remove-banner: Suppression de la bannière &r#{0}
+command:
+  player-only: Cette commande ne peut être utilisée que par les joueurs en jeu
+config:
+  add-setting: Ajout de {0} nouveaux paramètres
+gui:
+  prefix: "&f[&4BM&f]&r "
+  main-menu: Menu principal
+  prev-page: Page précédente
+  next-page: Page suivante
+  create-banner: Créer une bannière
+  uncraftable-warning: Avertissement infabricable
+  uncraftable: Infabricable
+  more-than-6-patterns: Plus de 6 patterns.
+  more-patterns: Plus de patterns
+  back: Retour
+  create: Créer
+  delete: SUPPRIMER
+  remove-last-pattern: Supprimer le dernier pattern
+  banner-info: Info de la bannière
+  pattern-s: pattern(s)
+  no-patterns: Aucuns patterns
+  craft-recipe: Recette de fabrication
+  get-this-banner: Obtenir cette bannière
+  get-banner: Obtention de la bannière &r#{0}
+  price: 'Prix: {0}'
+  clone-and-edit: Cloner & Éditer
+  alphabet-and-number: Alphabet & Nombres
+  toggle-border: Afficher les bordures
