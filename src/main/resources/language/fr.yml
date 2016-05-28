@@ -2,7 +2,7 @@ general:
   prefix: "&6[&aBannerMaker&6]&r "
   reload: Rechargement de la configuration
   no-permission: Pas la permission
-  no-money: Pas assez d''argent
+  no-money: Pas assez d'argent
   money-transaction: Utilisez {0} pour obtenir la bannière. Maintenant, vous avez {1}
 io:
   save-failed: Sauvegarde échouée.
