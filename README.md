@@ -62,6 +62,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 ### Change Logs
 v1.4.3 (for 1.8.x, 1.9.x)
 - Add French(fr) translation (Thanks [RedNesto](https://github.com/RedNesto))
+- Update recipe of bordered alphabet D and R
 
 v1.4.2 (for 1.8.x, 1.9.x)
 - Update recipe of bordered alphabet S
@@ -164,6 +165,7 @@ v1.0 (for 1.8)
 ### 更新紀錄
 v1.4.3 (for 1.8.x, 1.9.x)
 - 新增法文(fr)翻譯（感謝 [RedNesto](https://github.com/RedNesto)）
+- 更新有框字母D和R的合成表
 
 v1.4.2 (for 1.8.x, 1.9.x)
 - 更新有框字母S的合成表
