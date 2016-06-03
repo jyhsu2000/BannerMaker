@@ -3,10 +3,12 @@ package tw.kid7.BannerMaker.configuration;
 import com.google.common.collect.Maps;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -133,16 +135,35 @@ public class Language {
 
         FileConfiguration config = ConfigManager.get(getFileName(lang));
 
-        int i = 0;
-        for (Map.Entry<String, Object> entry : defaultLanguage.entrySet()) {
-            if (!config.contains(entry.getKey())) {
-                config.set(entry.getKey(), entry.getValue());
-                i++;
-            }
+        //該語言資源檔
+        FileConfiguration resourceConfig = null;
+        try {
+            InputStream resourceFile = BannerMaker.getInstance().getResource(getFileName(lang).replace('\\', '/'));
+            resourceConfig = YamlConfiguration.loadConfiguration(resourceFile);
+        } catch (Exception ignored) {
         }
-        if (i > 0) {
+
+        int newSettingCount = 0;
+        for (Map.Entry<String, Object> entry : defaultLanguage.entrySet()) {
+            //若已包含該key
+            if (config.contains(entry.getKey())) {
+                //直接檢查下一個
+                continue;
+            }
+            //若未包含該key，將預設值填入語系檔
+            if (resourceConfig != null && resourceConfig.contains(entry.getKey())) {
+                //優先使用相同語言之資源檔
+                config.set(entry.getKey(), resourceConfig.get(entry.getKey()));
+            } else {
+                //採用預設語言
+                config.set(entry.getKey(), entry.getValue());
+            }
+            newSettingCount++;
+
+        }
+        if (newSettingCount > 0) {
             ConfigManager.save(getFileName(lang));
-            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, Language.get("config.add-setting", i)));
+            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, Language.get("config.add-setting", newSettingCount)));
         }
     }
 }
