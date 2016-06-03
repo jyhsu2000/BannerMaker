@@ -1,38 +1,38 @@
 general:
-  prefix: "&6[&aBannerMaker&6]&r "
-  reload: "\u91cd\u65b0\u8f7d\u5165"
-  no-permission: "\u6743\u9650\u4e0d\u8db3"
-  no-money: "\u91d1\u94b1\u4e0d\u8db3"
-  money-transaction: "\u4f7f\u7528 {0} \u53d6\u5f97\u65d7\u5e1c\uff0c\u73b0\u5728\u4f60\u8fd8\u6709 {1}"
+  prefix: '&6[&aBannerMaker&6]&r '
+  reload: 重新载入
+  no-permission: 权限不足
+  no-money: 金钱不足
+  money-transaction: 使用 {0} 取得旗帜，现在你还有 {1}
 io:
-  save-failed: "\u50a8\u5b58\u5931\u8d25"
-  save-success: "\u50a8\u5b58\u6210\u529f"
-  remove-banner: "\u79fb\u9664\u65d7\u5e1c &r#{0}"
+  save-failed: 储存失败
+  save-success: 储存成功
+  remove-banner: 移除旗帜 &r#{0}
 command:
-  player-only: "\u8fd9\u4e2a\u6307\u4ee4\u53ea\u80fd\u7531\u6e38\u620f\u4e2d\u7684\u73a9\u5bb6\u4f7f\u7528"
+  player-only: 这个指令只能由游戏中的玩家使用
 config:
-  add-setting: "\u65b0\u589e {0} \u4e2a\u65b0\u8bbe\u5b9a"
+  add-setting: 新增 {0} 个新设定
 gui:
-  prefix: "&f[&4BM&f]&r "
-  main-menu: "\u4e3b\u9009\u5355"
-  prev-page: "\u4e0a\u4e00\u9875"
-  next-page: "\u4e0b\u4e00\u9875"
-  create-banner: "\u5efa\u7acb\u65d7\u5e1c"
-  uncraftable-warning: "\u65e0\u6cd5\u5408\u6210\u8b66\u544a"
-  uncraftable: "\u65e0\u6cd5\u5408\u6210"
-  more-than-6-patterns: "\u8d85\u8fc76\u4e2a\u56fe\u5f62"
-  more-patterns: "\u66f4\u591a\u56fe\u5f62"
-  back: "\u8fd4\u56de"
-  create: "\u5efa\u7acb"
-  delete: "\u5220\u9664"
-  remove-last-pattern: "\u79fb\u9664\u6700\u540e\u4e00\u4e2a\u56fe\u5f62"
-  banner-info: "\u65d7\u5e1c\u8d44\u8baf"
-  pattern-s: "\u4e2a\u56fe\u5f62"
-  no-patterns: "\u6ca1\u6709\u56fe\u5f62"
-  craft-recipe: "\u5408\u6210\u8868"
-  get-this-banner: "\u53d6\u5f97\u8fd9\u4e2a\u65d7\u5e1c"
-  get-banner: "\u53d6\u5f97\u65d7\u5e1c &r#{0}"
-  price: "\u8d39\u7528: {0}"
-  clone-and-edit: "\u590d\u5236\u5e76\u7f16\u8f91"
-  alphabet-and-number: "\u5b57\u6bcd\u4e0e\u6570\u5b57"
-  toggle-border: "\u5207\u6362\u8fb9\u6846"
+  prefix: '&f[&4BM&f]&r '
+  main-menu: 主选单
+  prev-page: 上一页
+  next-page: 下一页
+  create-banner: 建立旗帜
+  uncraftable-warning: 无法合成警告
+  uncraftable: 无法合成
+  more-than-6-patterns: 超过6个图形
+  more-patterns: 更多图形
+  back: 返回
+  create: 建立
+  delete: 删除
+  remove-last-pattern: 移除最后一个图形
+  banner-info: 旗帜资讯
+  pattern-s: 个图形
+  no-patterns: 没有图形
+  craft-recipe: 合成表
+  get-this-banner: 取得这个旗帜
+  get-banner: 取得旗帜 &r#{0}
+  price: '费用: {0}'
+  clone-and-edit: 复制并编辑
+  alphabet-and-number: 字母与数字
+  toggle-border: 切换边框

@@ -7,7 +7,8 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
 import java.io.File;
-import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class Language {
     private static final String defaultLanguage = "en";
@@ -26,14 +27,14 @@ public class Language {
         }
         //載入預設語言包（但不儲存於資料夾）
         try {
-            InputStream defaultLanguageInputStream = BannerMaker.getInstance().getResource(getFileName(defaultLanguage).replace('\\', '/'));
-            defaultLanguageConfigResource = YamlConfiguration.loadConfiguration(defaultLanguageInputStream);
+            Reader defaultLanguageInputStreamReader = new InputStreamReader(BannerMaker.getInstance().getResource(getFileName(defaultLanguage).replace('\\', '/')), "UTF8");
+            defaultLanguageConfigResource = YamlConfiguration.loadConfiguration(defaultLanguageInputStreamReader);
         } catch (Exception ignored) {
         }
         //嘗試當前語言資源檔（但不儲存於資料夾）
         try {
-            InputStream languageInputStream = BannerMaker.getInstance().getResource(getFileName(language).replace('\\', '/'));
-            languageConfigResource = YamlConfiguration.loadConfiguration(languageInputStream);
+            Reader languageInputStreamReader = new InputStreamReader(BannerMaker.getInstance().getResource(getFileName(language).replace('\\', '/')), "UTF8");
+            languageConfigResource = YamlConfiguration.loadConfiguration(languageInputStreamReader);
         } catch (Exception ignored) {
         }
         //嘗試載入語言包檔案
