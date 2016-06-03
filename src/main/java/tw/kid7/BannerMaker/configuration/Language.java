@@ -1,6 +1,5 @@
 package tw.kid7.BannerMaker.configuration;
 
-import com.google.common.collect.Maps;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -9,8 +8,6 @@ import tw.kid7.BannerMaker.util.MessageUtil;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Language {
     private static final String defaultLanguage = "en";
@@ -93,73 +90,42 @@ public class Language {
     }
 
     private static void checkConfig(String lang) {
-        HashMap<String, Object> defaultLanguage = Maps.newHashMap();
-
-        defaultLanguage.put("general.prefix", "&6[&aBannerMaker&6]&r");
-        defaultLanguage.put("general.reload", "Reload config");
-        defaultLanguage.put("general.no-permission", "No permission");
-        defaultLanguage.put("general.no-money", "Not enough money");
-        defaultLanguage.put("general.money-transaction", "Use {0} to get banner. Now you have {1}");
-
-        defaultLanguage.put("io.save-failed", "Save failed.");
-        defaultLanguage.put("io.save-success", "Save success.");
-        defaultLanguage.put("io.remove-banner", "Remove banner &r#{0}");
-
-        defaultLanguage.put("command.player-only", "This command can only be used by players in game");
-
-        defaultLanguage.put("config.add-setting", "Add {0} new settings");
-
-        defaultLanguage.put("gui.prefix", "&f[&4BM&f]&r ");
-        defaultLanguage.put("gui.main-menu", "Main menu");
-        defaultLanguage.put("gui.prev-page", "Prev Page");
-        defaultLanguage.put("gui.next-page", "Next Page");
-        defaultLanguage.put("gui.create-banner", "Create Banner");
-        defaultLanguage.put("gui.uncraftable-warning", "Uncraftable Warning");
-        defaultLanguage.put("gui.uncraftable", "Uncraftable");
-        defaultLanguage.put("gui.more-than-6-patterns", "More than 6 patterns.");
-        defaultLanguage.put("gui.more-patterns", "More patterns");
-        defaultLanguage.put("gui.back", "Back");
-        defaultLanguage.put("gui.create", "Create");
-        defaultLanguage.put("gui.delete", "DELETE");
-        defaultLanguage.put("gui.remove-last-pattern", "Remove last pattern");
-        defaultLanguage.put("gui.banner-info", "Banner info");
-        defaultLanguage.put("gui.pattern-s", "pattern(s)");
-        defaultLanguage.put("gui.no-patterns", "No patterns");
-        defaultLanguage.put("gui.craft-recipe", "Craft Recipe");
-        defaultLanguage.put("gui.get-this-banner", "Get this banner");
-        defaultLanguage.put("gui.get-banner", "Get banner &r#{0}");
-        defaultLanguage.put("gui.price", "Price: {0}");
-        defaultLanguage.put("gui.clone-and-edit", "Clone & Edit");
-        defaultLanguage.put("gui.alphabet-and-number", "Alphabet & Number");
-        defaultLanguage.put("gui.toggle-border", "Toggle border");
-
+        //當前語言設定檔
         FileConfiguration config = ConfigManager.get(getFileName(lang));
-
-        //該語言資源檔
+        //預設語言資源檔
+        FileConfiguration defaultResourceConfig = null;
+        try {
+            InputStream defaultResourceFile = BannerMaker.getInstance().getResource(getFileName(Language.defaultLanguage).replace('\\', '/'));
+            defaultResourceConfig = YamlConfiguration.loadConfiguration(defaultResourceFile);
+        } catch (Exception ignored) {
+        }
+        //當前語言資源檔
         FileConfiguration resourceConfig = null;
         try {
             InputStream resourceFile = BannerMaker.getInstance().getResource(getFileName(lang).replace('\\', '/'));
             resourceConfig = YamlConfiguration.loadConfiguration(resourceFile);
         } catch (Exception ignored) {
         }
-
+        //根據預設語言資源檔檢查
         int newSettingCount = 0;
-        for (Map.Entry<String, Object> entry : defaultLanguage.entrySet()) {
-            //若已包含該key
-            if (config.contains(entry.getKey())) {
-                //直接檢查下一個
+        for (String key : defaultResourceConfig.getKeys(true)) {
+            //不直接檢查整個段落
+            if (defaultResourceConfig.isConfigurationSection(key)) {
+                continue;
+            }
+            //若key已存在也不檢查
+            if (config.contains(key)) {
                 continue;
             }
             //若未包含該key，將預設值填入語系檔
-            if (resourceConfig != null && resourceConfig.contains(entry.getKey())) {
+            if (resourceConfig != null && resourceConfig.contains(key)) {
                 //優先使用相同語言之資源檔
-                config.set(entry.getKey(), resourceConfig.get(entry.getKey()));
+                config.set(key, resourceConfig.get(key));
             } else {
                 //採用預設語言
-                config.set(entry.getKey(), entry.getValue());
+                config.set(key, defaultResourceConfig.get(key));
             }
             newSettingCount++;
-
         }
         if (newSettingCount > 0) {
             ConfigManager.save(getFileName(lang));
