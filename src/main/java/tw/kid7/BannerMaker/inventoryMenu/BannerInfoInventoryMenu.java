@@ -61,6 +61,15 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         }
         menu.setItem(1, signPatternCount);
         if (patternCount <= 6) {
+            //材料是否充足
+            //TODO: 加到語系檔
+            ItemStack enoughMaterials;
+            if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
+                enoughMaterials = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a材料充足")).build();
+            } else {
+                enoughMaterials = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&c材料不足")).build();
+            }
+            menu.setItem(2, enoughMaterials);
             //材料清單
             List<Integer> materialPosition = Arrays.asList(9, 10, 11, 12, 18, 19, 20, 21, 27, 28, 29, 30, 36, 37, 38, 39);
             List<ItemStack> materialList = BannerUtil.getMaterials(banner);

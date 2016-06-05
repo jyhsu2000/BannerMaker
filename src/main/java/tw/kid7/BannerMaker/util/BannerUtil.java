@@ -158,6 +158,55 @@ public class BannerUtil {
     }
 
     /**
+     * 檢查是否擁有足夠材料
+     *
+     * @param inventory 指定物品欄
+     * @param itemStack 旗幟
+     * @return 是否擁有足夠材料
+     */
+    static public boolean hasEnoughMaterials(Inventory inventory, ItemStack itemStack) {
+        //只檢查旗幟
+        if (!isBanner(itemStack)) {
+            return false;
+        }
+        //材料清單
+        List<ItemStack> materials = getMaterials(itemStack);
+        for (ItemStack material : materials) {
+            //任何一項不足
+            if (!inventory.containsAtLeast(material, material.getAmount())) {
+                //直接回傳false
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 從物品欄移除材料
+     *
+     * @param inventory 指定物品欄
+     * @param itemStack 旗幟
+     * @return 是否順利移除材料
+     */
+    static public boolean removeMaterials(Inventory inventory, ItemStack itemStack) {
+        //只檢查旗幟
+        if (!isBanner(itemStack)) {
+            return false;
+        }
+        //材料必須足夠
+        if (!hasEnoughMaterials(inventory, itemStack)) {
+            return false;
+        }
+        //材料清單
+        List<ItemStack> materials = getMaterials(itemStack);
+        HashMap<Integer, ItemStack> itemCannotRemoved = inventory.removeItem(materials.toArray(new ItemStack[materials.size()]));
+        if (!itemCannotRemoved.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * 取得旗幟在玩家存檔中的Key
      *
      * @param itemStack 欲檢查之旗幟
