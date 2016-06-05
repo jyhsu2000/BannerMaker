@@ -167,30 +167,8 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.get-this-banner"))) {
                 //取得旗幟
                 if (player.hasPermission("BannerMaker.getBanner")) {
-                    //交易成功的標記
-                    boolean success = false;
-                    //檢查是否啟用經濟
-                    if (BannerMaker.econ != null && !player.hasPermission("BannerMaker.getBanner.free")) {
-                        FileConfiguration config = ConfigManager.get("config.yml");
-                        Double price = config.getDouble("Economy.Price", 100);
-                        //檢查財產是否足夠
-                        if (BannerMaker.econ.has(player, price)) {
-                            EconomyResponse response = BannerMaker.econ.withdrawPlayer(player, price);
-                            //檢查交易是否成功
-                            if (response.transactionSuccess()) {
-                                InventoryUtil.give(player, banner);
-                                player.sendMessage(MessageUtil.format(true, "&a" + Language.get("general.money-transaction", BannerMaker.econ.format(response.amount), BannerMaker.econ.format(response.balance))));
-                                success = true;
-                            } else {
-                                player.sendMessage(MessageUtil.format(true, "&aError: " + response.errorMessage));
-                            }
-                        } else {
-                            player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-money")));
-                        }
-                    } else {
-                        InventoryUtil.give(player, banner);
-                        success = true;
-                    }
+                    //嘗試給予玩家旗幟，並建立給予成功的標記
+                    boolean success = BannerUtil.give(player, banner);
                     if (success) {
                         //顯示名稱
                         String showName = BannerUtil.getName(banner);

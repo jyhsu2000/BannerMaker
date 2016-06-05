@@ -1,15 +1,21 @@
 package tw.kid7.BannerMaker.util;
 
 import com.google.common.collect.Maps;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.material.Dye;
+import tw.kid7.BannerMaker.BannerMaker;
+import tw.kid7.BannerMaker.configuration.ConfigManager;
+import tw.kid7.BannerMaker.configuration.Language;
 
 import java.util.*;
 
@@ -27,13 +33,13 @@ public class BannerUtil {
     /**
      * 取得旗幟材料清單
      *
-     * @param itemStack 欲取得材料清單之旗幟
+     * @param banner 欲取得材料清單之旗幟
      * @return List<ItemStack>
      */
-    static public List<ItemStack> getMaterials(ItemStack itemStack) {
+    static public List<ItemStack> getMaterials(ItemStack banner) {
         List<ItemStack> materialList = new ArrayList<>();
         //只檢查旗幟
-        if (!isBanner(itemStack)) {
+        if (!isBanner(banner)) {
             return materialList;
         }
         //基本材料
@@ -42,13 +48,13 @@ public class BannerUtil {
         materialList.add(stick);
         //羊毛
         //顏色
-        int color = 15 - itemStack.getDurability();
+        int color = 15 - banner.getDurability();
         //羊毛
         ItemStack wool = new ItemStack(Material.WOOL, 6, (short) color);
         materialList.add(wool);
         //Pattern材料
         Inventory materialInventory = Bukkit.createInventory(null, 54);
-        BannerMeta bm = (BannerMeta) itemStack.getItemMeta();
+        BannerMeta bm = (BannerMeta) banner.getItemMeta();
         //逐Pattern計算
         for (Pattern pattern : bm.getPatterns()) {
             //所需染料
@@ -161,16 +167,16 @@ public class BannerUtil {
      * 檢查是否擁有足夠材料
      *
      * @param inventory 指定物品欄
-     * @param itemStack 旗幟
+     * @param banner 旗幟
      * @return 是否擁有足夠材料
      */
-    static public boolean hasEnoughMaterials(Inventory inventory, ItemStack itemStack) {
+    static public boolean hasEnoughMaterials(Inventory inventory, ItemStack banner) {
         //只檢查旗幟
-        if (!isBanner(itemStack)) {
+        if (!isBanner(banner)) {
             return false;
         }
         //材料清單
-        List<ItemStack> materials = getMaterials(itemStack);
+        List<ItemStack> materials = getMaterials(banner);
         for (ItemStack material : materials) {
             //任何一項不足
             if (!inventory.containsAtLeast(material, material.getAmount())) {
@@ -185,20 +191,20 @@ public class BannerUtil {
      * 從物品欄移除材料
      *
      * @param inventory 指定物品欄
-     * @param itemStack 旗幟
+     * @param banner 旗幟
      * @return 是否順利移除材料
      */
-    static public boolean removeMaterials(Inventory inventory, ItemStack itemStack) {
+    static public boolean removeMaterials(Inventory inventory, ItemStack banner) {
         //只檢查旗幟
-        if (!isBanner(itemStack)) {
+        if (!isBanner(banner)) {
             return false;
         }
         //材料必須足夠
-        if (!hasEnoughMaterials(inventory, itemStack)) {
+        if (!hasEnoughMaterials(inventory, banner)) {
             return false;
         }
         //材料清單
-        List<ItemStack> materials = getMaterials(itemStack);
+        List<ItemStack> materials = getMaterials(banner);
         HashMap<Integer, ItemStack> itemCannotRemoved = inventory.removeItem(materials.toArray(new ItemStack[materials.size()]));
         if (!itemCannotRemoved.isEmpty()) {
             return false;
@@ -207,20 +213,56 @@ public class BannerUtil {
     }
 
     /**
+     * 給予玩家單一旗幟
+     *
+     * @param player    要給予物品的玩家
+     * @param banner 要給予的旗幟
+     * @return 是否成功給予
+     */
+    public static boolean give(Player player, ItemStack banner) {
+        //TODO: 更多消費方式
+        //檢查是否啟用經濟
+        if (BannerMaker.econ != null && !player.hasPermission("BannerMaker.getBanner.free")) {
+            FileConfiguration config = ConfigManager.get("config.yml");
+            Double price = config.getDouble("Economy.Price", 100);
+            //檢查財產是否足夠
+            if (!BannerMaker.econ.has(player, price)) {
+                //財產不足
+                player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-money")));
+                return false;
+            }
+            //扣款
+            EconomyResponse response = BannerMaker.econ.withdrawPlayer(player, price);
+            //檢查交易是否成功
+            if (!response.transactionSuccess()) {
+                //交易失敗
+                player.sendMessage(MessageUtil.format(true, "&cError: " + response.errorMessage));
+                return false;
+            }
+            InventoryUtil.give(player, banner);
+            player.sendMessage(MessageUtil.format(true, "&a" + Language.get("general.money-transaction", BannerMaker.econ.format(response.amount), BannerMaker.econ.format(response.balance))));
+            return true;
+        }
+        //未啟用經濟
+        InventoryUtil.give(player, banner);
+        return true;
+    }
+
+    /**
      * 取得旗幟在玩家存檔中的Key
      *
-     * @param itemStack 欲檢查之旗幟
+     * @param banner 欲檢查之旗幟
      * @return String
      */
-    static public String getKey(ItemStack itemStack) {
+    static public String getKey(ItemStack banner) {
         //只處理旗幟
-        if (!isBanner(itemStack)) {
+        if (!isBanner(banner)) {
             return null;
         }
         String key;
         //嘗試取出key
         try {
-            key = HiddenStringUtil.extractHiddenString(itemStack.getItemMeta().getLore().get(0));
+            key = HiddenStringUtil.extractHiddenString(banner.getItemMeta().getLore().get(0));
         } catch (Exception exception) {
             return null;
         }
@@ -230,19 +272,19 @@ public class BannerUtil {
     /**
      * 取得旗幟名稱，若無名稱則嘗試取得KEY
      *
-     * @param itemStack 欲檢查之旗幟
+     * @param banner 欲檢查之旗幟
      * @return String
      */
-    static public String getName(ItemStack itemStack) {
+    static public String getName(ItemStack banner) {
         //只處理旗幟
-        if (!isBanner(itemStack)) {
+        if (!isBanner(banner)) {
             return null;
         }
         String showName = "";
-        if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()) {
-            showName = itemStack.getItemMeta().getDisplayName();
+        if (banner.hasItemMeta() && banner.getItemMeta().hasDisplayName()) {
+            showName = banner.getItemMeta().getDisplayName();
         } else {
-            String key = BannerUtil.getKey(itemStack);
+            String key = BannerUtil.getKey(banner);
             if (key != null) {
                 showName = key;
             }
