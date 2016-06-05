@@ -60,6 +60,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
+v1.4.4 (for 1.8.x, 1.9.x)
+- Optimize code
+
 v1.4.3 (for 1.8.x, 1.9.x)
 - Add French(fr) translation (Thanks [RedNesto](https://github.com/RedNesto))
 - Update recipe of bordered alphabet D and R
@@ -165,6 +168,9 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
+v1.4.4 (for 1.8.x, 1.9.x)
+- 優化程式碼
+
 v1.4.3 (for 1.8.x, 1.9.x)
 - 新增法文(fr)翻譯（感謝 [RedNesto](https://github.com/RedNesto)）
 - 更新有框字母D和R的合成表

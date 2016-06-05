@@ -6,7 +6,7 @@
 
     <groupId>tw.kid7.BannerMaker</groupId>
     <artifactId>BannerMaker</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
 
     <build>
         <finalName>${project.artifactId}</finalName>
