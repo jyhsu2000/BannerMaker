@@ -167,7 +167,7 @@ public class BannerUtil {
      * 檢查是否擁有足夠材料
      *
      * @param inventory 指定物品欄
-     * @param banner 旗幟
+     * @param banner    旗幟
      * @return 是否擁有足夠材料
      */
     static public boolean hasEnoughMaterials(Inventory inventory, ItemStack banner) {
@@ -191,7 +191,7 @@ public class BannerUtil {
      * 從物品欄移除材料
      *
      * @param inventory 指定物品欄
-     * @param banner 旗幟
+     * @param banner    旗幟
      * @return 是否順利移除材料
      */
     static public boolean removeMaterials(Inventory inventory, ItemStack banner) {
@@ -215,11 +215,16 @@ public class BannerUtil {
     /**
      * 給予玩家單一旗幟
      *
-     * @param player    要給予物品的玩家
+     * @param player 要給予物品的玩家
      * @param banner 要給予的旗幟
      * @return 是否成功給予
      */
     public static boolean give(Player player, ItemStack banner) {
+        //檢查權限
+        if (!player.hasPermission("BannerMaker.getBanner")) {
+            player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-permission")));
+            return false;
+        }
         //TODO: 更多消費方式
         //檢查是否啟用經濟
         if (BannerMaker.econ != null && !player.hasPermission("BannerMaker.getBanner.free")) {

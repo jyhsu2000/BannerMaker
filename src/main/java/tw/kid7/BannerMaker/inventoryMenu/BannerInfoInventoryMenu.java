@@ -165,17 +165,13 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 BannerMaker.getInstance().currentRecipePage.put(player.getName(), currentRecipePage + 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.get-this-banner"))) {
                 //取得旗幟
-                if (player.hasPermission("BannerMaker.getBanner")) {
-                    //嘗試給予玩家旗幟，並建立給予成功的標記
-                    boolean success = BannerUtil.give(player, banner);
-                    if (success) {
-                        //顯示名稱
-                        String showName = BannerUtil.getName(banner);
-                        //顯示訊息
-                        player.sendMessage(MessageUtil.format(true, "&a" + Language.get("gui.get-banner", showName)));
-                    }
-                } else {
-                    player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-permission")));
+                //嘗試給予玩家旗幟，並建立給予成功的標記
+                boolean success = BannerUtil.give(player, banner);
+                if (success) {
+                    //顯示名稱
+                    String showName = BannerUtil.getName(banner);
+                    //顯示訊息
+                    player.sendMessage(MessageUtil.format(true, "&a" + Language.get("gui.get-banner", showName)));
                 }
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.clone-and-edit"))) {
                 //設定為編輯中旗幟
