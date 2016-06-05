@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
+import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -8,15 +9,16 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MainInventoryMenu extends AbstractInventoryMenu {
     private static MainInventoryMenu instance = null;
+    private final HashMap<String, Integer> currentPageMap = Maps.newHashMap();
 
     public static MainInventoryMenu getInstance() {
         if (instance == null) {
@@ -30,14 +32,14 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         //建立選單
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.main-menu")));
         //當前頁數
-        int currentBannerPage = 1;
-        if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
-            currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
+        int currentPage = 1;
+        if (currentPageMap.containsKey(player.getName())) {
+            currentPage = currentPageMap.get(player.getName());
         } else {
-            BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
+            currentPageMap.put(player.getName(), 1);
         }
         //顯示現有旗幟
-        List<ItemStack> bannerList = IOUtil.loadBannerList(player, currentBannerPage);
+        List<ItemStack> bannerList = IOUtil.loadBannerList(player, currentPage);
         for (int i = 0; i < bannerList.size() && i < 45; i++) {
             ItemStack banner = bannerList.get(i);
             menu.setItem(i, banner);
@@ -47,13 +49,13 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         //新增按鈕
         //換頁按鈕
         //上一頁
-        if (currentBannerPage > 1) {
-            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentBannerPage - 1).name(MessageUtil.format("&a" + Language.get("gui.prev-page"))).build();
+        if (currentPage > 1) {
+            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentPage - 1).name(MessageUtil.format("&a" + Language.get("gui.prev-page"))).build();
             menu.setItem(45, prevPage);
         }
         //下一頁
-        if (currentBannerPage < totalPage) {
-            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentBannerPage + 1).name(MessageUtil.format("&a" + Language.get("gui.next-page"))).build();
+        if (currentPage < totalPage) {
+            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentPage + 1).name(MessageUtil.format("&a" + Language.get("gui.next-page"))).build();
             menu.setItem(53, nextPage);
         }
         //Create banner
@@ -76,9 +78,9 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         if (event.getRawSlot() < 45) {
             //點擊旗幟
             //記錄選擇的旗幟
-            BannerMaker.getInstance().viewInfoBanner.put(player.getName(), itemStack);
+            BannerInfoInventoryMenu.getInstance().viewInfoBannerMap.put(player.getName(), itemStack);
             //重置頁數
-            BannerMaker.getInstance().currentRecipePage.put(player.getName(), 1);
+            BannerInfoInventoryMenu.getInstance().currentRecipePageMap.put(player.getName(), 1);
             //切換畫面
             State.set(player, State.BANNER_INFO);
             //重新開啟選單
@@ -88,21 +90,21 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
             String buttonName = itemStack.getItemMeta().getDisplayName();
             buttonName = ChatColor.stripColor(buttonName);
             //當前頁數
-            int currentBannerPage = 1;
-            if (BannerMaker.getInstance().currentBannerPage.containsKey(player.getName())) {
-                currentBannerPage = BannerMaker.getInstance().currentBannerPage.get(player.getName());
+            int currentPage = 1;
+            if (currentPageMap.containsKey(player.getName())) {
+                currentPage = currentPageMap.get(player.getName());
             } else {
-                BannerMaker.getInstance().currentBannerPage.put(player.getName(), 1);
+                currentPageMap.put(player.getName(), 1);
             }
             //修改狀態
             if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.prev-page"))) {
-                BannerMaker.getInstance().currentBannerPage.put(player.getName(), currentBannerPage - 1);
+                currentPageMap.put(player.getName(), currentPage - 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.next-page"))) {
-                BannerMaker.getInstance().currentBannerPage.put(player.getName(), currentBannerPage + 1);
+                currentPageMap.put(player.getName(), currentPage + 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create-banner"))) {
                 State.set(player, State.CREATE_BANNER);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.alphabet-and-number"))) {
-                BannerMaker.getInstance().currentAlphabetBanner.remove(player.getName());
+                CreateAlphabetInventoryMenu.getInstance().currentAlphabetBannerMap.remove(player.getName());
                 State.set(player, State.CREATE_ALPHABET);
             }
             //重新開啟選單

@@ -1,9 +1,7 @@
 package tw.kid7.BannerMaker;
 
-import com.google.common.collect.Maps;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
@@ -11,27 +9,16 @@ import tw.kid7.BannerMaker.configuration.DefaultConfig;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.listener.InventoryClickEventListener;
 import tw.kid7.BannerMaker.listener.PlayerJoinEventListener;
-import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     public static Economy econ = null;
-    public final HashMap<String, Integer> selectedColor = Maps.newHashMap();
-    public final HashMap<String, ItemStack> currentBanner = Maps.newHashMap();
-    public final HashMap<String, AlphabetBanner> currentAlphabetBanner = Maps.newHashMap();
-    public final HashMap<String, ItemStack> viewInfoBanner = Maps.newHashMap();
-    public final HashMap<String, Boolean> morePatterns = Maps.newHashMap();
-    public final HashMap<String, Boolean> alphabetBorder = Maps.newHashMap();
-    public final HashMap<String, Integer> currentRecipePage = Maps.newHashMap();
-    public final HashMap<String, Integer> currentBannerPage = Maps.newHashMap();
-    private List<String> configList;
 
     @Override
     public void onEnable() {
@@ -53,7 +40,7 @@ public class BannerMaker extends JavaPlugin {
             }
         }
         //Config
-        configList = Arrays.asList("config");
+        List<String> configList = Arrays.asList("config");
         for (String config : configList) {
             String configFileName = config + ".yml";
             ConfigManager.load(configFileName);

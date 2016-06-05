@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
+import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -11,13 +12,17 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
-import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
 
+import java.util.HashMap;
+
 public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     private static CreateBannerInventoryMenu instance = null;
+    final HashMap<String, ItemStack> currentBannerMap = Maps.newHashMap();
+    private final HashMap<String, Boolean> morePatternsMap = Maps.newHashMap();
+    final HashMap<String, Integer> selectedColorMap = Maps.newHashMap();
 
     public static CreateBannerInventoryMenu getInstance() {
         if (instance == null) {
@@ -31,7 +36,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
         //建立選單
         Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.create-banner")));
         //取得當前編輯中的旗幟
-        ItemStack currentBanner = BannerMaker.getInstance().currentBanner.get(player.getName());
+        ItemStack currentBanner = currentBannerMap.get(player.getName());
         if (currentBanner == null) {
             //剛開始編輯，先選擇底色
             for (int i = 0; i < 16; i++) {
@@ -56,13 +61,13 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             //Pattern
             //選擇的顏色
             int selectedColor = 0;
-            if (BannerMaker.getInstance().selectedColor.containsKey(player.getName())) {
-                selectedColor = BannerMaker.getInstance().selectedColor.get(player.getName());
+            if (selectedColorMap.containsKey(player.getName())) {
+                selectedColor = selectedColorMap.get(player.getName());
             }
             for (int i = 0; i < 24; i++) {
                 int patternIndex = i;
-                if (BannerMaker.getInstance().morePatterns.containsKey(player.getName())) {
-                    if (BannerMaker.getInstance().morePatterns.get(player.getName())) {
+                if (morePatternsMap.containsKey(player.getName())) {
+                    if (morePatternsMap.get(player.getName())) {
                         patternIndex += 24;
                     }
                 }
@@ -107,14 +112,14 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
         Player player = (Player) event.getWhoClicked();
         ItemStack itemStack = event.getCurrentItem();
         //取得當前編輯中的旗幟
-        ItemStack currentBanner = BannerMaker.getInstance().currentBanner.get(player.getName());
+        ItemStack currentBanner = currentBannerMap.get(player.getName());
         if (event.getRawSlot() >= 1 && event.getRawSlot() <= 17 && event.getRawSlot() % 9 != 0) {
             if (currentBanner == null) {
                 //選擇底色
-                BannerMaker.getInstance().currentBanner.put(player.getName(), itemStack);
+                currentBannerMap.put(player.getName(), itemStack);
             } else {
                 //點擊顏色
-                BannerMaker.getInstance().selectedColor.put(player.getName(), (int) itemStack.getDurability());
+                selectedColorMap.put(player.getName(), (int) itemStack.getDurability());
             }
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
@@ -125,7 +130,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             BannerMeta currentBm = (BannerMeta) currentBanner.getItemMeta();
             currentBm.addPattern(pattern);
             currentBanner.setItemMeta(currentBm);
-            BannerMaker.getInstance().currentBanner.put(player.getName(), currentBanner);
+            currentBannerMap.put(player.getName(), currentBanner);
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
         } else if (event.getRawSlot() >= 45) {
@@ -134,24 +139,24 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             buttonName = ChatColor.stripColor(buttonName);
             //修改狀態
             if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.more-patterns"))) {
-                if (BannerMaker.getInstance().morePatterns.containsKey(player.getName())) {
-                    BannerMaker.getInstance().morePatterns.put(player.getName(), !BannerMaker.getInstance().morePatterns.get(player.getName()));
+                if (morePatternsMap.containsKey(player.getName())) {
+                    morePatternsMap.put(player.getName(), !morePatternsMap.get(player.getName()));
                 } else {
-                    BannerMaker.getInstance().morePatterns.put(player.getName(), true);
+                    morePatternsMap.put(player.getName(), true);
                 }
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.remove-last-pattern"))) {
                 if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
                     BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
                     bm.removePattern(bm.numberOfPatterns() - 1);
                     currentBanner.setItemMeta(bm);
-                    BannerMaker.getInstance().currentBanner.put(player.getName(), currentBanner);
+                    currentBannerMap.put(player.getName(), currentBanner);
                 }
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create"))) {
                 IOUtil.saveBanner(player, currentBanner);
-                BannerMaker.getInstance().currentBanner.remove(player.getName());
+                currentBannerMap.remove(player.getName());
                 State.set(player, State.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
-                BannerMaker.getInstance().currentBanner.remove(player.getName());
+                currentBannerMap.remove(player.getName());
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                 State.set(player, State.MAIN_MENU);
             }

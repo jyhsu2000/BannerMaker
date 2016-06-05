@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
+import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,6 +22,8 @@ import java.util.List;
 
 public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     private static BannerInfoInventoryMenu instance = null;
+    final HashMap<String, ItemStack> viewInfoBannerMap = Maps.newHashMap();
+    final HashMap<String, Integer> currentRecipePageMap = Maps.newHashMap();
 
     public static BannerInfoInventoryMenu getInstance() {
         if (instance == null) {
@@ -32,7 +35,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void open(Player player) {
         //取得欲查看旗幟
-        ItemStack banner = BannerMaker.getInstance().viewInfoBanner.get(player.getName());
+        ItemStack banner = viewInfoBannerMap.get(player.getName());
         //僅限旗幟
         if (!BannerUtil.isBanner(banner)) {
             //回到主選單
@@ -79,7 +82,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
 
             //合成表
             //當前頁數
-            int currentRecipePage = BannerMaker.getInstance().currentRecipePage.get(player.getName());
+            int currentRecipePage = currentRecipePageMap.get(player.getName());
             //總頁數
             int totalPage = patternCount + 1;
             //外框
@@ -154,14 +157,14 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             String buttonName = itemStack.getItemMeta().getDisplayName();
             buttonName = ChatColor.stripColor(buttonName);
             //取得欲查看旗幟
-            ItemStack banner = BannerMaker.getInstance().viewInfoBanner.get(player.getName());
+            ItemStack banner = viewInfoBannerMap.get(player.getName());
             //當前頁數
-            int currentRecipePage = BannerMaker.getInstance().currentRecipePage.get(player.getName());
+            int currentRecipePage = currentRecipePageMap.get(player.getName());
             //修改狀態
             if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.prev-page"))) {
-                BannerMaker.getInstance().currentRecipePage.put(player.getName(), currentRecipePage - 1);
+                currentRecipePageMap.put(player.getName(), currentRecipePage - 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.next-page"))) {
-                BannerMaker.getInstance().currentRecipePage.put(player.getName(), currentRecipePage + 1);
+                currentRecipePageMap.put(player.getName(), currentRecipePage + 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.get-this-banner"))) {
                 //取得旗幟
                 //嘗試給予玩家旗幟，並建立給予成功的標記
@@ -174,7 +177,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 }
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.clone-and-edit"))) {
                 //設定為編輯中旗幟
-                BannerMaker.getInstance().currentBanner.put(player.getName(), banner);
+                CreateBannerInventoryMenu.getInstance().currentBannerMap.put(player.getName(), banner);
                 State.set(player, State.CREATE_BANNER);
 
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
