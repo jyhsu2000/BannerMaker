@@ -36,3 +36,6 @@ gui:
   clone-and-edit: 复制并编辑
   alphabet-and-number: 字母与数字
   toggle-border: 切换边框
+  materials:
+    enough: 材料足够
+    not-enough: 材料不足

@@ -36,3 +36,6 @@ gui:
   clone-and-edit: 'Clone & Edit'
   alphabet-and-number: 'Alphabet & Number'
   toggle-border: Toggle border
+  materials:
+    enough: Materials enough
+    not-enough: Materials not enough
