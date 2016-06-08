@@ -30,7 +30,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void open(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.main-menu")));
+        Inventory menu = Bukkit.createInventory(null, 54, InventoryMenuUtil.createTitle(Language.get("gui.main-menu")));
         //當前頁數
         int currentPage = 1;
         if (currentPageMap.containsKey(player.getName())) {

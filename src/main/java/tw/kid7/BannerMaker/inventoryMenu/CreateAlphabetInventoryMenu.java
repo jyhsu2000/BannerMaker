@@ -36,7 +36,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void open(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, MessageUtil.format("&b&m&r" + Language.get("gui.prefix") + Language.get("gui.alphabet-and-number")));
+        Inventory menu = Bukkit.createInventory(null, 54, InventoryMenuUtil.createTitle(Language.get("gui.alphabet-and-number")));
         //取得當前編輯中的字母
         AlphabetBanner currentAlphabetBanner = currentAlphabetBannerMap.get(player.getName());
         //邊框切換按鈕

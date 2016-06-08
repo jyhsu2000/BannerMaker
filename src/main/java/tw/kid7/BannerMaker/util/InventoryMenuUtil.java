@@ -2,6 +2,7 @@ package tw.kid7.BannerMaker.util;
 
 import org.bukkit.entity.Player;
 import tw.kid7.BannerMaker.State;
+import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.inventoryMenu.AbstractInventoryMenu;
 
 public class InventoryMenuUtil {
@@ -15,4 +16,7 @@ public class InventoryMenuUtil {
         menu.open(player);
     }
 
+    public static String createTitle(String title) {
+        return MessageUtil.format("&b&m&r" + MessageUtil.cutStringWithoutColor(Language.get("gui.prefix") + title, 32));
+    }
 }
