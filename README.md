@@ -63,6 +63,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 v1.4.4 (for 1.8.x, 1.9.x)
 - Optimize code
 - Prevent "Title cannot be longer than 32 characters" exception
+- Add Plugin Metrics
 
 v1.4.3 (for 1.8.x, 1.9.x)
 - Add French(fr) translation (Thanks [RedNesto](https://github.com/RedNesto))
@@ -172,6 +173,7 @@ v1.0 (for 1.8)
 v1.4.4 (for 1.8.x, 1.9.x)
 - 優化程式碼
 - 防止「Title cannot be longer than 32 characters」例外
+- 新增 Plugin Metrics
 
 v1.4.3 (for 1.8.x, 1.9.x)
 - 新增法文(fr)翻譯（感謝 [RedNesto](https://github.com/RedNesto)）
