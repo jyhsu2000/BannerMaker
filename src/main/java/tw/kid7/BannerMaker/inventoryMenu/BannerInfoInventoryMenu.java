@@ -115,7 +115,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             }
         }
         //新增按鈕
-        //嘗試取德key
+        //嘗試取得key
         String key = BannerUtil.getKey(banner);
         //刪除
         if (key != null) {
