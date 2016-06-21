@@ -45,7 +45,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             return;
         }
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, InventoryMenuUtil.createTitle(Language.get("gui.banner-info")));
+        Inventory menu = InventoryMenuUtil.create(Language.get("gui.banner-info"));
         menu.setItem(0, banner);
         //patterns數量
         int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();

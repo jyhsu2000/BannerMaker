@@ -34,7 +34,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void open(Player player) {
         //建立選單
-        Inventory menu = Bukkit.createInventory(null, 54, InventoryMenuUtil.createTitle(Language.get("gui.create-banner")));
+        Inventory menu = InventoryMenuUtil.create(Language.get("gui.create-banner"));
         //取得當前編輯中的旗幟
         ItemStack currentBanner = currentBannerMap.get(player.getName());
         if (currentBanner == null) {
