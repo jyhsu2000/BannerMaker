@@ -2,7 +2,7 @@
 # For BannerMaker v1.4.3
 # Contributor(s): RedNesto
 general:
-  prefix: "&6[&aBannerMaker&6]&r "
+  prefix: '&6[&aBannerMaker&6]&r '
   reload: Rechargement de la configuration
   no-permission: Pas la permission
   no-money: Pas assez d'argent
@@ -16,7 +16,7 @@ command:
 config:
   add-setting: Ajout de {0} nouveaux paramètres
 gui:
-  prefix: "&f[&4BM&f]&r "
+  prefix: '&4[BM]&r '
   main-menu: Menu principal
   prev-page: Page précédente
   next-page: Page suivante

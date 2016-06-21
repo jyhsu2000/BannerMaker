@@ -16,7 +16,7 @@ command:
 config:
   add-setting: 新增 {0} 个新设定
 gui:
-  prefix: '&f[&4BM&f]&r '
+  prefix: '&4[BM]&r '
   main-menu: 主选单
   prev-page: 上一页
   next-page: 下一页

@@ -2,7 +2,7 @@
 # For BannerMaker v1.4.4
 # Contributor(s): KID
 general:
-  prefix: "&6[&aBannerMaker&6]&r "
+  prefix: '&6[&aBannerMaker&6]&r '
   reload: Reload config
   no-permission: No permission
   no-money: Not enough money
@@ -16,7 +16,7 @@ command:
 config:
   add-setting: Add {0} new settings
 gui:
-  prefix: "&f[&4BM&f]&r "
+  prefix: '&4[BM]&r '
   main-menu: Main menu
   prev-page: Prev Page
   next-page: Next Page
