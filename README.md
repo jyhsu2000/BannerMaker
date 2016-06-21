@@ -61,6 +61,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
+v1.4.5 (for 1.8.x, 1.9.x)
+- Fix "Title cannot be longer than 32 characters" exception
+
 v1.4.4 (for 1.8.x, 1.9.x)
 - Optimize code
 - Prevent "Title cannot be longer than 32 characters" exception
@@ -171,6 +174,9 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
+v1.4.5 (for 1.8.x, 1.9.x)
+- 修正「Title cannot be longer than 32 characters」例外
+
 v1.4.4 (for 1.8.x, 1.9.x)
 - 優化程式碼
 - 防止「Title cannot be longer than 32 characters」例外
