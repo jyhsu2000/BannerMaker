@@ -56,7 +56,7 @@ public class Language {
         ConfigManager.load(getFileName(language));
         //檢查語言包
         checkConfig(language);
-        BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, "Language: " + language));
+        BannerMaker.getInstance().getLogger().info("Language: " + language);
     }
 
     private static String getFileName(String lang) {
