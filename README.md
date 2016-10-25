@@ -28,6 +28,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
   * Simplified Chinese(zh-cn)
   * German(de) (Thanks [Marrarus](https://github.com/Marrarus))
   * French(fr) (Thanks [RedNesto](https://github.com/RedNesto))
+  * Russian(ru) (Thanks [sdir01](https://www.spigotmc.org/members/sdir01.238854/))
 * Economic support (need Vault)
 * Material estimates
 
@@ -61,6 +62,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ### Change Logs
+v1.4.6 (for 1.8.x, 1.9.x, 1.10.x)
+- Add Russian(ru) translation (Thanks [sdir01](https://www.spigotmc.org/members/sdir01.238854/))
+
 v1.4.5 (for 1.8.x, 1.9.x)
 - Fix "Title cannot be longer than 32 characters" exception
 
@@ -141,6 +145,7 @@ v1.0 (for 1.8)
   * 簡體中文(zh-cn)
   * 德文(de)（感謝 [Marrarus](https://github.com/Marrarus)）
   * 法文(fr)（感謝 [RedNesto](https://github.com/RedNesto)）
+  * 俄文(ru)（感謝 [sdir01](https://www.spigotmc.org/members/sdir01.238854/)）
 * 支援經濟功能（需要Vault）
 * 材料估算
 
@@ -174,6 +179,9 @@ v1.0 (for 1.8)
 3. 啟動伺服器
 
 ### 更新紀錄
+v1.4.6 (for 1.8.x, 1.9.x, 1.10.x)
+- 新增俄文(ru)翻譯（感謝 [sdir01](https://www.spigotmc.org/members/sdir01.238854/)）
+
 v1.4.5 (for 1.8.x, 1.9.x)
 - 修正「Title cannot be longer than 32 characters」例外
 
