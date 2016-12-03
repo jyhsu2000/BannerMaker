@@ -68,8 +68,9 @@ public class AlphabetBanner {
      */
     public ItemStack toItemStack() {
         //建立旗幟
-        ItemStack banner = new ItemStack(Material.BANNER, 1, (short) (15 - baseColor.getData()));
+        ItemStack banner = new ItemStack(Material.BANNER, 1);
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+        bannerMeta.setBaseColor(baseColor);
         bannerMeta.setDisplayName(MessageUtil.format("&a" + alphabet));
         //繪製字母
         if (!bordered) {
@@ -95,7 +96,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
                     break;
                 case "D":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS_MIDDLE));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
@@ -122,7 +123,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
                     break;
                 case "H":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_TOP));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
@@ -169,7 +170,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
                     break;
                 case "P":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_BOTTOM));
@@ -185,7 +186,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
                     break;
                 case "R":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL));
@@ -252,7 +253,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
                     break;
                 case "4":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_BOTTOM));
@@ -260,7 +261,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
                     break;
                 case "5":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_MIRROR));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
@@ -317,7 +318,7 @@ public class AlphabetBanner {
             //有框
             switch (alphabet) {
                 case "A":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
@@ -327,7 +328,7 @@ public class AlphabetBanner {
                     break;
                 case "B":
                 case "8":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_CENTER));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
@@ -425,7 +426,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
                     break;
                 case "P":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_BOTTOM));
@@ -538,7 +539,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
                     break;
                 case "6":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_TOP));
@@ -554,7 +555,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
                     break;
                 case "9":
-                    banner = new ItemStack(Material.BANNER, 1, (short) (15 - dyeColor.getData()));
+                    bannerMeta.setBaseColor(dyeColor);
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_BOTTOM));
