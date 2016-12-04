@@ -6,8 +6,8 @@ import org.bukkit.DyeColor;
 
 import java.util.HashMap;
 
-public class DyeColorUtil {
-    static HashMap<DyeColor, Integer> map = Maps.newHashMap();
+class DyeColorUtil {
+    private static HashMap<DyeColor, Integer> map = Maps.newHashMap();
 
     static {
         map.put(DyeColor.WHITE, 15);
@@ -28,7 +28,7 @@ public class DyeColorUtil {
         map.put(DyeColor.BLACK, 0);
     }
 
-    public static short toShort(DyeColor dyeColor) {
+    static short toShort(DyeColor dyeColor) {
         return map.get(dyeColor).shortValue();
     }
 }
