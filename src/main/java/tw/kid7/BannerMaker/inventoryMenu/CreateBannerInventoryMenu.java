@@ -1,7 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
 import com.google.common.collect.Maps;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -22,7 +21,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     private static CreateBannerInventoryMenu instance = null;
     final HashMap<String, ItemStack> currentBannerMap = Maps.newHashMap();
     private final HashMap<String, Boolean> morePatternsMap = Maps.newHashMap();
-    final HashMap<String, Integer> selectedColorMap = Maps.newHashMap();
+    final HashMap<String, DyeColor> selectedColorMap = Maps.newHashMap();
 
     public static CreateBannerInventoryMenu getInstance() {
         if (instance == null) {
@@ -60,7 +59,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             }
             //Pattern
             //選擇的顏色
-            int selectedColor = 0;
+            DyeColor selectedColor = DyeColor.BLACK;
             if (selectedColorMap.containsKey(player.getName())) {
                 selectedColor = selectedColorMap.get(player.getName());
             }
@@ -78,7 +77,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 ItemStack banner = new ItemStack(Material.BANNER, 1, currentBanner.getDurability());
                 BannerMeta bm = (BannerMeta) banner.getItemMeta();
                 PatternType patternType = BannerUtil.getPatternTypeList().get(patternIndex);
-                bm.addPattern(new Pattern(DyeColor.getByDyeData((byte) selectedColor), patternType));
+                bm.addPattern(new Pattern(selectedColor, patternType));
                 banner.setItemMeta(bm);
 
                 menu.setItem(i + 19 + (i / 8), banner);
@@ -119,7 +118,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 currentBannerMap.put(player.getName(), itemStack);
             } else {
                 //點擊顏色
-                selectedColorMap.put(player.getName(), (int) itemStack.getDurability());
+                selectedColorMap.put(player.getName(), DyeColorUtil.fromInt(itemStack.getDurability()));
             }
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);

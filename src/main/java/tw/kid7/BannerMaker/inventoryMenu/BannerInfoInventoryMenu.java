@@ -1,7 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
 import com.google.common.collect.Maps;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -129,6 +128,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             ItemBuilder btnGetBannerBuilder = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.get-this-banner")));
             if (BannerMaker.econ != null) {
                 FileConfiguration config = ConfigManager.get("config.yml");
+                assert config != null;
                 Double price = config.getDouble("Economy.Price", 100);
                 //FIXME 可能造成 IndexOutOfBoundsException: No group 1
                 btnGetBannerBuilder.lore(MessageUtil.format("&a" + Language.get("gui.price", BannerMaker.econ.format(price))));

@@ -23,6 +23,7 @@ public class DefaultConfig {
         for (String configName : defaultConfigs.keySet()) {
             String configFileName = configName + ".yml";
             FileConfiguration config = ConfigManager.get(configFileName);
+            assert config != null;
             HashMap<String, Object> defaultOptions = defaultConfigs.get(configName);
 
             int i = 0;

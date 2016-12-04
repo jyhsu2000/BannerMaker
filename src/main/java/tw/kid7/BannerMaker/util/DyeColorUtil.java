@@ -5,7 +5,7 @@ import com.google.common.collect.HashBiMap;
 import org.bukkit.DyeColor;
 
 public class DyeColorUtil {
-    private static BiMap<DyeColor, Integer> map = HashBiMap.create();
+    final private static BiMap<DyeColor, Integer> map = HashBiMap.create();
 
     static {
         map.put(DyeColor.WHITE, 15);

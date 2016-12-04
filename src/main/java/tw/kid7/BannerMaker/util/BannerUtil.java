@@ -229,6 +229,7 @@ public class BannerUtil {
         //檢查是否啟用經濟
         if (BannerMaker.econ != null && !player.hasPermission("BannerMaker.getBanner.free")) {
             FileConfiguration config = ConfigManager.get("config.yml");
+            assert config != null;
             Double price = config.getDouble("Economy.Price", 100);
             //檢查財產是否足夠
             if (!BannerMaker.econ.has(player, price)) {

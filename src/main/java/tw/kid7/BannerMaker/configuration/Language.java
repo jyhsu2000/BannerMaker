@@ -48,6 +48,7 @@ public class Language {
             } catch (Exception e) {
                 //若無該語言之語言包，則使用預設語言
                 language = defaultLanguage;
+                assert config != null;
                 config.set("Language", language);
                 ConfigManager.save(configFileName);
             }
@@ -68,6 +69,7 @@ public class Language {
             return null;
         }
         FileConfiguration config = ConfigManager.get(getFileName(language));
+        assert config != null;
         if (!config.contains(path) || !config.isString(path)) {
             //若無法取得，則自該語言資源檔取得，並儲存於語系檔
             config.set(path, getFromLanguageResource(path, args));
@@ -107,6 +109,7 @@ public class Language {
     private static void checkConfig(String lang) {
         //當前語言設定檔
         FileConfiguration config = ConfigManager.get(getFileName(lang));
+        assert config != null;
         //根據預設語言資源檔檢查
         int newSettingCount = 0;
         for (String key : defaultLanguageConfigResource.getKeys(true)) {

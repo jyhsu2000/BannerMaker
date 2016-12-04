@@ -1,7 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
 import com.google.common.collect.Maps;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -14,10 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.State;
 import tw.kid7.BannerMaker.configuration.Language;
-import tw.kid7.BannerMaker.util.AlphabetBanner;
-import tw.kid7.BannerMaker.util.InventoryMenuUtil;
-import tw.kid7.BannerMaker.util.ItemBuilder;
-import tw.kid7.BannerMaker.util.MessageUtil;
+import tw.kid7.BannerMaker.util.*;
 
 import java.util.HashMap;
 
@@ -124,11 +120,11 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
                 //預覽圖
             } else if (event.getRawSlot() < 18) {
                 //選擇底色
-                currentAlphabetBanner.baseColor = DyeColor.getByDyeData((byte) itemStack.getDurability());
+                currentAlphabetBanner.baseColor = DyeColorUtil.fromInt(itemStack.getDurability());
                 currentAlphabetBannerMap.put(player.getName(), currentAlphabetBanner);
             } else if (event.getRawSlot() < 36) {
                 //選擇主要顏色
-                currentAlphabetBanner.dyeColor = DyeColor.getByDyeData((byte) itemStack.getDurability());
+                currentAlphabetBanner.dyeColor = DyeColorUtil.fromInt(itemStack.getDurability());
                 currentAlphabetBannerMap.put(player.getName(), currentAlphabetBanner);
             } else {
                 //點擊按鈕

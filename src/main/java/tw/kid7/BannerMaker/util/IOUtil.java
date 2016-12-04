@@ -28,6 +28,7 @@ public class IOUtil {
         String fileName = getFileName(player);
         ConfigManager.load(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
+        assert config != null;
         //索引值（時間戳記，不會重複）
         String key = String.valueOf(System.currentTimeMillis());
         //旗幟資訊
@@ -59,6 +60,7 @@ public class IOUtil {
         //強制重新讀取，以避免選單內容未即時更新
         ConfigManager.reload(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
+        assert config != null;
         //起始索引值
         int startIndex = Math.max(0, (page - 1) * 45);
         //旗幟
@@ -88,6 +90,7 @@ public class IOUtil {
         String fileName = getFileName(player);
         ConfigManager.load(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
+        assert config != null;
         //檢查是否為物品
         ItemStack banner = null;
         //檢查是否為正確格式
@@ -129,6 +132,7 @@ public class IOUtil {
         //設定檔
         String fileName = getFileName(player);
         FileConfiguration config = ConfigManager.get(fileName);
+        assert config != null;
         //移除
         config.set(key, null);
         //儲存
@@ -158,6 +162,7 @@ public class IOUtil {
         String fileName = getFileName(configFileName);
         ConfigManager.load(fileName);
         FileConfiguration config = ConfigManager.get(fileName);
+        assert config != null;
         Set<String> keySet = config.getKeys(false);
         List<String> keyList = new ArrayList<>();
         keyList.addAll(keySet);

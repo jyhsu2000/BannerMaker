@@ -11,7 +11,6 @@ import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.listener.InventoryClickEventListener;
 import tw.kid7.BannerMaker.listener.PlayerJoinEventListener;
 import tw.kid7.BannerMaker.util.IOUtil;
-import tw.kid7.BannerMaker.util.MessageUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -88,6 +87,7 @@ public class BannerMaker extends JavaPlugin {
         //檢查設定
         String configFileName = "config.yml";
         FileConfiguration config = ConfigManager.get(configFileName);
+        assert config != null;
         //若無啟用經濟
         if (!config.getBoolean("Economy.Enable", false)) {
             return false;
