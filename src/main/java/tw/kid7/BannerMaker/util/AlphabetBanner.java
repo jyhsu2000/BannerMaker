@@ -68,9 +68,8 @@ public class AlphabetBanner {
      */
     public ItemStack toItemStack() {
         //建立旗幟
-        ItemStack banner = new ItemStack(Material.BANNER, 1);
+        ItemStack banner = new ItemStack(Material.BANNER, 1, DyeColorUtil.toShort(baseColor));
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-        bannerMeta.setBaseColor(baseColor);
         bannerMeta.setDisplayName(MessageUtil.format("&a" + alphabet));
         //繪製字母
         if (!bordered) {
