@@ -1,13 +1,11 @@
 package tw.kid7.BannerMaker.util;
 
-
-import com.google.common.collect.Maps;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import org.bukkit.DyeColor;
 
-import java.util.HashMap;
-
-class DyeColorUtil {
-    private static HashMap<DyeColor, Integer> map = Maps.newHashMap();
+public class DyeColorUtil {
+    private static BiMap<DyeColor, Integer> map = HashBiMap.create();
 
     static {
         map.put(DyeColor.WHITE, 15);
@@ -28,7 +26,11 @@ class DyeColorUtil {
         map.put(DyeColor.BLACK, 0);
     }
 
-    static short toShort(DyeColor dyeColor) {
+    public static short toShort(DyeColor dyeColor) {
         return map.get(dyeColor).shortValue();
+    }
+
+    public static DyeColor fromInt(int number) {
+        return map.inverse().get(number);
     }
 }
