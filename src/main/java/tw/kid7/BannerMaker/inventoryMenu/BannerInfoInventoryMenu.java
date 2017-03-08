@@ -127,9 +127,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             //檢查是否啟用經濟
             ItemBuilder btnGetBannerBuilder = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.get-this-banner")));
             if (BannerMaker.econ != null) {
-                FileConfiguration config = ConfigManager.get("config.yml");
-                assert config != null;
-                Double price = config.getDouble("Economy.Price", 100);
+                Double price = EconUtil.getPrice(banner);
                 //FIXME 可能造成 IndexOutOfBoundsException: No group 1
                 btnGetBannerBuilder.lore(MessageUtil.format("&a" + Language.get("gui.price", BannerMaker.econ.format(price))));
             }
