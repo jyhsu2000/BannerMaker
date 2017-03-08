@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.State;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
@@ -61,11 +62,13 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.create-banner"))).build();
         menu.setItem(49, btnCreateBanner);
         //建立字母
-        ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
-        ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
-        btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.alphabet-and-number")));
-        btnCreateAlphabet.setItemMeta(btnCreateAlphabetItemMeta);
-        menu.setItem(51, btnCreateAlphabet);
+        if (BannerMaker.enableAlphabetAndNumber) {
+            ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
+            ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
+            btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.alphabet-and-number")));
+            btnCreateAlphabet.setItemMeta(btnCreateAlphabetItemMeta);
+            menu.setItem(51, btnCreateAlphabet);
+        }
         //開啟選單
         player.openInventory(menu);
     }
@@ -103,8 +106,10 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create-banner"))) {
                 State.set(player, State.CREATE_BANNER);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.alphabet-and-number"))) {
-                CreateAlphabetInventoryMenu.getInstance().currentAlphabetBannerMap.remove(player.getName());
-                State.set(player, State.CREATE_ALPHABET);
+                if (BannerMaker.enableAlphabetAndNumber) {
+                    CreateAlphabetInventoryMenu.getInstance().currentAlphabetBannerMap.remove(player.getName());
+                    State.set(player, State.CREATE_ALPHABET);
+                }
             }
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);

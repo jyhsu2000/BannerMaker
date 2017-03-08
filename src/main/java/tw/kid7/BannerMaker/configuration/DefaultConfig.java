@@ -16,6 +16,7 @@ public class DefaultConfig {
         defaultOptions.put("Language", "en");
         defaultOptions.put("Economy.Enable", true);
         defaultOptions.put("Economy.Price", 100);
+        defaultOptions.put("AlphabetAndNumberBanner.Enable", true);
         defaultConfigs.put("config", defaultOptions);
     }
 

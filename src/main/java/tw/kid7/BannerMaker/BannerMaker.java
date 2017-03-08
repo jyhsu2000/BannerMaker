@@ -20,6 +20,7 @@ import java.util.List;
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     public static Economy econ = null;
+    public static boolean enableAlphabetAndNumber = false;
 
     @Override
     public void onEnable() {
@@ -79,6 +80,13 @@ public class BannerMaker extends JavaPlugin {
             getInstance().getLogger().info("Vault dependency found! Enable economy supported");
         } else {
             getInstance().getLogger().info("Disable economy supported");
+        }
+        //設定檔
+        String configFileName = "config.yml";
+        FileConfiguration config = ConfigManager.get(configFileName);
+        if (config != null) {
+            //字母與數字
+            enableAlphabetAndNumber = config.getBoolean("AlphabetAndNumberBanner.Enable", false);
         }
     }
 
