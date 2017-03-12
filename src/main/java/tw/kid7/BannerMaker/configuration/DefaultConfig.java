@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class DefaultConfig {
     //須要檢查設定項目的設定
-    private final String[] defaultConfigs = {"config"};
+    private final String[] defaultConfigs = {"config", "price"};
     private final HashMap<String, FileConfiguration> defaultConfigsResource = Maps.newHashMap();
 
     public void checkConfig() {
@@ -20,7 +20,9 @@ public class DefaultConfig {
             //當前設定檔
             String configFileName = configName + ".yml";
             FileConfiguration config = ConfigManager.get(configFileName);
-            assert config != null;
+            if (config == null) {
+                continue;
+            }
             //載入預設設定檔（但不儲存於資料夾）
             try {
                 Reader defaultLanguageInputStreamReader = new InputStreamReader(BannerMaker.getInstance().getResource(configFileName.replace('\\', '/')), "UTF8");

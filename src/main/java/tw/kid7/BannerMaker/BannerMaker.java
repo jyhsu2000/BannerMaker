@@ -41,7 +41,7 @@ public class BannerMaker extends JavaPlugin {
             }
         }
         //Config
-        List<String> configList = Arrays.asList("config");
+        List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
             String configFileName = config + ".yml";
             ConfigManager.load(configFileName);
