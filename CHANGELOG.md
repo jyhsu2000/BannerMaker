@@ -1,4 +1,11 @@
 # Change Logs
+## v1.5.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- Make AlphabetAndNumberBanner toggleable
+- Improve price setting
+- Optimize code
+- Split README and CHANGELOG
+- Use [bStats](https://bstats.org/plugin/bukkit/BannerMaker) instead of MCStats
+
 ## v1.4.6 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
 - Update to 1.11
 - Add Russian(ru) translation (Thanks [sdir01](https://www.spigotmc.org/members/sdir01.238854/))

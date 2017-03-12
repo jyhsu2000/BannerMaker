@@ -61,9 +61,12 @@
 3. 啟動伺服器
 
 ## 更新紀錄
-v1.4.6 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- 升級至1.11
-- 新增俄文(ru)翻譯（感謝 [sdir01](https://www.spigotmc.org/members/sdir01.238854/)）
+v1.5.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- 令字母與數字選單可切換開關
+- 改進價格設定
+- 優化程式碼
+- 分割 README 和 CHANGELOG
+- 使用 [bStats](https://bstats.org/plugin/bukkit/BannerMaker) 代替 MCStats
 
 *在 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md) 閱讀更多*
 

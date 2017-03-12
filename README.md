@@ -61,9 +61,12 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ## Change Logs
-v1.4.6 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- Update to 1.11
-- Add Russian(ru) translation (Thanks [sdir01](https://www.spigotmc.org/members/sdir01.238854/))
+v1.5.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- Make AlphabetAndNumberBanner toggleable
+- Improve price setting
+- Optimize code
+- Split README and CHANGELOG
+- Use [bStats](https://bstats.org/plugin/bukkit/BannerMaker) instead of MCStats
 
 *Read more in [CHANGELOG.md](CHANGELOG.md)*
 
