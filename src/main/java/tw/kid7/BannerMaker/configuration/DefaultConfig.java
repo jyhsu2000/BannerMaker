@@ -2,41 +2,51 @@ package tw.kid7.BannerMaker.configuration;
 
 import com.google.common.collect.Maps;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
-import java.util.*;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.HashMap;
 
 public class DefaultConfig {
-    private final HashMap<String, HashMap<String, Object>> defaultConfigs = Maps.newHashMap();
-
-    public DefaultConfig() {
-        //設定檔的預設值
-        HashMap<String, Object> defaultOptions = Maps.newHashMap();
-        defaultOptions.put("Language", "en");
-        defaultOptions.put("Economy.Enable", true);
-        defaultOptions.put("Economy.Price", 100);
-        defaultOptions.put("AlphabetAndNumberBanner.Enable", true);
-        defaultConfigs.put("config", defaultOptions);
-    }
+    //須要檢查設定項目的設定
+    private final String[] defaultConfigs = {"config"};
+    private final HashMap<String, FileConfiguration> defaultConfigsResource = Maps.newHashMap();
 
     public void checkConfig() {
-        for (String configName : defaultConfigs.keySet()) {
+        for (String configName : defaultConfigs) {
+            //當前設定檔
             String configFileName = configName + ".yml";
             FileConfiguration config = ConfigManager.get(configFileName);
             assert config != null;
-            HashMap<String, Object> defaultOptions = defaultConfigs.get(configName);
-
-            int i = 0;
-            for (Map.Entry<String, Object> entry : defaultOptions.entrySet()) {
-                if (!config.contains(entry.getKey())) {
-                    config.set(entry.getKey(), entry.getValue());
-                    i++;
-                }
+            //載入預設設定檔（但不儲存於資料夾）
+            try {
+                Reader defaultLanguageInputStreamReader = new InputStreamReader(BannerMaker.getInstance().getResource(configFileName.replace('\\', '/')), "UTF8");
+                defaultConfigsResource.put(configName, YamlConfiguration.loadConfiguration(defaultLanguageInputStreamReader));
+            } catch (Exception ignored) {
             }
-            if (i > 0) {
+            FileConfiguration defaultConfigResource = defaultConfigsResource.get(configName);
+            //根據預設語言資源檔檢查
+            int newSettingCount = 0;
+            for (String key : defaultConfigResource.getKeys(true)) {
+                //不直接檢查整個段落
+                if (defaultConfigResource.isConfigurationSection(key)) {
+                    continue;
+                }
+                //若key已存在也不檢查
+                if (config.contains(key)) {
+                    continue;
+                }
+                //若未包含該key，將預設值填入設定檔
+                config.set(key, defaultConfigResource.get(key));
+
+                newSettingCount++;
+            }
+            if (newSettingCount > 0) {
                 ConfigManager.save(configFileName);
-                BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, Language.get("config.add-setting", i)));
+                BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, Language.get("config.add-setting", newSettingCount)));
             }
         }
     }
