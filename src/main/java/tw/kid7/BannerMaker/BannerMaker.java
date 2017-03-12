@@ -20,7 +20,7 @@ import java.util.List;
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     public static Economy econ = null;
-    public static boolean enableAlphabetAndNumber = false;
+    public static boolean enableAlphabetAndNumber = true;
 
     @Override
     public void onEnable() {
@@ -86,7 +86,7 @@ public class BannerMaker extends JavaPlugin {
         FileConfiguration config = ConfigManager.get(configFileName);
         if (config != null) {
             //字母與數字
-            enableAlphabetAndNumber = config.getBoolean("AlphabetAndNumberBanner.Enable", false);
+            enableAlphabetAndNumber = config.getBoolean("AlphabetAndNumberBanner.Enable", true);
         }
     }
 
