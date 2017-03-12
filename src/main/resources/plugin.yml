@@ -1,6 +1,6 @@
-name: BannerMaker
+name: ${project.artifactId}
 main: tw.kid7.BannerMaker.BannerMaker
-version: 1.4.6
+version: ${project.version}
 author: KID
 softdepend: [Vault]
 commands:
