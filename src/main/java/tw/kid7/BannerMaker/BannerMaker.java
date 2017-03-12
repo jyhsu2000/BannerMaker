@@ -94,10 +94,6 @@ public class BannerMaker extends JavaPlugin {
         if (!config.getBoolean("Economy.Enable", false)) {
             return false;
         }
-        //若價格設定非正數
-        if (config.getDouble("Economy.Price", 0) <= 0) {
-            return false;
-        }
 
         //檢查Vault
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
