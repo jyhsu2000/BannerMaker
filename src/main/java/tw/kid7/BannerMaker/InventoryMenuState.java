@@ -8,7 +8,6 @@ public enum InventoryMenuState {
     CREATE_ALPHABET,
     BANNER_INFO;
 
-
     /**
      * 取得此狀態的GUI選單介面
      *
