@@ -20,9 +20,6 @@ import java.util.HashMap;
 
 public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     private static CreateBannerInventoryMenu instance = null;
-    final HashMap<String, ItemStack> currentBannerMap = Maps.newHashMap();
-    private final HashMap<String, Boolean> morePatternsMap = Maps.newHashMap();
-    final HashMap<String, DyeColor> selectedColorMap = Maps.newHashMap();
 
     public static CreateBannerInventoryMenu getInstance() {
         if (instance == null) {
@@ -33,10 +30,11 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
+        PlayerData playerData = PlayerData.get(player);
         //建立選單
         Inventory menu = InventoryMenuUtil.create(Language.get("gui.create-banner"));
         //取得當前編輯中的旗幟
-        ItemStack currentBanner = currentBannerMap.get(player.getName());
+        ItemStack currentBanner = playerData.getCurrentEditBanner();
         if (currentBanner == null) {
             //剛開始編輯，先選擇底色
             for (int i = 0; i < 16; i++) {
@@ -60,16 +58,11 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             }
             //Pattern
             //選擇的顏色
-            DyeColor selectedColor = DyeColor.BLACK;
-            if (selectedColorMap.containsKey(player.getName())) {
-                selectedColor = selectedColorMap.get(player.getName());
-            }
+            DyeColor selectedColor = playerData.getSelectedColor();
             for (int i = 0; i < 24; i++) {
                 int patternIndex = i;
-                if (morePatternsMap.containsKey(player.getName())) {
-                    if (morePatternsMap.get(player.getName())) {
-                        patternIndex += 24;
-                    }
+                if (playerData.isShowMorePatterns()) {
+                    patternIndex += 24;
                 }
                 if (patternIndex >= BannerUtil.getPatternTypeList().size()) {
                     break;
@@ -110,16 +103,17 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
+        PlayerData playerData = PlayerData.get(player);
         ItemStack itemStack = event.getCurrentItem();
         //取得當前編輯中的旗幟
-        ItemStack currentBanner = currentBannerMap.get(player.getName());
+        ItemStack currentBanner = playerData.getCurrentEditBanner();
         if (event.getRawSlot() >= 1 && event.getRawSlot() <= 17 && event.getRawSlot() % 9 != 0) {
             if (currentBanner == null) {
                 //選擇底色
-                currentBannerMap.put(player.getName(), itemStack);
+                playerData.setCurrentEditBanner(itemStack);
             } else {
                 //點擊顏色
-                selectedColorMap.put(player.getName(), DyeColorUtil.fromInt(itemStack.getDurability()));
+                playerData.setSelectedColor(DyeColorUtil.fromInt(itemStack.getDurability()));
             }
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
@@ -130,7 +124,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             BannerMeta currentBm = (BannerMeta) currentBanner.getItemMeta();
             currentBm.addPattern(pattern);
             currentBanner.setItemMeta(currentBm);
-            currentBannerMap.put(player.getName(), currentBanner);
+            playerData.setCurrentEditBanner(currentBanner);
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
         } else if (event.getRawSlot() >= 45) {
@@ -139,26 +133,22 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             buttonName = ChatColor.stripColor(buttonName);
             //修改狀態
             if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.more-patterns"))) {
-                if (morePatternsMap.containsKey(player.getName())) {
-                    morePatternsMap.put(player.getName(), !morePatternsMap.get(player.getName()));
-                } else {
-                    morePatternsMap.put(player.getName(), true);
-                }
+                playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.remove-last-pattern"))) {
                 if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
                     BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
                     bm.removePattern(bm.numberOfPatterns() - 1);
                     currentBanner.setItemMeta(bm);
-                    currentBannerMap.put(player.getName(), currentBanner);
+                    playerData.setCurrentEditBanner(currentBanner);
                 }
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create"))) {
                 IOUtil.saveBanner(player, currentBanner);
-                currentBannerMap.remove(player.getName());
-                PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
+                playerData.setCurrentEditBanner(null);
+                playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
-                currentBannerMap.remove(player.getName());
+                playerData.setCurrentEditBanner(null);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
-                PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
+                playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
             }
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);

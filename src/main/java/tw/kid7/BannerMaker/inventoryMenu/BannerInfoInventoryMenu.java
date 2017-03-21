@@ -1,6 +1,5 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
-import com.google.common.collect.Maps;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,8 +19,6 @@ import java.util.List;
 
 public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     private static BannerInfoInventoryMenu instance = null;
-    final HashMap<String, ItemStack> viewInfoBannerMap = Maps.newHashMap();
-    final HashMap<String, Integer> currentRecipePageMap = Maps.newHashMap();
 
     public static BannerInfoInventoryMenu getInstance() {
         if (instance == null) {
@@ -32,12 +29,13 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
+        PlayerData playerData = PlayerData.get(player);
         //取得欲查看旗幟
-        ItemStack banner = viewInfoBannerMap.get(player.getName());
+        ItemStack banner = playerData.getViewInfoBanner();
         //僅限旗幟
         if (!BannerUtil.isBanner(banner)) {
             //回到主選單
-            PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
+            playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
             return;
@@ -80,7 +78,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
 
             //合成表
             //當前頁數
-            int currentRecipePage = currentRecipePageMap.get(player.getName());
+            int currentRecipePage = playerData.getCurrentRecipePage();
             //總頁數
             int totalPage = patternCount + 1;
             //外框
@@ -148,20 +146,21 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
+        PlayerData playerData = PlayerData.get(player);
         ItemStack itemStack = event.getCurrentItem();
         if (event.getRawSlot() == 22 || event.getRawSlot() == 26 || event.getRawSlot() >= 45) {
             //點擊按鈕
             String buttonName = itemStack.getItemMeta().getDisplayName();
             buttonName = ChatColor.stripColor(buttonName);
             //取得欲查看旗幟
-            ItemStack banner = viewInfoBannerMap.get(player.getName());
+            ItemStack banner = playerData.getViewInfoBanner();
             //當前頁數
-            int currentRecipePage = currentRecipePageMap.get(player.getName());
+            int currentRecipePage = playerData.getCurrentRecipePage();
             //修改狀態
             if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.prev-page"))) {
-                currentRecipePageMap.put(player.getName(), currentRecipePage - 1);
+                playerData.setCurrentRecipePage(currentRecipePage - 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.next-page"))) {
-                currentRecipePageMap.put(player.getName(), currentRecipePage + 1);
+                playerData.setCurrentRecipePage(currentRecipePage + 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.get-this-banner"))) {
                 //取得旗幟
                 //嘗試給予玩家旗幟，並建立給予成功的標記
@@ -174,8 +173,8 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 }
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.clone-and-edit"))) {
                 //設定為編輯中旗幟
-                CreateBannerInventoryMenu.getInstance().currentBannerMap.put(player.getName(), banner);
-                PlayerData.get(player).setInventoryMenuState(InventoryMenuState.CREATE_BANNER);
+                playerData.setCurrentEditBanner(banner);
+                playerData.setInventoryMenuState(InventoryMenuState.CREATE_BANNER);
 
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
                 String key = BannerUtil.getKey(banner);
@@ -183,15 +182,15 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                     //有KEY時（儲存於玩家資料時），才能刪除
                     IOUtil.removeBanner(player, key);
                 }
-                PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
+                playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                 //返回
                 String key = BannerUtil.getKey(banner);
                 if (key == null) {
                     //若無KEY（Alphabet旗幟），回到Alphabet旗幟頁面
-                    PlayerData.get(player).setInventoryMenuState(InventoryMenuState.CREATE_ALPHABET);
+                    playerData.setInventoryMenuState(InventoryMenuState.CREATE_ALPHABET);
                 } else {
-                    PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
+                    playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
                 }
             }
             //重新開啟選單

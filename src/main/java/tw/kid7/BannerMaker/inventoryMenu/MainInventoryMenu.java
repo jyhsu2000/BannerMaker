@@ -19,7 +19,6 @@ import java.util.List;
 
 public class MainInventoryMenu extends AbstractInventoryMenu {
     private static MainInventoryMenu instance = null;
-    private final HashMap<String, Integer> currentPageMap = Maps.newHashMap();
 
     public static MainInventoryMenu getInstance() {
         if (instance == null) {
@@ -30,15 +29,11 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
+        PlayerData playerData = PlayerData.get(player);
         //建立選單
         Inventory menu = InventoryMenuUtil.create(Language.get("gui.main-menu"));
         //當前頁數
-        int currentPage = 1;
-        if (currentPageMap.containsKey(player.getName())) {
-            currentPage = currentPageMap.get(player.getName());
-        } else {
-            currentPageMap.put(player.getName(), 1);
-        }
+        int currentPage = playerData.getCurrentPage();
         //顯示現有旗幟
         List<ItemStack> bannerList = IOUtil.loadBannerList(player, currentPage);
         for (int i = 0; i < bannerList.size() && i < 45; i++) {
@@ -77,15 +72,16 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
+        PlayerData playerData = PlayerData.get(player);
         ItemStack itemStack = event.getCurrentItem();
         if (event.getRawSlot() < 45) {
             //點擊旗幟
             //記錄選擇的旗幟
-            BannerInfoInventoryMenu.getInstance().viewInfoBannerMap.put(player.getName(), itemStack);
+            playerData.setViewInfoBanner(itemStack);
             //重置頁數
-            BannerInfoInventoryMenu.getInstance().currentRecipePageMap.put(player.getName(), 1);
+            playerData.setCurrentRecipePage(1);
             //切換畫面
-            PlayerData.get(player).setInventoryMenuState(InventoryMenuState.BANNER_INFO);
+            playerData.setInventoryMenuState(InventoryMenuState.BANNER_INFO);
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
         } else {
@@ -93,23 +89,18 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
             String buttonName = itemStack.getItemMeta().getDisplayName();
             buttonName = ChatColor.stripColor(buttonName);
             //當前頁數
-            int currentPage = 1;
-            if (currentPageMap.containsKey(player.getName())) {
-                currentPage = currentPageMap.get(player.getName());
-            } else {
-                currentPageMap.put(player.getName(), 1);
-            }
+            int currentPage = playerData.getCurrentPage();
             //修改狀態
             if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.prev-page"))) {
-                currentPageMap.put(player.getName(), currentPage - 1);
+                playerData.setCurrentPage(currentPage - 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.next-page"))) {
-                currentPageMap.put(player.getName(), currentPage + 1);
+                playerData.setCurrentPage(currentPage + 1);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create-banner"))) {
-                PlayerData.get(player).setInventoryMenuState(InventoryMenuState.CREATE_BANNER);
+                playerData.setInventoryMenuState(InventoryMenuState.CREATE_BANNER);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.alphabet-and-number"))) {
                 if (BannerMaker.enableAlphabetAndNumber) {
-                    CreateAlphabetInventoryMenu.getInstance().currentAlphabetBannerMap.remove(player.getName());
-                    PlayerData.get(player).setInventoryMenuState(InventoryMenuState.CREATE_ALPHABET);
+                    playerData.setCurrentAlphabetBanner(null);
+                    playerData.setInventoryMenuState(InventoryMenuState.CREATE_ALPHABET);
                 }
             }
             //重新開啟選單
