@@ -9,7 +9,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.State;
+import tw.kid7.BannerMaker.InventoryMenuState;
+import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
 
@@ -36,7 +37,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         //僅限旗幟
         if (!BannerUtil.isBanner(banner)) {
             //回到主選單
-            State.set(player, State.MAIN_MENU);
+            PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
             return;
@@ -174,7 +175,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.clone-and-edit"))) {
                 //設定為編輯中旗幟
                 CreateBannerInventoryMenu.getInstance().currentBannerMap.put(player.getName(), banner);
-                State.set(player, State.CREATE_BANNER);
+                PlayerData.get(player).setInventoryMenuState(InventoryMenuState.CREATE_BANNER);
 
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
                 String key = BannerUtil.getKey(banner);
@@ -182,15 +183,15 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                     //有KEY時（儲存於玩家資料時），才能刪除
                     IOUtil.removeBanner(player, key);
                 }
-                State.set(player, State.MAIN_MENU);
+                PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                 //返回
                 String key = BannerUtil.getKey(banner);
                 if (key == null) {
                     //若無KEY（Alphabet旗幟），回到Alphabet旗幟頁面
-                    State.set(player, State.CREATE_ALPHABET);
+                    PlayerData.get(player).setInventoryMenuState(InventoryMenuState.CREATE_ALPHABET);
                 } else {
-                    State.set(player, State.MAIN_MENU);
+                    PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
                 }
             }
             //重新開啟選單

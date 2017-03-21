@@ -11,7 +11,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
-import tw.kid7.BannerMaker.State;
+import tw.kid7.BannerMaker.InventoryMenuState;
+import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
 
@@ -109,7 +110,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
                     alphabetBorder = !alphabetBorder;
                     alphabetBorderMap.put(player.getName(), alphabetBorder);
                 } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
-                    State.set(player, State.MAIN_MENU);
+                    PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
                 }
             }
             //重新開啟選單
@@ -139,7 +140,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
                     BannerInfoInventoryMenu.getInstance().viewInfoBannerMap.put(player.getName(), currentAlphabetBanner.toItemStack());
                     //重置頁數
                     BannerInfoInventoryMenu.getInstance().currentRecipePageMap.put(player.getName(), 1);
-                    State.set(player, State.BANNER_INFO);
+                    PlayerData.get(player).setInventoryMenuState(InventoryMenuState.BANNER_INFO);
                 } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                     currentAlphabetBannerMap.remove(player.getName());
                 }

@@ -3,7 +3,7 @@ package tw.kid7.BannerMaker.util;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import tw.kid7.BannerMaker.State;
+import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.inventoryMenu.AbstractInventoryMenu;
 
@@ -12,10 +12,8 @@ public class InventoryMenuUtil {
     static private final String hiddenPrefix = "&b&m&r";
 
     static public void openMenu(Player player) {
-        //取得玩家狀態
-        State state = State.get(player);
-        //取得該狀態的GUI選單
-        AbstractInventoryMenu menu = state.getInventoryMenu();
+        //取得GUI選單
+        AbstractInventoryMenu menu = PlayerData.get(player).getInventoryMenu();
         //開啟選單
         menu.open(player);
     }

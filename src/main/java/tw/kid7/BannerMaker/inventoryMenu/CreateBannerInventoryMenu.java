@@ -11,7 +11,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
-import tw.kid7.BannerMaker.State;
+import tw.kid7.BannerMaker.InventoryMenuState;
+import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
 
@@ -153,11 +154,11 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create"))) {
                 IOUtil.saveBanner(player, currentBanner);
                 currentBannerMap.remove(player.getName());
-                State.set(player, State.MAIN_MENU);
+                PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
                 currentBannerMap.remove(player.getName());
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
-                State.set(player, State.MAIN_MENU);
+                PlayerData.get(player).setInventoryMenuState(InventoryMenuState.MAIN_MENU);
             }
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
