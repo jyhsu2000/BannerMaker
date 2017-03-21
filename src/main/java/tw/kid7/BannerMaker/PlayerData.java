@@ -13,7 +13,7 @@ public class PlayerData {
     /**
      * 所有玩家資料實例
      */
-    private static HashMap<String, PlayerData> playerDataMap = Maps.newHashMap();
+    private static final HashMap<String, PlayerData> playerDataMap = Maps.newHashMap();
 
     /**
      * 選單狀態

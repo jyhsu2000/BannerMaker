@@ -1,6 +1,5 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
-import com.google.common.collect.Maps;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -15,8 +14,6 @@ import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
-
-import java.util.HashMap;
 
 public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     private static CreateBannerInventoryMenu instance = null;
