@@ -282,16 +282,17 @@ public class BannerUtil {
         if (!isBanner(banner)) {
             return null;
         }
-        String showName = "";
+        //先試著取得自訂名稱
         if (banner.hasItemMeta() && banner.getItemMeta().hasDisplayName()) {
-            showName = banner.getItemMeta().getDisplayName();
-        } else {
-            String key = BannerUtil.getKey(banner);
-            if (key != null) {
-                showName = key;
-            }
+            return banner.getItemMeta().getDisplayName();
         }
-        return showName;
+        //嘗試取得key
+        String key = BannerUtil.getKey(banner);
+        if (key != null) {
+            return key;
+        }
+        //若都沒有，回傳空字串
+        return "";
     }
 
     public static List<PatternType> getPatternTypeList() {
