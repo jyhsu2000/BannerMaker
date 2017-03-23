@@ -26,20 +26,6 @@ public class AlphabetBanner {
     /*
      * 建構子
      */
-    public AlphabetBanner(String alphabet) {
-        this.alphabet = ChatColor.stripColor(alphabet.toUpperCase()).substring(0, 1);
-        this.baseColor = DyeColor.WHITE;
-        this.dyeColor = DyeColor.BLACK;
-        this.bordered = true;
-    }
-
-    public AlphabetBanner(String alphabet, DyeColor baseColor, DyeColor dyeColor) {
-        this.alphabet = ChatColor.stripColor(alphabet.toUpperCase()).substring(0, 1);
-        this.baseColor = baseColor;
-        this.dyeColor = dyeColor;
-        this.bordered = true;
-    }
-
     public AlphabetBanner(String alphabet, DyeColor baseColor, DyeColor dyeColor, boolean bordered) {
         this.alphabet = ChatColor.stripColor(alphabet.toUpperCase()).substring(0, 1);
         this.baseColor = baseColor;
@@ -52,10 +38,6 @@ public class AlphabetBanner {
      */
     public static ItemStack get(String alphabet) {
         return get(alphabet, DyeColor.WHITE, DyeColor.BLACK, true);
-    }
-
-    public static ItemStack get(String alphabet, DyeColor baseColor, DyeColor dyeColor) {
-        return get(alphabet, baseColor, dyeColor, true);
     }
 
     public static ItemStack get(String alphabet, DyeColor baseColor, DyeColor dyeColor, boolean bordered) {

@@ -12,10 +12,7 @@ import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.Language;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class IOUtil {
 
@@ -84,10 +81,6 @@ public class IOUtil {
 
     //讀取旗幟
     private static ItemStack loadBanner(Player player, String key) {
-        return loadBanner(player, key, true);
-    }
-
-    private static ItemStack loadBanner(Player player, String key, boolean withKey) {
         //設定檔
         String fileName = getFileName(player);
         ConfigManager.load(fileName);
@@ -114,10 +107,8 @@ public class IOUtil {
                     banner.setItemMeta(bm);
                 }
                 //將key藏於Lore
-                if (withKey) {
-                    bm.setLore(Arrays.asList(HiddenStringUtil.encodeString(key)));
-                    banner.setItemMeta(bm);
-                }
+                bm.setLore(Collections.singletonList(HiddenStringUtil.encodeString(key)));
+                banner.setItemMeta(bm);
             } catch (Exception e) {
                 banner = null;
             }
