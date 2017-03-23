@@ -156,7 +156,7 @@ public class IOUtil {
         return "banner" + File.separator + configFileName + ".yml";
     }
 
-    //更新旗幟資料
+    //更新旗幟資料（從v1.0升級）
     static public void update(String configFileName) {
         //設定檔
         String fileName = getFileName(configFileName);
@@ -196,7 +196,7 @@ public class IOUtil {
         }
     }
 
-    //更新檔案名稱
+    //更新檔案名稱（從v1.1升級）
     static public void updateFileNameToUUID(Player player) {
         try {
             File oldFile = new File(BannerMaker.getInstance().getDataFolder(), getFileName(player.getName()));
