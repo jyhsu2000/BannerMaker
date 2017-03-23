@@ -8,12 +8,14 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
-import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.Language;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 public class IOUtil {
 
@@ -154,66 +156,5 @@ public class IOUtil {
 
     private static String getFileName(String configFileName) {
         return "banner" + File.separator + configFileName + ".yml";
-    }
-
-    //更新旗幟資料（從v1.0升級）
-    static public void update(String configFileName) {
-        //設定檔
-        String fileName = getFileName(configFileName);
-        ConfigManager.load(fileName);
-        FileConfiguration config = ConfigManager.get(fileName);
-        assert config != null;
-        Set<String> keySet = config.getKeys(false);
-        List<String> keyList = new ArrayList<>();
-        keyList.addAll(keySet);
-        int change = 0;
-        for (String key : keyList) {
-            ItemStack banner = config.getItemStack(key);
-            if (!BannerUtil.isBanner(banner)) {
-                continue;
-            }
-            //更新資料
-            config.set(key, new ArrayList<>());
-            //旗幟資訊
-            BannerMeta bm = (BannerMeta) banner.getItemMeta();
-            //儲存
-            config.set(key + ".color", banner.getDurability());
-            List<String> patternList = new ArrayList<>();
-            for (Pattern pattern : bm.getPatterns()) {
-                patternList.add(pattern.getPattern().getIdentifier() + ":" + pattern.getColor().toString());
-            }
-            if (patternList.size() > 0) {
-                config.set(key + ".patterns", patternList);
-            }
-            //記錄
-            change++;
-        }
-        if (change > 0) {
-            //儲存
-            ConfigManager.save(fileName);
-            //顯示訊息
-            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, "&rUpdate &a" + change + " &rbanner(s) for &6" + configFileName));
-        }
-    }
-
-    //更新檔案名稱（從v1.1升級）
-    static public void updateFileNameToUUID(Player player) {
-        try {
-            File oldFile = new File(BannerMaker.getInstance().getDataFolder(), getFileName(player.getName()));
-            File newFile = new File(BannerMaker.getInstance().getDataFolder(), getFileName(player.getUniqueId().toString()));
-            //舊檔名不存在，或新檔名存在，則無須更新
-            if (!oldFile.exists() || newFile.exists()) {
-                return;
-            }
-            String message;
-            //嘗試重新命名
-            if (oldFile.renameTo(newFile)) {
-                message = "&rUpdate file name of&a " + player.getName() + "&r to UUID";
-            } else {
-                message = "&rUpdate file name of&a " + player.getName() + "&r FAILED";
-            }
-            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, message));
-        } catch (Exception ignored) {
-        }
     }
 }

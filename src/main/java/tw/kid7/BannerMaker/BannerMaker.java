@@ -9,10 +9,7 @@ import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.listener.InventoryClickEventListener;
-import tw.kid7.BannerMaker.listener.PlayerJoinEventListener;
-import tw.kid7.BannerMaker.util.IOUtil;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,18 +25,6 @@ public class BannerMaker extends JavaPlugin {
         this.getCommand("BannerMaker").setExecutor(new BannerMakerCommandExecutor());
         //Listener
         this.getServer().getPluginManager().registerEvents(new InventoryClickEventListener(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerJoinEventListener(), this);
-        //check and update banner data
-        File folder = new File(getDataFolder() + "/banner");
-        File[] fileList = folder.listFiles();
-        if (fileList != null && fileList.length > 0) {
-            for (File file : fileList) {
-                if (file.isFile()) {
-                    String fileName = file.getName().replace(".yml", "");
-                    IOUtil.update(fileName);
-                }
-            }
-        }
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
