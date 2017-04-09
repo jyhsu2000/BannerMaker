@@ -18,6 +18,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
     private CommandManager() {
         addSubCommand("help", new HelpCommand());
+        addSubCommand("hand", new HandCommand());
+        addSubCommand("see", new SeeCommand());
         addSubCommand("reload", new ReloadCommand());
     }
 
