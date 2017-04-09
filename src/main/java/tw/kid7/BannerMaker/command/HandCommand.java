@@ -1,9 +1,11 @@
 package tw.kid7.BannerMaker.command;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.util.BannerUtil;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
@@ -34,11 +36,14 @@ class HandCommand extends AbstractCommand {
             player.sendMessage(MessageUtil.format(true, "&cItem in hand is not a banner."));
             return true;
         }
-        //設定查看旗幟
-        //FIXME: 清理旗幟資訊（自訂名稱等）
+        //複製旗幟，僅保留底色與樣式
+        BannerMeta originalBannerMeta = (BannerMeta) itemStack.getItemMeta();
+        ItemStack banner = new ItemStack(Material.BANNER, 1, itemStack.getDurability());
+        BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
+        bannerMeta.setPatterns(originalBannerMeta.getPatterns());
+        banner.setItemMeta(bannerMeta);
         //顯示旗幟
-        InventoryMenuUtil.showBannerInfo(player, itemStack);
-
+        InventoryMenuUtil.showBannerInfo(player, banner);
         return true;
     }
 }
