@@ -8,8 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
-import tw.kid7.BannerMaker.InventoryMenuState;
-import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.util.DyeColorUtil;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
@@ -47,17 +45,8 @@ class SeeCommand extends AbstractCommand {
         BannerMeta bannerMeta = (BannerMeta) itemStack.getItemMeta();
         bannerMeta.setPatterns(blockState.getPatterns());
         itemStack.setItemMeta(bannerMeta);
-
-        PlayerData playerData = PlayerData.get(player);
-        //設定查看旗幟
-        playerData.setViewInfoBanner(itemStack);
-        //重置頁數
-        playerData.setCurrentRecipePage(1);
-        //設定畫面
-        playerData.setInventoryMenuState(InventoryMenuState.BANNER_INFO);
-        //開啟選單
-        InventoryMenuUtil.openMenu(player);
-
+        //顯示旗幟
+        InventoryMenuUtil.showBannerInfo(player, itemStack);
         return true;
     }
 }

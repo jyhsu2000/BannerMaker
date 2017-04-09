@@ -74,14 +74,8 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         ItemStack itemStack = event.getCurrentItem();
         if (event.getRawSlot() < 45) {
             //點擊旗幟
-            //記錄選擇的旗幟
-            playerData.setViewInfoBanner(itemStack);
-            //重置頁數
-            playerData.setCurrentRecipePage(1);
-            //切換畫面
-            playerData.setInventoryMenuState(InventoryMenuState.BANNER_INFO);
-            //重新開啟選單
-            InventoryMenuUtil.openMenu(player);
+            //顯示旗幟
+            InventoryMenuUtil.showBannerInfo(player, itemStack);
         } else {
             //點擊按鈕
             String buttonName = itemStack.getItemMeta().getDisplayName();
