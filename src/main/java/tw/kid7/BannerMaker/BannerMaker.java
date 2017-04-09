@@ -10,6 +10,8 @@ import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.listener.InventoryClickEventListener;
+import tw.kid7.BannerMaker.version.VersionHandler;
+import tw.kid7.BannerMaker.version.VersionHandler_1_8;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,10 +20,28 @@ public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     public static Economy econ = null;
     public static boolean enableAlphabetAndNumber = true;
+    private VersionHandler versionHandler = null;
+
+    public VersionHandler getVersionHandler() {
+        return versionHandler;
+    }
 
     @Override
     public void onEnable() {
         instance = this;
+        //根據不同版本選擇Handler
+        String version = instance.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+        switch (version) {
+            case "v1_8_R1":
+            case "v1_8_R2":
+            case "v1_8_R3":
+                versionHandler = new VersionHandler_1_8();
+                break;
+            default:
+                versionHandler = new VersionHandler();
+                break;
+        }
+
         //指令
         CommandManager commandManager = CommandManager.getInstance();
         this.getCommand("BannerMaker").setExecutor(commandManager);
