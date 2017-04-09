@@ -2,6 +2,8 @@
 ## Unreleased Version
 - New Command
   - /bm help: command list
+  - /bm hand: Show banner info of the banner in hand
+  - /bm see: Show banner info of the banner you're looking at
 - Rewrite command system and add tab completion.
 - Remove banner data update functions which for update from v1.0 or v1.1
 

@@ -35,20 +35,20 @@ You don't need to know how to craft. All you need to know is how it will looks l
 * Look at pictures at bottom of page
 
 ## Commands
-|**Command**|**Description**|
-|---|---|
-|/bm|Open main gui|
-|/bm help|Command list|
-|/bm reload|Reload config|
+|**Command**|**Description**|**Permission**|
+|---|---|---|
+|/bm|Open main gui|BannerMaker.use|
+|/bm help|Command list||
+|/bm hand|Show banner info of the banner in hand|BannerMaker.hand|
+|/bm see|Show banner info of the banner you're looking at|BannerMaker.see|
+|/bm reload|Reload config|BannerMaker.reload|
 
-## Permissions
+## Other Permissions
 |**Permission**|**Description**|
 |---|---|
 |BannerMaker.*|Whole permission|
-|BannerMaker.use|Use /bm|
 |BannerMaker.getBanner|Get banners from GUI|
 |BannerMaker.getBanner.free|Get banners for free|
-|BannerMaker.reload|Use /bm reload|
 
 ## Features in future
 * Use craft materials to get banner

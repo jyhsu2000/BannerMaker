@@ -17,6 +17,8 @@ permissions:
         children:
             BannerMaker.use: true
             BannerMaker.getBanner: true
+            BannerMaker.hand: true
+            BannerMaker.see: true
             BannerMaker.reload: true
     BannerMaker.use:
         description: Permission of using BannerMaker
@@ -26,6 +28,12 @@ permissions:
         default: op
     BannerMaker.getBanner.free:
         description: Bypass fee of get Banner
+        default: op
+    BannerMaker.hand:
+        description: Show banner info of the banner in hand
+        default: op
+    BannerMaker.see:
+        description: Show banner info of the banner you're looking at
         default: op
     BannerMaker.reload:
         description: Permission to reload all config

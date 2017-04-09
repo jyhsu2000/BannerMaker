@@ -35,20 +35,20 @@
 * 請見最下方圖片
 
 ## 指令
-|**指令**|**描述**|
-|---|---|
-|/bm|開啟主要介面|
-|/bm help|指令清單|
-|/bm reload|重新載入設定檔|
+|**指令**|**描述**|**權限**|
+|---|---|---|
+|/bm|開啟主要介面|BannerMaker.use|
+|/bm help|指令清單||
+|/bm hand|顯示手上持有的旗幟的資訊|BannerMaker.hand|
+|/bm see|顯示看著的旗幟的資訊|BannerMaker.see|
+|/bm reload|重新載入設定檔|BannerMaker.reload|
 
-## 權限
+## 其他權限
 |**權限**|**描述**|
 |---|---|
 |BannerMaker.*|完整權限|
-|BannerMaker.use|使用/bm|
 |BannerMaker.getBanner|從介面取得旗幟|
 |BannerMaker.getBanner.free|免費取得旗幟|
-|BannerMaker.reload|使用/bm reload|
 
 ## 未來功能
 * 使用合成材料來取得旗幟
