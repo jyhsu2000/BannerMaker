@@ -186,6 +186,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
                 //返回
                 String key = BannerUtil.getKey(banner);
+                //FIXME: 判斷依據需修改，須避免/bm hand和/bm see返回時回到Alphabet旗幟頁面
                 if (key == null) {
                     //若無KEY（Alphabet旗幟），回到Alphabet旗幟頁面
                     playerData.setInventoryMenuState(InventoryMenuState.CREATE_ALPHABET);
