@@ -6,7 +6,7 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
-public class ReloadCommand extends AbstractCommand {
+class ReloadCommand extends AbstractCommand {
     //名稱
     private static final String name = "Reload";
     //介紹
@@ -18,12 +18,12 @@ public class ReloadCommand extends AbstractCommand {
     //僅能由玩家執行
     private static final boolean onlyFromPlayer = false;
 
-    public ReloadCommand() {
+    ReloadCommand() {
         super(name, description, permission, usage, onlyFromPlayer);
     }
 
     @Override
-    public boolean handle(CommandSender sender, Command command, String label, String[] args) {
+    boolean handle(CommandSender sender, Command command, String label, String[] args) {
         BannerMaker.reload();
         sender.sendMessage(MessageUtil.format(true, Language.get("general.reload")));
         return true;

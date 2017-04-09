@@ -10,7 +10,7 @@ import tw.kid7.BannerMaker.util.SenderUtil;
 /**
  * 抽象子指令
  */
-public abstract class AbstractCommand {
+abstract class AbstractCommand {
     //名稱
     private String name;
     //介紹
@@ -22,7 +22,7 @@ public abstract class AbstractCommand {
     //僅能由玩家執行
     private boolean onlyFromPlayer = false;
 
-    protected AbstractCommand(String name, String description, String permission, String usage, boolean onlyFromPlayer) {
+    AbstractCommand(String name, String description, String permission, String usage, boolean onlyFromPlayer) {
         this.name = name;
         this.description = description;
         this.permission = permission;
@@ -38,7 +38,7 @@ public abstract class AbstractCommand {
      * @param label   the name of the command
      * @param args    the arguments supplied
      */
-    public final boolean execute(CommandSender sender, Command command, String label, String[] args) {
+    final boolean execute(CommandSender sender, Command command, String label, String[] args) {
         //僅能由玩家執行
         if (onlyFromPlayer && !SenderUtil.isPlayer(sender)) {
             sender.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.player-only")));
@@ -62,7 +62,7 @@ public abstract class AbstractCommand {
      * @param args    the arguments supplied
      * @return boolean
      */
-    public abstract boolean handle(CommandSender sender, Command command, String label, String[] args);
+    abstract boolean handle(CommandSender sender, Command command, String label, String[] args);
 
     /**
      * 判斷有無權限
@@ -70,7 +70,7 @@ public abstract class AbstractCommand {
      * @param sender the sender of the command
      * @return boolean
      */
-    public boolean hasPermission(CommandSender sender) {
+    boolean hasPermission(CommandSender sender) {
         return permission == null || sender.hasPermission(permission) || SenderUtil.isConsole(sender);
     }
 
@@ -79,7 +79,7 @@ public abstract class AbstractCommand {
      *
      * @param sender the sender of the command
      */
-    public void sendUsage(CommandSender sender) {
+    void sendUsage(CommandSender sender) {
         sender.sendMessage(MessageUtil.format("&7- &9Command: &7" + name));
         sender.sendMessage(MessageUtil.format("&7- &9Description: &7" + description));
         sender.sendMessage(MessageUtil.format("&7- &9Usage: &7" + usage));
@@ -90,7 +90,7 @@ public abstract class AbstractCommand {
      *
      * @param sender the sender of the command
      */
-    public void sendParameterWarning(CommandSender sender) {
+    void sendParameterWarning(CommandSender sender) {
         sender.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.invalid-parameter", usage)));
     }
 }

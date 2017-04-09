@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 
-public class BannerMakerCommand extends AbstractCommand {
+class BannerMakerCommand extends AbstractCommand {
     //名稱
     private static String name = "BannerMaker";
     //介紹
@@ -17,12 +17,12 @@ public class BannerMakerCommand extends AbstractCommand {
     //僅能由玩家執行
     private static boolean onlyFromPlayer = true;
 
-    public BannerMakerCommand() {
+    BannerMakerCommand() {
         super(name, description, permission, usage, onlyFromPlayer);
     }
 
     @Override
-    public boolean handle(CommandSender sender, Command command, String label, String[] args) {
+    boolean handle(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         //開啟選單
         InventoryMenuUtil.openMenu(player);
