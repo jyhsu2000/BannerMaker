@@ -2,6 +2,14 @@ package tw.kid7.BannerMaker.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import tw.kid7.BannerMaker.BannerMaker;
+import tw.kid7.BannerMaker.InventoryMenuState;
+import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.util.BannerUtil;
+import tw.kid7.BannerMaker.util.InventoryMenuUtil;
+import tw.kid7.BannerMaker.util.MessageUtil;
 
 class HandCommand extends AbstractCommand {
     //名稱
@@ -21,7 +29,24 @@ class HandCommand extends AbstractCommand {
 
     @Override
     boolean handle(CommandSender sender, Command command, String label, String[] args) {
-        //TODO
+        Player player = (Player) sender;
+        ItemStack itemStack = BannerMaker.getInstance().getVersionHandler().getItemInMainHand(player);
+        if (!BannerUtil.isBanner(itemStack)) {
+            //TODO: 加到語言包
+            player.sendMessage(MessageUtil.format(true, "&cItem in hand is not a banner."));
+            return true;
+        }
+        PlayerData playerData = PlayerData.get(player);
+        //設定查看旗幟
+        //FIXME: 清理旗幟資訊（自訂名稱等）
+        playerData.setViewInfoBanner(itemStack);
+        //重置頁數
+        playerData.setCurrentRecipePage(1);
+        //設定畫面
+        playerData.setInventoryMenuState(InventoryMenuState.BANNER_INFO);
+        //開啟選單
+        InventoryMenuUtil.openMenu(player);
+
         return true;
     }
 }
