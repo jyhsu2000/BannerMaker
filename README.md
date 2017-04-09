@@ -38,6 +38,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 |**Command**|**Description**|
 |---|---|
 |/bm|Open main gui|
+|/bm help|Command list|
 |/bm reload|Reload config|
 
 ## Permissions
