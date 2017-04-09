@@ -13,6 +13,7 @@ io:
   remove-banner: 移除旗帜 &r#{0}
 command:
   player-only: 这个指令只能由游戏中的玩家使用
+  invalid-parameter: '参数无效，正确用法: {0}'
 config:
   add-setting: 新增 {0} 个新设定
 gui:

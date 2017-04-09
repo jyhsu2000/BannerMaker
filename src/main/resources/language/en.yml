@@ -13,6 +13,7 @@ io:
   remove-banner: Remove banner &r#{0}
 command:
   player-only: This command can only be used by players in game
+  invalid-parameter: 'Invalid parameter(s), correct usage: {0}'
 config:
   add-setting: Add {0} new settings
 gui:

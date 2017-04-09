@@ -91,7 +91,6 @@ public abstract class AbstractCommand {
      * @param sender the sender of the command
      */
     public void sendParameterWarning(CommandSender sender) {
-        //TODO: 加到語言包：參數錯誤提示訊息
-        sender.sendMessage(MessageUtil.format(true, "&cInvalid parameter(s), correct usage: " + usage));
+        sender.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.invalid-parameter", usage)));
     }
 }
