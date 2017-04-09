@@ -1,5 +1,8 @@
 # Change Logs
 ## Unreleased Version
+- Nothing
+
+## v1.6.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
 - New Command
   - /bm help: command list
   - /bm hand: Show banner info of the banner in hand

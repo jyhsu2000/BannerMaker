@@ -56,12 +56,13 @@
 3. 啟動伺服器
 
 ## 更新紀錄
-v1.5.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- 令字母與數字選單可切換開關
-- 改進價格設定
-- 優化程式碼
-- 分割 README 和 CHANGELOG
-- 使用 [bStats](https://bstats.org/plugin/bukkit/BannerMaker) 代替 MCStats
+v1.6.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- 新指令
+  - /bm help: 指令清單
+  - /bm hand: 顯示手上持有的旗幟的資訊
+  - /bm see: 顯示看著的旗幟的資訊
+- 重新撰寫指令系統，並加上Tab自動完成
+- 移除用於從v1.0或v1.1更新的旗幟資料更新功能
 
 *在 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md) 閱讀更多*
 
