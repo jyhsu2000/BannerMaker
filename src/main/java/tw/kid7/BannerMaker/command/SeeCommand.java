@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.DyeColorUtil;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
@@ -35,8 +36,7 @@ class SeeCommand extends AbstractCommand {
         Player player = (Player) sender;
         Block block = player.getTargetBlock((Set<Material>) null, 20);
         if (block.getType() != Material.STANDING_BANNER && block.getType() != Material.WALL_BANNER) {
-            //TODO: 加到語言包
-            player.sendMessage(MessageUtil.format(true, "&cItem you're looking at is not a banner."));
+            player.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.not-banner-see")));
             return true;
         }
         //根據方塊建立旗幟

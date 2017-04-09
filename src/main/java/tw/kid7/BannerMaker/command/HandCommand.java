@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
+import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.BannerUtil;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
@@ -32,8 +33,7 @@ class HandCommand extends AbstractCommand {
         Player player = (Player) sender;
         ItemStack itemStack = BannerMaker.getInstance().getVersionHandler().getItemInMainHand(player);
         if (!BannerUtil.isBanner(itemStack)) {
-            //TODO: 加到語言包
-            player.sendMessage(MessageUtil.format(true, "&cItem in hand is not a banner."));
+            player.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.not-banner-hand")));
             return true;
         }
         //複製旗幟，僅保留底色與樣式

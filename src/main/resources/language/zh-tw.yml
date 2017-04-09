@@ -14,6 +14,8 @@ io:
 command:
   player-only: 這個指令只能由遊戲中的玩家使用
   invalid-parameter: '參數無效，正確用法: {0}'
+  not-banner-hand: 手上拿的物品不是旗幟
+  not-banner-see: 看著的方塊不是旗幟
 config:
   add-setting: 新增 {0} 個新設定
 gui:

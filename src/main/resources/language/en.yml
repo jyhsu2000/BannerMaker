@@ -14,6 +14,8 @@ io:
 command:
   player-only: This command can only be used by players in game
   invalid-parameter: 'Invalid parameter(s), correct usage: {0}'
+  not-banner-hand: Item in hand is not a banner.
+  not-banner-see: Block you're looking at is not a banner.
 config:
   add-setting: Add {0} new settings
 gui:
