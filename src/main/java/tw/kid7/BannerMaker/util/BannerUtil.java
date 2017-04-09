@@ -3,6 +3,7 @@ package tw.kid7.BannerMaker.util;
 import com.google.common.collect.Maps;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Dye;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.configuration.Language;
@@ -26,6 +28,35 @@ public class BannerUtil {
      */
     static public boolean isBanner(ItemStack itemStack) {
         return itemStack != null && itemStack.getType().equals(Material.BANNER);
+    }
+
+    /**
+     * 檢查ItemStack是否為字母旗幟
+     * FIXME: 暫時只檢查名稱是否為單一字元帶顏色，判斷依據須更精確
+     *
+     * @param itemStack 欲檢查的物品
+     * @return boolean
+     */
+    static public boolean isAlphabetBanner(ItemStack itemStack) {
+        if (!isBanner(itemStack)) {
+            return false;
+        }
+        if (!itemStack.hasItemMeta()) {
+            return false;
+        }
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (!itemMeta.hasDisplayName()) {
+            return false;
+        }
+        String displayName = itemMeta.getDisplayName();
+        if (displayName.equals(ChatColor.stripColor(displayName))) {
+            return false;
+        }
+        if (ChatColor.stripColor(displayName).length() != 1) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
