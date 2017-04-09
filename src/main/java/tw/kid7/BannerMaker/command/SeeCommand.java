@@ -41,12 +41,12 @@ class SeeCommand extends AbstractCommand {
         }
         //根據方塊建立旗幟
         Banner blockState = (Banner) block.getState();
-        ItemStack itemStack = new ItemStack(Material.BANNER, 1, DyeColorUtil.toShort(blockState.getBaseColor()));
-        BannerMeta bannerMeta = (BannerMeta) itemStack.getItemMeta();
+        ItemStack banner = new ItemStack(Material.BANNER, 1, DyeColorUtil.toShort(blockState.getBaseColor()));
+        BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
         bannerMeta.setPatterns(blockState.getPatterns());
-        itemStack.setItemMeta(bannerMeta);
+        banner.setItemMeta(bannerMeta);
         //顯示旗幟
-        InventoryMenuUtil.showBannerInfo(player, itemStack);
+        InventoryMenuUtil.showBannerInfo(player, banner);
         return true;
     }
 }
