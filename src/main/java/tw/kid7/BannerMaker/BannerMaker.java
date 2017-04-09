@@ -23,7 +23,7 @@ public class BannerMaker extends JavaPlugin {
     public void onEnable() {
         instance = this;
         //指令
-        CommandManager commandManager = new CommandManager();
+        CommandManager commandManager = CommandManager.getInstance();
         this.getCommand("BannerMaker").setExecutor(commandManager);
         this.getCommand("BannerMaker").setTabCompleter(commandManager);
         //Listener

@@ -13,10 +13,19 @@ import java.util.List;
 import java.util.Map;
 
 public class CommandManager implements CommandExecutor, TabCompleter {
-    private HashMap<String, AbstractCommand> subCommandMap = Maps.newHashMap();
+    private static CommandManager instance;
+    final HashMap<String, AbstractCommand> subCommandMap = Maps.newHashMap();
 
-    public CommandManager() {
+    private CommandManager() {
+        addSubCommand("help", new HelpCommand());
         addSubCommand("reload", new ReloadCommand());
+    }
+
+    public static CommandManager getInstance() {
+        if (instance == null) {
+            instance = new CommandManager();
+        }
+        return instance;
     }
 
     @Override

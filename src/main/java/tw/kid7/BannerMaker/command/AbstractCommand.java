@@ -93,4 +93,16 @@ abstract class AbstractCommand {
     void sendParameterWarning(CommandSender sender) {
         sender.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.invalid-parameter", usage)));
     }
+
+    String getName() {
+        return name;
+    }
+
+    String getDescription() {
+        return description;
+    }
+
+    String getUsage() {
+        return usage;
+    }
 }

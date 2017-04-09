@@ -1,5 +1,7 @@
 # Change Logs
 ## Unreleased Version
+- New Command
+  - /bm help: command list
 - Rewrite command system and add tab completion.
 - Remove banner data update functions which for update from v1.0 or v1.1
 
