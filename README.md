@@ -57,7 +57,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
 
 ## Change Logs
 v1.6.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- New Command
+- New Commands
   - /bm help: command list
   - /bm hand: Show banner info of the banner in hand
   - /bm see: Show banner info of the banner you're looking at
