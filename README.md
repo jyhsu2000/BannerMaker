@@ -50,12 +50,6 @@ You don't need to know how to craft. All you need to know is how it will looks l
 |BannerMaker.getBanner|Get banners from GUI|
 |BannerMaker.getBanner.free|Get banners for free|
 
-## Features in future
-* Use craft materials to get banner
-* Generate give command
-* Generate summon command
-* ...and tell me what you want
-
 ## Installation
 1. Shutdown the server
 2. Put the .jar into the plugins folder

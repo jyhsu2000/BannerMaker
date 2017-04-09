@@ -50,12 +50,6 @@
 |BannerMaker.getBanner|從介面取得旗幟|
 |BannerMaker.getBanner.free|免費取得旗幟|
 
-## 未來功能
-* 使用合成材料來取得旗幟
-* 產生give指令
-* 產生summon指令
-* ...告訴我你還想要什麼
-
 ## 安裝
 1. 關閉伺服器
 2. 將 .jar 放入 plugins 資料夾
