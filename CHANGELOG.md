@@ -1,5 +1,6 @@
 # Change Logs
 ## Unreleased Version
+- Rewrite command system and add tab completion.
 - Remove banner data update functions which for update from v1.0 or v1.1
 
 ## v1.5.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)

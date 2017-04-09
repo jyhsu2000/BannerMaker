@@ -7,41 +7,25 @@ import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.MessageUtil;
 
 public class ReloadCommand extends AbstractCommand {
-    //指令名稱
-    private static final String NAME = "Reload";
-    //指令說明
-    private static final String DESCRIPTION = "Reload all config";
-    //指令權限
-    private static final String PERMISSION = "BannerMaker.reload";
-    //指令用途
-    private static final String USAGE = "/bm reload";
-    //子指令權限
-    private static final String[] SUB_PERMISSIONS = {""};
+    //名稱
+    private static final String name = "Reload";
+    //介紹
+    private static final String description = "Reload all config";
+    //權限
+    private static final String permission = "BannerMaker.reload";
+    //使用方法
+    private static final String usage = "/bm reload";
+    //僅能由玩家執行
+    private static final boolean onlyFromPlayer = false;
 
-    /**
-     * Construct out object.
-     *
-     * @param sender the command sender
-     */
-    public ReloadCommand(CommandSender sender) {
-        super(sender, NAME, DESCRIPTION, PERMISSION, SUB_PERMISSIONS, USAGE);
+    public ReloadCommand() {
+        super(name, description, permission, usage, onlyFromPlayer);
     }
 
-    /**
-     * Execute the command.
-     *
-     * @param sender  the sender of the command
-     * @param command the command being done
-     * @param label   the name of the command
-     * @param args    the arguments supplied
-     */
     @Override
-    public void execute(CommandSender sender, Command command, String label, String[] args) {
-        if (!hasPermission()) {
-            sender.sendMessage(MessageUtil.format(true, Language.get("general.no-permission")));
-            return;
-        }
+    public boolean handle(CommandSender sender, Command command, String label, String[] args) {
         BannerMaker.reload();
         sender.sendMessage(MessageUtil.format(true, Language.get("general.reload")));
+        return true;
     }
 }

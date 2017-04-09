@@ -1,201 +1,33 @@
 package tw.kid7.BannerMaker.command;
 
-/*
- * #%L
- * PlugMan
- * %%
- * Copyright (C) 2010 - 2014 PlugMan
- * %%
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- * #L%
- */
-
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.command.RemoteConsoleCommandSender;
-import org.bukkit.entity.Player;
+import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.MessageUtil;
+import tw.kid7.BannerMaker.util.SenderUtil;
 
 /**
- * Abstract command class that our commands extend.
- *
- * @author rylinaux
+ * 抽象子指令
  */
 public abstract class AbstractCommand {
+    //名稱
+    private String name;
+    //介紹
+    private String description;
+    //權限
+    private String permission;
+    //使用方法
+    private String usage;
+    //僅能由玩家執行
+    private boolean onlyFromPlayer = false;
 
-    /**
-     * The command's sender.
-     */
-    private final CommandSender sender;
-
-    /**
-     * The command's name.
-     */
-    private final String name;
-
-    /**
-     * The command's description.
-     */
-    private final String description;
-
-    /**
-     * The command's description.
-     */
-    private final String permission;
-
-    /**
-     * The command's usage.
-     */
-    private final String usage;
-
-    /**
-     * The sub permissions.
-     */
-    private final String[] subPermissions;
-
-    /**
-     * Construct the object.
-     *
-     * @param sender      the sender of the command
-     * @param description the description of the command
-     * @param permission  the permission to use the command
-     * @param usage       the proper usage of the command
-     */
-    AbstractCommand(CommandSender sender, String name, String description, String permission, String[] subPermissions, String usage) {
-        this.sender = sender;
+    protected AbstractCommand(String name, String description, String permission, String usage, boolean onlyFromPlayer) {
         this.name = name;
         this.description = description;
         this.permission = permission;
-        this.subPermissions = subPermissions;
         this.usage = usage;
-    }
-
-    /**
-     * Gets the sender of the command.
-     *
-     * @return the command's sender
-     */
-    public CommandSender getSender() {
-        return sender;
-    }
-
-    /**
-     * Gets the name of the command.
-     *
-     * @return the command's name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the description of the command.
-     *
-     * @return the command's description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Gets the permission associated with the command.
-     *
-     * @return the command's permission
-     */
-    public String getPermission() {
-        return permission;
-    }
-
-    /**
-     * Gets the sub permissions associated with the command.
-     *
-     * @return the command's sub permissions
-     */
-    public String[] getSubPermissions() {
-        return subPermissions;
-    }
-
-    /**
-     * Gets the proper usage for the command.
-     *
-     * @return the command's usage
-     */
-    public String getUsage() {
-        return usage;
-    }
-
-    /**
-     * Checks whether the sender has permission to do the command.
-     *
-     * @return does the sender have permission
-     */
-    boolean hasPermission() {
-        return sender.hasPermission(permission) || isSenderConsole() || isSenderRemoteConsole();
-    }
-
-    /**
-     * Checks whether the sender has permission to do the command.
-     *
-     * @param sub the sub permission to check
-     * @return does the sender have permission
-     */
-    public boolean hasPermission(String sub) {
-        String permission = this.permission + "." + sub;
-        return sender.hasPermission(permission) || isSenderConsole() || isSenderRemoteConsole();
-    }
-
-    /**
-     * Sends the usage message to the sender.
-     */
-    public void sendUsage() {
-        sender.sendMessage(MessageUtil.format(false, "&7- &9Command: &7" + name));
-        sender.sendMessage(MessageUtil.format(false, "&7- &9Description: &7" + description));
-        sender.sendMessage(MessageUtil.format(false, "&7- &9Usage: &7{0}" + usage));
-    }
-
-    /**
-     * Checks whether the sender is a .
-     *
-     * @return is the sender a player
-     */
-    boolean isSenderPlayer() {
-        return (sender instanceof Player);
-    }
-
-    /**
-     * Checks whether the sender is the console.
-     *
-     * @return is the sender console
-     */
-    private boolean isSenderConsole() {
-        return (sender instanceof ConsoleCommandSender);
-    }
-
-    /**
-     * Checks whether the sender is rcon.
-     *
-     * @return is the sender rcon
-     */
-    private boolean isSenderRemoteConsole() {
-        return (sender instanceof RemoteConsoleCommandSender);
+        this.onlyFromPlayer = onlyFromPlayer;
     }
 
     /**
@@ -206,6 +38,60 @@ public abstract class AbstractCommand {
      * @param label   the name of the command
      * @param args    the arguments supplied
      */
-    public abstract void execute(CommandSender sender, Command command, String label, String[] args);
+    public final boolean execute(CommandSender sender, Command command, String label, String[] args) {
+        //僅能由玩家執行
+        if (onlyFromPlayer && !SenderUtil.isPlayer(sender)) {
+            sender.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.player-only")));
+            return true;
+        }
+        //檢查權限
+        if (!hasPermission(sender)) {
+            sender.sendMessage(MessageUtil.format(true, Language.get("general.no-permission")));
+            return true;
+        }
+        //執行指令
+        return handle(sender, command, label, args);
+    }
 
+    /**
+     * 指令處理過程
+     *
+     * @param sender  the sender of the command
+     * @param command the command being done
+     * @param label   the name of the command
+     * @param args    the arguments supplied
+     * @return boolean
+     */
+    public abstract boolean handle(CommandSender sender, Command command, String label, String[] args);
+
+    /**
+     * 判斷有無權限
+     *
+     * @param sender the sender of the command
+     * @return boolean
+     */
+    public boolean hasPermission(CommandSender sender) {
+        return permission == null || sender.hasPermission(permission) || SenderUtil.isConsole(sender);
+    }
+
+    /**
+     * 顯示指令用法
+     *
+     * @param sender the sender of the command
+     */
+    public void sendUsage(CommandSender sender) {
+        sender.sendMessage(MessageUtil.format("&7- &9Command: &7" + name));
+        sender.sendMessage(MessageUtil.format("&7- &9Description: &7" + description));
+        sender.sendMessage(MessageUtil.format("&7- &9Usage: &7" + usage));
+    }
+
+    /**
+     * 參數錯誤提示訊息
+     *
+     * @param sender the sender of the command
+     */
+    public void sendParameterWarning(CommandSender sender) {
+        //TODO: 加到語言包：參數錯誤提示訊息
+        sender.sendMessage(MessageUtil.format(true, "&cInvalid parameter(s), correct usage: " + usage));
+    }
 }
