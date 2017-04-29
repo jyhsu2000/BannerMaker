@@ -1,6 +1,5 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -17,6 +16,11 @@ import java.util.List;
 
 public class MainInventoryMenu extends AbstractInventoryMenu {
     private static MainInventoryMenu instance = null;
+    //按鈕位置
+    private int buttonPositionPrevPage = 45;
+    private int buttonPositionNextPage = 53;
+    private int buttonPositionCreateBanner = 49;
+    private int buttonPositionCreateAlphabet = 51;
 
     public static MainInventoryMenu getInstance() {
         if (instance == null) {
@@ -45,23 +49,23 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         //上一頁
         if (currentPage > 1) {
             ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentPage - 1).name(MessageUtil.format("&a" + Language.get("gui.prev-page"))).build();
-            menu.setItem(45, prevPage);
+            menu.setItem(buttonPositionPrevPage, prevPage);
         }
         //下一頁
         if (currentPage < totalPage) {
             ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentPage + 1).name(MessageUtil.format("&a" + Language.get("gui.next-page"))).build();
-            menu.setItem(53, nextPage);
+            menu.setItem(buttonPositionNextPage, nextPage);
         }
         //Create banner
         ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.create-banner"))).build();
-        menu.setItem(49, btnCreateBanner);
+        menu.setItem(buttonPositionCreateBanner, btnCreateBanner);
         //建立字母
         if (BannerMaker.enableAlphabetAndNumber) {
             ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
             ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
             btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.alphabet-and-number")));
             btnCreateAlphabet.setItemMeta(btnCreateAlphabetItemMeta);
-            menu.setItem(51, btnCreateAlphabet);
+            menu.setItem(buttonPositionCreateAlphabet, btnCreateAlphabet);
         }
         //開啟選單
         player.openInventory(menu);
@@ -72,24 +76,22 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         Player player = (Player) event.getWhoClicked();
         PlayerData playerData = PlayerData.get(player);
         ItemStack itemStack = event.getCurrentItem();
-        if (event.getRawSlot() < 45) {
+        int rawSlot = event.getRawSlot();
+        if (rawSlot < 45) {
             //點擊旗幟
             //顯示旗幟
             InventoryMenuUtil.showBannerInfo(player, itemStack);
         } else {
-            //點擊按鈕
-            String buttonName = itemStack.getItemMeta().getDisplayName();
-            buttonName = ChatColor.stripColor(buttonName);
             //當前頁數
             int currentPage = playerData.getCurrentPage();
             //修改狀態
-            if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.prev-page"))) {
+            if (rawSlot == buttonPositionPrevPage) {
                 playerData.setCurrentPage(currentPage - 1);
-            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.next-page"))) {
+            } else if (rawSlot == buttonPositionNextPage) {
                 playerData.setCurrentPage(currentPage + 1);
-            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create-banner"))) {
+            } else if (rawSlot == buttonPositionCreateBanner) {
                 playerData.setInventoryMenuState(InventoryMenuState.CREATE_BANNER);
-            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.alphabet-and-number"))) {
+            } else if (rawSlot == buttonPositionCreateAlphabet) {
                 if (BannerMaker.enableAlphabetAndNumber) {
                     playerData.setCurrentAlphabetBanner(null);
                     playerData.setInventoryMenuState(InventoryMenuState.CREATE_ALPHABET);

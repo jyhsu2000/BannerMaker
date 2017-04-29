@@ -17,6 +17,8 @@ import tw.kid7.BannerMaker.util.*;
 
 public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
     private static CreateAlphabetInventoryMenu instance = null;
+    //按鈕位置
+    private int buttonPositionBackToMenu = 45;
 
     public static CreateAlphabetInventoryMenu getInstance() {
         if (instance == null) {
@@ -70,7 +72,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         }
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
-        menu.setItem(45, btnBackToMenu);
+        menu.setItem(buttonPositionBackToMenu, btnBackToMenu);
         //開啟選單
         player.openInventory(menu);
     }
@@ -82,8 +84,9 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         ItemStack itemStack = event.getCurrentItem();
         //取得當前編輯中的字母
         AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
+        int rawSlot = event.getRawSlot();
         if (currentAlphabetBanner == null) {
-            if (event.getRawSlot() < 45) {
+            if (rawSlot < 45) {
                 //選擇字母
                 boolean alphabetBorder = playerData.isAlphabetBannerBordered();
                 currentAlphabetBanner = new AlphabetBanner(itemStack.getItemMeta().getDisplayName(), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
@@ -103,13 +106,13 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
             InventoryMenuUtil.openMenu(player);
         } else {
             //選擇顏色
-            if (event.getRawSlot() < 1) {
+            if (rawSlot < 1) {
                 //預覽圖
-            } else if (event.getRawSlot() < 18) {
+            } else if (rawSlot < 18) {
                 //選擇底色
                 currentAlphabetBanner.baseColor = DyeColorUtil.fromInt(itemStack.getDurability());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
-            } else if (event.getRawSlot() < 36) {
+            } else if (rawSlot < 36) {
                 //選擇主要顏色
                 currentAlphabetBanner.dyeColor = DyeColorUtil.fromInt(itemStack.getDurability());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
@@ -117,6 +120,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
                 //點擊按鈕
                 String buttonName = itemStack.getItemMeta().getDisplayName();
                 buttonName = ChatColor.stripColor(buttonName);
+                //FIXME: 以位置判定（需處理出現在不同位置及同位子出現不同按鈕的狀況）
                 if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.toggle-border"))) {
                     //切換有無邊框
                     currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
@@ -127,7 +131,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
                     //重置頁數
                     playerData.setCurrentRecipePage(1);
                     playerData.setInventoryMenuState(InventoryMenuState.BANNER_INFO);
-                } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
+                } else if (rawSlot == buttonPositionBackToMenu) {
                     playerData.setCurrentAlphabetBanner(null);
                 }
             }

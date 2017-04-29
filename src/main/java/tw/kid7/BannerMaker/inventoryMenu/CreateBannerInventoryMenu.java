@@ -1,6 +1,5 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
-import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -17,6 +16,12 @@ import tw.kid7.BannerMaker.util.*;
 
 public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     private static CreateBannerInventoryMenu instance = null;
+    //按鈕位置
+    private int buttonPositionMorePattern = 51;
+    private int buttonPositionBackToMenu = 45;
+    private int buttonPositionCreate = 53;
+    private int buttonPositionDelete = 47;
+    private int buttonPositionRemovePattern = 49;
 
     public static CreateBannerInventoryMenu getInstance() {
         if (instance == null) {
@@ -75,22 +80,22 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             }
             //更多Pattern
             ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + Language.get("gui.more-patterns"))).build();
-            menu.setItem(51, btnMorePattern);
+            menu.setItem(buttonPositionMorePattern, btnMorePattern);
         }
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
-        menu.setItem(45, btnBackToMenu);
+        menu.setItem(buttonPositionBackToMenu, btnBackToMenu);
         if (currentBanner != null) {
             //建立旗幟
             ItemStack btnCreate = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.create"))).build();
-            menu.setItem(53, btnCreate);
+            menu.setItem(buttonPositionCreate, btnCreate);
             //刪除
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.delete"))).build();
-            menu.setItem(47, btnDelete);
+            menu.setItem(buttonPositionDelete, btnDelete);
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
                 //移除Pattern
                 ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.remove-last-pattern"))).build();
-                menu.setItem(49, btnRemovePattern);
+                menu.setItem(buttonPositionRemovePattern, btnRemovePattern);
             }
         }
         //開啟選單
@@ -104,7 +109,8 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
         ItemStack itemStack = event.getCurrentItem();
         //取得當前編輯中的旗幟
         ItemStack currentBanner = playerData.getCurrentEditBanner();
-        if (event.getRawSlot() >= 1 && event.getRawSlot() <= 17 && event.getRawSlot() % 9 != 0) {
+        int rawSlot = event.getRawSlot();
+        if (rawSlot >= 1 && rawSlot <= 17 && rawSlot % 9 != 0) {
             if (currentBanner == null) {
                 //選擇底色
                 playerData.setCurrentEditBanner(itemStack);
@@ -114,7 +120,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             }
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
-        } else if (event.getRawSlot() >= 19 && event.getRawSlot() <= 44 && event.getRawSlot() % 9 != 0) {
+        } else if (rawSlot >= 19 && rawSlot <= 44 && rawSlot % 9 != 0) {
             //新增Pattern
             BannerMeta bm = (BannerMeta) itemStack.getItemMeta();
             Pattern pattern = bm.getPattern(bm.numberOfPatterns() - 1);
@@ -124,27 +130,24 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             playerData.setCurrentEditBanner(currentBanner);
             //重新開啟選單
             InventoryMenuUtil.openMenu(player);
-        } else if (event.getRawSlot() >= 45) {
-            //點擊按鈕
-            String buttonName = itemStack.getItemMeta().getDisplayName();
-            buttonName = ChatColor.stripColor(buttonName);
+        } else if (rawSlot >= 45) {
             //修改狀態
-            if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.more-patterns"))) {
+            if (rawSlot == buttonPositionMorePattern) {
                 playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
-            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.remove-last-pattern"))) {
+            } else if (rawSlot == buttonPositionRemovePattern) {
                 if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
                     BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
                     bm.removePattern(bm.numberOfPatterns() - 1);
                     currentBanner.setItemMeta(bm);
                     playerData.setCurrentEditBanner(currentBanner);
                 }
-            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.create"))) {
+            } else if (rawSlot == buttonPositionCreate) {
                 IOUtil.saveBanner(player, currentBanner);
                 playerData.setCurrentEditBanner(null);
                 playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
-            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.delete"))) {
+            } else if (rawSlot == buttonPositionDelete) {
                 playerData.setCurrentEditBanner(null);
-            } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
+            } else if (rawSlot == buttonPositionBackToMenu) {
                 playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
             }
             //重新開啟選單
