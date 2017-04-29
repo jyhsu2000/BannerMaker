@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
  * @link https://gist.github.com/filoghost/f53ecb7b014c40b66bdc
  */
 class HiddenStringUtil {
-    // String constants. TODO Change them to something unique to avoid conflict with other plugins!
+    // String constants. Change them to something unique to avoid conflict with other plugins!
     private static final String SEQUENCE_HEADER = "" + ChatColor.RESET + ChatColor.UNDERLINE + ChatColor.RESET;
     private static final String SEQUENCE_FOOTER = "" + ChatColor.RESET + ChatColor.ITALIC + ChatColor.RESET;
 
