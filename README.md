@@ -57,13 +57,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ## Change Logs
-v1.6.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- New Commands
-  - /bm help: command list
-  - /bm hand: Show banner info of the banner in hand
-  - /bm see: Show banner info of the banner you're looking at
-- Rewrite command system and add tab completion.
-- Remove banner data update functions which for update from v1.0 or v1.1
+v1.6.1 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- Identify gui button in a more exact way
+- Optimize inventory menu transition
 
 *Read more in [CHANGELOG.md](CHANGELOG.md)*
 
