@@ -153,7 +153,6 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         PlayerData playerData = PlayerData.get(player);
-        ItemStack itemStack = event.getCurrentItem();
         int rawSlot = event.getRawSlot();
         if (rawSlot == 22 || rawSlot == 26 || rawSlot >= 45) {
             //取得欲查看旗幟
