@@ -118,9 +118,10 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 //點擊顏色
                 playerData.setSelectedColor(DyeColorUtil.fromInt(itemStack.getDurability()));
             }
-            //重新開啟選單
             InventoryMenuUtil.openMenu(player);
-        } else if (rawSlot >= 19 && rawSlot <= 44 && rawSlot % 9 != 0) {
+            return;
+        }
+        if (rawSlot >= 19 && rawSlot <= 44 && rawSlot % 9 != 0) {
             //新增Pattern
             BannerMeta bm = (BannerMeta) itemStack.getItemMeta();
             Pattern pattern = bm.getPattern(bm.numberOfPatterns() - 1);
@@ -128,30 +129,42 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             currentBm.addPattern(pattern);
             currentBanner.setItemMeta(currentBm);
             playerData.setCurrentEditBanner(currentBanner);
-            //重新開啟選單
             InventoryMenuUtil.openMenu(player);
-        } else if (rawSlot >= 45) {
-            //修改狀態
-            if (rawSlot == buttonPositionMorePattern) {
-                playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
-            } else if (rawSlot == buttonPositionRemovePattern) {
-                if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
-                    BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
-                    bm.removePattern(bm.numberOfPatterns() - 1);
-                    currentBanner.setItemMeta(bm);
-                    playerData.setCurrentEditBanner(currentBanner);
-                }
-            } else if (rawSlot == buttonPositionCreate) {
-                IOUtil.saveBanner(player, currentBanner);
-                playerData.setCurrentEditBanner(null);
-                playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
-            } else if (rawSlot == buttonPositionDelete) {
-                playerData.setCurrentEditBanner(null);
-            } else if (rawSlot == buttonPositionBackToMenu) {
-                playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
+            return;
+        }
+        if (rawSlot < 45) {
+            return;
+        }
+        //修改狀態
+        if (rawSlot == buttonPositionMorePattern) {
+            playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
+            InventoryMenuUtil.openMenu(player);
+            return;
+        }
+        if (rawSlot == buttonPositionRemovePattern) {
+            if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
+                BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
+                bm.removePattern(bm.numberOfPatterns() - 1);
+                currentBanner.setItemMeta(bm);
+                playerData.setCurrentEditBanner(currentBanner);
+                InventoryMenuUtil.openMenu(player);
             }
-            //重新開啟選單
+            return;
+        }
+        if (rawSlot == buttonPositionCreate) {
+            IOUtil.saveBanner(player, currentBanner);
+            playerData.setCurrentEditBanner(null);
+            InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
+            return;
+        }
+        if (rawSlot == buttonPositionDelete) {
+            playerData.setCurrentEditBanner(null);
             InventoryMenuUtil.openMenu(player);
+            return;
+        }
+        if (rawSlot == buttonPositionBackToMenu) {
+            InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
+            return;
         }
     }
 }

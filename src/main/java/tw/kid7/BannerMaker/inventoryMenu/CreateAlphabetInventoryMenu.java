@@ -85,58 +85,74 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         //取得當前編輯中的字母
         AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
         int rawSlot = event.getRawSlot();
+        //TODO: 將選擇字母的選單獨立
         if (currentAlphabetBanner == null) {
             if (rawSlot < 45) {
                 //選擇字母
                 boolean alphabetBorder = playerData.isAlphabetBannerBordered();
                 currentAlphabetBanner = new AlphabetBanner(itemStack.getItemMeta().getDisplayName(), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
-            } else {
-                //點擊按鈕
-                String buttonName = itemStack.getItemMeta().getDisplayName();
-                buttonName = ChatColor.stripColor(buttonName);
-                if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.toggle-border"))) {
-                    //切換有無邊框
-                    playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
-                } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
-                    playerData.setInventoryMenuState(InventoryMenuState.MAIN_MENU);
-                }
+                InventoryMenuUtil.openMenu(player);
+                return;
             }
-            //重新開啟選單
-            InventoryMenuUtil.openMenu(player);
-        } else {
-            //選擇顏色
-            if (rawSlot < 1) {
-                //預覽圖
-            } else if (rawSlot < 18) {
-                //選擇底色
-                currentAlphabetBanner.baseColor = DyeColorUtil.fromInt(itemStack.getDurability());
-                playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
-            } else if (rawSlot < 36) {
-                //選擇主要顏色
-                currentAlphabetBanner.dyeColor = DyeColorUtil.fromInt(itemStack.getDurability());
-                playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
-            } else {
-                //點擊按鈕
-                String buttonName = itemStack.getItemMeta().getDisplayName();
-                buttonName = ChatColor.stripColor(buttonName);
-                //FIXME: 以位置判定（需處理出現在不同位置及同位子出現不同按鈕的狀況）
-                if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.toggle-border"))) {
-                    //切換有無邊框
-                    currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
-                    playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
-                } else if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.banner-info"))) {
-                    //檢視旗幟資訊
-                    playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
-                    //重置頁數
-                    playerData.setCurrentRecipePage(1);
-                    playerData.setInventoryMenuState(InventoryMenuState.BANNER_INFO);
-                } else if (rawSlot == buttonPositionBackToMenu) {
-                    playerData.setCurrentAlphabetBanner(null);
-                }
+            //點擊按鈕
+            String buttonName = itemStack.getItemMeta().getDisplayName();
+            buttonName = ChatColor.stripColor(buttonName);
+            if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.toggle-border"))) {
+                //切換有無邊框
+                playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
+                InventoryMenuUtil.openMenu(player);
+                return;
             }
-            //重新開啟選單
+            if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
+                InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
+                return;
+            }
+            return;
+        }
+
+        //選擇顏色
+        if (rawSlot < 1) {
+            //預覽圖
+            return;
+        }
+        if (rawSlot < 18) {
+            //選擇底色
+            currentAlphabetBanner.baseColor = DyeColorUtil.fromInt(itemStack.getDurability());
+            playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
             InventoryMenuUtil.openMenu(player);
+            return;
+        }
+        if (rawSlot < 36) {
+            //選擇主要顏色
+            currentAlphabetBanner.dyeColor = DyeColorUtil.fromInt(itemStack.getDurability());
+            playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
+            InventoryMenuUtil.openMenu(player);
+            return;
+        }
+        //點擊按鈕
+        String buttonName = itemStack.getItemMeta().getDisplayName();
+        buttonName = ChatColor.stripColor(buttonName);
+        //FIXME: 以位置判定（需處理出現在不同位置及同位子出現不同按鈕的狀況）
+        if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.toggle-border"))) {
+            //切換有無邊框
+            currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
+            playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
+            InventoryMenuUtil.openMenu(player);
+            return;
+        }
+        if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.banner-info"))) {
+            //檢視旗幟資訊
+            playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
+            //重置頁數
+            playerData.setCurrentRecipePage(1);
+            InventoryMenuUtil.openMenu(player, InventoryMenuState.BANNER_INFO);
+            return;
+        }
+        if (rawSlot == buttonPositionBackToMenu) {
+            playerData.setCurrentAlphabetBanner(null);
+            InventoryMenuUtil.openMenu(player);
+            return;
         }
     }
 }

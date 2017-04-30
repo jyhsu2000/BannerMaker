@@ -81,24 +81,31 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
             //點擊旗幟
             //顯示旗幟
             InventoryMenuUtil.showBannerInfo(player, itemStack);
-        } else {
-            //當前頁數
-            int currentPage = playerData.getCurrentPage();
-            //修改狀態
-            if (rawSlot == buttonPositionPrevPage) {
-                playerData.setCurrentPage(currentPage - 1);
-            } else if (rawSlot == buttonPositionNextPage) {
-                playerData.setCurrentPage(currentPage + 1);
-            } else if (rawSlot == buttonPositionCreateBanner) {
-                playerData.setInventoryMenuState(InventoryMenuState.CREATE_BANNER);
-            } else if (rawSlot == buttonPositionCreateAlphabet) {
-                if (BannerMaker.enableAlphabetAndNumber) {
-                    playerData.setCurrentAlphabetBanner(null);
-                    playerData.setInventoryMenuState(InventoryMenuState.CREATE_ALPHABET);
-                }
-            }
-            //重新開啟選單
+            return;
+        }
+        //當前頁數
+        int currentPage = playerData.getCurrentPage();
+        //修改狀態
+        if (rawSlot == buttonPositionPrevPage) {
+            playerData.setCurrentPage(currentPage - 1);
             InventoryMenuUtil.openMenu(player);
+            return;
+        }
+        if (rawSlot == buttonPositionNextPage) {
+            playerData.setCurrentPage(currentPage + 1);
+            InventoryMenuUtil.openMenu(player);
+            return;
+        }
+        if (rawSlot == buttonPositionCreateBanner) {
+            InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_BANNER);
+            return;
+        }
+        if (rawSlot == buttonPositionCreateAlphabet) {
+            if (BannerMaker.enableAlphabetAndNumber) {
+                playerData.setCurrentAlphabetBanner(null);
+                InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_ALPHABET);
+            }
+            return;
         }
     }
 }

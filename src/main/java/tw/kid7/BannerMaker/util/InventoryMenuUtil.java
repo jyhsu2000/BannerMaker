@@ -14,8 +14,17 @@ public class InventoryMenuUtil {
     static private final String hiddenPrefix = "&b&m&r";
 
     static public void openMenu(Player player) {
+        openMenu(player, null);
+    }
+
+    static public void openMenu(Player player, InventoryMenuState inventoryMenuState) {
+        PlayerData playerData = PlayerData.get(player);
+        //設定狀態
+        if (inventoryMenuState != null) {
+            playerData.setInventoryMenuState(inventoryMenuState);
+        }
         //取得GUI選單
-        AbstractInventoryMenu menu = PlayerData.get(player).getInventoryMenu();
+        AbstractInventoryMenu menu = playerData.getInventoryMenu();
         //開啟選單
         menu.open(player);
     }
@@ -53,9 +62,7 @@ public class InventoryMenuUtil {
         playerData.setViewInfoBanner(banner);
         //重置頁數
         playerData.setCurrentRecipePage(1);
-        //設定畫面
-        playerData.setInventoryMenuState(InventoryMenuState.BANNER_INFO);
         //開啟選單
-        InventoryMenuUtil.openMenu(player);
+        openMenu(player, InventoryMenuState.BANNER_INFO);
     }
 }
