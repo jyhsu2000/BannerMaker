@@ -1,6 +1,5 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
-import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -19,6 +18,8 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
     private static CreateAlphabetInventoryMenu instance = null;
     //按鈕位置
     private int buttonPositionBackToMenu = 45;
+    private int buttonPositionToggleBorder = 37;
+    private int buttonPositionBannerInfo = 49;
 
     public static CreateAlphabetInventoryMenu getInstance() {
         if (instance == null) {
@@ -40,36 +41,25 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.toggle-border")));
         borderedBannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
         btnBorderedBanner.setItemMeta(borderedBannerMeta);
-        if (currentAlphabetBanner == null) {
-            //選擇字母
-            boolean alphabetBorder = playerData.isAlphabetBannerBordered();
-            char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.".toCharArray();
-            for (int i = 0; i < alphabetArray.length && i < 54; i++) {
-                char alphabet = alphabetArray[i];
-                ItemStack alphabetItem = AlphabetBanner.get(String.valueOf(alphabet), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
-                menu.setItem(i, alphabetItem);
-            }
-            //切換有無邊框
-            menu.setItem(49, btnBorderedBanner);
-        } else {
-            //選擇顏色
-            menu.setItem(0, currentAlphabetBanner.toItemStack());
-            //選擇底色
-            for (int i = 0; i < 16; i++) {
-                ItemStack banner = new ItemStack(Material.BANNER, 1, (short) i);
-                menu.setItem(i + 1 + (i / 8), banner);
-            }
-            //選擇主要顏色
-            for (int i = 0; i < 16; i++) {
-                ItemStack dye = new ItemBuilder(Material.INK_SACK).amount(1).durability(i).build();
-                menu.setItem(18 + i + 1 + (i / 8), dye);
-            }
-            //切換有無邊框
-            menu.setItem(37, btnBorderedBanner);
-            //檢視旗幟資訊按鈕
-            ItemStack btnBannerInfo = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.banner-info"))).build();
-            menu.setItem(49, btnBannerInfo);
+
+        //選擇顏色
+        menu.setItem(0, currentAlphabetBanner.toItemStack());
+        //選擇底色
+        for (int i = 0; i < 16; i++) {
+            ItemStack banner = new ItemStack(Material.BANNER, 1, (short) i);
+            menu.setItem(i + 1 + (i / 8), banner);
         }
+        //選擇主要顏色
+        for (int i = 0; i < 16; i++) {
+            ItemStack dye = new ItemBuilder(Material.INK_SACK).amount(1).durability(i).build();
+            menu.setItem(18 + i + 1 + (i / 8), dye);
+        }
+        //切換有無邊框
+        menu.setItem(buttonPositionToggleBorder, btnBorderedBanner);
+        //檢視旗幟資訊按鈕
+        ItemStack btnBannerInfo = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.banner-info"))).build();
+        menu.setItem(buttonPositionBannerInfo, btnBannerInfo);
+
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
         menu.setItem(buttonPositionBackToMenu, btnBackToMenu);
@@ -85,32 +75,6 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         //取得當前編輯中的字母
         AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
         int rawSlot = event.getRawSlot();
-        //TODO: 將選擇字母的選單獨立
-        if (currentAlphabetBanner == null) {
-            if (rawSlot < 45) {
-                //選擇字母
-                boolean alphabetBorder = playerData.isAlphabetBannerBordered();
-                currentAlphabetBanner = new AlphabetBanner(itemStack.getItemMeta().getDisplayName(), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
-                playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
-                InventoryMenuUtil.openMenu(player);
-                return;
-            }
-            //點擊按鈕
-            String buttonName = itemStack.getItemMeta().getDisplayName();
-            buttonName = ChatColor.stripColor(buttonName);
-            if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.toggle-border"))) {
-                //切換有無邊框
-                playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
-                InventoryMenuUtil.openMenu(player);
-                return;
-            }
-            if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.back"))) {
-                InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
-                return;
-            }
-            return;
-        }
-
         //選擇顏色
         if (rawSlot < 1) {
             //預覽圖
@@ -131,17 +95,14 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
             return;
         }
         //點擊按鈕
-        String buttonName = itemStack.getItemMeta().getDisplayName();
-        buttonName = ChatColor.stripColor(buttonName);
-        //FIXME: 以位置判定（需處理出現在不同位置及同位子出現不同按鈕的狀況）
-        if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.toggle-border"))) {
+        if (rawSlot == buttonPositionToggleBorder) {
             //切換有無邊框
             currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
             playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
             InventoryMenuUtil.openMenu(player);
             return;
         }
-        if (buttonName.equalsIgnoreCase(Language.getIgnoreColors("gui.banner-info"))) {
+        if (rawSlot == buttonPositionBannerInfo) {
             //檢視旗幟資訊
             playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
             //重置頁數
@@ -150,8 +111,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
             return;
         }
         if (rawSlot == buttonPositionBackToMenu) {
-            playerData.setCurrentAlphabetBanner(null);
-            InventoryMenuUtil.openMenu(player);
+            InventoryMenuUtil.openMenu(player, InventoryMenuState.CHOOSE_ALPHABET);
             return;
         }
     }

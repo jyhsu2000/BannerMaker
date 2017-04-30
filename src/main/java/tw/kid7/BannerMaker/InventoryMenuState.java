@@ -5,6 +5,7 @@ import tw.kid7.BannerMaker.inventoryMenu.*;
 public enum InventoryMenuState {
     MAIN_MENU,
     CREATE_BANNER,
+    CHOOSE_ALPHABET,
     CREATE_ALPHABET,
     BANNER_INFO;
 
@@ -18,6 +19,9 @@ public enum InventoryMenuState {
         switch (this) {
             case CREATE_BANNER:
                 menu = CreateBannerInventoryMenu.getInstance();
+                break;
+            case CHOOSE_ALPHABET:
+                menu = ChooseAlphabetInventoryMenu.getInstance();
                 break;
             case CREATE_ALPHABET:
                 menu = CreateAlphabetInventoryMenu.getInstance();

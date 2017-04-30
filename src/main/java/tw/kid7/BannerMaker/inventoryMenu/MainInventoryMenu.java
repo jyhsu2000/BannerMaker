@@ -102,8 +102,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         }
         if (rawSlot == buttonPositionCreateAlphabet) {
             if (BannerMaker.enableAlphabetAndNumber) {
-                playerData.setCurrentAlphabetBanner(null);
-                InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_ALPHABET);
+                InventoryMenuUtil.openMenu(player, InventoryMenuState.CHOOSE_ALPHABET);
             }
             return;
         }
