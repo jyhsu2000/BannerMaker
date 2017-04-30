@@ -1,6 +1,7 @@
 # Change Logs
 ## Unreleased Version
-- Nothing
+- Identify gui button in a more exact way
+- Optimize inventory menu transition
 
 ## v1.6.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
 - New Commands
