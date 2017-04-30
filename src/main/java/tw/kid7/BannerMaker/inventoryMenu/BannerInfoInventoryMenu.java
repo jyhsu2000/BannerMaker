@@ -182,7 +182,6 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 //設定為編輯中旗幟
                 playerData.setCurrentEditBanner(banner);
                 playerData.setInventoryMenuState(InventoryMenuState.CREATE_BANNER);
-
             } else if (rawSlot == buttonPositionDelete) {
                 String key = BannerUtil.getKey(banner);
                 if (key != null) {
