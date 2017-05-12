@@ -2,6 +2,9 @@
 ## Unreleased Version
 - Nothing
 
+## v1.6.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- Add Portuguese(pt-br) translation (Thanks [Rhander](https://www.spigotmc.org/members/rhander.103119/))
+
 ## v1.6.1 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
 - Identify gui button in a more exact way
 - Optimize inventory menu transition

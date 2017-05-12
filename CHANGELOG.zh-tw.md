@@ -2,6 +2,9 @@
 ## 未釋出版本
 - 暫無
 
+## v1.6.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- 新增葡萄牙文(pt-br)翻譯（感謝 [Rhander](https://www.spigotmc.org/members/rhander.103119/)）
+
 ## v1.6.1 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
 - 以更準確的方式識別GUI按鈕
 - 優化選單切換流程

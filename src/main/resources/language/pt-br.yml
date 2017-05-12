@@ -1,0 +1,47 @@
+# Portuguese(pt-br)
+# For BannerMaker v1.6.0
+# Contributor(s): Rhander
+general:
+  prefix: '&6[&aBannerMaker&6]&r '
+  reload: Config recarregada
+  no-permission: Sem permissao
+  no-money: Voce nao tem dinheiro
+  money-transaction: Use {0} para obter banner. Agora você tem {1}
+io:
+  save-failed: Falha ao salvar.
+  save-success: Savo com sucesso.
+  remove-banner: Remover banner &r#{0}
+command:
+  player-only: Este comando só pode ser usado por jogadores no jogo
+  invalid-parameter: 'Parâmetro(s) inválido(s), uso correto: {0}'
+  not-banner-hand: O item na mão não é um banner.
+  not-banner-see: O bloco que você está olhando não é um banner.
+config:
+  add-setting: Adicionado {0} novas configurações
+gui:
+  prefix: '&4[BM]&r '
+  main-menu: Menu principal
+  prev-page: Pagina Anterior
+  next-page: Proxima Pagina
+  create-banner: Criar Banner
+  uncraftable-warning: Aviso de Uncraftable
+  uncraftable: Uncraftable
+  more-than-6-patterns: Mais de 6 padrões.
+  more-patterns: Mais padrões
+  back: Voltar
+  create: Criar
+  delete: DELETAR
+  remove-last-pattern: Remover o último padrão
+  banner-info: Banner info
+  pattern-s: padronizar
+  no-patterns: Sem padrões
+  craft-recipe: Craft Recipe
+  get-this-banner: Obtenha este banner
+  get-banner: Obter banner &r#{0}
+  price: 'Valor: {0}'
+  clone-and-edit: 'Clone & Editar'
+  alphabet-and-number: 'Alfabeto e Número'
+  toggle-border: Alternar borda
+  materials:
+    enough: Materiais suficientes
+    not-enough: Materiais não suficientes

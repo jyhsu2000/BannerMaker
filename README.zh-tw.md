@@ -29,6 +29,7 @@
   * 德文(de)（感謝 [Marrarus](https://github.com/Marrarus)）
   * 法文(fr)（感謝 [RedNesto](https://github.com/RedNesto)）
   * 俄文(ru)（感謝 [sdir01](https://www.spigotmc.org/members/sdir01.238854/)）
+  * 葡萄牙文(pt-br)（感謝 [Rhander](https://www.spigotmc.org/members/rhander.103119/)）
 * 支援經濟功能（需要Vault）
 * 材料估算
 
@@ -57,9 +58,8 @@
 3. 啟動伺服器
 
 ## 更新紀錄
-v1.6.1 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- 以更準確的方式識別GUI按鈕
-- 優化選單切換流程
+v1.6.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- 新增葡萄牙文(pt-br)翻譯（感謝 [Rhander](https://www.spigotmc.org/members/rhander.103119/)）
 
 *在 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md) 閱讀更多*
 

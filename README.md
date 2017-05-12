@@ -29,6 +29,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
   * German(de) (Thanks [Marrarus](https://github.com/Marrarus))
   * French(fr) (Thanks [RedNesto](https://github.com/RedNesto))
   * Russian(ru) (Thanks [sdir01](https://www.spigotmc.org/members/sdir01.238854/))
+  * Portuguese(pt-br) (Thanks [Rhander](https://www.spigotmc.org/members/rhander.103119/))
 * Economic support (need Vault)
 * Material estimates
 
@@ -57,9 +58,8 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ## Change Logs
-v1.6.1 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- Identify gui button in a more exact way
-- Optimize inventory menu transition
+v1.6.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- Add Portuguese(pt-br) translation (Thanks [Rhander](https://www.spigotmc.org/members/rhander.103119/))
 
 *Read more in [CHANGELOG.md](CHANGELOG.md)*
 
