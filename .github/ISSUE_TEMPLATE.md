@@ -1,3 +1,4 @@
+<!-- Please fill all the following items (請填寫下方所有項目) -->
 ### Server information (伺服器資訊)
 - OS (作業系統): <!-- Example: Windows 10 -->
 - Java version (Java版本): <!-- Example: 1.8.0_121(Java 8 Update 121) -->
@@ -6,14 +7,14 @@
 - BannerMaker version (BannerMaker版本): <!-- Example: 1.5.0 build #88 (add build number if you downloaded it from Jenkins) -->
 
 ### Issue description (Issue描述)
-####Expected Behaviour (預期行為)
+#### Expected Behaviour (預期行為)
 
 - 
 
-####Actual Behaviour (實際行為)
+#### Actual Behaviour (實際行為)
 
 - 
 
-####Steps to reproduce (重現步驟)
+#### Steps to reproduce (重現步驟)
 
 1. 
