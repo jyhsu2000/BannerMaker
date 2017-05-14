@@ -1,0 +1,47 @@
+# Dutch(nl)
+# For BannerMaker v1.6.0
+# Contributor(s): DeTrollers
+general:
+  prefix: '&6[&aBannerMaker&6]&r '
+  reload: Herlaad Config
+  no-permission: Geen Permissions
+  no-money: Niet genoeg Geld
+  money-transaction: Gebruik {0} om de banner te krijgen. Nu heb je {1}
+io:
+  save-failed: Niet Success bewaard.
+  save-success: Success Bewaard.
+  remove-banner: Verwijder banner &r#{0}
+command:
+  player-only: Dit commando kan je alleen als persoon in de game gebruiken.
+  invalid-parameter: 'Niet De goede parameter(s), De goede is: {0}'
+  not-banner-hand: Item in je hand is geen banner.
+  not-banner-see: Het blok waar je naar kijkt is geen Banner.
+config:
+  add-setting: Add {0} new settings
+gui:
+  prefix: '&4[BM]&r '
+  main-menu: Hoofd menu
+  prev-page: Prev Page
+  next-page: Next Page
+  create-banner: Maak Banner
+  uncraftable-warning: ONMAAKBARE Waarschuwing
+  uncraftable: Onmaakbaar
+  more-than-6-patterns: Meer dan 6 patterns.
+  more-patterns: Meer patterns
+  back: Terug
+  create: Maak
+  delete: Verwijder
+  remove-last-pattern: Verwijder De laaste pattern
+  banner-info: Banner info
+  pattern-s: pattern(s)
+  no-patterns: Geen patterns
+  craft-recipe: Craft Recipe
+  get-this-banner: Krijg deze banner
+  get-banner: Geef Banner &r#{0}
+  price: 'Prijs: {0}'
+  clone-and-edit: Kopier & Verander'
+  alphabet-and-number: 'Alphabet & Nummer'
+  toggle-border: Toggle border
+  materials:
+    enough: Materialen Genoeg
+    not-enough: Materialen niet Genoeg

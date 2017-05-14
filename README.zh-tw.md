@@ -30,6 +30,7 @@
   * 法文(fr)（感謝 [RedNesto](https://github.com/RedNesto)）
   * 俄文(ru)（感謝 [sdir01](https://www.spigotmc.org/members/sdir01.238854/)）
   * 葡萄牙文(pt-br)（感謝 [Rhander](https://www.spigotmc.org/members/rhander.103119/)）
+  * 荷蘭文(nl)（感謝 [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/)）
 * 支援經濟功能（需要Vault）
 * 材料估算
 
@@ -58,8 +59,8 @@
 3. 啟動伺服器
 
 ## 更新紀錄
-v1.6.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- 新增葡萄牙文(pt-br)翻譯（感謝 [Rhander](https://www.spigotmc.org/members/rhander.103119/)）
+v1.6.3 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
+- 新增荷蘭文(nl)翻譯（感謝 [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/)）
 
 *在 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md) 閱讀更多*
 
