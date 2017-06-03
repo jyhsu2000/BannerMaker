@@ -133,7 +133,7 @@ public class Language {
         }
         if (newSettingCount > 0) {
             ConfigManager.save(getFileName(lang));
-            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, Language.tl("config.add-setting", newSettingCount)));
+            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, tl("config.add-setting", newSettingCount)));
         }
     }
 }
