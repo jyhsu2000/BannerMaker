@@ -71,10 +71,10 @@ public class BannerMaker extends JavaPlugin {
     }
 
     public static void reload() {
-        //載入語言包
-        Language.loadLanguage();
         //Reload Config
         ConfigManager.reloadAll();
+        //載入語言包
+        Language.loadLanguage();
         //Check Default Config
         new DefaultConfig().checkConfig();
         //經濟
