@@ -15,9 +15,10 @@ import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Dye;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.configuration.Language;
 
 import java.util.*;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class BannerUtil {
     /**
@@ -251,7 +252,7 @@ public class BannerUtil {
     public static boolean give(Player player, ItemStack banner) {
         //檢查權限
         if (!player.hasPermission("BannerMaker.getBanner")) {
-            player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-permission")));
+            player.sendMessage(MessageUtil.format(true, "&c" + tl("general.no-permission")));
             return false;
         }
         //TODO: 更多消費方式
@@ -261,7 +262,7 @@ public class BannerUtil {
             //檢查財產是否足夠
             if (!BannerMaker.econ.has(player, price)) {
                 //財產不足
-                player.sendMessage(MessageUtil.format(true, "&c" + Language.get("general.no-money")));
+                player.sendMessage(MessageUtil.format(true, "&c" + tl("general.no-money")));
                 return false;
             }
             //扣款
@@ -273,7 +274,7 @@ public class BannerUtil {
                 return false;
             }
             InventoryUtil.give(player, banner);
-            player.sendMessage(MessageUtil.format(true, "&a" + Language.get("general.money-transaction", BannerMaker.econ.format(response.amount), BannerMaker.econ.format(response.balance))));
+            player.sendMessage(MessageUtil.format(true, "&a" + tl("general.money-transaction", BannerMaker.econ.format(response.amount), BannerMaker.econ.format(response.balance))));
             return true;
         }
         //未啟用經濟

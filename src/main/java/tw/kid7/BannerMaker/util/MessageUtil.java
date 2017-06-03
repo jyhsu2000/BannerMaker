@@ -1,10 +1,11 @@
 package tw.kid7.BannerMaker.util;
 
 import org.bukkit.ChatColor;
-import tw.kid7.BannerMaker.configuration.Language;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class MessageUtil {
 
@@ -14,7 +15,7 @@ public class MessageUtil {
 
     public static String format(boolean addPrefix, String message) {
         if (addPrefix) {
-            message = Language.get("general.prefix") + message;
+            message = tl("general.prefix") + message;
         }
         return ChatColor.translateAlternateColorCodes('&', message);
     }

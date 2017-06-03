@@ -11,8 +11,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     private static CreateBannerInventoryMenu instance = null;
@@ -34,7 +35,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     public void open(Player player) {
         PlayerData playerData = PlayerData.get(player);
         //建立選單
-        Inventory menu = InventoryMenuUtil.create(Language.get("gui.create-banner"));
+        Inventory menu = InventoryMenuUtil.create(tl("gui.create-banner"));
         //取得當前編輯中的旗幟
         ItemStack currentBanner = playerData.getCurrentEditBanner();
         if (currentBanner == null) {
@@ -49,8 +50,8 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             menu.setItem(0, currentBanner);
             //patterns過多的警告
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 6) {
-                ItemStack warning = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&c" + Language.get("gui.uncraftable-warning")))
-                    .lore(Language.get("gui.more-than-6-patterns")).build();
+                ItemStack warning = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&c" + tl("gui.uncraftable-warning")))
+                    .lore(tl("gui.more-than-6-patterns")).build();
                 menu.setItem(9, warning);
             }
             //顏色
@@ -79,22 +80,22 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 menu.setItem(i + 19 + (i / 8), banner);
             }
             //更多Pattern
-            ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + Language.get("gui.more-patterns"))).build();
+            ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + tl("gui.more-patterns"))).build();
             menu.setItem(buttonPositionMorePattern, btnMorePattern);
         }
         //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
         menu.setItem(buttonPositionBackToMenu, btnBackToMenu);
         if (currentBanner != null) {
             //建立旗幟
-            ItemStack btnCreate = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.create"))).build();
+            ItemStack btnCreate = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create"))).build();
             menu.setItem(buttonPositionCreate, btnCreate);
             //刪除
-            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.delete"))).build();
+            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete"))).build();
             menu.setItem(buttonPositionDelete, btnDelete);
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
                 //移除Pattern
-                ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.remove-last-pattern"))).build();
+                ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.remove-last-pattern"))).build();
                 menu.setItem(buttonPositionRemovePattern, btnRemovePattern);
             }
         }

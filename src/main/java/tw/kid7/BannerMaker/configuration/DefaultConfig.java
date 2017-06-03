@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
 
+import static tw.kid7.BannerMaker.configuration.Language.tl;
+
 public class DefaultConfig {
     //須要檢查設定項目的設定
     private final String[] defaultConfigs = {"config", "price"};
@@ -48,7 +50,7 @@ public class DefaultConfig {
             }
             if (newSettingCount > 0) {
                 ConfigManager.save(configFileName);
-                BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, Language.get("config.add-setting", newSettingCount)));
+                BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, tl("config.add-setting", newSettingCount)));
             }
         }
     }

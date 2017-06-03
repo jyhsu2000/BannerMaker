@@ -11,11 +11,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.ItemBuilder;
 import tw.kid7.BannerMaker.util.MessageUtil;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
     private static ChooseAlphabetInventoryMenu instance = null;
@@ -34,13 +35,13 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
     public void open(Player player) {
         PlayerData playerData = PlayerData.get(player);
         //建立選單
-        Inventory menu = InventoryMenuUtil.create(Language.get("gui.alphabet-and-number"));
+        Inventory menu = InventoryMenuUtil.create(tl("gui.alphabet-and-number"));
         //清除當前編輯中的字母
         playerData.setCurrentAlphabetBanner(null);
         //邊框切換按鈕
         ItemStack btnBorderedBanner = new ItemStack(Material.BANNER, 1, (short) 15);
         BannerMeta borderedBannerMeta = (BannerMeta) btnBorderedBanner.getItemMeta();
-        borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.toggle-border")));
+        borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + tl("gui.toggle-border")));
         borderedBannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
         btnBorderedBanner.setItemMeta(borderedBannerMeta);
 
@@ -56,7 +57,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
         menu.setItem(buttonPositionToggleBorder, btnBorderedBanner);
 
         //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
         menu.setItem(buttonPositionBackToMenu, btnBackToMenu);
         //開啟選單
         player.openInventory(menu);

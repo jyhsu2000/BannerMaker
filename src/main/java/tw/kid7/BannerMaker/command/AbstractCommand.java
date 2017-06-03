@@ -3,9 +3,10 @@ package tw.kid7.BannerMaker.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.MessageUtil;
 import tw.kid7.BannerMaker.util.SenderUtil;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 /**
  * 抽象子指令
@@ -41,12 +42,12 @@ abstract class AbstractCommand {
     final boolean execute(CommandSender sender, Command command, String label, String[] args) {
         //僅能由玩家執行
         if (onlyFromPlayer && !SenderUtil.isPlayer(sender)) {
-            sender.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.player-only")));
+            sender.sendMessage(MessageUtil.format(true, "&c" + tl("command.player-only")));
             return true;
         }
         //檢查權限
         if (!hasPermission(sender)) {
-            sender.sendMessage(MessageUtil.format(true, Language.get("general.no-permission")));
+            sender.sendMessage(MessageUtil.format(true, tl("general.no-permission")));
             return true;
         }
         //執行指令
@@ -91,7 +92,7 @@ abstract class AbstractCommand {
      * @param sender the sender of the command
      */
     void sendParameterWarning(CommandSender sender) {
-        sender.sendMessage(MessageUtil.format(true, "&c" + Language.get("command.invalid-parameter", usage)));
+        sender.sendMessage(MessageUtil.format(true, "&c" + tl("command.invalid-parameter", usage)));
     }
 
     String getName() {

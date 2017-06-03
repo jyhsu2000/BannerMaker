@@ -9,10 +9,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
 
 import java.util.List;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class MainInventoryMenu extends AbstractInventoryMenu {
     private static MainInventoryMenu instance = null;
@@ -33,7 +34,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
     public void open(Player player) {
         PlayerData playerData = PlayerData.get(player);
         //建立選單
-        Inventory menu = InventoryMenuUtil.create(Language.get("gui.main-menu"));
+        Inventory menu = InventoryMenuUtil.create(tl("gui.main-menu"));
         //當前頁數
         int currentPage = playerData.getCurrentPage();
         //顯示現有旗幟
@@ -48,22 +49,22 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         //換頁按鈕
         //上一頁
         if (currentPage > 1) {
-            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentPage - 1).name(MessageUtil.format("&a" + Language.get("gui.prev-page"))).build();
+            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentPage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page"))).build();
             menu.setItem(buttonPositionPrevPage, prevPage);
         }
         //下一頁
         if (currentPage < totalPage) {
-            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentPage + 1).name(MessageUtil.format("&a" + Language.get("gui.next-page"))).build();
+            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentPage + 1).name(MessageUtil.format("&a" + tl("gui.next-page"))).build();
             menu.setItem(buttonPositionNextPage, nextPage);
         }
         //Create banner
-        ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.create-banner"))).build();
+        ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create-banner"))).build();
         menu.setItem(buttonPositionCreateBanner, btnCreateBanner);
         //建立字母
         if (BannerMaker.enableAlphabetAndNumber) {
             ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
             ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
-            btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.alphabet-and-number")));
+            btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + tl("gui.alphabet-and-number")));
             btnCreateAlphabet.setItemMeta(btnCreateAlphabetItemMeta);
             menu.setItem(buttonPositionCreateAlphabet, btnCreateAlphabet);
         }

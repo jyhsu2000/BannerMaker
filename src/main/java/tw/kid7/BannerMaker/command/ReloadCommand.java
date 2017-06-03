@@ -3,8 +3,9 @@ package tw.kid7.BannerMaker.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.MessageUtil;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 class ReloadCommand extends AbstractCommand {
     //名稱
@@ -25,7 +26,7 @@ class ReloadCommand extends AbstractCommand {
     @Override
     boolean handle(CommandSender sender, Command command, String label, String[] args) {
         BannerMaker.reload();
-        sender.sendMessage(MessageUtil.format(true, Language.get("general.reload")));
+        sender.sendMessage(MessageUtil.format(true, tl("general.reload")));
         return true;
     }
 }

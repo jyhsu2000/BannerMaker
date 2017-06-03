@@ -64,7 +64,7 @@ public class Language {
         return "language" + File.separator + lang + ".yml";
     }
 
-    public static String get(String path, Object... args) {
+    public static String tl(String path, Object... args) {
         if (!ConfigManager.isFileLoaded(getFileName(language))) {
             return null;
         }
@@ -103,7 +103,7 @@ public class Language {
     }
 
     public static String getIgnoreColors(String path, Object... args) {
-        return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', get(path, args)));
+        return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', tl(path, args)));
     }
 
     private static void checkConfig(String lang) {
@@ -133,7 +133,7 @@ public class Language {
         }
         if (newSettingCount > 0) {
             ConfigManager.save(getFileName(lang));
-            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, Language.get("config.add-setting", newSettingCount)));
+            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, Language.tl("config.add-setting", newSettingCount)));
         }
     }
 }

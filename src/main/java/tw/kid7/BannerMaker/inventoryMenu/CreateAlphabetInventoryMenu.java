@@ -11,8 +11,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
     private static CreateAlphabetInventoryMenu instance = null;
@@ -32,13 +33,13 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
     public void open(Player player) {
         PlayerData playerData = PlayerData.get(player);
         //建立選單
-        Inventory menu = InventoryMenuUtil.create(Language.get("gui.alphabet-and-number"));
+        Inventory menu = InventoryMenuUtil.create(tl("gui.alphabet-and-number"));
         //取得當前編輯中的字母
         AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
         //邊框切換按鈕
         ItemStack btnBorderedBanner = new ItemStack(Material.BANNER, 1, (short) 15);
         BannerMeta borderedBannerMeta = (BannerMeta) btnBorderedBanner.getItemMeta();
-        borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + Language.get("gui.toggle-border")));
+        borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + tl("gui.toggle-border")));
         borderedBannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
         btnBorderedBanner.setItemMeta(borderedBannerMeta);
 
@@ -57,11 +58,11 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         //切換有無邊框
         menu.setItem(buttonPositionToggleBorder, btnBorderedBanner);
         //檢視旗幟資訊按鈕
-        ItemStack btnBannerInfo = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.banner-info"))).build();
+        ItemStack btnBannerInfo = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.banner-info"))).build();
         menu.setItem(buttonPositionBannerInfo, btnBannerInfo);
 
         //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
         menu.setItem(buttonPositionBackToMenu, btnBackToMenu);
         //開啟選單
         player.openInventory(menu);

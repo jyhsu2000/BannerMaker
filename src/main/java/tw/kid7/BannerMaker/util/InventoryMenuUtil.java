@@ -6,8 +6,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.inventoryMenu.AbstractInventoryMenu;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class InventoryMenuUtil {
 
@@ -31,7 +32,7 @@ public class InventoryMenuUtil {
 
     public static Inventory create(String title) {
         Inventory menu;
-        String guiPrefix = hiddenPrefix + Language.get("gui.prefix");
+        String guiPrefix = hiddenPrefix + tl("gui.prefix");
         String fullTitle = guiPrefix + title;
         int inventorySize = 54;
         //嘗試以完整標題建立

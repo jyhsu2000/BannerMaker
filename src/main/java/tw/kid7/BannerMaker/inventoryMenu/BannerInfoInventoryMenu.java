@@ -9,12 +9,13 @@ import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.util.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     private static BannerInfoInventoryMenu instance = null;
@@ -45,30 +46,30 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             return;
         }
         //建立選單
-        Inventory menu = InventoryMenuUtil.create(Language.get("gui.banner-info"));
+        Inventory menu = InventoryMenuUtil.create(tl("gui.banner-info"));
         menu.setItem(0, banner);
         //patterns數量
         int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();
         String patternCountStr;
         if (patternCount > 0) {
-            patternCountStr = patternCount + " " + Language.get("gui.pattern-s");
+            patternCountStr = patternCount + " " + tl("gui.pattern-s");
         } else {
-            patternCountStr = Language.get("gui.no-patterns");
+            patternCountStr = tl("gui.no-patterns");
         }
         ItemStack signPatternCount;
         if (patternCount <= 6) {
             signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).build();
         } else {
-            signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + Language.get("gui.uncraftable"))).build();
+            signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + tl("gui.uncraftable"))).build();
         }
         menu.setItem(1, signPatternCount);
         if (patternCount <= 6) {
             //材料是否充足
             ItemStack enoughMaterials;
             if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
-                enoughMaterials = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + Language.get("gui.materials.enough"))).build();
+                enoughMaterials = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + tl("gui.materials.enough"))).build();
             } else {
-                enoughMaterials = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&c" + Language.get("gui.materials.not-enough"))).build();
+                enoughMaterials = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&c" + tl("gui.materials.not-enough"))).build();
             }
             menu.setItem(2, enoughMaterials);
             //材料清單
@@ -86,7 +87,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             //總頁數
             int totalPage = patternCount + 1;
             //外框
-            ItemStack workbench = new ItemBuilder(Material.WORKBENCH).amount(currentRecipePage).name(MessageUtil.format("&a" + Language.get("gui.craft-recipe")))
+            ItemStack workbench = new ItemBuilder(Material.WORKBENCH).amount(currentRecipePage).name(MessageUtil.format("&a" + tl("gui.craft-recipe")))
                 .lore(MessageUtil.format("(" + currentRecipePage + "/" + totalPage + ")")).build();
             menu.setItem(6, workbench);
             ItemStack border = new ItemBuilder(Material.STAINED_GLASS_PANE).amount(1).durability(12).name(" ").build();
@@ -97,12 +98,12 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             //換頁按鈕
             //上一頁
             if (currentRecipePage > 1) {
-                ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&a" + Language.get("gui.prev-page"))).build();
+                ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page"))).build();
                 menu.setItem(buttonPositionPrevPage, prevPage);
             }
             //下一頁
             if (currentRecipePage < totalPage) {
-                ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&a" + Language.get("gui.next-page"))).build();
+                ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&a" + tl("gui.next-page"))).build();
                 menu.setItem(buttonPositionNextPage, nextPage);
             }
             //合成表
@@ -120,28 +121,28 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         //刪除
         if (key != null) {
             //有KEY時（儲存於玩家資料時），才顯示刪除按鈕
-            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + Language.get("gui.delete"))).build();
+            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete"))).build();
             menu.setItem(buttonPositionDelete, btnDelete);
         }
         //取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
             //檢查是否啟用經濟
-            ItemBuilder btnGetBannerBuilder = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + Language.get("gui.get-this-banner")));
+            ItemBuilder btnGetBannerBuilder = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.get-this-banner")));
             if (BannerMaker.econ != null) {
                 Double price = EconUtil.getPrice(banner);
                 //FIXME 可能造成 IndexOutOfBoundsException: No group 1
-                btnGetBannerBuilder.lore(MessageUtil.format("&a" + Language.get("gui.price", BannerMaker.econ.format(price))));
+                btnGetBannerBuilder.lore(MessageUtil.format("&a" + tl("gui.price", BannerMaker.econ.format(price))));
             }
             ItemStack btnGetBanner = btnGetBannerBuilder.build();
             menu.setItem(buttonPositionGetBanner, btnGetBanner);
         }
         //複製並編輯
-        ItemStack btnCloneAndEdit = new ItemBuilder(Material.BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + Language.get("gui.clone-and-edit"))).build();
+        ItemStack btnCloneAndEdit = new ItemBuilder(Material.BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + tl("gui.clone-and-edit"))).build();
         menu.setItem(buttonPositionCloneAndEdit, btnCloneAndEdit);
 
         //TODO 產生指令
         //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + Language.get("gui.back"))).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
         menu.setItem(buttonPositionBackToMenu, btnBackToMenu);
         //開啟選單
         player.openInventory(menu);
@@ -182,7 +183,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 //顯示名稱
                 String showName = BannerUtil.getName(banner);
                 //顯示訊息
-                player.sendMessage(MessageUtil.format(true, "&a" + Language.get("gui.get-banner", showName)));
+                player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
             }
             InventoryMenuUtil.openMenu(player);
             return;
