@@ -59,8 +59,9 @@
 3. 啟動伺服器
 
 ## 更新紀錄
-v1.6.3 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- 新增荷蘭文(nl)翻譯（感謝 [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/)）
+v1.7 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
+- 升級至1.12
+- 修正需要重新載入兩次以套用新語言的錯誤
 
 *在 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md) 閱讀更多*
 

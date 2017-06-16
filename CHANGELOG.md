@@ -1,5 +1,9 @@
 # Change Logs
 ## Unreleased Version
+- Nothing
+
+## v1.7 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
+- Update to 1.12
 - Fix bug that need to reload twice to apply new language
 
 ## v1.6.3 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)

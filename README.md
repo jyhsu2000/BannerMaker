@@ -59,8 +59,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ## Change Logs
-v1.6.3 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x)
-- Add Dutch(nl) translation (Thanks [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/))
+v1.7 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
+- Update to 1.12
+- Fix bug that need to reload twice to apply new language
 
 *Read more in [CHANGELOG.md](CHANGELOG.md)*
 
