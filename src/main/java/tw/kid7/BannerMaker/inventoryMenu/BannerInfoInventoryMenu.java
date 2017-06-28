@@ -128,10 +128,10 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         if (player.hasPermission("BannerMaker.getBanner")) {
             //檢查是否啟用經濟
             ItemBuilder btnGetBannerBuilder = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.get-this-banner")));
-            if (BannerMaker.econ != null) {
+            if (BannerMaker.getInstance().econ != null) {
                 Double price = EconUtil.getPrice(banner);
                 //FIXME 可能造成 IndexOutOfBoundsException: No group 1
-                btnGetBannerBuilder.lore(MessageUtil.format("&a" + tl("gui.price", BannerMaker.econ.format(price))));
+                btnGetBannerBuilder.lore(MessageUtil.format("&a" + tl("gui.price", BannerMaker.getInstance().econ.format(price))));
             }
             ItemStack btnGetBanner = btnGetBannerBuilder.build();
             menu.setItem(buttonPositionGetBanner, btnGetBanner);

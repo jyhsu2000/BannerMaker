@@ -18,8 +18,8 @@ import java.util.List;
 
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
-    public static Economy econ = null;
-    public static boolean enableAlphabetAndNumber = true;
+    public Economy econ = null;
+    public boolean enableAlphabetAndNumber = true;
     private VersionHandler versionHandler = null;
     public CommandManager commandManager;
 

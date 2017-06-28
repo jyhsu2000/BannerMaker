@@ -20,7 +20,7 @@ public class EconUtil {
         if (!BannerUtil.isBanner(banner)) {
             return 0;
         }
-        if (BannerMaker.econ == null) {
+        if (BannerMaker.getInstance().econ == null) {
             return 0;
         }
         FileConfiguration config = ConfigManager.get("config.yml");

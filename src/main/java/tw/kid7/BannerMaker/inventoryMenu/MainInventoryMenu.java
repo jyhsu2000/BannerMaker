@@ -61,7 +61,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create-banner"))).build();
         menu.setItem(buttonPositionCreateBanner, btnCreateBanner);
         //建立字母
-        if (BannerMaker.enableAlphabetAndNumber) {
+        if (BannerMaker.getInstance().enableAlphabetAndNumber) {
             ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
             ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
             btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + tl("gui.alphabet-and-number")));
@@ -102,7 +102,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
             return;
         }
         if (rawSlot == buttonPositionCreateAlphabet) {
-            if (BannerMaker.enableAlphabetAndNumber) {
+            if (BannerMaker.getInstance().enableAlphabetAndNumber) {
                 InventoryMenuUtil.openMenu(player, InventoryMenuState.CHOOSE_ALPHABET);
             }
             return;

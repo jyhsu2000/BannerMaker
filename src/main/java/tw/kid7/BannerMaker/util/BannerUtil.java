@@ -257,16 +257,16 @@ public class BannerUtil {
         }
         //TODO: 更多消費方式
         //檢查是否啟用經濟
-        if (BannerMaker.econ != null && !player.hasPermission("BannerMaker.getBanner.free")) {
+        if (BannerMaker.getInstance().econ != null && !player.hasPermission("BannerMaker.getBanner.free")) {
             Double price = EconUtil.getPrice(banner);
             //檢查財產是否足夠
-            if (!BannerMaker.econ.has(player, price)) {
+            if (!BannerMaker.getInstance().econ.has(player, price)) {
                 //財產不足
                 player.sendMessage(MessageUtil.format(true, "&c" + tl("general.no-money")));
                 return false;
             }
             //扣款
-            EconomyResponse response = BannerMaker.econ.withdrawPlayer(player, price);
+            EconomyResponse response = BannerMaker.getInstance().econ.withdrawPlayer(player, price);
             //檢查交易是否成功
             if (!response.transactionSuccess()) {
                 //交易失敗
@@ -274,7 +274,7 @@ public class BannerUtil {
                 return false;
             }
             InventoryUtil.give(player, banner);
-            player.sendMessage(MessageUtil.format(true, "&a" + tl("general.money-transaction", BannerMaker.econ.format(response.amount), BannerMaker.econ.format(response.balance))));
+            player.sendMessage(MessageUtil.format(true, "&a" + tl("general.money-transaction", BannerMaker.getInstance().econ.format(response.amount), BannerMaker.getInstance().econ.format(response.balance))));
             return true;
         }
         //未啟用經濟
