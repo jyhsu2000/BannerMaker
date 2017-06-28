@@ -75,7 +75,7 @@ public class BannerMaker extends JavaPlugin {
         //Reload Config
         ConfigManager.reloadAll();
         //載入語言包
-        Language.loadLanguage();
+        new Language().loadLanguage();
         //Check Default Config
         new DefaultConfig(this).checkConfig();
         //經濟

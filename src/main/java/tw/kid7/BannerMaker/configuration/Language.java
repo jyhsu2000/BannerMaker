@@ -11,16 +11,21 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 public class Language {
-    private static final String defaultLanguage = "en";
-    private static FileConfiguration defaultLanguageConfigResource;
-    private static FileConfiguration languageConfigResource;
-    private static String language = "en";
+    private static Language instance = null;
+    private FileConfiguration defaultLanguageConfigResource;
+    private FileConfiguration languageConfigResource;
+    private String language = "en";
 
-    public static void loadLanguage() {
+    public Language() {
+        instance = this;
+    }
+
+    public void loadLanguage() {
         //從設定檔取得語言
         String configFileName = "config.yml";
         ConfigManager.load(configFileName);
         FileConfiguration config = ConfigManager.get(configFileName);
+        String defaultLanguage = "en";
         language = defaultLanguage;
         if (config != null && config.contains("Language")) {
             language = (String) config.get("Language");
@@ -60,11 +65,18 @@ public class Language {
         BannerMaker.getInstance().getLogger().info("Language: " + language);
     }
 
-    private static String getFileName(String lang) {
+    private String getFileName(String lang) {
         return "language" + File.separator + lang + ".yml";
     }
 
     public static String tl(String path, Object... args) {
+        if (instance == null) {
+            return null;
+        }
+        return instance.get(path, args);
+    }
+
+    public String get(String path, Object... args) {
         if (!ConfigManager.isFileLoaded(getFileName(language))) {
             return null;
         }
@@ -78,7 +90,7 @@ public class Language {
         return replaceArgument((String) config.get(path), args);
     }
 
-    private static String getFromLanguageResource(String path, Object... args) {
+    private String getFromLanguageResource(String path, Object... args) {
         if (!languageConfigResource.contains(path) || !languageConfigResource.isString(path)) {
             //若無法取得，則自預設語言資源檔取得
             languageConfigResource.set(path, getFromDefaultLanguageResource(path, args));
@@ -86,7 +98,7 @@ public class Language {
         return replaceArgument((String) languageConfigResource.get(path), args);
     }
 
-    private static String getFromDefaultLanguageResource(String path, Object... args) {
+    private String getFromDefaultLanguageResource(String path, Object... args) {
         if (!defaultLanguageConfigResource.contains(path) || !defaultLanguageConfigResource.isString(path)) {
             //若無法取得，則給予[Missing Message]標記
             defaultLanguageConfigResource.set(path, "&c[Missing Message] &r" + path);
@@ -94,18 +106,18 @@ public class Language {
         return replaceArgument((String) defaultLanguageConfigResource.get(path), args);
     }
 
-    private static String replaceArgument(String message, Object... args) {
+    private String replaceArgument(String message, Object... args) {
         for (int i = 0; i < args.length; i++) {
             message = message.replace("{" + i + "}", String.valueOf(args[i]));
         }
         return message;
     }
 
-    public static String getIgnoreColors(String path, Object... args) {
+    public String getIgnoreColors(String path, Object... args) {
         return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', tl(path, args)));
     }
 
-    private static void checkConfig(String lang) {
+    private void checkConfig(String lang) {
         //當前語言設定檔
         FileConfiguration config = ConfigManager.get(getFileName(lang));
         assert config != null;
