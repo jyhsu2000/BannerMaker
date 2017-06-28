@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CommandManager implements CommandExecutor, TabCompleter {
+    private final BannerMaker bm;
     final HashMap<String, AbstractCommand> subCommandMap = Maps.newHashMap();
-    private BannerMaker bm;
 
     public CommandManager(BannerMaker bm) {
         this.bm = bm;

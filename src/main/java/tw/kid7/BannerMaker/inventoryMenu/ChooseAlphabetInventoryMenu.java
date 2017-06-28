@@ -12,7 +12,6 @@ import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.PlayerDataMap;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.ItemBuilder;
@@ -23,8 +22,8 @@ import static tw.kid7.BannerMaker.configuration.Language.tl;
 public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
     private static ChooseAlphabetInventoryMenu instance = null;
     //按鈕位置
-    private int buttonPositionBackToMenu = 45;
-    private int buttonPositionToggleBorder = 49;
+    private final int buttonPositionBackToMenu = 45;
+    private final int buttonPositionToggleBorder = 49;
 
     public static ChooseAlphabetInventoryMenu getInstance() {
         if (instance == null) {

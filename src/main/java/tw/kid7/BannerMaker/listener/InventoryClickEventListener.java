@@ -10,7 +10,7 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.inventoryMenu.AbstractInventoryMenu;
 
 public class InventoryClickEventListener implements Listener {
-    private BannerMaker bm;
+    private final BannerMaker bm;
 
     public InventoryClickEventListener(BannerMaker bm) {
         this.bm = bm;

@@ -13,15 +13,15 @@ import static tw.kid7.BannerMaker.configuration.Language.tl;
  * 抽象子指令
  */
 abstract class AbstractCommand {
-    BannerMaker bm;
+    final BannerMaker bm;
     //名稱
-    private String name;
+    private final String name;
     //介紹
-    private String description;
+    private final String description;
     //權限
-    private String permission;
+    private final String permission;
     //使用方法
-    private String usage;
+    private final String usage;
     //僅能由玩家執行
     private boolean onlyFromPlayer = false;
 

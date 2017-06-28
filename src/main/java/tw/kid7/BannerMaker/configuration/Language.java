@@ -12,7 +12,7 @@ import java.io.Reader;
 
 public class Language {
     private static Language instance = null;
-    private BannerMaker bm;
+    private final BannerMaker bm;
     private FileConfiguration defaultLanguageConfigResource;
     private FileConfiguration languageConfigResource;
     private String language = "en";
@@ -78,7 +78,7 @@ public class Language {
         return instance.get(path, args);
     }
 
-    public String get(String path, Object... args) {
+    private String get(String path, Object... args) {
         if (!ConfigManager.isFileLoaded(getFileName(language))) {
             return null;
         }
@@ -116,7 +116,11 @@ public class Language {
     }
 
     public String getIgnoreColors(String path, Object... args) {
-        return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', tl(path, args)));
+        String translatedString = tl(path, args);
+        if (translatedString == null) {
+            return null;
+        }
+        return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', translatedString));
     }
 
     private void checkConfig(String lang) {

@@ -13,10 +13,10 @@ import java.util.HashMap;
 import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class DefaultConfig {
+    private final BannerMaker bm;
     //須要檢查設定項目的設定
     private final String[] defaultConfigs = {"config", "price"};
     private final HashMap<String, FileConfiguration> defaultConfigsResource = Maps.newHashMap();
-    private BannerMaker bm;
 
     public DefaultConfig(BannerMaker bm) {
         this.bm = bm;

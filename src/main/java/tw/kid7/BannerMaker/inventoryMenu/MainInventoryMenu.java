@@ -9,7 +9,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.PlayerDataMap;
 import tw.kid7.BannerMaker.util.*;
 
 import java.util.List;
@@ -19,10 +18,10 @@ import static tw.kid7.BannerMaker.configuration.Language.tl;
 public class MainInventoryMenu extends AbstractInventoryMenu {
     private static MainInventoryMenu instance = null;
     //按鈕位置
-    private int buttonPositionPrevPage = 45;
-    private int buttonPositionNextPage = 53;
-    private int buttonPositionCreateBanner = 49;
-    private int buttonPositionCreateAlphabet = 51;
+    private final int buttonPositionPrevPage = 45;
+    private final int buttonPositionNextPage = 53;
+    private final int buttonPositionCreateBanner = 49;
+    private final int buttonPositionCreateAlphabet = 51;
 
     public static MainInventoryMenu getInstance() {
         if (instance == null) {

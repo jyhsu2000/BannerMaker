@@ -8,15 +8,15 @@ import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 
 class BannerMakerCommand extends AbstractCommand {
     //名稱
-    private static String name = "BannerMaker";
+    private static final String name = "BannerMaker";
     //介紹
-    private static String description = "Show menu of BannerMaker";
+    private static final String description = "Show menu of BannerMaker";
     //權限
-    private static String permission = null;
+    private static final String permission = null;
     //使用方法
-    private static String usage = "/bm";
+    private static final String usage = "/bm";
     //僅能由玩家執行
-    private static boolean onlyFromPlayer = true;
+    private static final boolean onlyFromPlayer = true;
 
     BannerMakerCommand(BannerMaker bm) {
         super(bm, name, description, permission, usage, onlyFromPlayer);

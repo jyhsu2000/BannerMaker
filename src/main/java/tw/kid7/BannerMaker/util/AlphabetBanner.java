@@ -18,7 +18,7 @@ import org.bukkit.inventory.meta.BannerMeta;
  */
 public class AlphabetBanner {
 
-    public String alphabet;
+    private final String alphabet;
     public DyeColor baseColor;
     public DyeColor dyeColor;
     public boolean bordered;
