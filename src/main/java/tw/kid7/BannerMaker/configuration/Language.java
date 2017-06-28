@@ -12,11 +12,13 @@ import java.io.Reader;
 
 public class Language {
     private static Language instance = null;
+    private BannerMaker bannerMaker;
     private FileConfiguration defaultLanguageConfigResource;
     private FileConfiguration languageConfigResource;
     private String language = "en";
 
-    public Language() {
+    public Language(BannerMaker bannerMaker) {
+        this.bannerMaker = bannerMaker;
         instance = this;
     }
 
@@ -32,24 +34,24 @@ public class Language {
         }
         //載入預設語言包（但不儲存於資料夾）
         try {
-            Reader defaultLanguageInputStreamReader = new InputStreamReader(BannerMaker.getInstance().getResource(getFileName(defaultLanguage).replace('\\', '/')), "UTF8");
+            Reader defaultLanguageInputStreamReader = new InputStreamReader(bannerMaker.getResource(getFileName(defaultLanguage).replace('\\', '/')), "UTF8");
             defaultLanguageConfigResource = YamlConfiguration.loadConfiguration(defaultLanguageInputStreamReader);
         } catch (Exception ignored) {
         }
         //嘗試當前語言資源檔（但不儲存於資料夾）
         try {
-            Reader languageInputStreamReader = new InputStreamReader(BannerMaker.getInstance().getResource(getFileName(language).replace('\\', '/')), "UTF8");
+            Reader languageInputStreamReader = new InputStreamReader(bannerMaker.getResource(getFileName(language).replace('\\', '/')), "UTF8");
             languageConfigResource = YamlConfiguration.loadConfiguration(languageInputStreamReader);
         } catch (Exception ignored) {
         }
         //嘗試載入語言包檔案
         String fileName = getFileName(language);
-        File file = new File(BannerMaker.getInstance().getDataFolder(), fileName);
+        File file = new File(bannerMaker.getDataFolder(), fileName);
         //檢查檔案是否存在
         if (!file.exists()) {
             try {
                 //若不存在，則嘗試尋找語言包
-                BannerMaker.getInstance().saveResource(fileName, false);
+                bannerMaker.saveResource(fileName, false);
             } catch (Exception e) {
                 //若無該語言之語言包，則使用預設語言
                 language = defaultLanguage;
@@ -62,7 +64,7 @@ public class Language {
         ConfigManager.load(getFileName(language));
         //檢查語言包
         checkConfig(language);
-        BannerMaker.getInstance().getLogger().info("Language: " + language);
+        bannerMaker.getLogger().info("Language: " + language);
     }
 
     private String getFileName(String lang) {
@@ -144,7 +146,7 @@ public class Language {
         }
         if (newSettingCount > 0) {
             ConfigManager.save(getFileName(lang));
-            BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, tl("config.add-setting", newSettingCount)));
+            bannerMaker.getServer().getConsoleSender().sendMessage(MessageUtil.format(true, tl("config.add-setting", newSettingCount)));
         }
     }
 }
