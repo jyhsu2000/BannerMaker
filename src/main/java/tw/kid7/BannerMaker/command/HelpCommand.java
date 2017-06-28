@@ -20,20 +20,19 @@ class HelpCommand extends AbstractCommand {
     //僅能由玩家執行
     private static final boolean onlyFromPlayer = false;
 
-    HelpCommand() {
-        super(name, description, permission, usage, onlyFromPlayer);
+    HelpCommand(BannerMaker bannerMaker) {
+        super(bannerMaker, name, description, permission, usage, onlyFromPlayer);
     }
 
     @Override
     boolean handle(CommandSender sender, Command command, String label, String[] args) {
         //插件資訊
-        BannerMaker plugin = BannerMaker.getInstance();
-        String pluginName = plugin.getName();
-        String pluginVersion = plugin.getDescription().getVersion();
+        String pluginName = bannerMaker.getName();
+        String pluginVersion = bannerMaker.getDescription().getVersion();
         //顯示標題
         sender.sendMessage(MessageUtil.format(true, pluginName + " - " + pluginVersion));
         //主要指令
-        BannerMakerCommand bmCommand = new BannerMakerCommand();
+        BannerMakerCommand bmCommand = new BannerMakerCommand(bannerMaker);
         sender.sendMessage(MessageUtil.format("&c" + bmCommand.getUsage() + "&7: " + bmCommand.getDescription()));
         //子指令
         HashMap<String, AbstractCommand> subCommandMap = CommandManager.getInstance().subCommandMap;

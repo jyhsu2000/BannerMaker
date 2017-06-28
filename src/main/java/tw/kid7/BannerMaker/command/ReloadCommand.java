@@ -19,13 +19,13 @@ class ReloadCommand extends AbstractCommand {
     //僅能由玩家執行
     private static final boolean onlyFromPlayer = false;
 
-    ReloadCommand() {
-        super(name, description, permission, usage, onlyFromPlayer);
+    ReloadCommand(BannerMaker bannerMaker) {
+        super(bannerMaker, name, description, permission, usage, onlyFromPlayer);
     }
 
     @Override
     boolean handle(CommandSender sender, Command command, String label, String[] args) {
-        BannerMaker.getInstance().reload();
+        bannerMaker.reload();
         sender.sendMessage(MessageUtil.format(true, tl("general.reload")));
         return true;
     }

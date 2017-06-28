@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
+import tw.kid7.BannerMaker.BannerMaker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,24 +16,26 @@ import java.util.Map;
 public class CommandManager implements CommandExecutor, TabCompleter {
     private static CommandManager instance;
     final HashMap<String, AbstractCommand> subCommandMap = Maps.newHashMap();
+    private BannerMaker bannerMaker;
 
-    private CommandManager() {
-        addSubCommand("help", new HelpCommand());
-        addSubCommand("hand", new HandCommand());
-        addSubCommand("see", new SeeCommand());
-        addSubCommand("reload", new ReloadCommand());
+    private CommandManager(BannerMaker bannerMaker) {
+        this.bannerMaker = bannerMaker;
+        addSubCommand("help", new HelpCommand(bannerMaker));
+        addSubCommand("hand", new HandCommand(bannerMaker));
+        addSubCommand("see", new SeeCommand(bannerMaker));
+        addSubCommand("reload", new ReloadCommand(bannerMaker));
     }
 
     public static CommandManager getInstance() {
         if (instance == null) {
-            instance = new CommandManager();
+            instance = new CommandManager(BannerMaker.getInstance());
         }
         return instance;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        AbstractCommand defaultCommand = new BannerMakerCommand();
+        AbstractCommand defaultCommand = new BannerMakerCommand(bannerMaker);
         //子指令
         if (args.length > 0) {
             String subCommandLabel = args[0].toLowerCase();

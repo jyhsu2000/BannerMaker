@@ -3,6 +3,7 @@ package tw.kid7.BannerMaker.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.util.MessageUtil;
 import tw.kid7.BannerMaker.util.SenderUtil;
 
@@ -12,6 +13,7 @@ import static tw.kid7.BannerMaker.configuration.Language.tl;
  * 抽象子指令
  */
 abstract class AbstractCommand {
+    BannerMaker bannerMaker;
     //名稱
     private String name;
     //介紹
@@ -23,7 +25,8 @@ abstract class AbstractCommand {
     //僅能由玩家執行
     private boolean onlyFromPlayer = false;
 
-    AbstractCommand(String name, String description, String permission, String usage, boolean onlyFromPlayer) {
+    AbstractCommand(BannerMaker bannerMaker, String name, String description, String permission, String usage, boolean onlyFromPlayer) {
+        this.bannerMaker = bannerMaker;
         this.name = name;
         this.description = description;
         this.permission = permission;

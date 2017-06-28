@@ -3,6 +3,7 @@ package tw.kid7.BannerMaker.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 
 class BannerMakerCommand extends AbstractCommand {
@@ -17,8 +18,8 @@ class BannerMakerCommand extends AbstractCommand {
     //僅能由玩家執行
     private static boolean onlyFromPlayer = true;
 
-    BannerMakerCommand() {
-        super(name, description, permission, usage, onlyFromPlayer);
+    BannerMakerCommand(BannerMaker bannerMaker) {
+        super(bannerMaker, name, description, permission, usage, onlyFromPlayer);
     }
 
     @Override

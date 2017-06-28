@@ -30,7 +30,7 @@ public class BannerMaker extends JavaPlugin {
     public void onEnable() {
         instance = this;
         //根據不同版本選擇Handler
-        String version = instance.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+        String version = getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
         switch (version) {
             case "v1_8_R1":
             case "v1_8_R2":
@@ -76,7 +76,7 @@ public class BannerMaker extends JavaPlugin {
         //載入語言包
         Language.loadLanguage();
         //Check Default Config
-        new DefaultConfig().checkConfig();
+        new DefaultConfig(this).checkConfig();
         //經濟
         if (setupEconomy()) {
             getLogger().info("Vault dependency found! Enable economy supported");

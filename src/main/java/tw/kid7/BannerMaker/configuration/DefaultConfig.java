@@ -16,6 +16,11 @@ public class DefaultConfig {
     //須要檢查設定項目的設定
     private final String[] defaultConfigs = {"config", "price"};
     private final HashMap<String, FileConfiguration> defaultConfigsResource = Maps.newHashMap();
+    private BannerMaker bannerMaker;
+
+    public DefaultConfig(BannerMaker bannerMaker) {
+        this.bannerMaker = bannerMaker;
+    }
 
     public void checkConfig() {
         for (String configName : defaultConfigs) {
@@ -27,7 +32,7 @@ public class DefaultConfig {
             }
             //載入預設設定檔（但不儲存於資料夾）
             try {
-                Reader defaultLanguageInputStreamReader = new InputStreamReader(BannerMaker.getInstance().getResource(configFileName.replace('\\', '/')), "UTF8");
+                Reader defaultLanguageInputStreamReader = new InputStreamReader(bannerMaker.getResource(configFileName.replace('\\', '/')), "UTF8");
                 defaultConfigsResource.put(configName, YamlConfiguration.loadConfiguration(defaultLanguageInputStreamReader));
             } catch (Exception ignored) {
             }
@@ -50,7 +55,7 @@ public class DefaultConfig {
             }
             if (newSettingCount > 0) {
                 ConfigManager.save(configFileName);
-                BannerMaker.getInstance().getServer().getConsoleSender().sendMessage(MessageUtil.format(true, tl("config.add-setting", newSettingCount)));
+                bannerMaker.getServer().getConsoleSender().sendMessage(MessageUtil.format(true, tl("config.add-setting", newSettingCount)));
             }
         }
     }

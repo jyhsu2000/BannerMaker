@@ -25,14 +25,14 @@ class HandCommand extends AbstractCommand {
     //僅能由玩家執行
     private static final boolean onlyFromPlayer = true;
 
-    HandCommand() {
-        super(name, description, permission, usage, onlyFromPlayer);
+    HandCommand(BannerMaker bannerMaker) {
+        super(bannerMaker, name, description, permission, usage, onlyFromPlayer);
     }
 
     @Override
     boolean handle(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
-        ItemStack itemStack = BannerMaker.getInstance().getVersionHandler().getItemInMainHand(player);
+        ItemStack itemStack = bannerMaker.getVersionHandler().getItemInMainHand(player);
         if (!BannerUtil.isBanner(itemStack)) {
             player.sendMessage(MessageUtil.format(true, "&c" + tl("command.not-banner-hand")));
             return true;
