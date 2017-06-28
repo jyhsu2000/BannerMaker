@@ -13,7 +13,7 @@ import static tw.kid7.BannerMaker.configuration.Language.tl;
  * 抽象子指令
  */
 abstract class AbstractCommand {
-    BannerMaker bannerMaker;
+    BannerMaker bm;
     //名稱
     private String name;
     //介紹
@@ -25,8 +25,8 @@ abstract class AbstractCommand {
     //僅能由玩家執行
     private boolean onlyFromPlayer = false;
 
-    AbstractCommand(BannerMaker bannerMaker, String name, String description, String permission, String usage, boolean onlyFromPlayer) {
-        this.bannerMaker = bannerMaker;
+    AbstractCommand(BannerMaker bm, String name, String description, String permission, String usage, boolean onlyFromPlayer) {
+        this.bm = bm;
         this.name = name;
         this.description = description;
         this.permission = permission;

@@ -15,19 +15,19 @@ import java.util.Map;
 
 public class CommandManager implements CommandExecutor, TabCompleter {
     final HashMap<String, AbstractCommand> subCommandMap = Maps.newHashMap();
-    private BannerMaker bannerMaker;
+    private BannerMaker bm;
 
-    public CommandManager(BannerMaker bannerMaker) {
-        this.bannerMaker = bannerMaker;
-        addSubCommand("help", new HelpCommand(bannerMaker));
-        addSubCommand("hand", new HandCommand(bannerMaker));
-        addSubCommand("see", new SeeCommand(bannerMaker));
-        addSubCommand("reload", new ReloadCommand(bannerMaker));
+    public CommandManager(BannerMaker bm) {
+        this.bm = bm;
+        addSubCommand("help", new HelpCommand(bm));
+        addSubCommand("hand", new HandCommand(bm));
+        addSubCommand("see", new SeeCommand(bm));
+        addSubCommand("reload", new ReloadCommand(bm));
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        AbstractCommand defaultCommand = new BannerMakerCommand(bannerMaker);
+        AbstractCommand defaultCommand = new BannerMakerCommand(bm);
         //子指令
         if (args.length > 0) {
             String subCommandLabel = args[0].toLowerCase();
