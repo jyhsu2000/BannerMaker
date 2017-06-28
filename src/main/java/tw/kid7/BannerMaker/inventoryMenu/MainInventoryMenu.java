@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.PlayerDataMap;
 import tw.kid7.BannerMaker.util.*;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
-        PlayerData playerData = PlayerData.get(player);
+        PlayerData playerData = PlayerDataMap.get(player);
         //建立選單
         Inventory menu = InventoryMenuUtil.create(tl("gui.main-menu"));
         //當前頁數
@@ -75,7 +76,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        PlayerData playerData = PlayerData.get(player);
+        PlayerData playerData = PlayerDataMap.get(player);
         ItemStack itemStack = event.getCurrentItem();
         int rawSlot = event.getRawSlot();
         if (rawSlot < 45) {

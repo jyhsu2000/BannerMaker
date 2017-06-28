@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.PlayerDataMap;
 import tw.kid7.BannerMaker.util.*;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
@@ -33,7 +34,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
-        PlayerData playerData = PlayerData.get(player);
+        PlayerData playerData = PlayerDataMap.get(player);
         //建立選單
         Inventory menu = InventoryMenuUtil.create(tl("gui.create-banner"));
         //取得當前編輯中的旗幟
@@ -106,7 +107,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        PlayerData playerData = PlayerData.get(player);
+        PlayerData playerData = PlayerDataMap.get(player);
         ItemStack itemStack = event.getCurrentItem();
         //取得當前編輯中的旗幟
         ItemStack currentBanner = playerData.getCurrentEditBanner();

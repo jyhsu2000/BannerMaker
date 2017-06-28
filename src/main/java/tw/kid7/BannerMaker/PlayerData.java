@@ -1,20 +1,11 @@
 package tw.kid7.BannerMaker;
 
-import com.google.common.collect.Maps;
 import org.bukkit.DyeColor;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tw.kid7.BannerMaker.inventoryMenu.AbstractInventoryMenu;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
 
-import java.util.HashMap;
-
 public class PlayerData {
-    /**
-     * 所有玩家資料實例
-     */
-    private static final HashMap<String, PlayerData> playerDataMap = Maps.newHashMap();
-
     /**
      * 選單狀態
      */
@@ -28,22 +19,6 @@ public class PlayerData {
     private ItemStack currentEditBanner = null;
     private boolean showMorePatterns = false;
     private DyeColor selectedColor = DyeColor.BLACK;
-
-    /**
-     * 取得玩家資料實例
-     *
-     * @param player 玩家
-     * @return 玩家資料
-     */
-    public static PlayerData get(Player player) {
-        String uuidString = player.getUniqueId().toString();
-        PlayerData playerData = playerDataMap.get(uuidString);
-        if (playerData == null) {
-            playerData = new PlayerData();
-            playerDataMap.put(uuidString, playerData);
-        }
-        return playerData;
-    }
 
     public InventoryMenuState getInventoryMenuState() {
         return inventoryMenuState;

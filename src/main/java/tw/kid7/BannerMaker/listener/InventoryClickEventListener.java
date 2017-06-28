@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.PlayerDataMap;
 import tw.kid7.BannerMaker.inventoryMenu.AbstractInventoryMenu;
 
 public class InventoryClickEventListener implements Listener {
@@ -28,7 +28,7 @@ public class InventoryClickEventListener implements Listener {
         //取得玩家狀態
         Player player = (Player) event.getWhoClicked();
         //取得GUI選單
-        AbstractInventoryMenu menu = PlayerData.get(player).getInventoryMenu();
+        AbstractInventoryMenu menu = PlayerDataMap.get(player).getInventoryMenu();
         //觸發點擊事件
         menu.onClick(event);
     }

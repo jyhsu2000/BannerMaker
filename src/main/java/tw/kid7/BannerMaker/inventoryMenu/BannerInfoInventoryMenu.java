@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.PlayerDataMap;
 import tw.kid7.BannerMaker.util.*;
 
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
-        PlayerData playerData = PlayerData.get(player);
+        PlayerData playerData = PlayerDataMap.get(player);
         //取得欲查看旗幟
         ItemStack banner = playerData.getViewInfoBanner();
         //僅限旗幟
@@ -151,7 +152,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        PlayerData playerData = PlayerData.get(player);
+        PlayerData playerData = PlayerDataMap.get(player);
         int rawSlot = event.getRawSlot();
         if (rawSlot != 22 && rawSlot != 26 && rawSlot < 45) {
             return;
