@@ -33,7 +33,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
-        PlayerData playerData = PlayerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
         Inventory menu = InventoryMenuUtil.create(tl("gui.main-menu"));
         //當前頁數
@@ -76,7 +76,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        PlayerData playerData = PlayerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         ItemStack itemStack = event.getCurrentItem();
         int rawSlot = event.getRawSlot();
         if (rawSlot < 45) {

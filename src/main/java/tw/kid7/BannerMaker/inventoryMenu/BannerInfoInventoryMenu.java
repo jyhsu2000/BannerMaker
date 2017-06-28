@@ -37,7 +37,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
-        PlayerData playerData = PlayerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //取得欲查看旗幟
         ItemStack banner = playerData.getViewInfoBanner();
         //僅限旗幟
@@ -152,7 +152,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        PlayerData playerData = PlayerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         int rawSlot = event.getRawSlot();
         if (rawSlot != 22 && rawSlot != 26 && rawSlot < 45) {
             return;

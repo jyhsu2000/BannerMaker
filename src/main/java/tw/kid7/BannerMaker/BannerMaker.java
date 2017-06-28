@@ -21,7 +21,8 @@ public class BannerMaker extends JavaPlugin {
     public Economy econ = null;
     public boolean enableAlphabetAndNumber = true;
     private VersionHandler versionHandler = null;
-    public CommandManager commandManager;
+    public CommandManager commandManager = null;
+    public PlayerDataMap playerDataMap = null;
 
     public VersionHandler getVersionHandler() {
         return versionHandler;
@@ -48,7 +49,7 @@ public class BannerMaker extends JavaPlugin {
         this.getCommand("BannerMaker").setExecutor(commandManager);
         this.getCommand("BannerMaker").setTabCompleter(commandManager);
         //Listener
-        this.getServer().getPluginManager().registerEvents(new InventoryClickEventListener(), this);
+        this.getServer().getPluginManager().registerEvents(new InventoryClickEventListener(this), this);
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
@@ -91,6 +92,8 @@ public class BannerMaker extends JavaPlugin {
             //字母與數字
             enableAlphabetAndNumber = config.getBoolean("AlphabetAndNumberBanner.Enable", true);
         }
+        //玩家資料
+        playerDataMap = new PlayerDataMap();
     }
 
     private boolean setupEconomy() {

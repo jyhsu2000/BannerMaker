@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.PlayerDataMap;
@@ -34,7 +35,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
 
     @Override
     public void open(Player player) {
-        PlayerData playerData = PlayerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
         Inventory menu = InventoryMenuUtil.create(tl("gui.alphabet-and-number"));
         //清除當前編輯中的字母
@@ -67,7 +68,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
     @Override
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        PlayerData playerData = PlayerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         ItemStack itemStack = event.getCurrentItem();
         int rawSlot = event.getRawSlot();
 

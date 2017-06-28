@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.PlayerDataMap;
 import tw.kid7.BannerMaker.inventoryMenu.AbstractInventoryMenu;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
@@ -20,7 +20,7 @@ public class InventoryMenuUtil {
     }
 
     static public void openMenu(Player player, InventoryMenuState inventoryMenuState) {
-        PlayerData playerData = PlayerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //設定狀態
         if (inventoryMenuState != null) {
             playerData.setInventoryMenuState(inventoryMenuState);
@@ -59,7 +59,7 @@ public class InventoryMenuUtil {
         if (!BannerUtil.isBanner(banner)) {
             return;
         }
-        PlayerData playerData = PlayerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //設定查看旗幟
         playerData.setViewInfoBanner(banner);
         //重置頁數
