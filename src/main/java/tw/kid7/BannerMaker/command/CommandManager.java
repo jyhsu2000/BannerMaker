@@ -14,23 +14,15 @@ import java.util.List;
 import java.util.Map;
 
 public class CommandManager implements CommandExecutor, TabCompleter {
-    private static CommandManager instance;
     final HashMap<String, AbstractCommand> subCommandMap = Maps.newHashMap();
     private BannerMaker bannerMaker;
 
-    private CommandManager(BannerMaker bannerMaker) {
+    public CommandManager(BannerMaker bannerMaker) {
         this.bannerMaker = bannerMaker;
         addSubCommand("help", new HelpCommand(bannerMaker));
         addSubCommand("hand", new HandCommand(bannerMaker));
         addSubCommand("see", new SeeCommand(bannerMaker));
         addSubCommand("reload", new ReloadCommand(bannerMaker));
-    }
-
-    public static CommandManager getInstance() {
-        if (instance == null) {
-            instance = new CommandManager(BannerMaker.getInstance());
-        }
-        return instance;
     }
 
     @Override

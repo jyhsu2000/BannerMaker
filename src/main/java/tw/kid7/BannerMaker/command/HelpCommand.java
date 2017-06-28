@@ -35,7 +35,7 @@ class HelpCommand extends AbstractCommand {
         BannerMakerCommand bmCommand = new BannerMakerCommand(bannerMaker);
         sender.sendMessage(MessageUtil.format("&c" + bmCommand.getUsage() + "&7: " + bmCommand.getDescription()));
         //子指令
-        HashMap<String, AbstractCommand> subCommandMap = CommandManager.getInstance().subCommandMap;
+        HashMap<String, AbstractCommand> subCommandMap = bannerMaker.commandManager.subCommandMap;
         for (Map.Entry<String, AbstractCommand> subCommandEntry : subCommandMap.entrySet()) {
             AbstractCommand subCommand = subCommandEntry.getValue();
             if (subCommand.hasPermission(sender)) {

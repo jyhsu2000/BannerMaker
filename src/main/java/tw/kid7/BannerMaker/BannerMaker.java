@@ -21,6 +21,7 @@ public class BannerMaker extends JavaPlugin {
     public static Economy econ = null;
     public static boolean enableAlphabetAndNumber = true;
     private VersionHandler versionHandler = null;
+    public CommandManager commandManager;
 
     public VersionHandler getVersionHandler() {
         return versionHandler;
@@ -43,7 +44,7 @@ public class BannerMaker extends JavaPlugin {
         }
 
         //指令
-        CommandManager commandManager = CommandManager.getInstance();
+        commandManager = new CommandManager(this);
         this.getCommand("BannerMaker").setExecutor(commandManager);
         this.getCommand("BannerMaker").setTabCompleter(commandManager);
         //Listener
