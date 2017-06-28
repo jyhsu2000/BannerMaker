@@ -70,7 +70,7 @@ public class BannerMaker extends JavaPlugin {
         return instance;
     }
 
-    public static void reload() {
+    public void reload() {
         //Reload Config
         ConfigManager.reloadAll();
         //載入語言包
@@ -78,10 +78,10 @@ public class BannerMaker extends JavaPlugin {
         //Check Default Config
         new DefaultConfig().checkConfig();
         //經濟
-        if (getInstance().setupEconomy()) {
-            getInstance().getLogger().info("Vault dependency found! Enable economy supported");
+        if (setupEconomy()) {
+            getLogger().info("Vault dependency found! Enable economy supported");
         } else {
-            getInstance().getLogger().info("Disable economy supported");
+            getLogger().info("Disable economy supported");
         }
         //設定檔
         String configFileName = "config.yml";

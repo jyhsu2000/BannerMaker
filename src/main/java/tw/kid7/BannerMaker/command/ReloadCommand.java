@@ -25,7 +25,7 @@ class ReloadCommand extends AbstractCommand {
 
     @Override
     boolean handle(CommandSender sender, Command command, String label, String[] args) {
-        BannerMaker.reload();
+        BannerMaker.getInstance().reload();
         sender.sendMessage(MessageUtil.format(true, tl("general.reload")));
         return true;
     }
