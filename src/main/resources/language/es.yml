@@ -1,0 +1,47 @@
+# Spanish(es)
+# For BannerMaker v1.7.1
+# Contributor(s): stevejone1997
+general:
+  prefix: '&6[&aBannerMaker&6]&r '
+  reload: Recargar configuracion
+  no-permission: Sin permisos
+  no-money: No tienes suficiente dinero
+  money-transaction: Usa {0} para obtener una bandera. Ahora tienes {1}
+io:
+  save-failed: Fallo al guardar.
+  save-success: Guardado correcto.
+  remove-banner: Quitar bandera &r#{0}
+command:
+  player-only: Este comando solo puede ser usado por jugadores en juego.
+  invalid-parameter: 'Parametro(s) invalido(s), uso correcto: {0}'
+  not-banner-hand: El objeto de tu mano no es una bandera.
+  not-banner-see: El bloque que estas mirando no es una bandera.
+config:
+  add-setting: Sumar {0} nuevas configuraciones.
+gui:
+  prefix: '&4[BM]&r '
+  main-menu: Menu principal
+  prev-page: Anterior página
+  next-page: Siguiente página
+  create-banner: Crear una bandera
+  uncraftable-warning: Aviso inconstruible
+  uncraftable: Inconstruible
+  more-than-6-patterns: Mas de seis patrones.
+  more-patterns: Mas patrones
+  back: Volver
+  create: Crear
+  delete: BORRAR
+  remove-last-pattern: Borrar el ultimo patron
+  banner-info: Informacion de la Bandera
+  pattern-s: patron(es)
+  no-patterns: Sin patrones
+  craft-recipe: Receta de crafteo
+  get-this-banner: Obten esta bandera
+  get-banner: Comprar bandera &r#{0}
+  price: 'Precio: {0}'
+  clone-and-edit: 'Clona y Edita'
+  alphabet-and-number: 'Alfabeto y numeros'
+  toggle-border: (Des)Activar borde
+  materials:
+    enough: Materiales suficientes
+    not-enough: Materiales insuficientes
