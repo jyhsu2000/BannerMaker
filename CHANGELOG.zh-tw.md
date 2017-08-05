@@ -2,6 +2,9 @@
 ## 未釋出版本
 - 暫無
 
+## v1.7.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
+- 新增匈牙利文(hu)翻譯（感謝 [montlikadani](https://www.spigotmc.org/members/toldi.251100/)）
+
 ## v1.7.1 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
 - 新增西班牙文(es)翻譯（感謝 [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/)）
 

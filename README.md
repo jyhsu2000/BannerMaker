@@ -32,6 +32,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
   * Portuguese(pt-br) (Thanks [Rhander](https://www.spigotmc.org/members/rhander.103119/))
   * Dutch(nl) (Thanks [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/))
   * Spanish(es) (Thanks [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/))
+  * Hungarian(hu) (Thanks [montlikadani](https://www.spigotmc.org/members/toldi.251100/))
 * Economic support (need Vault)
 * Material estimates
 
@@ -60,8 +61,8 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ## Change Logs
-v1.7.1 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
-- Add Spanish(es) translation (Thanks [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/))
+v1.7.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
+- Add Hungarian(hu) translation (Thanks [montlikadani](https://www.spigotmc.org/members/toldi.251100/))
 
 *Read more in [CHANGELOG.md](CHANGELOG.md)*
 

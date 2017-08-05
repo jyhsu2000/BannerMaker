@@ -1,0 +1,47 @@
+# Hungarian(hu)
+# For BannerMaker v1.7.2
+# Contributor(s): montlikadani
+general:
+  prefix: '&6[&aBannerMaker&6]&r '
+  reload: A konfig fájl frissítése
+  no-permission: Nincs jogosultságod a használatára
+  no-money: Nincs elegendő egyenleged
+  money-transaction: Használd {0}, hogy bannert kapj, jelenleg van {1}
+io:
+  save-failed: A mentés sikertelen.
+  save-success: A mentés sikeres.
+  remove-banner: A banner eltávolítása &r#{0}
+command:
+  player-only: Ezt a parancsot csak a játékban lévő játékosok használhatják
+  invalid-parameter: 'Érvénytelen paraméter(ek), helyes használat: {0}'
+  not-banner-hand: A kezedben lévő elem nem egy banner.
+  not-banner-see: A blokk, amelyet néz, nem egy banner.
+config:
+  add-setting: Hozzáad egy új beállítást {0}
+gui:
+  prefix: '&4[BM]&r '
+  main-menu: Fő menü
+  prev-page: Előző oldal
+  next-page: Következő oldal
+  create-banner: Banner létrehozása
+  uncraftable-warning: Nem olvasható figyelmeztetés
+  uncraftable: Uncraftable
+  more-than-6-patterns: Több, mint 6 minta.
+  more-patterns: További minták
+  back: Vissza
+  create: Létrehozás
+  delete: Eltávolítás
+  remove-last-pattern: Távolítsa el az utolsó mintát
+  banner-info: Banner információ
+  pattern-s: mintázat(ok)
+  no-patterns: Nincsenek minták
+  craft-recipe: Barkács Recept
+  get-this-banner: Szerezd meg ezt a bannert
+  get-banner: Banner megszerezve &r#{0}
+  price: 'Ára: {0}'
+  clone-and-edit: 'Klón & szerkesztés'
+  alphabet-and-number: 'Betűk és számok'
+  toggle-border: Kapcsolni a határt
+  materials:
+    enough: Az anyagok elegendőek
+    not-enough: Nincs elég anyag
