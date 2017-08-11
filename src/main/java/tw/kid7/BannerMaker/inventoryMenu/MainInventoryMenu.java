@@ -29,7 +29,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
     public void open(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
-        Inventory menu = InventoryMenuUtil.create(tl("gui.main-menu"));
+        Inventory menu = createClickableMenu(player, tl("gui.main-menu"));
         //當前頁數
         final int currentPage = playerData.getCurrentPage();
         //顯示現有旗幟
