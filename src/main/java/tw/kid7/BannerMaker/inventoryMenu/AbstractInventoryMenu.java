@@ -16,8 +16,13 @@ public abstract class AbstractInventoryMenu implements InventoryMenuInterface {
     //玩家的點擊動作表
     final private HashMap<String, Table<Integer, ClickType, Clickable>> clickableItemTables = Maps.newHashMap();
 
-    @Override
-    public void onClick(InventoryClickEvent event) {
+
+    /**
+     * 點擊事件處理
+     *
+     * @param event 事件
+     */
+    final public void onClick(InventoryClickEvent event) {
         //玩家
         Player player = (Player) event.getWhoClicked();
         //點擊位置
