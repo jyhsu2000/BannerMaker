@@ -16,7 +16,6 @@ public abstract class AbstractInventoryMenu implements InventoryMenuInterface {
     //玩家的點擊動作表
     final private HashMap<String, Table<Integer, ClickType, Clickable>> clickableItemTables = Maps.newHashMap();
 
-
     /**
      * 點擊事件處理
      *
