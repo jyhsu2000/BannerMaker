@@ -36,7 +36,6 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         List<ItemStack> bannerList = IOUtil.loadBannerList(player, currentPage);
         for (int i = 0; i < bannerList.size() && i < 45; i++) {
             final ItemStack banner = bannerList.get(i);
-            menu.setItem(i, banner);
             setClickableItem(menu, i, banner, ClickType.LEFT, new Clickable() {
                 @Override
                 public void action() {
