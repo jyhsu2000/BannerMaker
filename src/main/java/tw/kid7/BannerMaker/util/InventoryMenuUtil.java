@@ -31,15 +31,6 @@ public class InventoryMenuUtil {
         menu.open(player);
     }
 
-    /**
-     * @deprecated
-     * @param title 標題
-     * @return inventory
-     */
-    public static Inventory create(String title) {
-        return create(null, title);
-    }
-
     public static Inventory create(Player owner, String title) {
         Inventory menu;
         String guiPrefix = hiddenPrefix + tl("gui.prefix");
