@@ -81,7 +81,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             int totalPage = patternCount + 1;
             //外框
             ItemStack workbench = new ItemBuilder(Material.WORKBENCH).amount(currentRecipePage).name(MessageUtil.format("&a" + tl("gui.craft-recipe")))
-                .lore(MessageUtil.format("(" + currentRecipePage + "/" + totalPage + ")")).build();
+                .lore(MessageUtil.format("&r(" + currentRecipePage + "/" + totalPage + ")")).build();
             menu.setItem(6, workbench);
             ItemStack border = new ItemBuilder(Material.STAINED_GLASS_PANE).amount(1).durability(12).name(" ").build();
             List<Integer> borderPosition = Arrays.asList(4, 5, 7, 8, 13, 17, 22, 26, 31, 35, 40, 41, 42, 43, 44);
