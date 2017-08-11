@@ -1,6 +1,6 @@
 # Change Logs
 ## Unreleased Version
-- Nothing
+- Update inventory menu system (now most button only accept left click)
 
 ## v1.7.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
 - Add Hungarian(hu) translation (Thanks [montlikadani](https://www.spigotmc.org/members/toldi.251100/))
