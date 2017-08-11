@@ -2,7 +2,7 @@ package tw.kid7.BannerMaker.inventoryMenu;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
@@ -19,13 +19,6 @@ import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     private static BannerInfoInventoryMenu instance = null;
-    //按鈕位置
-    private final int buttonPositionPrevPage = 22;
-    private final int buttonPositionNextPage = 26;
-    private final int buttonPositionDelete = 47;
-    private final int buttonPositionGetBanner = 49;
-    private final int buttonPositionCloneAndEdit = 51;
-    private final int buttonPositionBackToMenu = 45;
 
     public static BannerInfoInventoryMenu getInstance() {
         if (instance == null) {
@@ -35,10 +28,10 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
     }
 
     @Override
-    public void open(Player player) {
-        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
+    public void open(final Player player) {
+        final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //取得欲查看旗幟
-        ItemStack banner = playerData.getViewInfoBanner();
+        final ItemStack banner = playerData.getViewInfoBanner();
         //僅限旗幟
         if (!BannerUtil.isBanner(banner)) {
             //回到主選單
@@ -83,7 +76,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
 
             //合成表
             //當前頁數
-            int currentRecipePage = playerData.getCurrentRecipePage();
+            final int currentRecipePage = playerData.getCurrentRecipePage();
             //總頁數
             int totalPage = patternCount + 1;
             //外框
@@ -99,12 +92,24 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             //上一頁
             if (currentRecipePage > 1) {
                 ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page"))).build();
-                menu.setItem(buttonPositionPrevPage, prevPage);
+                setClickableItem(menu, 22, prevPage, ClickType.LEFT, new Clickable() {
+                    @Override
+                    public void action() {
+                        playerData.setCurrentRecipePage(currentRecipePage - 1);
+                        InventoryMenuUtil.openMenu(player);
+                    }
+                });
             }
             //下一頁
             if (currentRecipePage < totalPage) {
                 ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&a" + tl("gui.next-page"))).build();
-                menu.setItem(buttonPositionNextPage, nextPage);
+                setClickableItem(menu, 26, nextPage, ClickType.LEFT, new Clickable() {
+                    @Override
+                    public void action() {
+                        playerData.setCurrentRecipePage(currentRecipePage + 1);
+                        InventoryMenuUtil.openMenu(player);
+                    }
+                });
             }
             //合成表
             HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
@@ -122,7 +127,17 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         if (key != null) {
             //有KEY時（儲存於玩家資料時），才顯示刪除按鈕
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete"))).build();
-            menu.setItem(buttonPositionDelete, btnDelete);
+            setClickableItem(menu, 47, btnDelete, ClickType.LEFT, new Clickable() {
+                @Override
+                public void action() {
+                    String key = BannerUtil.getKey(banner);
+                    if (key != null) {
+                        //有KEY時（儲存於玩家資料時），才能刪除
+                        IOUtil.removeBanner(player, key);
+                    }
+                    InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
+                }
+            });
         }
         //取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
@@ -134,84 +149,49 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 btnGetBannerBuilder.lore(MessageUtil.format("&a" + tl("gui.price", BannerMaker.getInstance().econ.format(price))));
             }
             ItemStack btnGetBanner = btnGetBannerBuilder.build();
-            menu.setItem(buttonPositionGetBanner, btnGetBanner);
+            setClickableItem(menu, 49, btnGetBanner, ClickType.LEFT, new Clickable() {
+                @Override
+                public void action() {
+                    //取得旗幟
+                    //嘗試給予玩家旗幟，並建立給予成功的標記
+                    boolean success = BannerUtil.give(player, banner);
+                    if (success) {
+                        //顯示名稱
+                        String showName = BannerUtil.getName(banner);
+                        //顯示訊息
+                        player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
+                    }
+                    InventoryMenuUtil.openMenu(player);
+                }
+            });
         }
         //複製並編輯
         ItemStack btnCloneAndEdit = new ItemBuilder(Material.BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + tl("gui.clone-and-edit"))).build();
-        menu.setItem(buttonPositionCloneAndEdit, btnCloneAndEdit);
+        setClickableItem(menu, 51, btnCloneAndEdit, ClickType.LEFT, new Clickable() {
+            @Override
+            public void action() {
+                //設定為編輯中旗幟
+                playerData.setCurrentEditBanner(banner);
+                InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_BANNER);
+            }
+        });
 
         //TODO 產生指令
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
-        menu.setItem(buttonPositionBackToMenu, btnBackToMenu);
+        setClickableItem(menu, 45, btnBackToMenu, ClickType.LEFT, new Clickable() {
+            @Override
+            public void action() {
+                //返回
+                if (BannerUtil.isAlphabetBanner(banner)) {
+                    //若為Alphabet旗幟，回到Alphabet旗幟頁面
+                    InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_ALPHABET);
+                    return;
+                }
+                InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
+            }
+        });
         //開啟選單
         player.openInventory(menu);
-    }
-
-    @Override
-    public void onClick(InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
-        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
-        int rawSlot = event.getRawSlot();
-        if (rawSlot != 22 && rawSlot != 26 && rawSlot < 45) {
-            return;
-        }
-        //取得欲查看旗幟
-        ItemStack banner = playerData.getViewInfoBanner();
-        //當前頁數
-        int currentRecipePage = playerData.getCurrentRecipePage();
-        //patterns數量
-        int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();
-        //總頁數
-        int totalPage = patternCount + 1;
-        //修改狀態
-        if (rawSlot == buttonPositionPrevPage && currentRecipePage > 1) {
-            playerData.setCurrentRecipePage(currentRecipePage - 1);
-            InventoryMenuUtil.openMenu(player);
-            return;
-        }
-        if (rawSlot == buttonPositionNextPage && currentRecipePage < totalPage) {
-            playerData.setCurrentRecipePage(currentRecipePage + 1);
-            InventoryMenuUtil.openMenu(player);
-            return;
-        }
-        if (rawSlot == buttonPositionGetBanner) {
-            //取得旗幟
-            //嘗試給予玩家旗幟，並建立給予成功的標記
-            boolean success = BannerUtil.give(player, banner);
-            if (success) {
-                //顯示名稱
-                String showName = BannerUtil.getName(banner);
-                //顯示訊息
-                player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
-            }
-            InventoryMenuUtil.openMenu(player);
-            return;
-        }
-        if (rawSlot == buttonPositionCloneAndEdit) {
-            //設定為編輯中旗幟
-            playerData.setCurrentEditBanner(banner);
-            InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_BANNER);
-            return;
-        }
-        if (rawSlot == buttonPositionDelete) {
-            String key = BannerUtil.getKey(banner);
-            if (key != null) {
-                //有KEY時（儲存於玩家資料時），才能刪除
-                IOUtil.removeBanner(player, key);
-            }
-            InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
-            return;
-        }
-        if (rawSlot == buttonPositionBackToMenu) {
-            //返回
-            if (BannerUtil.isAlphabetBanner(banner)) {
-                //若為Alphabet旗幟，回到Alphabet旗幟頁面
-                InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_ALPHABET);
-                return;
-            }
-            InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
-            return;
-        }
     }
 }
