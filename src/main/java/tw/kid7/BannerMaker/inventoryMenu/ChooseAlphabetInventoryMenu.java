@@ -6,12 +6,13 @@ import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.clickableInventory.Clickable;
+import tw.kid7.BannerMaker.clickableInventory.ClickableInventory;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.ItemBuilder;
@@ -33,7 +34,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
     public void open(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
-        Inventory menu = createClickableMenu(player, tl("gui.alphabet-and-number"));
+        ClickableInventory menu = ClickableInventory.create(playerData.getInventoryMenuState(), player, tl("gui.alphabet-and-number"));
         //清除當前編輯中的字母
         playerData.setCurrentAlphabetBanner(null);
         //邊框切換按鈕
@@ -50,7 +51,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
             char alphabet = alphabetArray[i];
             final AlphabetBanner alphabetBanner = new AlphabetBanner(String.valueOf(alphabet), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
             ItemStack alphabetItem = alphabetBanner.toItemStack();
-            setClickableItem(menu, i, alphabetItem, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(i, alphabetItem).set(ClickType.LEFT, new Clickable() {
                 @Override
                 public void action() {
                     //設定當前編輯中的字母
@@ -60,7 +61,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
             });
         }
         //切換有無邊框
-        setClickableItem(menu, 49, btnBorderedBanner, ClickType.LEFT, new Clickable() {
+        menu.setClickableItem(49, btnBorderedBanner).set(ClickType.LEFT, new Clickable() {
             @Override
             public void action() {
                 playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
@@ -70,13 +71,13 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
 
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
-        setClickableItem(menu, 45, btnBackToMenu, ClickType.LEFT, new Clickable() {
+        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new Clickable() {
             @Override
             public void action() {
                 InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
             }
         });
         //開啟選單
-        player.openInventory(menu);
+        player.openInventory(menu.toInventory());
     }
 }

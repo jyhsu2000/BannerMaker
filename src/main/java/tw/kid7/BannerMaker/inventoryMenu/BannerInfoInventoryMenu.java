@@ -3,12 +3,13 @@ package tw.kid7.BannerMaker.inventoryMenu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.clickableInventory.Clickable;
+import tw.kid7.BannerMaker.clickableInventory.ClickableInventory;
 import tw.kid7.BannerMaker.util.*;
 
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             return;
         }
         //建立選單
-        Inventory menu = createClickableMenu(player, tl("gui.banner-info"));
+        ClickableInventory menu = ClickableInventory.create(playerData.getInventoryMenuState(), player, tl("gui.banner-info"));
         menu.setItem(0, banner);
         //patterns數量
         int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();
@@ -92,7 +93,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             //上一頁
             if (currentRecipePage > 1) {
                 ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page"))).build();
-                setClickableItem(menu, 22, prevPage, ClickType.LEFT, new Clickable() {
+                menu.setClickableItem(22, prevPage).set(ClickType.LEFT, new Clickable() {
                     @Override
                     public void action() {
                         playerData.setCurrentRecipePage(currentRecipePage - 1);
@@ -103,7 +104,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             //下一頁
             if (currentRecipePage < totalPage) {
                 ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&a" + tl("gui.next-page"))).build();
-                setClickableItem(menu, 26, nextPage, ClickType.LEFT, new Clickable() {
+                menu.setClickableItem(26, nextPage).set(ClickType.LEFT, new Clickable() {
                     @Override
                     public void action() {
                         playerData.setCurrentRecipePage(currentRecipePage + 1);
@@ -122,19 +123,16 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         }
         //新增按鈕
         //嘗試取得key
-        String key = BannerUtil.getKey(banner);
+        final String key = BannerUtil.getKey(banner);
         //刪除
         if (key != null) {
             //有KEY時（儲存於玩家資料時），才顯示刪除按鈕
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete"))).build();
-            setClickableItem(menu, 47, btnDelete, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, new Clickable() {
                 @Override
                 public void action() {
-                    String key = BannerUtil.getKey(banner);
-                    if (key != null) {
-                        //有KEY時（儲存於玩家資料時），才能刪除
-                        IOUtil.removeBanner(player, key);
-                    }
+                    //刪除
+                    IOUtil.removeBanner(player, key);
                     InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
                 }
             });
@@ -149,7 +147,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 btnGetBannerBuilder.lore(MessageUtil.format("&a" + tl("gui.price", BannerMaker.getInstance().econ.format(price))));
             }
             ItemStack btnGetBanner = btnGetBannerBuilder.build();
-            setClickableItem(menu, 49, btnGetBanner, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new Clickable() {
                 @Override
                 public void action() {
                     //取得旗幟
@@ -167,7 +165,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         }
         //複製並編輯
         ItemStack btnCloneAndEdit = new ItemBuilder(Material.BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + tl("gui.clone-and-edit"))).build();
-        setClickableItem(menu, 51, btnCloneAndEdit, ClickType.LEFT, new Clickable() {
+        menu.setClickableItem(51, btnCloneAndEdit).set(ClickType.LEFT, new Clickable() {
             @Override
             public void action() {
                 //設定為編輯中旗幟
@@ -179,10 +177,9 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         //TODO 產生指令
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
-        setClickableItem(menu, 45, btnBackToMenu, ClickType.LEFT, new Clickable() {
+        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new Clickable() {
             @Override
             public void action() {
-                //返回
                 if (BannerUtil.isAlphabetBanner(banner)) {
                     //若為Alphabet旗幟，回到Alphabet旗幟頁面
                     InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_ALPHABET);
@@ -192,6 +189,6 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             }
         });
         //開啟選單
-        player.openInventory(menu);
+        player.openInventory(menu.toInventory());
     }
 }

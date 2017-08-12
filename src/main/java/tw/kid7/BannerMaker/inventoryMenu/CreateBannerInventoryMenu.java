@@ -6,12 +6,13 @@ import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.clickableInventory.Clickable;
+import tw.kid7.BannerMaker.clickableInventory.ClickableInventory;
 import tw.kid7.BannerMaker.util.*;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
@@ -30,14 +31,14 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     public void open(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
-        Inventory menu = createClickableMenu(player, tl("gui.create-banner"));
+        ClickableInventory menu = ClickableInventory.create(playerData.getInventoryMenuState(), player, tl("gui.create-banner"));
         //取得當前編輯中的旗幟
         final ItemStack currentBanner = playerData.getCurrentEditBanner();
         if (currentBanner == null) {
             //剛開始編輯，先選擇底色
             for (int i = 0; i < 16; i++) {
                 final ItemStack banner = new ItemStack(Material.BANNER, 1, (short) i);
-                setClickableItem(menu, i + 1 + (i / 8), banner, ClickType.LEFT, new Clickable() {
+                menu.setClickableItem(i + 1 + (i / 8), banner).set(ClickType.LEFT, new Clickable() {
                     @Override
                     public void action() {
                         playerData.setCurrentEditBanner(banner);
@@ -58,7 +59,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             //顏色
             for (int i = 0; i < 16; i++) {
                 final ItemStack dye = new ItemBuilder(Material.INK_SACK).amount(1).durability(i).build();
-                setClickableItem(menu, i + 1 + (i / 8), dye, ClickType.LEFT, new Clickable() {
+                menu.setClickableItem(i + 1 + (i / 8), dye).set(ClickType.LEFT, new Clickable() {
                     @Override
                     public void action() {
                         playerData.setSelectedColor(DyeColorUtil.fromInt(dye.getDurability()));
@@ -83,8 +84,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 PatternType patternType = BannerUtil.getPatternTypeList().get(patternIndex);
                 bm.addPattern(new Pattern(selectedColor, patternType));
                 banner.setItemMeta(bm);
-
-                setClickableItem(menu, i + 19 + (i / 8), banner, ClickType.LEFT, new Clickable() {
+                menu.setClickableItem(i + 19 + (i / 8), banner).set(ClickType.LEFT, new Clickable() {
                     @Override
                     public void action() {
                         //新增Pattern
@@ -100,7 +100,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             }
             //更多Pattern
             ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + tl("gui.more-patterns"))).build();
-            setClickableItem(menu, 51, btnMorePattern, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(51, btnMorePattern).set(ClickType.LEFT, new Clickable() {
                 @Override
                 public void action() {
                     playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
@@ -110,7 +110,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
         }
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
-        setClickableItem(menu, 45, btnBackToMenu, ClickType.LEFT, new Clickable() {
+        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new Clickable() {
             @Override
             public void action() {
                 InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
@@ -119,7 +119,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
         if (currentBanner != null) {
             //建立旗幟
             ItemStack btnCreate = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create"))).build();
-            setClickableItem(menu, 53, btnCreate, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(53, btnCreate).set(ClickType.LEFT, new Clickable() {
                 @Override
                 public void action() {
                     IOUtil.saveBanner(player, currentBanner);
@@ -129,7 +129,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             });
             //刪除
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete"))).build();
-            setClickableItem(menu, 47, btnDelete, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, new Clickable() {
                 @Override
                 public void action() {
                     playerData.setCurrentEditBanner(null);
@@ -139,7 +139,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
                 //移除Pattern
                 ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.remove-last-pattern"))).build();
-                setClickableItem(menu, 49, btnRemovePattern, ClickType.LEFT, new Clickable() {
+                menu.setClickableItem(49, btnRemovePattern).set(ClickType.LEFT, new Clickable() {
                     @Override
                     public void action() {
                         BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
@@ -152,6 +152,6 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             }
         }
         //開啟選單
-        player.openInventory(menu);
+        player.openInventory(menu.toInventory());
     }
 }
