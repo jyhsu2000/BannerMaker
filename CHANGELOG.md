@@ -1,5 +1,10 @@
 # Change Logs
 ## Unreleased Version
+- Nothing
+
+## v1.8.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
+- Now player can craft a banner by using materials
+- If player has permission `BannerMaker.getBanner.free`, he cna only see `Get banner for free` button, buy and craft button will not shown
 - Update inventory menu system (now most button only accept left click)
 
 ## v1.7.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)

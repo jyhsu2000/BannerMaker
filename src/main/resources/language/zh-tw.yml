@@ -1,5 +1,5 @@
 # Traditional Chinese(zh-tw)
-# For BannerMaker v1.6.0
+# For BannerMaker v1.8.0
 # Contributor(s): KID
 general:
   prefix: '&6[&aBannerMaker&6]&r '
@@ -38,6 +38,9 @@ gui:
   craft-recipe: 合成表
   get-this-banner: 取得這個旗幟
   get-banner: 取得旗幟 &r#{0}
+  get-banner-for-free: 免費取得
+  buy-banner-in-price: 使用 {0} 購買
+  get-banner-by-craft: 合成
   price: '費用: {0}'
   clone-and-edit: 複製並編輯
   alphabet-and-number: 字母與數字
@@ -45,3 +48,6 @@ gui:
   materials:
     enough: 材料足夠
     not-enough: 材料不足
+  click:
+    left: 左鍵
+    right: 右鍵

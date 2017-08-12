@@ -1,5 +1,5 @@
 # English(en)
-# For BannerMaker v1.6.0
+# For BannerMaker v1.8.0
 # Contributor(s): KID
 general:
   prefix: '&6[&aBannerMaker&6]&r '
@@ -38,6 +38,9 @@ gui:
   craft-recipe: Craft Recipe
   get-this-banner: Get this banner
   get-banner: Get banner &r#{0}
+  get-banner-for-free: Get banner for free
+  buy-banner-in-price: Buy in {0}
+  get-banner-by-craft: Craft
   price: 'Price: {0}'
   clone-and-edit: 'Clone & Edit'
   alphabet-and-number: 'Alphabet & Number'
@@ -45,3 +48,6 @@ gui:
   materials:
     enough: Materials enough
     not-enough: Materials not enough
+  click:
+    left: Left Click
+    right: Right Click

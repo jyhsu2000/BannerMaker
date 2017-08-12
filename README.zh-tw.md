@@ -35,6 +35,7 @@
   * 匈牙利文(hu)（感謝 [montlikadani](https://www.spigotmc.org/members/toldi.251100/)）
 * 支援經濟功能（需要Vault）
 * 材料估算
+* 使用材料合成旗幟
 
 ## 使用方法
 * 請見最下方圖片
@@ -61,8 +62,10 @@
 3. 啟動伺服器
 
 ## 更新紀錄
-v1.7.2 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
-- 新增匈牙利文(hu)翻譯（感謝 [montlikadani](https://www.spigotmc.org/members/toldi.251100/)）
+v1.8.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
+- 現在玩家可以使用材料合成旗幟
+- 如果玩家擁有`BannerMaker.getBanner.free`權限，他將只能看到`取得旗幟`按鈕，購買及合成按鈕將不會出現
+- 更新物品欄選單系統（現在大多數按鈕只接受左鍵點擊）
 
 *在 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md) 閱讀更多*
 

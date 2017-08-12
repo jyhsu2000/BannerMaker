@@ -146,8 +146,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             if (player.hasPermission("BannerMaker.getBanner.free")) {
                 //具有免費取得權限
                 //左鍵：免費取得
-                //TODO 提出到語系檔
-                btnGetBannerBuilder.lore(MessageUtil.format("&e[左鍵]&a免費取得"));
+                btnGetBannerBuilder.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-for-free")));
                 ItemStack btnGetBanner = btnGetBannerBuilder.build();
                 menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new Clickable() {
                     @Override
@@ -161,15 +160,13 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 });
             } else {
                 //左鍵：合成
-                //TODO 提出到語系檔
-                btnGetBannerBuilder.lore(MessageUtil.format("&e[左鍵]&a合成"));
+                btnGetBannerBuilder.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-by-craft")));
                 //檢查是否啟用經濟
                 if (BannerMaker.getInstance().econ != null) {
                     //右鍵：購買
                     Double price = EconUtil.getPrice(banner);
                     String priceStr = BannerMaker.getInstance().econ.format(price);
-                    //TODO 提出到語系檔
-                    btnGetBannerBuilder.lore(MessageUtil.format("&e[右鍵]&a使用 " + priceStr + " 購買"));
+                    btnGetBannerBuilder.lore(MessageUtil.format("&e[" + tl("gui.click.right") + "] &a" + tl("gui.buy-banner-in-price", priceStr)));
                 }
                 ItemStack btnGetBanner = btnGetBannerBuilder.build();
                 ClickableItem clickableItemGetBanner = menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new Clickable() {
