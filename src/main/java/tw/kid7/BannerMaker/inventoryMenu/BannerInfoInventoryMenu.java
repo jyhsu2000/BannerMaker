@@ -10,6 +10,7 @@ import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.clickableInventory.Clickable;
 import tw.kid7.BannerMaker.clickableInventory.ClickableInventory;
+import tw.kid7.BannerMaker.clickableInventory.ClickableItem;
 import tw.kid7.BannerMaker.util.*;
 
 import java.util.Arrays;
@@ -139,29 +140,75 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         }
         //取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
-            //檢查是否啟用經濟
             ItemBuilder btnGetBannerBuilder = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.get-this-banner")));
-            if (BannerMaker.getInstance().econ != null) {
-                Double price = EconUtil.getPrice(banner);
-                //FIXME 可能造成 IndexOutOfBoundsException: No group 1
-                btnGetBannerBuilder.lore(MessageUtil.format("&a" + tl("gui.price", BannerMaker.getInstance().econ.format(price))));
-            }
-            ItemStack btnGetBanner = btnGetBannerBuilder.build();
-            menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new Clickable() {
-                @Override
-                public void action() {
-                    //取得旗幟
-                    //嘗試給予玩家旗幟，並建立給予成功的標記
-                    boolean success = BannerUtil.give(player, banner);
-                    if (success) {
-                        //顯示名稱
-                        String showName = BannerUtil.getName(banner);
+            //顯示名稱
+            final String showName = BannerUtil.getName(banner);
+            if (player.hasPermission("BannerMaker.getBanner.free")) {
+                //具有免費取得權限
+                //左鍵：免費取得
+                //TODO 提出到語系檔
+                btnGetBannerBuilder.lore(MessageUtil.format("&e[左鍵]&a免費取得"));
+                ItemStack btnGetBanner = btnGetBannerBuilder.build();
+                menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new Clickable() {
+                    @Override
+                    public void action() {
+                        //取得旗幟
+                        InventoryUtil.give(player, banner);
                         //顯示訊息
                         player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
+                        InventoryMenuUtil.openMenu(player);
                     }
-                    InventoryMenuUtil.openMenu(player);
+                });
+            } else {
+                //左鍵：合成
+                //TODO 提出到語系檔
+                btnGetBannerBuilder.lore(MessageUtil.format("&e[左鍵]&a合成"));
+                //檢查是否啟用經濟
+                if (BannerMaker.getInstance().econ != null) {
+                    //右鍵：購買
+                    Double price = EconUtil.getPrice(banner);
+                    String priceStr = BannerMaker.getInstance().econ.format(price);
+                    //TODO 提出到語系檔
+                    btnGetBannerBuilder.lore(MessageUtil.format("&e[右鍵]&a使用 " + priceStr + " 購買"));
                 }
-            });
+                ItemStack btnGetBanner = btnGetBannerBuilder.build();
+                ClickableItem clickableItemGetBanner = menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new Clickable() {
+                    @Override
+                    public void action() {
+                        //嘗試合成旗幟
+                        boolean success = BannerUtil.craft(player, banner);
+                        if (success) {
+                            player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
+                        } else {
+                            player.sendMessage(MessageUtil.format(true, "&c" + tl("gui.materials.not-enough")));
+                        }
+                        InventoryMenuUtil.openMenu(player);
+                    }
+                });
+                //檢查是否啟用經濟
+                if (BannerMaker.getInstance().econ != null) {
+                    clickableItemGetBanner.set(ClickType.RIGHT, new Clickable() {
+                        @Override
+                        public void action() {
+                            //取得旗幟
+                            //嘗試給予玩家旗幟
+                            boolean success = BannerUtil.buy(player, banner);
+                            if (success) {
+                                //顯示名稱
+                                String showName = BannerUtil.getName(banner);
+                                //顯示訊息
+                                player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
+                            }
+                            InventoryMenuUtil.openMenu(player);
+                        }
+                    });
+                }
+            }
+            //檢查是否啟用經濟
+            if (BannerMaker.getInstance().econ != null) {
+                Double price = EconUtil.getPrice(banner);
+                btnGetBannerBuilder.lore(MessageUtil.format("&a" + tl("gui.price", BannerMaker.getInstance().econ.format(price))));
+            }
         }
         //複製並編輯
         ItemStack btnCloneAndEdit = new ItemBuilder(Material.BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + tl("gui.clone-and-edit"))).build();

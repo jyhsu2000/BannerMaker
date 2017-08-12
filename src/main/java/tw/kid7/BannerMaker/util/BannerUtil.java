@@ -249,35 +249,49 @@ public class BannerUtil {
      * @param banner 要給予的旗幟
      * @return 是否成功給予
      */
-    public static boolean give(Player player, ItemStack banner) {
-        //檢查權限
-        if (!player.hasPermission("BannerMaker.getBanner")) {
-            player.sendMessage(MessageUtil.format(true, "&c" + tl("general.no-permission")));
+    public static boolean buy(Player player, ItemStack banner) {
+        //檢查是否啟用經濟
+        if (BannerMaker.getInstance().econ == null) {
+            //未啟用經濟，強制失敗
+            player.sendMessage(MessageUtil.format(true, "&cError: Economy not supported"));
             return false;
         }
-        //TODO: 更多消費方式
-        //檢查是否啟用經濟
-        if (BannerMaker.getInstance().econ != null && !player.hasPermission("BannerMaker.getBanner.free")) {
-            Double price = EconUtil.getPrice(banner);
-            //檢查財產是否足夠
-            if (!BannerMaker.getInstance().econ.has(player, price)) {
-                //財產不足
-                player.sendMessage(MessageUtil.format(true, "&c" + tl("general.no-money")));
-                return false;
-            }
-            //扣款
-            EconomyResponse response = BannerMaker.getInstance().econ.withdrawPlayer(player, price);
-            //檢查交易是否成功
-            if (!response.transactionSuccess()) {
-                //交易失敗
-                player.sendMessage(MessageUtil.format(true, "&cError: " + response.errorMessage));
-                return false;
-            }
-            InventoryUtil.give(player, banner);
-            player.sendMessage(MessageUtil.format(true, "&a" + tl("general.money-transaction", BannerMaker.getInstance().econ.format(response.amount), BannerMaker.getInstance().econ.format(response.balance))));
-            return true;
+        //價格
+        Double price = EconUtil.getPrice(banner);
+        //檢查財產是否足夠
+        if (!BannerMaker.getInstance().econ.has(player, price)) {
+            //財產不足
+            player.sendMessage(MessageUtil.format(true, "&c" + tl("general.no-money")));
+            return false;
         }
-        //未啟用經濟
+        //扣款
+        EconomyResponse response = BannerMaker.getInstance().econ.withdrawPlayer(player, price);
+        //檢查交易是否成功
+        if (!response.transactionSuccess()) {
+            //交易失敗
+            player.sendMessage(MessageUtil.format(true, "&cError: " + response.errorMessage));
+            return false;
+        }
+        InventoryUtil.give(player, banner);
+        player.sendMessage(MessageUtil.format(true, "&a" + tl("general.money-transaction", BannerMaker.getInstance().econ.format(response.amount), BannerMaker.getInstance().econ.format(response.balance))));
+        return true;
+    }
+
+    /**
+     * 使用材料合成旗幟
+     *
+     * @param player 要給予物品的玩家
+     * @param banner 要給予的旗幟
+     * @return 是否成功給予
+     */
+    public static boolean craft(Player player, ItemStack banner) {
+        //檢查材料
+        if (!hasEnoughMaterials(player.getInventory(), banner)) {
+            return false;
+        }
+        //移除材料
+        removeMaterials(player.getInventory(), banner);
+
         InventoryUtil.give(player, banner);
         return true;
     }
