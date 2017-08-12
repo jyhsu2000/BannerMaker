@@ -8,6 +8,9 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import tw.kid7.BannerMaker.BannerMaker;
+import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.clickableInventory.ClickableInventory;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 
 import java.util.HashMap;
@@ -24,10 +27,19 @@ public abstract class AbstractInventoryMenu implements InventoryMenuInterface {
     final public void onClick(InventoryClickEvent event) {
         //玩家
         Player player = (Player) event.getWhoClicked();
+        //玩家資料
+        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //點擊位置
         int rawSlot = event.getRawSlot();
         //點擊類型
         ClickType clickType = event.getClick();
+        ClickableInventory clickableInventory = ClickableInventory.get(playerData.getInventoryMenuState(), player);
+        if (clickableInventory != null) {
+            clickableInventory.action(rawSlot, clickType);
+            return;
+        }
+
+        //FIXME: 以下移除
         //玩家的點擊動作表
         Table<Integer, ClickType, Clickable> clickableItemTable = getClickableItemTable(player);
         //找出對應動作

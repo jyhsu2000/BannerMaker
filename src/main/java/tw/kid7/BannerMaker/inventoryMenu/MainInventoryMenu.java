@@ -3,12 +3,12 @@ package tw.kid7.BannerMaker.inventoryMenu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
+import tw.kid7.BannerMaker.clickableInventory.ClickableInventory;
 import tw.kid7.BannerMaker.util.*;
 
 import java.util.List;
@@ -29,14 +29,14 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
     public void open(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
-        Inventory menu = createClickableMenu(player, tl("gui.main-menu"));
+        ClickableInventory menu = ClickableInventory.create(playerData.getInventoryMenuState(), player, tl("gui.main-menu"));
         //當前頁數
         final int currentPage = playerData.getCurrentPage();
         //顯示現有旗幟
         List<ItemStack> bannerList = IOUtil.loadBannerList(player, currentPage);
         for (int i = 0; i < bannerList.size() && i < 45; i++) {
             final ItemStack banner = bannerList.get(i);
-            setClickableItem(menu, i, banner, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(i, banner).set(ClickType.LEFT, new tw.kid7.BannerMaker.clickableInventory.Clickable() {
                 @Override
                 public void action() {
                     InventoryMenuUtil.showBannerInfo(player, banner);
@@ -50,7 +50,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         //上一頁
         if (currentPage > 1) {
             ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentPage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page"))).build();
-            setClickableItem(menu, 45, prevPage, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(45, prevPage).set(ClickType.LEFT, new tw.kid7.BannerMaker.clickableInventory.Clickable() {
                 @Override
                 public void action() {
                     playerData.setCurrentPage(currentPage - 1);
@@ -61,7 +61,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         //下一頁
         if (currentPage < totalPage) {
             ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentPage + 1).name(MessageUtil.format("&a" + tl("gui.next-page"))).build();
-            setClickableItem(menu, 53, nextPage, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(53, nextPage).set(ClickType.LEFT, new tw.kid7.BannerMaker.clickableInventory.Clickable() {
                 @Override
                 public void action() {
                     playerData.setCurrentPage(currentPage + 1);
@@ -71,7 +71,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         }
         //Create banner
         ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create-banner"))).build();
-        setClickableItem(menu, 49, btnCreateBanner, ClickType.LEFT, new Clickable() {
+        menu.setClickableItem(49, btnCreateBanner).set(ClickType.LEFT, new tw.kid7.BannerMaker.clickableInventory.Clickable() {
             @Override
             public void action() {
                 InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_BANNER);
@@ -83,16 +83,14 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
             ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
             btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + tl("gui.alphabet-and-number")));
             btnCreateAlphabet.setItemMeta(btnCreateAlphabetItemMeta);
-            setClickableItem(menu, 51, btnCreateAlphabet, ClickType.LEFT, new Clickable() {
+            menu.setClickableItem(51, btnCreateAlphabet).set(ClickType.LEFT, new tw.kid7.BannerMaker.clickableInventory.Clickable() {
                 @Override
                 public void action() {
-                    if (BannerMaker.getInstance().enableAlphabetAndNumber) {
-                        InventoryMenuUtil.openMenu(player, InventoryMenuState.CHOOSE_ALPHABET);
-                    }
+                    InventoryMenuUtil.openMenu(player, InventoryMenuState.CHOOSE_ALPHABET);
                 }
             });
         }
         //開啟選單
-        player.openInventory(menu);
+        player.openInventory(menu.toInventory());
     }
 }
