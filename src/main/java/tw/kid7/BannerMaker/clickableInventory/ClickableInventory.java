@@ -62,12 +62,12 @@ public class ClickableInventory {
     }
 
     /**
-     * 取得物品欄
+     * 開啟物品欄
      *
-     * @return 物品欄
+     * @param player 玩家
      */
-    public Inventory toInventory() {
-        return inventory;
+    public void open(Player player) {
+        player.openInventory(inventory);
     }
 
     /**

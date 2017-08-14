@@ -78,6 +78,6 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
             }
         });
         //開啟選單
-        player.openInventory(menu.toInventory());
+        menu.open(player);
     }
 }

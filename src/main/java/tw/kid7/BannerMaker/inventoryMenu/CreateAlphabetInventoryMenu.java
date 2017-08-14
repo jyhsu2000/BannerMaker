@@ -98,6 +98,6 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
             }
         });
         //開啟選單
-        player.openInventory(menu.toInventory());
+        menu.open(player);
     }
 }
