@@ -1,13 +1,10 @@
 package tw.kid7.BannerMaker.clickableInventory;
 
-import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Table;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 
 import java.util.HashMap;
@@ -18,47 +15,21 @@ public class ClickableInventory {
      */
     private Inventory inventory;
     /**
-     * 每個玩家的可點擊物品欄
+     * 被玩家開啟的可點擊物品欄與物品欄的對應
      */
-    private static Table<InventoryMenuState, String, ClickableInventory> clickableInventoryTable = HashBasedTable.create();
+    final static HashMap<Inventory, ClickableInventory> openedClickableInventory = Maps.newHashMap();
     /**
      * 每個位置的可點擊物件
      */
     private final HashMap<Integer, ClickableItem> clickableItemHashMap = Maps.newHashMap();
 
     /**
-     * 私有建構子
+     * 建構子
      *
-     * @param owner 擁有者
      * @param title 物品欄標題
      */
-    private ClickableInventory(Player owner, String title) {
-        inventory = InventoryMenuUtil.create(owner, title);
-    }
-
-    /**
-     * 靜態建構子
-     *
-     * @param owner 擁有者
-     * @param title 物品欄標題
-     * @return 可點擊物品欄
-     */
-    public static ClickableInventory create(InventoryMenuState inventoryMenuState, Player owner, String title) {
-        //建立可點擊物品欄
-        ClickableInventory clickableInventory = new ClickableInventory(owner, title);
-        //紀錄該玩家的最後一組
-        clickableInventoryTable.put(inventoryMenuState, owner.getUniqueId().toString(), clickableInventory);
-        return clickableInventory;
-    }
-
-    /**
-     * 取得特定玩家的可點擊物品欄
-     *
-     * @param owner 擁有者
-     * @return 可點擊物品欄
-     */
-    public static ClickableInventory get(InventoryMenuState inventoryMenuState, Player owner) {
-        return clickableInventoryTable.get(inventoryMenuState, owner.getUniqueId().toString());
+    public ClickableInventory(String title) {
+        inventory = InventoryMenuUtil.create(title);
     }
 
     /**
@@ -67,6 +38,7 @@ public class ClickableInventory {
      * @param player 玩家
      */
     public void open(Player player) {
+        openedClickableInventory.put(inventory, this);
         player.openInventory(inventory);
     }
 

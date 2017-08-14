@@ -5,11 +5,11 @@ import org.bstats.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import tw.kid7.BannerMaker.clickableInventory.ClickableInventoryListener;
 import tw.kid7.BannerMaker.command.CommandManager;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;
 import tw.kid7.BannerMaker.configuration.Language;
-import tw.kid7.BannerMaker.listener.InventoryClickEventListener;
 import tw.kid7.BannerMaker.version.VersionHandler;
 import tw.kid7.BannerMaker.version.VersionHandler_1_8;
 
@@ -49,7 +49,7 @@ public class BannerMaker extends JavaPlugin {
         this.getCommand("BannerMaker").setExecutor(commandManager);
         this.getCommand("BannerMaker").setTabCompleter(commandManager);
         //Listener
-        this.getServer().getPluginManager().registerEvents(new InventoryClickEventListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new ClickableInventoryListener(this), this);
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {

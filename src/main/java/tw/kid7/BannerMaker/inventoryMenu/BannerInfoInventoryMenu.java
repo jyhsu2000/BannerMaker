@@ -41,7 +41,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             return;
         }
         //建立選單
-        ClickableInventory menu = ClickableInventory.create(playerData.getInventoryMenuState(), player, tl("gui.banner-info"));
+        ClickableInventory menu = new ClickableInventory(tl("gui.banner-info"));
         menu.setItem(0, banner);
         //patterns數量
         int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();

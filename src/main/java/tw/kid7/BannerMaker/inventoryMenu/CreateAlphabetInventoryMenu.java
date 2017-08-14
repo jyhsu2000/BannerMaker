@@ -31,7 +31,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
     public void open(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
-        ClickableInventory menu = ClickableInventory.create(playerData.getInventoryMenuState(), player, tl("gui.alphabet-and-number"));
+        ClickableInventory menu = new ClickableInventory(tl("gui.alphabet-and-number"));
         //取得當前編輯中的字母
         final AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
         //邊框切換按鈕
