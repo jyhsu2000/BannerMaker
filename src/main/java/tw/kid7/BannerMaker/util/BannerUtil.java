@@ -294,6 +294,7 @@ public class BannerUtil {
 
     /**
      * 使用材料合成旗幟
+     * FIXME: 即使pattern過多，也仍然能合成，可能需要權限限制
      *
      * @param player 要給予物品的玩家
      * @param banner 要給予的旗幟
