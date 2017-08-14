@@ -29,6 +29,7 @@ public class ClickableInventory {
      * @param title 物品欄標題
      */
     public ClickableInventory(String title) {
+        //FIXME: 解耦合
         inventory = InventoryMenuUtil.create(title);
     }
 
