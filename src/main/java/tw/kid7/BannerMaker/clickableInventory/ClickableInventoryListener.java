@@ -8,14 +8,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
-import tw.kid7.BannerMaker.BannerMaker;
 
 public class ClickableInventoryListener implements Listener {
-    private final BannerMaker bm;
-
-    public ClickableInventoryListener(BannerMaker bm) {
-        this.bm = bm;
-    }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {

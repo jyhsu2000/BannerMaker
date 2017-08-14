@@ -49,7 +49,7 @@ public class BannerMaker extends JavaPlugin {
         this.getCommand("BannerMaker").setExecutor(commandManager);
         this.getCommand("BannerMaker").setTabCompleter(commandManager);
         //Listener
-        this.getServer().getPluginManager().registerEvents(new ClickableInventoryListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new ClickableInventoryListener(), this);
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
