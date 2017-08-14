@@ -239,7 +239,7 @@ public class BannerUtil {
      * @param banner    旗幟
      * @return 是否順利移除材料
      */
-    static public boolean removeMaterials(Inventory inventory, ItemStack banner) {
+    static private boolean removeMaterials(Inventory inventory, ItemStack banner) {
         //只檢查旗幟
         if (!isBanner(banner)) {
             return false;
