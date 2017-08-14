@@ -31,7 +31,8 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
     public void open(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
-        ClickableInventory menu = new ClickableInventory(tl("gui.create-banner"));
+        String title = MessageUtil.format(tl("gui.prefix") + tl("gui.create-banner"));
+        ClickableInventory menu = new ClickableInventory(title);
         //取得當前編輯中的旗幟
         final ItemStack currentBanner = playerData.getCurrentEditBanner();
         if (currentBanner == null) {

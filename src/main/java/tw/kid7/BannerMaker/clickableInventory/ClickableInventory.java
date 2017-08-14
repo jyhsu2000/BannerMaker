@@ -1,11 +1,11 @@
 package tw.kid7.BannerMaker.clickableInventory;
 
 import com.google.common.collect.Maps;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 
 import java.util.HashMap;
 
@@ -29,8 +29,17 @@ public class ClickableInventory {
      * @param title 物品欄標題
      */
     public ClickableInventory(String title) {
-        //FIXME: 解耦合
-        inventory = InventoryMenuUtil.create(title);
+        this(title, 54);
+    }
+
+    /**
+     * 建構子
+     *
+     * @param title 物品欄標題
+     * @param size  物品欄尺寸
+     */
+    public ClickableInventory(String title, int size) {
+        inventory = Bukkit.createInventory(null, size, title);
     }
 
     /**
