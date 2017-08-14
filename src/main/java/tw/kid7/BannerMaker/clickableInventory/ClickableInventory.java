@@ -11,13 +11,13 @@ import java.util.HashMap;
 
 public class ClickableInventory {
     /**
-     * 物品欄
-     */
-    private Inventory inventory;
-    /**
      * 被玩家開啟的可點擊物品欄與物品欄的對應
      */
     final static HashMap<Inventory, ClickableInventory> openedClickableInventory = Maps.newHashMap();
+    /**
+     * 物品欄
+     */
+    private Inventory inventory;
     /**
      * 每個位置的可點擊物件
      */
