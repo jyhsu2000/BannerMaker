@@ -13,8 +13,6 @@ import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class InventoryMenuUtil {
 
-    static private final String hiddenPrefix = "&b&m&r";
-
     static public void openMenu(Player player) {
         openMenu(player, null);
     }
@@ -33,7 +31,7 @@ public class InventoryMenuUtil {
 
     public static Inventory create(String title) {
         Inventory menu;
-        String guiPrefix = hiddenPrefix + tl("gui.prefix");
+        String guiPrefix = tl("gui.prefix");
         String fullTitle = guiPrefix + title;
         int inventorySize = 54;
         //嘗試以完整標題建立
