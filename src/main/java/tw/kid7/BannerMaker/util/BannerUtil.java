@@ -218,6 +218,21 @@ public class BannerUtil {
     }
 
     /**
+     * 是否可以在生存模式合成（不超過6個pattern）
+     *
+     * @param banner 旗幟
+     * @return 是否可以合成
+     */
+    static public boolean isCraftableInSurvival(ItemStack banner) {
+        //只檢查旗幟
+        if (!isBanner(banner)) {
+            return false;
+        }
+        int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();
+        return patternCount <= 6;
+    }
+
+    /**
      * 從物品欄移除材料
      *
      * @param inventory 指定物品欄

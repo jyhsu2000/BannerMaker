@@ -52,13 +52,13 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             patternCountStr = tl("gui.no-patterns");
         }
         ItemStack signPatternCount;
-        if (patternCount <= 6) {
+        if (BannerUtil.isCraftableInSurvival(banner)) {
             signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).build();
         } else {
             signPatternCount = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + tl("gui.uncraftable"))).build();
         }
         menu.setItem(1, signPatternCount);
-        if (patternCount <= 6) {
+        if (BannerUtil.isCraftableInSurvival(banner)) {
             //材料是否充足
             ItemStack enoughMaterials;
             if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
