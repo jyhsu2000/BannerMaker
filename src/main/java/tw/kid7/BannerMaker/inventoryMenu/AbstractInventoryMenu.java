@@ -24,6 +24,7 @@ public abstract class AbstractInventoryMenu implements InventoryMenuInterface {
         //點擊類型
         ClickType clickType = event.getClick();
         //找出可點擊物品欄
+        //TODO ClickableInventory應該要有自己獨立的EventListener
         ClickableInventory clickableInventory = ClickableInventory.get(playerData.getInventoryMenuState(), player);
         if (clickableInventory == null) {
             return;
