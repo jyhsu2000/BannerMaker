@@ -4,12 +4,13 @@ import com.google.common.collect.Maps;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class PlayerDataMap {
     /**
      * 所有玩家資料實例
      */
-    private final HashMap<String, PlayerData> playerDataMap = Maps.newHashMap();
+    private final HashMap<UUID, PlayerData> playerDataMap = Maps.newHashMap();
 
     /**
      * 取得玩家資料實例
@@ -18,11 +19,11 @@ public class PlayerDataMap {
      * @return 玩家資料
      */
     public PlayerData get(Player player) {
-        String uuidString = player.getUniqueId().toString();
-        PlayerData playerData = playerDataMap.get(uuidString);
+        UUID uuid = player.getUniqueId();
+        PlayerData playerData = playerDataMap.get(uuid);
         if (playerData == null) {
             playerData = new PlayerData();
-            playerDataMap.put(uuidString, playerData);
+            playerDataMap.put(uuid, playerData);
         }
         return playerData;
     }
