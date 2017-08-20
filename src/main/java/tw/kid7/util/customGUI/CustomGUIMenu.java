@@ -3,7 +3,6 @@ package tw.kid7.util.customGUI;
 import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -48,11 +47,11 @@ public class CustomGUIMenu {
     /**
      * 開啟自定義選單
      *
-     * @param player 玩家
+     * @param humanEntity 玩家
      */
-    public void open(Player player) {
+    public void open(HumanEntity humanEntity) {
         openedCustomGUIMenuMap.put(inventory, this);
-        player.openInventory(inventory);
+        humanEntity.openInventory(inventory);
     }
 
     /**
