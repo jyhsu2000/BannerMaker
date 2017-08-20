@@ -4,28 +4,30 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CustomGUI {
-    private JavaPlugin plugin;
-
-    /**
-     * 建構子
-     *
-     * @param plugin 使用此機制的插件
-     */
-    public CustomGUI(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
+    private static boolean enabled = false;
 
     /**
      * 啟用流程
      */
-    public void enable() {
+    public static void enable(JavaPlugin plugin) {
         Bukkit.getPluginManager().registerEvents(new CustomGUIMenuListener(), plugin);
+        enabled = true;
     }
 
     /**
      * 禁用流程
      */
-    public void disable() {
+    public static void disable() {
+        enabled = false;
         CustomGUIMenu.closeAll();
+    }
+
+    /**
+     * 此機制是否已經啟用
+     *
+     * @return 是否已經啟用
+     */
+    static boolean isEnabled() {
+        return enabled;
     }
 }

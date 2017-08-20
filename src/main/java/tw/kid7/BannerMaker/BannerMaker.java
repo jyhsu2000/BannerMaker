@@ -23,7 +23,6 @@ public class BannerMaker extends JavaPlugin {
     private VersionHandler versionHandler = null;
     public CommandManager commandManager = null;
     public PlayerDataMap playerDataMap = null;
-    private CustomGUI customGUI = null;
 
     public VersionHandler getVersionHandler() {
         return versionHandler;
@@ -50,8 +49,7 @@ public class BannerMaker extends JavaPlugin {
         this.getCommand("BannerMaker").setExecutor(commandManager);
         this.getCommand("BannerMaker").setTabCompleter(commandManager);
         //CustomGUI
-        customGUI = new CustomGUI(this);
-        customGUI.enable();
+        CustomGUI.enable(this);
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
@@ -68,7 +66,7 @@ public class BannerMaker extends JavaPlugin {
     @Override
     public void onDisable() {
         //CustomGUI
-        customGUI.disable();
+        CustomGUI.disable();
     }
 
     public static BannerMaker getInstance() {

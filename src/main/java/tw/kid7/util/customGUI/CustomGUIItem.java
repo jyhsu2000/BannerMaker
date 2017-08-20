@@ -35,7 +35,7 @@ public class CustomGUIItem {
      * @param clickType 點擊類型
      * @return 動作
      */
-    public CustomGUIItemHandler get(ClickType clickType) {
+    private CustomGUIItemHandler get(ClickType clickType) {
         return customGUIItemHandlerMap.get(clickType);
     }
 
@@ -44,7 +44,7 @@ public class CustomGUIItem {
      *
      * @param clickType 點擊類型
      */
-    public void action(ClickType clickType) {
+    void action(ClickType clickType) {
         CustomGUIItemHandler customGUIItemHandler = get(clickType);
         if (customGUIItemHandler == null) {
             return;

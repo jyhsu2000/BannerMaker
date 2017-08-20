@@ -41,6 +41,9 @@ public class CustomGUIMenu {
      * @param size  物品欄尺寸
      */
     public CustomGUIMenu(String title, int size) {
+        if (!CustomGUI.isEnabled()) {
+            throw new RuntimeException("CustomGUI is not enabled.");
+        }
         inventory = Bukkit.createInventory(null, size, title);
     }
 
@@ -84,7 +87,7 @@ public class CustomGUIMenu {
      * @param slot      位置
      * @param clickType 點擊類型
      */
-    public void action(int slot, ClickType clickType) {
+    void action(int slot, ClickType clickType) {
         CustomGUIItem customGUIItem = customGUIItemMap.get(slot);
         if (customGUIItem == null) {
             return;
