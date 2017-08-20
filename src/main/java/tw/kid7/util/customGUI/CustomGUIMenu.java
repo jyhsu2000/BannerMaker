@@ -108,5 +108,7 @@ public class CustomGUIMenu {
         for (HumanEntity humanEntity : humanEntities) {
             humanEntity.closeInventory();
         }
+        //清空清單
+        openedCustomGUIMenuMap.clear();
     }
 }

@@ -10,6 +10,11 @@ public class CustomGUI {
      * 啟用流程
      */
     public static void enable(JavaPlugin plugin) {
+        //避免重複啟用
+        if (enabled) {
+            return;
+        }
+        //監聽事件
         Bukkit.getPluginManager().registerEvents(new CustomGUIMenuListener(), plugin);
         enabled = true;
     }
@@ -19,6 +24,7 @@ public class CustomGUI {
      */
     public static void disable() {
         enabled = false;
+        //關閉所有自定義選單
         CustomGUIMenu.closeAll();
     }
 
