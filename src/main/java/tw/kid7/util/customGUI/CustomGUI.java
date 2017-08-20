@@ -15,6 +15,6 @@ public class CustomGUI {
     }
 
     public void disable() {
-        //
+        CustomGUIMenu.closeAll();
     }
 }

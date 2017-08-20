@@ -2,12 +2,15 @@ package tw.kid7.util.customGUI;
 
 import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CustomGUIMenu {
     /**
@@ -88,5 +91,20 @@ public class CustomGUIMenu {
             return;
         }
         customGUIItem.action(clickType);
+    }
+
+    /**
+     * 關閉所有自定義選單
+     */
+    static void closeAll() {
+        //找出所有開啟選單的玩家
+        Set<HumanEntity> humanEntities = new HashSet<>();
+        for (Inventory inventory : openedCustomGUIMenuMap.keySet()) {
+            humanEntities.addAll(inventory.getViewers());
+        }
+        //逐一關閉選單
+        for (HumanEntity humanEntity : humanEntities) {
+            humanEntity.closeInventory();
+        }
     }
 }
