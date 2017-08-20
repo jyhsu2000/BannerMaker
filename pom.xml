@@ -1,13 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project>
     <modelVersion>4.0.0</modelVersion>
-
+    <!-- The Basics -->
     <groupId>tw.kid7</groupId>
     <artifactId>BannerMaker</artifactId>
     <version>1.8.0</version>
+    <dependencies>
+        <!-- Bukkit API -->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.12.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- VaultAPI -->
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.6</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- bstats -->
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>1.1</version>
+        </dependency>
+    </dependencies>
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
+    <!-- More Project Information -->
+    <name>BannerMaker</name>
+    <description>Use GUI to design any kind of banner</description>
+    <url>https://github.com/jyhsu2000/BannerMaker</url>
+    <inceptionYear>2015</inceptionYear>
+    <licenses>
+        <license>
+            <name>GNU General Public License, version 2</name>
+            <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0.html</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>jyhsu</id>
+            <name>KID</name>
+            <url>https://kid7.club/</url>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>Asia/Taipei</timezone>
+        </developer>
+    </developers>
+
+    <!-- Build Settings -->
     <build>
         <finalName>${project.artifactId}</finalName>
         <resources>
@@ -56,12 +105,7 @@
         </plugins>
     </build>
 
-    <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
+    <!-- Environment Settings -->
     <repositories>
         <repository>
             <id>spigot-repo</id>
@@ -76,26 +120,4 @@
             <url>http://repo.bstats.org/content/repositories/releases/</url>
         </repository>
     </repositories>
-
-    <dependencies>
-        <!--Bukkit API-->
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.12.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.milkbowl.vault</groupId>
-            <artifactId>VaultAPI</artifactId>
-            <version>1.6</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.bstats</groupId>
-            <artifactId>bstats-bukkit</artifactId>
-            <version>1.1</version>
-        </dependency>
-    </dependencies>
-
 </project>
