@@ -5,7 +5,7 @@ import org.bstats.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import tw.kid7.BannerMaker.customGUI.CustomGUIMenuListener;
+import tw.kid7.util.customGUI.CustomGUIMenuListener;
 import tw.kid7.BannerMaker.command.CommandManager;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;

@@ -8,8 +8,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.customGUI.CustomGUIItemListener;
-import tw.kid7.BannerMaker.customGUI.CustomGUIMenu;
+import tw.kid7.util.customGUI.CustomGUIItemListener;
+import tw.kid7.util.customGUI.CustomGUIMenu;
 import tw.kid7.BannerMaker.util.*;
 
 import java.util.List;

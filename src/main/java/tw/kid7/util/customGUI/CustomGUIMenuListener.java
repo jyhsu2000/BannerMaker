@@ -1,4 +1,4 @@
-package tw.kid7.BannerMaker.customGUI;
+package tw.kid7.util.customGUI;
 
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;

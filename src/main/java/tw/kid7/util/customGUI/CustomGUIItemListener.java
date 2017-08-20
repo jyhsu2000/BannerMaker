@@ -1,4 +1,4 @@
-package tw.kid7.BannerMaker.customGUI;
+package tw.kid7.util.customGUI;
 
 public interface CustomGUIItemListener {
     /**
