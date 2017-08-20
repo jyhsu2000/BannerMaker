@@ -5,13 +5,13 @@ import org.bstats.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import tw.kid7.util.customGUI.CustomGUIMenuListener;
 import tw.kid7.BannerMaker.command.CommandManager;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.version.VersionHandler;
 import tw.kid7.BannerMaker.version.VersionHandler_1_8;
+import tw.kid7.util.customGUI.CustomGUI;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +23,7 @@ public class BannerMaker extends JavaPlugin {
     private VersionHandler versionHandler = null;
     public CommandManager commandManager = null;
     public PlayerDataMap playerDataMap = null;
+    private CustomGUI customGUI = null;
 
     public VersionHandler getVersionHandler() {
         return versionHandler;
@@ -48,8 +49,9 @@ public class BannerMaker extends JavaPlugin {
         commandManager = new CommandManager(this);
         this.getCommand("BannerMaker").setExecutor(commandManager);
         this.getCommand("BannerMaker").setTabCompleter(commandManager);
-        //Listener
-        this.getServer().getPluginManager().registerEvents(new CustomGUIMenuListener(), this);
+        //CustomGUI
+        customGUI = new CustomGUI(this);
+        customGUI.enable();
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
@@ -65,7 +67,8 @@ public class BannerMaker extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        //CustomGUI
+        customGUI.disable();
     }
 
     public static BannerMaker getInstance() {
