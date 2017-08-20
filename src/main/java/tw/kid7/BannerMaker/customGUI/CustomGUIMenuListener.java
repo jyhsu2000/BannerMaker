@@ -1,4 +1,4 @@
-package tw.kid7.BannerMaker.customMenu;
+package tw.kid7.BannerMaker.customGUI;
 
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -9,14 +9,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
-public class CustomMenuListener implements Listener {
+public class CustomGUIMenuListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Inventory inventory = event.getInventory();
         //只處理自定義選單
-        CustomMenu customMenu = CustomMenu.openedCustomMenuMap.get(inventory);
-        if (customMenu == null) {
+        CustomGUIMenu customGUIMenu = CustomGUIMenu.openedCustomGUIMenuMap.get(inventory);
+        if (customGUIMenu == null) {
             return;
         }
         //取消事件
@@ -31,12 +31,12 @@ public class CustomMenuListener implements Listener {
         //點擊類型
         ClickType clickType = event.getClick();
         //觸發點擊事件
-        customMenu.action(rawSlot, clickType);
+        customGUIMenu.action(rawSlot, clickType);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onInventoryClose(InventoryCloseEvent event) {
         Inventory inventory = event.getInventory();
-        CustomMenu.openedCustomMenuMap.remove(inventory);
+        CustomGUIMenu.openedCustomGUIMenuMap.remove(inventory);
     }
 }

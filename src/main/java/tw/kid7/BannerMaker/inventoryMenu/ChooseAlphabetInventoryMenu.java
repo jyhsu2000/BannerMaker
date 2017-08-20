@@ -11,8 +11,8 @@ import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.customMenu.CustomMenuAction;
-import tw.kid7.BannerMaker.customMenu.CustomMenu;
+import tw.kid7.BannerMaker.customGUI.CustomGUIItemListener;
+import tw.kid7.BannerMaker.customGUI.CustomGUIMenu;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.ItemBuilder;
@@ -35,7 +35,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
         String title = MessageUtil.format(tl("gui.prefix") + tl("gui.alphabet-and-number"));
-        CustomMenu menu = new CustomMenu(title);
+        CustomGUIMenu menu = new CustomGUIMenu(title);
         //清除當前編輯中的字母
         playerData.setCurrentAlphabetBanner(null);
         //邊框切換按鈕
@@ -52,7 +52,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
             char alphabet = alphabetArray[i];
             final AlphabetBanner alphabetBanner = new AlphabetBanner(String.valueOf(alphabet), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
             ItemStack alphabetItem = alphabetBanner.toItemStack();
-            menu.setClickableItem(i, alphabetItem).set(ClickType.LEFT, new CustomMenuAction() {
+            menu.setClickableItem(i, alphabetItem).set(ClickType.LEFT, new CustomGUIItemListener() {
                 @Override
                 public void action() {
                     //設定當前編輯中的字母
@@ -62,7 +62,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
             });
         }
         //切換有無邊框
-        menu.setClickableItem(49, btnBorderedBanner).set(ClickType.LEFT, new CustomMenuAction() {
+        menu.setClickableItem(49, btnBorderedBanner).set(ClickType.LEFT, new CustomGUIItemListener() {
             @Override
             public void action() {
                 playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
@@ -72,7 +72,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
 
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
-        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomMenuAction() {
+        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemListener() {
             @Override
             public void action() {
                 InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);

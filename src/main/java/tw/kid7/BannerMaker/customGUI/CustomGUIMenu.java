@@ -1,4 +1,4 @@
-package tw.kid7.BannerMaker.customMenu;
+package tw.kid7.BannerMaker.customGUI;
 
 import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
@@ -9,11 +9,11 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-public class CustomMenu {
+public class CustomGUIMenu {
     /**
      * 被玩家開啟的自定義選單與物品欄的對應
      */
-    final static HashMap<Inventory, CustomMenu> openedCustomMenuMap = Maps.newHashMap();
+    final static HashMap<Inventory, CustomGUIMenu> openedCustomGUIMenuMap = Maps.newHashMap();
     /**
      * 物品欄
      */
@@ -21,14 +21,14 @@ public class CustomMenu {
     /**
      * 每個位置的自定義選單物品
      */
-    private final HashMap<Integer, CustomMenuItem> customMenuItemMap = Maps.newHashMap();
+    private final HashMap<Integer, CustomGUIItem> customGUIItemMap = Maps.newHashMap();
 
     /**
      * 建構子
      *
      * @param title 選單標題
      */
-    public CustomMenu(String title) {
+    public CustomGUIMenu(String title) {
         this(title, 54);
     }
 
@@ -38,7 +38,7 @@ public class CustomMenu {
      * @param title 選單標題
      * @param size  物品欄尺寸
      */
-    public CustomMenu(String title, int size) {
+    public CustomGUIMenu(String title, int size) {
         inventory = Bukkit.createInventory(null, size, title);
     }
 
@@ -48,7 +48,7 @@ public class CustomMenu {
      * @param player 玩家
      */
     public void open(Player player) {
-        openedCustomMenuMap.put(inventory, this);
+        openedCustomGUIMenuMap.put(inventory, this);
         player.openInventory(inventory);
     }
 
@@ -69,11 +69,11 @@ public class CustomMenu {
      * @param itemStack 顯示用物品
      * @return 自定義選單物品
      */
-    public CustomMenuItem setClickableItem(int slot, ItemStack itemStack) {
+    public CustomGUIItem setClickableItem(int slot, ItemStack itemStack) {
         setItem(slot, itemStack);
-        CustomMenuItem customMenuItem = new CustomMenuItem();
-        customMenuItemMap.put(slot, customMenuItem);
-        return customMenuItem;
+        CustomGUIItem customGUIItem = new CustomGUIItem();
+        customGUIItemMap.put(slot, customGUIItem);
+        return customGUIItem;
     }
 
     /**
@@ -83,10 +83,10 @@ public class CustomMenu {
      * @param clickType 點擊類型
      */
     public void action(int slot, ClickType clickType) {
-        CustomMenuItem customMenuItem = customMenuItemMap.get(slot);
-        if (customMenuItem == null) {
+        CustomGUIItem customGUIItem = customGUIItemMap.get(slot);
+        if (customGUIItem == null) {
             return;
         }
-        customMenuItem.action(clickType);
+        customGUIItem.action(clickType);
     }
 }

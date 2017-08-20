@@ -5,7 +5,7 @@ import org.bstats.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import tw.kid7.BannerMaker.customMenu.CustomMenuListener;
+import tw.kid7.BannerMaker.customGUI.CustomGUIMenuListener;
 import tw.kid7.BannerMaker.command.CommandManager;
 import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;
@@ -49,7 +49,7 @@ public class BannerMaker extends JavaPlugin {
         this.getCommand("BannerMaker").setExecutor(commandManager);
         this.getCommand("BannerMaker").setTabCompleter(commandManager);
         //Listener
-        this.getServer().getPluginManager().registerEvents(new CustomMenuListener(), this);
+        this.getServer().getPluginManager().registerEvents(new CustomGUIMenuListener(), this);
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
