@@ -11,6 +11,11 @@ import org.bukkit.inventory.Inventory;
 
 public class CustomGUIMenuListener implements Listener {
 
+    /**
+     * 點擊時的處理
+     *
+     * @param event 點擊事件
+     */
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Inventory inventory = event.getInventory();
@@ -34,6 +39,11 @@ public class CustomGUIMenuListener implements Listener {
         customGUIMenu.action(rawSlot, clickType);
     }
 
+    /**
+     * 關閉物品欄時，將物品欄從清單移除，避免誤進入自定義選單的事件處理
+     *
+     * @param event 物品欄關閉事件
+     */
     @EventHandler(priority = EventPriority.MONITOR)
     public void onInventoryClose(InventoryCloseEvent event) {
         Inventory inventory = event.getInventory();
