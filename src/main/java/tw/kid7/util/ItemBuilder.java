@@ -1,26 +1,16 @@
-package tw.kid7.BannerMaker.util;
+package tw.kid7.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.material.MaterialData;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import tw.kid7.BannerMaker.BannerMaker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is a chainable builder for {@link ItemStack}s in {@link Bukkit}
@@ -28,29 +18,23 @@ import tw.kid7.BannerMaker.BannerMaker;
  * Example Usage:<br>
  * {@code ItemStack is = new ItemBuilder(Material.LEATHER_HELMET).amount(2).data(4).durability(4).enchantment(Enchantment.ARROW_INFINITE).enchantment(Enchantment.LUCK, 2).name(ChatColor.RED + "the name").lore(ChatColor.GREEN + "line 1").lore(ChatColor.BLUE + "line 2").color(Color.MAROON).build();
  *
- * @author MiniDigger
- * @version 1.2
+ * @version 1.0
  */
-public class ItemBuilder implements Listener {
-
-    private static final Plugin plugin = BannerMaker.getInstance();
-    private static boolean listener = false;
-    private static final HashMap<String, PotionEffect> effects = Maps.newHashMap();
-
+public class ItemBuilder {
     private final ItemStack is;
 
     /**
-     * Inits the builder with the given {@link Material}
+     * Initialize the builder with the given {@link Material}
      *
-     * @param mat the {@link Material} to start the builder from
+     * @param material the {@link Material} to start the builder from
      * @since 1.0
      */
-    public ItemBuilder(final Material mat) {
-        is = new ItemStack(mat);
+    public ItemBuilder(final Material material) {
+        is = new ItemStack(material);
     }
 
     /**
-     * Inits the builder with the given {@link ItemStack}
+     * Initialize the builder with the given {@link ItemStack}
      *
      * @param is the {@link ItemStack} to start the builder from
      * @since 1.0
@@ -157,12 +141,12 @@ public class ItemBuilder implements Listener {
     /**
      * Changes the {@link Material} of the {@link ItemStack}
      *
-     * @param data the new material to set
+     * @param material the new material to set
      * @return this builder for chaining
      * @since 1.0
      */
-    public ItemBuilder type(final Material data) {
-        is.setType(data);
+    public ItemBuilder type(final Material material) {
+        is.setType(material);
         return this;
     }
 
@@ -197,11 +181,11 @@ public class ItemBuilder implements Listener {
      *
      * @param color the {@link Color} to use
      * @return this builder for chaining
-     * @since 1.1
+     * @since 1.0
      */
     public ItemBuilder color(Color color) {
-        if (is.getType() == Material.LEATHER_BOOTS || is.getType() == Material.LEATHER_CHESTPLATE || is.getType() == Material.LEATHER_HELMET
-                || is.getType() == Material.LEATHER_LEGGINGS) {
+        if (is.getType() == Material.LEATHER_BOOTS || is.getType() == Material.LEATHER_CHESTPLATE
+            || is.getType() == Material.LEATHER_HELMET || is.getType() == Material.LEATHER_LEGGINGS) {
             LeatherArmorMeta meta = (LeatherArmorMeta) is.getItemMeta();
             meta.setColor(color);
             is.setItemMeta(meta);
@@ -209,72 +193,6 @@ public class ItemBuilder implements Listener {
         } else {
             throw new IllegalArgumentException("color() only applicable for leather armor!");
         }
-    }
-
-    /**
-     * Adds a effects to the item. The effects gets applied to player when
-     * <s>wearing the item</s> (later) or consuming it
-     *
-     * @param type      the {@link PotionEffectType} to apply
-     * @param duration  the duration in ticks (-1 for endless)
-     * @param amplifier the amplifier of the effect
-     * @param ambient   the       ambient status
-     * @return this builder for chaining
-     * @since 1.2
-     */
-    public ItemBuilder effect(PotionEffectType type, int duration, int amplifier, boolean ambient) {
-        effect(new PotionEffect(type, duration, amplifier, ambient));
-        return this;
-    }
-
-    /**
-     * Adds a effects to the item. The effects gets applied to player when
-     * <s>wearing the item</s> (later) or consuming it
-     *
-     * @param effect the effect to apply
-     * @return this builder for chaining
-     * @since 1.2
-     */
-    public ItemBuilder effect(PotionEffect effect) {
-        if (!listener) {
-            Bukkit.getPluginManager().registerEvents(this, plugin);
-            listener = true;
-        }
-        String name = is.getItemMeta().getDisplayName();
-        while (effects.containsKey(name)) {
-            name = name + "#";
-        }
-        effects.put(name, effect);
-        return this;
-    }
-
-    /**
-     * Adds a effects to the item. The effects gets applied to player when
-     * <s>wearing the item</s> (later) or consuming it
-     *
-     * @param type      the {@link PotionEffectType} to apply
-     * @param duration  the duration in ticks (-1 for endless)
-     * @param amplifier the amplifier of the effect
-     * @return this builder for chaining
-     * @since 1.2
-     */
-    public ItemBuilder effect(PotionEffectType type, int duration, int amplifier) {
-        effect(new PotionEffect(type, duration == -1 ? 1000000 : duration, amplifier));
-        return this;
-    }
-
-    /**
-     * Adds a effects to the item. The effects gets applied to player when
-     * <s>wearing the item</s> (later) or consuming it
-     *
-     * @param type     the {@link PotionEffectType} to apply
-     * @param duration the duration (-1 for endless)
-     * @return this builder for chaining
-     * @since 1.2
-     */
-    public ItemBuilder effect(PotionEffectType type, int duration) {
-        effect(new PotionEffect(type, duration == -1 ? 1000000 : duration, 1));
-        return this;
     }
 
     /**
@@ -286,23 +204,4 @@ public class ItemBuilder implements Listener {
     public ItemStack build() {
         return is;
     }
-
-    @EventHandler
-    public void onItemConsume(PlayerItemConsumeEvent e) {
-        if (e.getItem().hasItemMeta()) {
-            @SuppressWarnings("unchecked") HashMap<String, PotionEffect> copy = (HashMap<String, PotionEffect>) effects.clone();
-            String name = e.getItem().getItemMeta().getDisplayName();
-            while (copy.containsKey(name)) {
-                e.getPlayer().addPotionEffect(copy.get(name), true);
-                copy.remove(name);
-                name += "#";
-            }
-        }
-    }
-
-    @EventHandler
-    public void onItemApply(InventoryClickEvent e) {
-        // TODO add effects when item is applied
-    }
-
 }
