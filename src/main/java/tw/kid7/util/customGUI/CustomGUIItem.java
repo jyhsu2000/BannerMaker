@@ -9,7 +9,7 @@ public class CustomGUIItem {
     /**
      * 各點擊類型的動作
      */
-    private HashMap<ClickType, CustomGUIItemListener> customGUIItemListenerMap = Maps.newHashMap();
+    private HashMap<ClickType, CustomGUIItemHandler> customGUIItemHandlerMap = Maps.newHashMap();
 
     /**
      * 建構子
@@ -21,11 +21,11 @@ public class CustomGUIItem {
      * 設定特定點擊類型的動作
      *
      * @param clickType 點擊類型
-     * @param customGUIItemListener 動作
+     * @param customGUIItemHandler 動作
      * @return this
      */
-    public CustomGUIItem set(ClickType clickType, CustomGUIItemListener customGUIItemListener) {
-        customGUIItemListenerMap.put(clickType, customGUIItemListener);
+    public CustomGUIItem set(ClickType clickType, CustomGUIItemHandler customGUIItemHandler) {
+        customGUIItemHandlerMap.put(clickType, customGUIItemHandler);
         return this;
     }
 
@@ -35,8 +35,8 @@ public class CustomGUIItem {
      * @param clickType 點擊類型
      * @return 動作
      */
-    public CustomGUIItemListener get(ClickType clickType) {
-        return customGUIItemListenerMap.get(clickType);
+    public CustomGUIItemHandler get(ClickType clickType) {
+        return customGUIItemHandlerMap.get(clickType);
     }
 
     /**
@@ -45,10 +45,10 @@ public class CustomGUIItem {
      * @param clickType 點擊類型
      */
     public void action(ClickType clickType) {
-        CustomGUIItemListener customGUIItemListener = get(clickType);
-        if (customGUIItemListener == null) {
+        CustomGUIItemHandler customGUIItemHandler = get(clickType);
+        if (customGUIItemHandler == null) {
             return;
         }
-        customGUIItemListener.action();
+        customGUIItemHandler.action();
     }
 }

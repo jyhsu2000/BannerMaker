@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.util.customGUI.CustomGUIItemListener;
+import tw.kid7.util.customGUI.CustomGUIItemHandler;
 import tw.kid7.util.customGUI.CustomGUIMenu;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
@@ -52,7 +52,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
             char alphabet = alphabetArray[i];
             final AlphabetBanner alphabetBanner = new AlphabetBanner(String.valueOf(alphabet), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
             ItemStack alphabetItem = alphabetBanner.toItemStack();
-            menu.setClickableItem(i, alphabetItem).set(ClickType.LEFT, new CustomGUIItemListener() {
+            menu.setClickableItem(i, alphabetItem).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action() {
                     //設定當前編輯中的字母
@@ -62,7 +62,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
             });
         }
         //切換有無邊框
-        menu.setClickableItem(49, btnBorderedBanner).set(ClickType.LEFT, new CustomGUIItemListener() {
+        menu.setClickableItem(49, btnBorderedBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {
                 playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
@@ -72,7 +72,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
 
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
-        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemListener() {
+        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {
                 InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);

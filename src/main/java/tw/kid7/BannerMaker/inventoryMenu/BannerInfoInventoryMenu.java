@@ -8,7 +8,7 @@ import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.util.customGUI.CustomGUIItemListener;
+import tw.kid7.util.customGUI.CustomGUIItemHandler;
 import tw.kid7.util.customGUI.CustomGUIMenu;
 import tw.kid7.util.customGUI.CustomGUIItem;
 import tw.kid7.BannerMaker.util.*;
@@ -95,7 +95,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             //上一頁
             if (currentRecipePage > 1) {
                 ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page"))).build();
-                menu.setClickableItem(22, prevPage).set(ClickType.LEFT, new CustomGUIItemListener() {
+                menu.setClickableItem(22, prevPage).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
                     public void action() {
                         playerData.setCurrentRecipePage(currentRecipePage - 1);
@@ -106,7 +106,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             //下一頁
             if (currentRecipePage < totalPage) {
                 ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&a" + tl("gui.next-page"))).build();
-                menu.setClickableItem(26, nextPage).set(ClickType.LEFT, new CustomGUIItemListener() {
+                menu.setClickableItem(26, nextPage).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
                     public void action() {
                         playerData.setCurrentRecipePage(currentRecipePage + 1);
@@ -130,7 +130,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         if (key != null) {
             //有KEY時（儲存於玩家資料時），才顯示刪除按鈕
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete"))).build();
-            menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, new CustomGUIItemListener() {
+            menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action() {
                     //刪除
@@ -149,7 +149,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 //左鍵：免費取得
                 btnGetBannerBuilder.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-for-free")));
                 ItemStack btnGetBanner = btnGetBannerBuilder.build();
-                menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new CustomGUIItemListener() {
+                menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
                     public void action() {
                         //取得旗幟
@@ -170,7 +170,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                     btnGetBannerBuilder.lore(MessageUtil.format("&e[" + tl("gui.click.right") + "] &a" + tl("gui.buy-banner-in-price", priceStr)));
                 }
                 ItemStack btnGetBanner = btnGetBannerBuilder.build();
-                CustomGUIItem customGUIItemGetBanner = menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new CustomGUIItemListener() {
+                CustomGUIItem customGUIItemGetBanner = menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
                     public void action() {
                         //嘗試合成旗幟
@@ -185,7 +185,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 });
                 //檢查是否啟用經濟
                 if (BannerMaker.getInstance().econ != null) {
-                    customGUIItemGetBanner.set(ClickType.RIGHT, new CustomGUIItemListener() {
+                    customGUIItemGetBanner.set(ClickType.RIGHT, new CustomGUIItemHandler() {
                         @Override
                         public void action() {
                             //取得旗幟
@@ -210,7 +210,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         }
         //複製並編輯
         ItemStack btnCloneAndEdit = new ItemBuilder(Material.BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + tl("gui.clone-and-edit"))).build();
-        menu.setClickableItem(51, btnCloneAndEdit).set(ClickType.LEFT, new CustomGUIItemListener() {
+        menu.setClickableItem(51, btnCloneAndEdit).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {
                 //設定為編輯中旗幟
@@ -222,7 +222,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         //TODO 產生指令
         //返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
-        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemListener() {
+        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {
                 if (BannerUtil.isAlphabetBanner(banner)) {

@@ -1,6 +1,6 @@
 package tw.kid7.util.customGUI;
 
-public interface CustomGUIItemListener {
+public interface CustomGUIItemHandler {
     /**
      * 點擊動作
      */
