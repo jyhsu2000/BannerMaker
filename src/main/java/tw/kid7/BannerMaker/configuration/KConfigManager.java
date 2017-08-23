@@ -49,7 +49,7 @@ public class KConfigManager {
             try {
                 plugin.saveResource(fileName, false);
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
         if (!isFileLoaded(fileName)) {
@@ -130,7 +130,7 @@ public class KConfigManager {
         try {
             configs.get(fileName).load(file);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -148,7 +148,7 @@ public class KConfigManager {
         try {
             configs.get(fileName).save(file);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
