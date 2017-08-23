@@ -1,11 +1,11 @@
 package tw.kid7.BannerMaker.util;
 
+import club.kid7.pluginutilities.gui.CustomGUIManager;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.customMenu.BannerInfoMenu;
-import tw.kid7.util.customGUI.CustomGUIManager;
 
 public class InventoryMenuUtil {
 

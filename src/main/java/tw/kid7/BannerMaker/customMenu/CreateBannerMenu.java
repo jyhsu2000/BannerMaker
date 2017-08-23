@@ -1,5 +1,9 @@
 package tw.kid7.BannerMaker.customMenu;
 
+import club.kid7.pluginutilities.gui.CustomGUIInventory;
+import club.kid7.pluginutilities.gui.CustomGUIItemHandler;
+import club.kid7.pluginutilities.gui.CustomGUIManager;
+import club.kid7.pluginutilities.gui.CustomGUIMenu;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -15,10 +19,6 @@ import tw.kid7.BannerMaker.util.BannerUtil;
 import tw.kid7.BannerMaker.util.DyeColorUtil;
 import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
-import tw.kid7.util.customGUI.CustomGUIInventory;
-import tw.kid7.util.customGUI.CustomGUIItemHandler;
-import tw.kid7.util.customGUI.CustomGUIManager;
-import tw.kid7.util.customGUI.CustomGUIMenu;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
 

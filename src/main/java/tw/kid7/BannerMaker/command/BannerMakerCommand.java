@@ -1,11 +1,11 @@
 package tw.kid7.BannerMaker.command;
 
+import club.kid7.pluginutilities.gui.CustomGUIManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.customMenu.MainMenu;
-import tw.kid7.util.customGUI.CustomGUIManager;
 
 class BannerMakerCommand extends AbstractCommand {
     //名稱
