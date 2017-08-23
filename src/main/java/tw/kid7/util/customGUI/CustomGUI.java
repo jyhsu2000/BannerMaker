@@ -1,15 +1,17 @@
 package tw.kid7.util.customGUI;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CustomGUI {
+    private static final Plugin plugin = JavaPlugin.getProvidingPlugin(CustomGUI.class);
     private static boolean enabled = false;
 
     /**
      * 啟用流程
      */
-    public static void enable(JavaPlugin plugin) {
+    public static void enable() {
         //避免重複啟用
         if (enabled) {
             return;

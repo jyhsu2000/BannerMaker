@@ -49,7 +49,7 @@ public class BannerMaker extends JavaPlugin {
         this.getCommand("BannerMaker").setExecutor(commandManager);
         this.getCommand("BannerMaker").setTabCompleter(commandManager);
         //CustomGUI
-        CustomGUI.enable(this);
+        CustomGUI.enable();
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
