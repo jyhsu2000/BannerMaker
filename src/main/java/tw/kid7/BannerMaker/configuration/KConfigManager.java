@@ -1,6 +1,5 @@
 package tw.kid7.BannerMaker.configuration;
 
-
 import com.google.common.collect.Maps;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -160,15 +159,6 @@ public class KConfigManager {
     public static void reloadAll() {
         for (String fileName : configs.keySet()) {
             reload(fileName);
-        }
-    }
-
-    /**
-     * Save all config in memory into file
-     */
-    public static void saveAll() {
-        for (String fileName : configs.keySet()) {
-            save(fileName);
         }
     }
 }

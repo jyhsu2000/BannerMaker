@@ -25,8 +25,7 @@ public class Language {
     public void loadLanguage() {
         //從設定檔取得語言
         String configFileName = "config.yml";
-        ConfigManager.load(configFileName);
-        FileConfiguration config = ConfigManager.get(configFileName);
+        FileConfiguration config = KConfigManager.get(configFileName);
         String defaultLanguage = "en";
         language = defaultLanguage;
         if (config != null && config.contains("Language")) {
@@ -57,11 +56,11 @@ public class Language {
                 language = defaultLanguage;
                 assert config != null;
                 config.set("Language", language);
-                ConfigManager.save(configFileName);
+                KConfigManager.save(configFileName);
             }
         }
         //載入語言包
-        ConfigManager.load(getFileName(language));
+        KConfigManager.load(getFileName(language));
         //檢查語言包
         checkConfig(language);
         bm.getLogger().info("Language: " + language);
@@ -79,15 +78,11 @@ public class Language {
     }
 
     private String get(String path, Object... args) {
-        if (!ConfigManager.isFileLoaded(getFileName(language))) {
-            return null;
-        }
-        FileConfiguration config = ConfigManager.get(getFileName(language));
-        assert config != null;
+        FileConfiguration config = KConfigManager.get(getFileName(language));
         if (!config.contains(path) || !config.isString(path)) {
             //若無法取得，則自該語言資源檔取得，並儲存於語系檔
             config.set(path, getFromLanguageResource(path, args));
-            ConfigManager.save(getFileName(language));
+            KConfigManager.save(getFileName(language));
         }
         return replaceArgument((String) config.get(path), args);
     }
@@ -125,8 +120,7 @@ public class Language {
 
     private void checkConfig(String lang) {
         //當前語言設定檔
-        FileConfiguration config = ConfigManager.get(getFileName(lang));
-        assert config != null;
+        FileConfiguration config = KConfigManager.get(getFileName(lang));
         //根據預設語言資源檔檢查
         int newSettingCount = 0;
         for (String key : defaultLanguageConfigResource.getKeys(true)) {
@@ -149,7 +143,7 @@ public class Language {
             newSettingCount++;
         }
         if (newSettingCount > 0) {
-            ConfigManager.save(getFileName(lang));
+            KConfigManager.save(getFileName(lang));
             bm.getServer().getConsoleSender().sendMessage(MessageUtil.format(true, tl("config.add-setting", newSettingCount)));
         }
     }

@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.configuration.ConfigManager;
+import tw.kid7.BannerMaker.configuration.KConfigManager;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class EconUtil {
         if (BannerMaker.getInstance().econ == null) {
             return 0;
         }
-        FileConfiguration config = ConfigManager.get("config.yml");
+        FileConfiguration config = KConfigManager.get("config");
         if (config == null) {
             return 0;
         }
@@ -38,8 +38,8 @@ public class EconUtil {
     }
 
     private static double getMaterialPrice(ItemStack itemStack) {
-        String priceConfigFileName = "price.yml";
-        FileConfiguration priceConfig = ConfigManager.get(priceConfigFileName);
+        String priceConfigFileName = "price";
+        FileConfiguration priceConfig = KConfigManager.get(priceConfigFileName);
         if (priceConfig == null) {
             return 0;
         }
@@ -67,7 +67,7 @@ public class EconUtil {
         //檢查設定
         if (!priceConfig.contains(configPath)) {
             priceConfig.set(configPath, 0);
-            ConfigManager.save(priceConfigFileName);
+            KConfigManager.save(priceConfigFileName);
         }
 
         //取得金額

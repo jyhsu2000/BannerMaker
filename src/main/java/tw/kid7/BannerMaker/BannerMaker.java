@@ -6,8 +6,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import tw.kid7.BannerMaker.command.CommandManager;
-import tw.kid7.BannerMaker.configuration.ConfigManager;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;
+import tw.kid7.BannerMaker.configuration.KConfigManager;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.version.VersionHandler;
 import tw.kid7.BannerMaker.version.VersionHandler_1_8;
@@ -53,8 +53,7 @@ public class BannerMaker extends JavaPlugin {
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
-            String configFileName = config + ".yml";
-            ConfigManager.load(configFileName);
+            KConfigManager.load(config);
         }
         //Reload
         reload();
@@ -74,7 +73,7 @@ public class BannerMaker extends JavaPlugin {
 
     public void reload() {
         //Reload Config
-        ConfigManager.reloadAll();
+        KConfigManager.reloadAll();
         //載入語言包
         new Language(this).loadLanguage();
         //Check Default Config
@@ -86,8 +85,7 @@ public class BannerMaker extends JavaPlugin {
             getLogger().info("Disable economy supported");
         }
         //設定檔
-        String configFileName = "config.yml";
-        FileConfiguration config = ConfigManager.get(configFileName);
+        FileConfiguration config = KConfigManager.get("config");
         if (config != null) {
             //字母與數字
             enableAlphabetAndNumber = config.getBoolean("AlphabetAndNumberBanner.Enable", true);
@@ -99,9 +97,7 @@ public class BannerMaker extends JavaPlugin {
     private boolean setupEconomy() {
         econ = null;
         //檢查設定
-        String configFileName = "config.yml";
-        FileConfiguration config = ConfigManager.get(configFileName);
-        assert config != null;
+        FileConfiguration config = KConfigManager.get("config");
         //若無啟用經濟
         if (!config.getBoolean("Economy.Enable", false)) {
             return false;

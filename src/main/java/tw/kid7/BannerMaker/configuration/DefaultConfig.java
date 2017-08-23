@@ -26,7 +26,7 @@ public class DefaultConfig {
         for (String configName : defaultConfigs) {
             //當前設定檔
             String configFileName = configName + ".yml";
-            FileConfiguration config = ConfigManager.get(configFileName);
+            FileConfiguration config = KConfigManager.get(configFileName);
             if (config == null) {
                 continue;
             }
@@ -54,7 +54,7 @@ public class DefaultConfig {
                 newSettingCount++;
             }
             if (newSettingCount > 0) {
-                ConfigManager.save(configFileName);
+                KConfigManager.save(configFileName);
                 bm.getServer().getConsoleSender().sendMessage(MessageUtil.format(true, tl("config.add-setting", newSettingCount)));
             }
         }
