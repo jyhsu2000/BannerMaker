@@ -29,7 +29,7 @@
         <dependency>
             <groupId>com.github.jyhsu2000</groupId>
             <artifactId>PluginUtilities</artifactId>
-            <version>master-SNAPSHOT</version>
+            <version>1.0.2</version>
         </dependency>
     </dependencies>
     <properties>

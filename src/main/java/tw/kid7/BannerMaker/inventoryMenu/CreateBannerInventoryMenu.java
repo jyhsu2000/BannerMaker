@@ -1,6 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
-import club.kid7.PluginUtilities.KItemStack.KItemStack;
+import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
