@@ -30,6 +30,9 @@ public class CustomGUIManager {
             if (lastOpenedMenuClass == null) {
                 lastOpenedMenuClass = defaultMenuClass;
             }
+            if (lastOpenedMenuClass == null) {
+                return;
+            }
             CustomGUIMenu menu = lastOpenedMenuClass.newInstance();
             CustomGUIInventory inventory = menu.build(player);
             if (inventory == null) {
