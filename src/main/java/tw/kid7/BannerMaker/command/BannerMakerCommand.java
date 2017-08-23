@@ -4,7 +4,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.util.InventoryMenuUtil;
+import tw.kid7.BannerMaker.customMenu.MainMenu;
+import tw.kid7.util.customGUI.CustomGUIManager;
 
 class BannerMakerCommand extends AbstractCommand {
     //名稱
@@ -26,7 +27,7 @@ class BannerMakerCommand extends AbstractCommand {
     boolean handle(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         //開啟選單
-        InventoryMenuUtil.openMenu(player);
+        CustomGUIManager.openPrevious(player, MainMenu.class);
         return true;
     }
 }

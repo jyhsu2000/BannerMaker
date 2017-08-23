@@ -1,4 +1,4 @@
-package tw.kid7.BannerMaker.inventoryMenu;
+package tw.kid7.BannerMaker.customMenu;
 
 import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.DyeColor;
@@ -10,26 +10,21 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
-import tw.kid7.BannerMaker.util.*;
+import tw.kid7.BannerMaker.util.BannerUtil;
+import tw.kid7.BannerMaker.util.DyeColorUtil;
+import tw.kid7.BannerMaker.util.IOUtil;
+import tw.kid7.BannerMaker.util.MessageUtil;
 import tw.kid7.util.customGUI.CustomGUIInventory;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
+import tw.kid7.util.customGUI.CustomGUIManager;
+import tw.kid7.util.customGUI.CustomGUIMenu;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
 
-public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
-    private static CreateBannerInventoryMenu instance = null;
-
-    public static CreateBannerInventoryMenu getInstance() {
-        if (instance == null) {
-            instance = new CreateBannerInventoryMenu();
-        }
-        return instance;
-    }
-
+public class CreateBannerMenu implements CustomGUIMenu {
     @Override
-    public void open(final Player player) {
+    public CustomGUIInventory build(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
         String title = MessageUtil.format(tl("gui.prefix") + tl("gui.create-banner"));
@@ -44,7 +39,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                     @Override
                     public void action() {
                         playerData.setCurrentEditBanner(banner);
-                        InventoryMenuUtil.openMenu(player);
+                        CustomGUIManager.openPrevious(player);
                     }
                 });
             }
@@ -65,7 +60,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                     @Override
                     public void action() {
                         playerData.setSelectedColor(DyeColorUtil.fromInt(dye.getDurability()));
-                        InventoryMenuUtil.openMenu(player);
+                        CustomGUIManager.openPrevious(player);
                     }
                 });
             }
@@ -96,7 +91,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                         currentBm.addPattern(pattern);
                         currentBanner.setItemMeta(currentBm);
                         playerData.setCurrentEditBanner(currentBanner);
-                        InventoryMenuUtil.openMenu(player);
+                        CustomGUIManager.openPrevious(player);
                     }
                 });
             }
@@ -106,7 +101,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 @Override
                 public void action() {
                     playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
-                    InventoryMenuUtil.openMenu(player);
+                    CustomGUIManager.openPrevious(player);
                 }
             });
         }
@@ -115,7 +110,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {
-                InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
+                CustomGUIManager.open(player, MainMenu.class);
             }
         });
         if (currentBanner != null) {
@@ -126,7 +121,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 public void action() {
                     IOUtil.saveBanner(player, currentBanner);
                     playerData.setCurrentEditBanner(null);
-                    InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
+                    CustomGUIManager.open(player, MainMenu.class);
                 }
             });
             //刪除
@@ -135,7 +130,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 @Override
                 public void action() {
                     playerData.setCurrentEditBanner(null);
-                    InventoryMenuUtil.openMenu(player);
+                    CustomGUIManager.openPrevious(player);
                 }
             });
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
@@ -148,12 +143,11 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                         bm.removePattern(bm.numberOfPatterns() - 1);
                         currentBanner.setItemMeta(bm);
                         playerData.setCurrentEditBanner(currentBanner);
-                        InventoryMenuUtil.openMenu(player);
+                        CustomGUIManager.openPrevious(player);
                     }
                 });
             }
         }
-        //開啟選單
-        menu.open(player);
+        return menu;
     }
 }

@@ -2,14 +2,12 @@ package tw.kid7.BannerMaker;
 
 import org.bukkit.DyeColor;
 import org.bukkit.inventory.ItemStack;
-import tw.kid7.BannerMaker.inventoryMenu.AbstractInventoryMenu;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
 
 public class PlayerData {
     /**
      * 選單狀態
      */
-    private InventoryMenuState inventoryMenuState = InventoryMenuState.MAIN_MENU;
 
     private Integer currentPage = 1;
     private ItemStack viewInfoBanner = null;
@@ -19,23 +17,6 @@ public class PlayerData {
     private ItemStack currentEditBanner = null;
     private boolean showMorePatterns = false;
     private DyeColor selectedColor = DyeColor.BLACK;
-
-    public InventoryMenuState getInventoryMenuState() {
-        return inventoryMenuState;
-    }
-
-    public void setInventoryMenuState(InventoryMenuState inventoryMenuState) {
-        this.inventoryMenuState = inventoryMenuState;
-    }
-
-    /**
-     * 取得選單狀態對應的GUI選單介面
-     *
-     * @return GUI選單介面
-     */
-    public AbstractInventoryMenu getInventoryMenu() {
-        return inventoryMenuState.getInventoryMenu();
-    }
 
     public Integer getCurrentPage() {
         return currentPage;

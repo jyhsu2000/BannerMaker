@@ -1,4 +1,4 @@
-package tw.kid7.BannerMaker.inventoryMenu;
+package tw.kid7.BannerMaker.customMenu;
 
 import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.DyeColor;
@@ -10,29 +10,20 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.DyeColorUtil;
-import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
 import tw.kid7.util.customGUI.CustomGUIInventory;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
+import tw.kid7.util.customGUI.CustomGUIManager;
+import tw.kid7.util.customGUI.CustomGUIMenu;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
 
-public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
-    private static CreateAlphabetInventoryMenu instance = null;
-
-    public static CreateAlphabetInventoryMenu getInstance() {
-        if (instance == null) {
-            instance = new CreateAlphabetInventoryMenu();
-        }
-        return instance;
-    }
-
+public class CreateAlphabetMenu implements CustomGUIMenu {
     @Override
-    public void open(final Player player) {
+    public CustomGUIInventory build(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
         String title = MessageUtil.format(tl("gui.prefix") + tl("gui.alphabet-and-number"));
@@ -56,7 +47,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
                 public void action() {
                     currentAlphabetBanner.baseColor = DyeColorUtil.fromInt(banner.getDurability());
                     playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
-                    InventoryMenuUtil.openMenu(player);
+                    CustomGUIManager.openPrevious(player);
                 }
             });
         }
@@ -68,7 +59,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
                 public void action() {
                     currentAlphabetBanner.dyeColor = DyeColorUtil.fromInt(dye.getDurability());
                     playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
-                    InventoryMenuUtil.openMenu(player);
+                    CustomGUIManager.openPrevious(player);
                 }
             });
         }
@@ -78,7 +69,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
             public void action() {
                 currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
-                InventoryMenuUtil.openMenu(player);
+                CustomGUIManager.openPrevious(player);
             }
         });
         //檢視旗幟資訊按鈕
@@ -90,7 +81,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
                 playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
                 //重置頁數
                 playerData.setCurrentRecipePage(1);
-                InventoryMenuUtil.openMenu(player, InventoryMenuState.BANNER_INFO);
+                CustomGUIManager.open(player, BannerInfoMenu.class);
             }
         });
 
@@ -99,10 +90,9 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {
-                InventoryMenuUtil.openMenu(player, InventoryMenuState.CHOOSE_ALPHABET);
+                CustomGUIManager.open(player, ChooseAlphabetMenu.class);
             }
         });
-        //開啟選單
-        menu.open(player);
+        return menu;
     }
 }

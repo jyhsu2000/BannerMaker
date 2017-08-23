@@ -1,4 +1,4 @@
-package tw.kid7.BannerMaker.inventoryMenu;
+package tw.kid7.BannerMaker.customMenu;
 
 import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.Material;
@@ -7,12 +7,9 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.util.*;
-import tw.kid7.util.customGUI.CustomGUIInventory;
-import tw.kid7.util.customGUI.CustomGUIItem;
-import tw.kid7.util.customGUI.CustomGUIItemHandler;
+import tw.kid7.util.customGUI.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,26 +17,17 @@ import java.util.List;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
 
-public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
-    private static BannerInfoInventoryMenu instance = null;
-
-    public static BannerInfoInventoryMenu getInstance() {
-        if (instance == null) {
-            instance = new BannerInfoInventoryMenu();
-        }
-        return instance;
-    }
-
+public class BannerInfoMenu implements CustomGUIMenu {
     @Override
-    public void open(final Player player) {
+    public CustomGUIInventory build(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //取得欲查看旗幟
         final ItemStack banner = playerData.getViewInfoBanner();
         //僅限旗幟
         if (!BannerUtil.isBanner(banner)) {
             //回到主選單
-            InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
-            return;
+            CustomGUIManager.open(player, MainMenu.class);
+            return null;
         }
         //建立選單
         String title = MessageUtil.format(tl("gui.prefix") + tl("gui.banner-info"));
@@ -100,7 +88,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                     @Override
                     public void action() {
                         playerData.setCurrentRecipePage(currentRecipePage - 1);
-                        InventoryMenuUtil.openMenu(player);
+                        CustomGUIManager.openPrevious(player);
                     }
                 });
             }
@@ -111,7 +99,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                     @Override
                     public void action() {
                         playerData.setCurrentRecipePage(currentRecipePage + 1);
-                        InventoryMenuUtil.openMenu(player);
+                        CustomGUIManager.openPrevious(player);
                     }
                 });
             }
@@ -136,7 +124,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                 public void action() {
                     //刪除
                     IOUtil.removeBanner(player, key);
-                    InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
+                    CustomGUIManager.open(player, MainMenu.class);
                 }
             });
         }
@@ -156,7 +144,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                         InventoryUtil.give(player, banner);
                         //顯示訊息
                         player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
-                        InventoryMenuUtil.openMenu(player);
+                        CustomGUIManager.openPrevious(player);
                     }
                 });
             } else {
@@ -179,7 +167,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                         } else {
                             player.sendMessage(MessageUtil.format(true, "&c" + tl("gui.materials.not-enough")));
                         }
-                        InventoryMenuUtil.openMenu(player);
+                        CustomGUIManager.openPrevious(player);
                     }
                 });
                 //檢查是否啟用經濟
@@ -196,7 +184,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
                                 //顯示訊息
                                 player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
                             }
-                            InventoryMenuUtil.openMenu(player);
+                            CustomGUIManager.openPrevious(player);
                         }
                     });
                 }
@@ -214,11 +202,10 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             public void action() {
                 //設定為編輯中旗幟
                 playerData.setCurrentEditBanner(banner);
-                InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_BANNER);
+                CustomGUIManager.open(player, CreateBannerMenu.class);
             }
         });
 
-        //TODO 產生指令
         //返回
         KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
@@ -226,13 +213,12 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
             public void action() {
                 if (BannerUtil.isAlphabetBanner(banner)) {
                     //若為Alphabet旗幟，回到Alphabet旗幟頁面
-                    InventoryMenuUtil.openMenu(player, InventoryMenuState.CREATE_ALPHABET);
+                    CustomGUIManager.open(player, CreateAlphabetMenu.class);
                     return;
                 }
-                InventoryMenuUtil.openMenu(player, InventoryMenuState.MAIN_MENU);
+                CustomGUIManager.open(player, MainMenu.class);
             }
         });
-        //開啟選單
-        menu.open(player);
+        return menu;
     }
 }
