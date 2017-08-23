@@ -19,7 +19,6 @@ public class KConfigManager {
     private static final Plugin plugin = JavaPlugin.getProvidingPlugin(KConfigManager.class);
     private static final Map<String, FileConfiguration> configs = Maps.newHashMap();
 
-
     private static String getFileName(String fileName) {
         if (!fileName.endsWith(".yml")) {
             fileName += ".yml";
