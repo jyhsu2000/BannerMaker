@@ -17,7 +17,7 @@ public class CustomGUI {
             return;
         }
         //監聽事件
-        Bukkit.getPluginManager().registerEvents(new CustomGUIMenuListener(), plugin);
+        Bukkit.getPluginManager().registerEvents(new CustomGUIInventoryListener(), plugin);
         enabled = true;
     }
 
@@ -27,7 +27,7 @@ public class CustomGUI {
     public static void disable() {
         enabled = false;
         //關閉所有自定義選單
-        CustomGUIMenu.closeAll();
+        CustomGUIInventory.closeAll();
     }
 
     /**

@@ -10,9 +10,9 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.util.*;
+import tw.kid7.util.customGUI.CustomGUIInventory;
 import tw.kid7.util.customGUI.CustomGUIItem;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
-import tw.kid7.util.customGUI.CustomGUIMenu;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class BannerInfoInventoryMenu extends AbstractInventoryMenu {
         }
         //建立選單
         String title = MessageUtil.format(tl("gui.prefix") + tl("gui.banner-info"));
-        CustomGUIMenu menu = new CustomGUIMenu(title);
+        CustomGUIInventory menu = new CustomGUIInventory(title);
         menu.setItem(0, banner);
         //patterns數量
         int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();

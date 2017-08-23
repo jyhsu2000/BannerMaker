@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CustomGUIMenu {
+public class CustomGUIInventory {
     /**
      * 被玩家開啟的自定義選單與物品欄的對應
      */
-    final static HashMap<Inventory, CustomGUIMenu> openedCustomGUIMenuMap = Maps.newHashMap();
+    final static HashMap<Inventory, CustomGUIInventory> openedCustomGUIInventoryMap = Maps.newHashMap();
     /**
      * 物品欄
      */
@@ -30,7 +30,7 @@ public class CustomGUIMenu {
      *
      * @param title 選單標題
      */
-    public CustomGUIMenu(String title) {
+    public CustomGUIInventory(String title) {
         this(title, 54);
     }
 
@@ -40,7 +40,7 @@ public class CustomGUIMenu {
      * @param title 選單標題
      * @param size  物品欄尺寸
      */
-    public CustomGUIMenu(String title, int size) {
+    public CustomGUIInventory(String title, int size) {
         if (!CustomGUI.isEnabled()) {
             throw new RuntimeException("CustomGUI is not enabled.");
         }
@@ -53,7 +53,7 @@ public class CustomGUIMenu {
      * @param humanEntity 玩家
      */
     public void open(HumanEntity humanEntity) {
-        openedCustomGUIMenuMap.put(inventory, this);
+        openedCustomGUIInventoryMap.put(inventory, this);
         humanEntity.openInventory(inventory);
     }
 
@@ -101,7 +101,7 @@ public class CustomGUIMenu {
     static void closeAll() {
         //找出所有開啟選單的玩家
         Set<HumanEntity> humanEntities = new HashSet<>();
-        for (Inventory inventory : openedCustomGUIMenuMap.keySet()) {
+        for (Inventory inventory : openedCustomGUIInventoryMap.keySet()) {
             humanEntities.addAll(inventory.getViewers());
         }
         //逐一關閉選單
@@ -109,6 +109,6 @@ public class CustomGUIMenu {
             humanEntity.closeInventory();
         }
         //清空清單
-        openedCustomGUIMenuMap.clear();
+        openedCustomGUIInventoryMap.clear();
     }
 }

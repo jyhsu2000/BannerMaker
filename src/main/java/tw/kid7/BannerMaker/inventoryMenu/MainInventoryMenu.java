@@ -13,8 +13,8 @@ import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
+import tw.kid7.util.customGUI.CustomGUIInventory;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
-import tw.kid7.util.customGUI.CustomGUIMenu;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
         String title = MessageUtil.format(tl("gui.prefix") + tl("gui.main-menu"));
-        CustomGUIMenu menu = new CustomGUIMenu(title);
+        CustomGUIInventory menu = new CustomGUIInventory(title);
         //當前頁數
         final int currentPage = playerData.getCurrentPage();
         //顯示現有旗幟

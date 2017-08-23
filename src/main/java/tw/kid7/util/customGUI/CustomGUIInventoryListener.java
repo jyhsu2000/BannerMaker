@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
-public class CustomGUIMenuListener implements Listener {
+public class CustomGUIInventoryListener implements Listener {
 
     /**
      * 點擊時的處理
@@ -20,8 +20,8 @@ public class CustomGUIMenuListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         Inventory inventory = event.getInventory();
         //只處理自定義選單
-        CustomGUIMenu customGUIMenu = CustomGUIMenu.openedCustomGUIMenuMap.get(inventory);
-        if (customGUIMenu == null) {
+        CustomGUIInventory customGUIInventory = CustomGUIInventory.openedCustomGUIInventoryMap.get(inventory);
+        if (customGUIInventory == null) {
             return;
         }
         //取消事件
@@ -36,7 +36,7 @@ public class CustomGUIMenuListener implements Listener {
         //點擊類型
         ClickType clickType = event.getClick();
         //觸發點擊事件
-        customGUIMenu.action(rawSlot, clickType);
+        customGUIInventory.action(rawSlot, clickType);
     }
 
     /**
@@ -47,6 +47,6 @@ public class CustomGUIMenuListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onInventoryClose(InventoryCloseEvent event) {
         Inventory inventory = event.getInventory();
-        CustomGUIMenu.openedCustomGUIMenuMap.remove(inventory);
+        CustomGUIInventory.openedCustomGUIInventoryMap.remove(inventory);
     }
 }

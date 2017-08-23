@@ -16,8 +16,8 @@ import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.DyeColorUtil;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
+import tw.kid7.util.customGUI.CustomGUIInventory;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
-import tw.kid7.util.customGUI.CustomGUIMenu;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
 
@@ -36,7 +36,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
         String title = MessageUtil.format(tl("gui.prefix") + tl("gui.alphabet-and-number"));
-        CustomGUIMenu menu = new CustomGUIMenu(title);
+        CustomGUIInventory menu = new CustomGUIInventory(title);
         //取得當前編輯中的字母
         final AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
         //邊框切換按鈕

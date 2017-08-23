@@ -13,8 +13,8 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.util.*;
+import tw.kid7.util.customGUI.CustomGUIInventory;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
-import tw.kid7.util.customGUI.CustomGUIMenu;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
 
@@ -33,7 +33,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
         String title = MessageUtil.format(tl("gui.prefix") + tl("gui.create-banner"));
-        CustomGUIMenu menu = new CustomGUIMenu(title);
+        CustomGUIInventory menu = new CustomGUIInventory(title);
         //取得當前編輯中的旗幟
         final ItemStack currentBanner = playerData.getCurrentEditBanner();
         if (currentBanner == null) {
