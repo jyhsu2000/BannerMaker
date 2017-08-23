@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
+import club.kid7.PluginUtilities.KItemStack;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -12,7 +13,6 @@ import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.IOUtil;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
-import tw.kid7.util.ItemBuilder;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
 import tw.kid7.util.customGUI.CustomGUIMenu;
 
@@ -55,7 +55,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         //換頁按鈕
         //上一頁
         if (currentPage > 1) {
-            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentPage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page"))).build();
+            KItemStack prevPage = new KItemStack(Material.ARROW).amount(currentPage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page")));
             menu.setClickableItem(45, prevPage).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action() {
@@ -66,7 +66,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
         }
         //下一頁
         if (currentPage < totalPage) {
-            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentPage + 1).name(MessageUtil.format("&a" + tl("gui.next-page"))).build();
+            KItemStack nextPage = new KItemStack(Material.ARROW).amount(currentPage + 1).name(MessageUtil.format("&a" + tl("gui.next-page")));
             menu.setClickableItem(53, nextPage).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action() {
@@ -76,7 +76,7 @@ public class MainInventoryMenu extends AbstractInventoryMenu {
             });
         }
         //Create banner
-        ItemStack btnCreateBanner = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create-banner"))).build();
+        KItemStack btnCreateBanner = new KItemStack(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create-banner")));
         menu.setClickableItem(49, btnCreateBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {

@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
+import club.kid7.PluginUtilities.KItemStack;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -12,7 +13,6 @@ import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.InventoryMenuState;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.util.*;
-import tw.kid7.util.ItemBuilder;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
 import tw.kid7.util.customGUI.CustomGUIMenu;
 
@@ -54,13 +54,13 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             menu.setItem(0, currentBanner);
             //patterns過多的警告
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 6) {
-                ItemStack warning = new ItemBuilder(Material.SIGN).amount(1).name(MessageUtil.format("&c" + tl("gui.uncraftable-warning")))
-                    .lore(tl("gui.more-than-6-patterns")).build();
+                KItemStack warning = new KItemStack(Material.SIGN).amount(1).name(MessageUtil.format("&c" + tl("gui.uncraftable-warning")))
+                    .lore(tl("gui.more-than-6-patterns"));
                 menu.setItem(9, warning);
             }
             //顏色
             for (int i = 0; i < 16; i++) {
-                final ItemStack dye = new ItemBuilder(Material.INK_SACK).amount(1).durability(i).build();
+                final KItemStack dye = new KItemStack(Material.INK_SACK).amount(1).durability(i);
                 menu.setClickableItem(i + 1 + (i / 8), dye).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
                     public void action() {
@@ -101,7 +101,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 });
             }
             //更多Pattern
-            ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + tl("gui.more-patterns"))).build();
+            KItemStack btnMorePattern = new KItemStack(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + tl("gui.more-patterns")));
             menu.setClickableItem(51, btnMorePattern).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action() {
@@ -111,7 +111,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             });
         }
         //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
+        KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {
@@ -120,7 +120,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
         });
         if (currentBanner != null) {
             //建立旗幟
-            ItemStack btnCreate = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create"))).build();
+            KItemStack btnCreate = new KItemStack(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create")));
             menu.setClickableItem(53, btnCreate).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action() {
@@ -130,7 +130,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
                 }
             });
             //刪除
-            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete"))).build();
+            KItemStack btnDelete = new KItemStack(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete")));
             menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action() {
@@ -140,7 +140,7 @@ public class CreateBannerInventoryMenu extends AbstractInventoryMenu {
             });
             if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
                 //移除Pattern
-                ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.remove-last-pattern"))).build();
+                KItemStack btnRemovePattern = new KItemStack(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.remove-last-pattern")));
                 menu.setClickableItem(49, btnRemovePattern).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
                     public void action() {

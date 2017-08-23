@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
+import club.kid7.PluginUtilities.KItemStack;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -14,7 +15,6 @@ import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
-import tw.kid7.util.ItemBuilder;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
 import tw.kid7.util.customGUI.CustomGUIMenu;
 
@@ -71,7 +71,7 @@ public class ChooseAlphabetInventoryMenu extends AbstractInventoryMenu {
         });
 
         //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
+        KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {

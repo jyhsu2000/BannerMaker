@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
+import club.kid7.PluginUtilities.KItemStack;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -15,7 +16,6 @@ import tw.kid7.BannerMaker.util.AlphabetBanner;
 import tw.kid7.BannerMaker.util.DyeColorUtil;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
-import tw.kid7.util.ItemBuilder;
 import tw.kid7.util.customGUI.CustomGUIItemHandler;
 import tw.kid7.util.customGUI.CustomGUIMenu;
 
@@ -62,7 +62,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         }
         //選擇主要顏色
         for (int i = 0; i < 16; i++) {
-            final ItemStack dye = new ItemBuilder(Material.INK_SACK).amount(1).durability(i).build();
+            final KItemStack dye = new KItemStack(Material.INK_SACK).amount(1).durability(i);
             menu.setClickableItem(18 + i + 1 + (i / 8), dye).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action() {
@@ -82,7 +82,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
             }
         });
         //檢視旗幟資訊按鈕
-        ItemStack btnBannerInfo = new ItemBuilder(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.banner-info"))).build();
+        KItemStack btnBannerInfo = new KItemStack(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.banner-info")));
         menu.setClickableItem(49, btnBannerInfo).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {
@@ -95,7 +95,7 @@ public class CreateAlphabetInventoryMenu extends AbstractInventoryMenu {
         });
 
         //返回
-        ItemStack btnBackToMenu = new ItemBuilder(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back"))).build();
+        KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
             public void action() {
