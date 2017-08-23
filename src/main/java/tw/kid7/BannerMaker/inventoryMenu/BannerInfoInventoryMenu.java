@@ -1,6 +1,6 @@
 package tw.kid7.BannerMaker.inventoryMenu;
 
-import club.kid7.PluginUtilities.KItemStack;
+import club.kid7.PluginUtilities.KItemStack.KItemStack;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
