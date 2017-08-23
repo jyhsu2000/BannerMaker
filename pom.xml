@@ -26,6 +26,11 @@
             <artifactId>bstats-bukkit</artifactId>
             <version>1.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.jyhsu2000</groupId>
+            <artifactId>PluginUtilities</artifactId>
+            <version>master-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -84,11 +89,16 @@
                     <artifactSet>
                         <includes>
                             <include>org.bstats:*</include>
+                            <include>com.github.jyhsu2000:PluginUtilities</include>
                         </includes>
                     </artifactSet>
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
+                            <shadedPattern>tw.kid7.BannerMaker</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>club.kid7</pattern>
                             <shadedPattern>tw.kid7.BannerMaker</shadedPattern>
                         </relocation>
                     </relocations>
@@ -118,6 +128,10 @@
         <repository>
             <id>bstats-repo</id>
             <url>http://repo.bstats.org/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 </project>
