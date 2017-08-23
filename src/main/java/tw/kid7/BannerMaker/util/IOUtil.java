@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.util;
 
+import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -8,7 +9,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
-import tw.kid7.BannerMaker.configuration.KConfigManager;
 
 import java.io.File;
 import java.util.ArrayList;

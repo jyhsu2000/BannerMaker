@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.configuration;
 
+import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

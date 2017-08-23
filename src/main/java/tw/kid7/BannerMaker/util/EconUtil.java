@@ -1,11 +1,11 @@
 package tw.kid7.BannerMaker.util;
 
+import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.configuration.KConfigManager;
 
 import java.util.List;
 
