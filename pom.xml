@@ -98,7 +98,7 @@
                             <shadedPattern>tw.kid7.BannerMaker</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>club.kid7</pattern>
+                            <pattern>club.kid7.pluginutilities</pattern>
                             <shadedPattern>tw.kid7.BannerMaker</shadedPattern>
                         </relocation>
                     </relocations>
