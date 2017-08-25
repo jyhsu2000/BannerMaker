@@ -11,6 +11,7 @@ import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
@@ -45,7 +46,7 @@ public class ChooseAlphabetMenu implements CustomGUIMenu {
             ItemStack alphabetItem = alphabetBanner.toItemStack();
             menu.setClickableItem(i, alphabetItem).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
-                public void action() {
+                public void action(InventoryClickEvent event) {
                     //設定當前編輯中的字母
                     playerData.setCurrentAlphabetBanner(alphabetBanner);
                     CustomGUIManager.open(player, CreateAlphabetMenu.class);
@@ -55,7 +56,7 @@ public class ChooseAlphabetMenu implements CustomGUIMenu {
         //切換有無邊框
         menu.setClickableItem(49, btnBorderedBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
-            public void action() {
+            public void action(InventoryClickEvent event) {
                 playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
                 CustomGUIManager.openPrevious(player);
             }
@@ -65,7 +66,7 @@ public class ChooseAlphabetMenu implements CustomGUIMenu {
         KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
-            public void action() {
+            public void action(InventoryClickEvent event) {
                 CustomGUIManager.open(player, MainMenu.class);
             }
         });

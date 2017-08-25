@@ -11,6 +11,7 @@ import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
@@ -37,7 +38,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
                 final ItemStack banner = new ItemStack(Material.BANNER, 1, (short) i);
                 menu.setClickableItem(i + 1 + (i / 8), banner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
-                    public void action() {
+                    public void action(InventoryClickEvent event) {
                         playerData.setCurrentEditBanner(banner);
                         CustomGUIManager.openPrevious(player);
                     }
@@ -58,7 +59,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
                 final KItemStack dye = new KItemStack(Material.INK_SACK).amount(1).durability(i);
                 menu.setClickableItem(i + 1 + (i / 8), dye).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
-                    public void action() {
+                    public void action(InventoryClickEvent event) {
                         playerData.setSelectedColor(DyeColorUtil.fromInt(dye.getDurability()));
                         CustomGUIManager.openPrevious(player);
                     }
@@ -83,7 +84,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
                 banner.setItemMeta(bm);
                 menu.setClickableItem(i + 19 + (i / 8), banner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
-                    public void action() {
+                    public void action(InventoryClickEvent event) {
                         //新增Pattern
                         BannerMeta bm = (BannerMeta) banner.getItemMeta();
                         Pattern pattern = bm.getPattern(bm.numberOfPatterns() - 1);
@@ -99,7 +100,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
             KItemStack btnMorePattern = new KItemStack(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + tl("gui.more-patterns")));
             menu.setClickableItem(51, btnMorePattern).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
-                public void action() {
+                public void action(InventoryClickEvent event) {
                     playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
                     CustomGUIManager.openPrevious(player);
                 }
@@ -109,7 +110,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
         KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
-            public void action() {
+            public void action(InventoryClickEvent event) {
                 CustomGUIManager.open(player, MainMenu.class);
             }
         });
@@ -118,7 +119,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
             KItemStack btnCreate = new KItemStack(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create")));
             menu.setClickableItem(53, btnCreate).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
-                public void action() {
+                public void action(InventoryClickEvent event) {
                     IOUtil.saveBanner(player, currentBanner);
                     playerData.setCurrentEditBanner(null);
                     CustomGUIManager.open(player, MainMenu.class);
@@ -128,7 +129,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
             KItemStack btnDelete = new KItemStack(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete")));
             menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
-                public void action() {
+                public void action(InventoryClickEvent event) {
                     playerData.setCurrentEditBanner(null);
                     CustomGUIManager.openPrevious(player);
                 }
@@ -138,7 +139,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
                 KItemStack btnRemovePattern = new KItemStack(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.remove-last-pattern")));
                 menu.setClickableItem(49, btnRemovePattern).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
-                    public void action() {
+                    public void action(InventoryClickEvent event) {
                         BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
                         bm.removePattern(bm.numberOfPatterns() - 1);
                         currentBanner.setItemMeta(bm);

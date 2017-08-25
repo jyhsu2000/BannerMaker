@@ -11,6 +11,7 @@ import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
@@ -44,7 +45,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
             final ItemStack banner = new ItemStack(Material.BANNER, 1, (short) i);
             menu.setClickableItem(i + 1 + (i / 8), banner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
-                public void action() {
+                public void action(InventoryClickEvent event) {
                     currentAlphabetBanner.baseColor = DyeColorUtil.fromInt(banner.getDurability());
                     playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                     CustomGUIManager.openPrevious(player);
@@ -56,7 +57,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
             final KItemStack dye = new KItemStack(Material.INK_SACK).amount(1).durability(i);
             menu.setClickableItem(18 + i + 1 + (i / 8), dye).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
-                public void action() {
+                public void action(InventoryClickEvent event) {
                     currentAlphabetBanner.dyeColor = DyeColorUtil.fromInt(dye.getDurability());
                     playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                     CustomGUIManager.openPrevious(player);
@@ -66,7 +67,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         //切換有無邊框
         menu.setClickableItem(37, btnBorderedBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
-            public void action() {
+            public void action(InventoryClickEvent event) {
                 currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CustomGUIManager.openPrevious(player);
@@ -76,7 +77,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         KItemStack btnBannerInfo = new KItemStack(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.banner-info")));
         menu.setClickableItem(49, btnBannerInfo).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
-            public void action() {
+            public void action(InventoryClickEvent event) {
                 //檢視旗幟資訊
                 playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
                 //重置頁數
@@ -89,7 +90,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
-            public void action() {
+            public void action(InventoryClickEvent event) {
                 CustomGUIManager.open(player, ChooseAlphabetMenu.class);
             }
         });

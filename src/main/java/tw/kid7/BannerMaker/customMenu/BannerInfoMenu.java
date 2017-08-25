@@ -5,6 +5,7 @@ import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
@@ -86,7 +87,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
                 KItemStack prevPage = new KItemStack(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page")));
                 menu.setClickableItem(22, prevPage).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
-                    public void action() {
+                    public void action(InventoryClickEvent event) {
                         playerData.setCurrentRecipePage(currentRecipePage - 1);
                         CustomGUIManager.openPrevious(player);
                     }
@@ -97,7 +98,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
                 KItemStack nextPage = new KItemStack(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&a" + tl("gui.next-page")));
                 menu.setClickableItem(26, nextPage).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
-                    public void action() {
+                    public void action(InventoryClickEvent event) {
                         playerData.setCurrentRecipePage(currentRecipePage + 1);
                         CustomGUIManager.openPrevious(player);
                     }
@@ -121,7 +122,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
             KItemStack btnDelete = new KItemStack(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete")));
             menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
-                public void action() {
+                public void action(InventoryClickEvent event) {
                     //刪除
                     IOUtil.removeBanner(player, key);
                     CustomGUIManager.open(player, MainMenu.class);
@@ -139,7 +140,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
                 btnGetBanner.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-for-free")));
                 menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
-                    public void action() {
+                    public void action(InventoryClickEvent event) {
                         //取得旗幟
                         InventoryUtil.give(player, banner);
                         //顯示訊息
@@ -159,7 +160,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
                 }
                 CustomGUIItem customGUIItemGetBanner = menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
-                    public void action() {
+                    public void action(InventoryClickEvent event) {
                         //嘗試合成旗幟
                         boolean success = BannerUtil.craft(player, banner);
                         if (success) {
@@ -174,7 +175,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
                 if (BannerMaker.getInstance().econ != null) {
                     customGUIItemGetBanner.set(ClickType.RIGHT, new CustomGUIItemHandler() {
                         @Override
-                        public void action() {
+                        public void action(InventoryClickEvent event) {
                             //取得旗幟
                             //嘗試給予玩家旗幟
                             boolean success = BannerUtil.buy(player, banner);
@@ -199,7 +200,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         KItemStack btnCloneAndEdit = new KItemStack(Material.BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + tl("gui.clone-and-edit")));
         menu.setClickableItem(51, btnCloneAndEdit).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
-            public void action() {
+            public void action(InventoryClickEvent event) {
                 //設定為編輯中旗幟
                 playerData.setCurrentEditBanner(banner);
                 CustomGUIManager.open(player, CreateBannerMenu.class);
@@ -210,7 +211,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
             @Override
-            public void action() {
+            public void action(InventoryClickEvent event) {
                 if (BannerUtil.isAlphabetBanner(banner)) {
                     //若為Alphabet旗幟，回到Alphabet旗幟頁面
                     CustomGUIManager.open(player, CreateAlphabetMenu.class);
