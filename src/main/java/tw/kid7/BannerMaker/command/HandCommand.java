@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.command;
 
+import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -39,10 +40,9 @@ class HandCommand extends AbstractCommand {
         }
         //複製旗幟，僅保留底色與樣式
         BannerMeta originalBannerMeta = (BannerMeta) itemStack.getItemMeta();
-        ItemStack banner = new ItemStack(Material.BANNER, 1, itemStack.getDurability());
-        BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-        bannerMeta.setPatterns(originalBannerMeta.getPatterns());
-        banner.setItemMeta(bannerMeta);
+        KItemStack banner = new KItemStack(Material.BANNER)
+            .durability(itemStack.getDurability())
+            .setPatterns(originalBannerMeta.getPatterns());
         //顯示旗幟
         InventoryMenuUtil.showBannerInfo(player, banner);
         return true;

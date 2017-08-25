@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
@@ -31,11 +30,9 @@ public class ChooseAlphabetMenu implements CustomGUIMenu {
         //清除當前編輯中的字母
         playerData.setCurrentAlphabetBanner(null);
         //邊框切換按鈕
-        ItemStack btnBorderedBanner = new ItemStack(Material.BANNER, 1, (short) 15);
-        BannerMeta borderedBannerMeta = (BannerMeta) btnBorderedBanner.getItemMeta();
-        borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + tl("gui.toggle-border")));
-        borderedBannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
-        btnBorderedBanner.setItemMeta(borderedBannerMeta);
+        KItemStack btnBorderedBanner = new KItemStack(Material.BANNER).durability(15)
+            .name(MessageUtil.format("&a" + tl("gui.toggle-border")))
+            .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
 
         //選擇字母
         boolean alphabetBorder = playerData.isAlphabetBannerBordered();

@@ -12,8 +12,6 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BannerMeta;
 import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.PlayerData;
 import tw.kid7.BannerMaker.util.AlphabetBanner;
@@ -32,17 +30,15 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         //取得當前編輯中的字母
         final AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
         //邊框切換按鈕
-        ItemStack btnBorderedBanner = new ItemStack(Material.BANNER, 1, (short) 15);
-        BannerMeta borderedBannerMeta = (BannerMeta) btnBorderedBanner.getItemMeta();
-        borderedBannerMeta.setDisplayName(MessageUtil.format("&a" + tl("gui.toggle-border")));
-        borderedBannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
-        btnBorderedBanner.setItemMeta(borderedBannerMeta);
+        KItemStack btnBorderedBanner = new KItemStack(Material.BANNER).durability(15)
+            .name(MessageUtil.format("&a" + tl("gui.toggle-border")))
+            .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
 
         //選擇顏色
         menu.setItem(0, currentAlphabetBanner.toItemStack());
         //選擇底色
         for (int i = 0; i < 16; i++) {
-            final ItemStack banner = new ItemStack(Material.BANNER, 1, (short) i);
+            final KItemStack banner = new KItemStack(Material.BANNER).durability(i);
             menu.setClickableItem(i + 1 + (i / 8), banner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action(InventoryClickEvent event) {
@@ -54,7 +50,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         }
         //選擇主要顏色
         for (int i = 0; i < 16; i++) {
-            final KItemStack dye = new KItemStack(Material.INK_SACK).amount(1).durability(i);
+            final KItemStack dye = new KItemStack(Material.INK_SACK).durability(i);
             menu.setClickableItem(18 + i + 1 + (i / 8), dye).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action(InventoryClickEvent event) {

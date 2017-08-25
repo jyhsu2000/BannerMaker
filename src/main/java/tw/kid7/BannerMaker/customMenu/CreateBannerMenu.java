@@ -43,7 +43,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
         if (currentBanner == null) {
             //剛開始編輯，先選擇底色
             for (int i = 0; i < 16; i++) {
-                final ItemStack banner = new ItemStack(Material.BANNER, 1, (short) i);
+                final KItemStack banner = new KItemStack(Material.BANNER).durability(i);
                 menu.setClickableItem(i + 1 + (i / 8), banner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                     @Override
                     public void action(InventoryClickEvent event) {
@@ -86,11 +86,10 @@ public class CreateBannerMenu implements CustomGUIMenu {
                 break;
             }
             //預覽旗幟
-            final ItemStack banner = new ItemStack(Material.BANNER, 1, currentBanner.getDurability());
-            final BannerMeta bm = (BannerMeta) banner.getItemMeta();
             PatternType patternType = BannerUtil.getPatternTypeList().get(patternIndex);
-            bm.addPattern(new Pattern(selectedColor, patternType));
-            banner.setItemMeta(bm);
+            final KItemStack banner = new KItemStack(Material.BANNER)
+                .durability(currentBanner.getDurability())
+                .pattern(new Pattern(selectedColor, patternType));
             menu.setClickableItem(i + 19 + (i / 8), banner).set(ClickType.LEFT, new CustomGUIItemHandler() {
                 @Override
                 public void action(InventoryClickEvent event) {
