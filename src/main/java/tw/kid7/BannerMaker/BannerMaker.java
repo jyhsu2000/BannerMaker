@@ -7,6 +7,7 @@ import org.bstats.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import tw.kid7.BannerMaker.cmd.CommandHandler;
 import tw.kid7.BannerMaker.command.CommandManager;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;
 import tw.kid7.BannerMaker.configuration.Language;
@@ -45,9 +46,14 @@ public class BannerMaker extends JavaPlugin {
         }
 
         //指令
-        commandManager = new CommandManager(this);
-        this.getCommand("BannerMaker").setExecutor(commandManager);
-        this.getCommand("BannerMaker").setTabCompleter(commandManager);
+//        commandManager = new CommandManager(this);
+//        this.getCommand("BannerMaker").setExecutor(commandManager);
+//        this.getCommand("BannerMaker").setTabCompleter(commandManager);
+        //Command
+        CommandHandler commandHandler = new CommandHandler(this);
+        this.getCommand("BannerMaker").setExecutor(commandHandler);
+        this.getCommand("BannerMaker").setTabCompleter(commandHandler);
+
         //CustomGUI
         CustomGUI.enable();
         //Config
