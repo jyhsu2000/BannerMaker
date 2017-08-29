@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class CommandSenderProvider implements Provider<CommandSender> {
         return false;
     }
 
+    @Nullable
     @Override
     public CommandSender get(CommandArgs arguments, List<? extends Annotation> modifiers) throws ArgumentException, ProvisionException {
         String name = arguments.next();
