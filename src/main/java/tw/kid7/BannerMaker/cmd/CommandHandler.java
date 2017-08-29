@@ -52,7 +52,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             builder.appendSeparator(' ');
             builder.append(argument);
         }
-        this.callCommand(builder.toString(), sender);
+        callCommand(builder.toString(), sender);
         return true;
     }
 
