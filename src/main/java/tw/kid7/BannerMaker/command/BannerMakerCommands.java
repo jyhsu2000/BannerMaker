@@ -28,7 +28,6 @@ import static tw.kid7.BannerMaker.configuration.Language.tl;
 /**
  * 主要指令
  * <p>
- * FIXME: 無效子指令、參數數量錯誤沒有提示訊息
  * FIXME: 子指令自動補全會ArrayIndexOutOfBoundsException
  */
 public class BannerMakerCommands {

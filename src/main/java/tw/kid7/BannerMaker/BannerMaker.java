@@ -2,9 +2,12 @@ package tw.kid7.BannerMaker;
 
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import club.kid7.pluginutilities.gui.CustomGUI;
+import li.l1t.common.intake.CommandExceptionListener;
 import li.l1t.common.intake.CommandsManager;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.Metrics;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -125,6 +128,13 @@ public class BannerMaker extends JavaPlugin {
     private void registerCommands() {
         commandsManager = new CommandsManager(this);
         commandsManager.setLocale(Locale.ENGLISH);
+        commandsManager.addExceptionListener(new CommandExceptionListener() {
+            @Override
+            public boolean handle(String argLine, CommandSender sender, Exception exception) {
+                sender.sendMessage(ChatColor.RED + exception.getLocalizedMessage());
+                return false;
+            }
+        });
         commandsManager.registerCommand(new BannerMakerCommands(), "BannerMaker", "bm");
     }
 }
