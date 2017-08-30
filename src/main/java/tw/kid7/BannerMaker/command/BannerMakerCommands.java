@@ -1,4 +1,4 @@
-package tw.kid7.BannerMaker.cmd;
+package tw.kid7.BannerMaker.command;
 
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
@@ -13,8 +13,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.plugin.Plugin;
 import tw.kid7.BannerMaker.BannerMaker;
-import tw.kid7.BannerMaker.cmd.annotation.Sender;
 import tw.kid7.BannerMaker.customMenu.MainMenu;
 import tw.kid7.BannerMaker.util.BannerUtil;
 import tw.kid7.BannerMaker.util.DyeColorUtil;
@@ -25,16 +25,18 @@ import java.util.Set;
 
 import static tw.kid7.BannerMaker.configuration.Language.tl;
 
+/**
+ * 主要指令
+ * <p>
+ * FIXME: 無效子指令、參數數量錯誤沒有提示訊息
+ * FIXME: 子指令自動補全會ArrayIndexOutOfBoundsException
+ */
 public class BannerMakerCommands {
-    private BannerMaker bm;
 
-    BannerMakerCommands(BannerMaker bm) {
-        this.bm = bm;
-    }
-
-    @Command(aliases = "", desc = "Show menu of BannerMaker", usage = "/bm")
+    @Command(aliases = "", desc = "Show menu of BannerMaker")
+    @Require("BannerMaker.use")
     @Default
-    public void main(@Sender CommandSender sender) throws CommandException {
+    public void main(CommandSender sender) throws CommandException {
         //限玩家使用
         if (!(sender instanceof Player)) {
             throw new CommandException(tl("command.player-only"));
@@ -44,20 +46,22 @@ public class BannerMakerCommands {
         CustomGUIManager.openPrevious(player, MainMenu.class);
     }
 
-    @Command(aliases = "help", desc = "Command list", usage = "/bm help")
-    public void help(@Sender CommandSender sender) {
+    @Command(aliases = "help", desc = "Command list")
+    public void help(Plugin plugin, CommandSender sender) {
+        //FIXME: 似乎會被intake-spigot自動產生的help覆寫
         //插件資訊
-        String pluginName = bm.getName();
-        String pluginVersion = bm.getDescription().getVersion();
+        String pluginName = plugin.getName();
+        String pluginVersion = plugin.getDescription().getVersion();
         //顯示標題
         sender.sendMessage(MessageUtil.format(true, pluginName + " - " + pluginVersion));
         //主要指令
         //TODO: 指令清單
     }
 
-    @Command(aliases = "hand", desc = "Show banner info of the banner in hand", usage = "/bm hand")
+    @Command(aliases = "hand", desc = "Show banner info of the banner in hand")
     @Require("BannerMaker.hand")
-    public void hand(@Sender CommandSender sender) throws CommandException {
+    public void hand(Plugin plugin, CommandSender sender) throws CommandException {
+        BannerMaker bm = (BannerMaker) plugin;
         //限玩家使用
         if (!(sender instanceof Player)) {
             throw new CommandException(tl("command.player-only"));
@@ -77,9 +81,9 @@ public class BannerMakerCommands {
         InventoryMenuUtil.showBannerInfo(player, banner);
     }
 
-    @Command(aliases = "see", desc = "Show banner info of the banner you're looking at", usage = "/bm see")
+    @Command(aliases = "see", desc = "Show banner info of the banner you're looking at")
     @Require("BannerMaker.see")
-    public void see(@Sender CommandSender sender) throws CommandException {
+    public void see(CommandSender sender) throws CommandException {
         //限玩家使用
         if (!(sender instanceof Player)) {
             throw new CommandException(tl("command.player-only"));
@@ -99,9 +103,10 @@ public class BannerMakerCommands {
         InventoryMenuUtil.showBannerInfo(player, banner);
     }
 
-    @Command(aliases = "reload", desc = "Reload all config", usage = "/bm reload")
+    @Command(aliases = "reload", desc = "Reload all config")
     @Require("BannerMaker.reload")
-    public void reload(@Sender CommandSender sender) {
+    public void reload(Plugin plugin, CommandSender sender) {
+        BannerMaker bm = (BannerMaker) plugin;
         bm.reload();
         sender.sendMessage(MessageUtil.format(true, tl("general.reload")));
     }

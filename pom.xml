@@ -36,6 +36,11 @@
             <artifactId>Intake</artifactId>
             <version>1277ebedd0</version>
         </dependency>
+        <dependency>
+            <groupId>li.l1t.common</groupId>
+            <artifactId>intake-spigot</artifactId>
+            <version>4.2.29</version>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -96,6 +101,7 @@
                             <include>org.bstats:*</include>
                             <include>com.github.jyhsu2000:PluginUtilities</include>
                             <include>com.github.MyWarp.Intake:*</include>
+                            <include>li.l1t.common:*</include>
                         </includes>
                     </artifactSet>
                     <relocations>
@@ -110,6 +116,10 @@
                         <relocation>
                             <pattern>com.sk89q.intake</pattern>
                             <shadedPattern>tw.kid7.BannerMaker.intake</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>li.l1t.common</pattern>
+                            <shadedPattern>tw.kid7.BannerMaker.intake-spigot</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -142,6 +152,10 @@
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>xxyy-repo</id>
+            <url>https://repo.l1t.li/xxyy-public/</url>
         </repository>
     </repositories>
 </project>
