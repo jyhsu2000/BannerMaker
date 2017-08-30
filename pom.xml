@@ -39,7 +39,7 @@
         <dependency>
             <groupId>li.l1t.common</groupId>
             <artifactId>intake-spigot</artifactId>
-            <version>4.2.29</version>
+            <version>4.2.32</version>
         </dependency>
     </dependencies>
     <properties>
