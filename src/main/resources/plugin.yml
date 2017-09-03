@@ -3,13 +3,6 @@ main: tw.kid7.BannerMaker.BannerMaker
 version: ${project.version}
 author: KID
 softdepend: [Vault]
-commands:
-    BannerMaker:
-        description: BannerMaker
-        usage: /<command>
-        aliases: [bm]
-        permission: BannerMaker.use
-        permission-message: Lacking permission <permission>
 permissions:
     BannerMaker.*:
         description: Whole permission of BannerMaker
