@@ -2,6 +2,7 @@ package tw.kid7.BannerMaker;
 
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import club.kid7.pluginutilities.gui.CustomGUI;
+import com.sk89q.intake.util.auth.AuthorizationException;
 import li.l1t.common.intake.CommandExceptionListener;
 import li.l1t.common.intake.CommandsManager;
 import net.milkbowl.vault.economy.Economy;
@@ -20,6 +21,8 @@ import tw.kid7.BannerMaker.version.VersionHandler_1_8;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+
+import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
@@ -131,6 +134,10 @@ public class BannerMaker extends JavaPlugin {
         commandsManager.addExceptionListener(new CommandExceptionListener() {
             @Override
             public boolean handle(String argLine, CommandSender sender, Exception exception) {
+                if (exception instanceof AuthorizationException) {
+                    sender.sendMessage(ChatColor.RED + tl("general.no-permission"));
+                    return false;
+                }
                 sender.sendMessage(ChatColor.RED + exception.getLocalizedMessage());
                 return false;
             }
