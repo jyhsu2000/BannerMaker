@@ -34,7 +34,7 @@
         <dependency>
             <groupId>li.l1t.common</groupId>
             <artifactId>intake-spigot</artifactId>
-            <version>4.2.32</version>
+            <version>4.2.34</version>
         </dependency>
     </dependencies>
     <properties>
@@ -95,8 +95,8 @@
                         <includes>
                             <include>org.bstats:*</include>
                             <include>com.github.jyhsu2000:PluginUtilities</include>
-                            <include>com.sk89q.intake:intake</include>
                             <include>li.l1t.common:*</include>
+                            <include>li.l1t.intake:intake</include>
                         </includes>
                     </artifactSet>
                     <relocations>
