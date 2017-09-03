@@ -4,7 +4,6 @@ import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
 import com.sk89q.intake.Command;
 import com.sk89q.intake.CommandException;
-import com.sk89q.intake.Default;
 import com.sk89q.intake.Require;
 import org.bukkit.Material;
 import org.bukkit.block.Banner;
@@ -27,14 +26,11 @@ import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 /**
  * 主要指令
- * <p>
- * FIXME: 子指令自動補全會ArrayIndexOutOfBoundsException
  */
 public class BannerMakerCommands {
 
     @Command(aliases = "", desc = "Show menu of BannerMaker")
     @Require("BannerMaker.use")
-    @Default
     public void main(CommandSender sender) throws CommandException {
         //限玩家使用
         if (!(sender instanceof Player)) {
