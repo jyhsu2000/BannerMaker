@@ -6,7 +6,7 @@ import com.sk89q.intake.util.auth.AuthorizationException;
 import li.l1t.common.intake.CommandExceptionListener;
 import li.l1t.common.intake.CommandsManager;
 import net.milkbowl.vault.economy.Economy;
-import org.bstats.Metrics;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
