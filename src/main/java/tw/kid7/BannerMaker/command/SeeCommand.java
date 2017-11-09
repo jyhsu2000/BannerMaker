@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.command;
 
+import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.Material;
 import org.bukkit.block.Banner;

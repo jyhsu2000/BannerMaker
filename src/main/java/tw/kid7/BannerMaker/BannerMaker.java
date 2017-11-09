@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker;
 
+import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import club.kid7.pluginutilities.gui.CustomGUI;
 import net.milkbowl.vault.economy.Economy;
@@ -8,7 +9,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import tw.kid7.BannerMaker.command.BannerMakerCommand;
-import tw.kid7.BannerMaker.command.CommandComponent;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.version.VersionHandler;

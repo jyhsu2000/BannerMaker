@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.command;
 
+import club.kid7.pluginutilities.command.CommandComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

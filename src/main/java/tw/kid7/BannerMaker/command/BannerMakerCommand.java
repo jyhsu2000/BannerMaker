@@ -1,5 +1,6 @@
 package tw.kid7.BannerMaker.command;
 
+import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
