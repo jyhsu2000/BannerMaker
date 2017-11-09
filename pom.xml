@@ -4,7 +4,7 @@
     <!-- The Basics -->
     <groupId>tw.kid7</groupId>
     <artifactId>BannerMaker</artifactId>
-    <version>1.8.0</version>
+    <version>1.8.1</version>
     <dependencies>
         <!-- Bukkit API -->
         <dependency>
