@@ -2,17 +2,14 @@ package tw.kid7.BannerMaker;
 
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import club.kid7.pluginutilities.gui.CustomGUI;
-import com.sk89q.intake.util.auth.AuthorizationException;
-import li.l1t.common.intake.CommandExceptionListener;
 import li.l1t.common.intake.CommandsManager;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import tw.kid7.BannerMaker.command.BannerMakerCommands;
+import tw.kid7.BannerMaker.command.BannerMakerCommand;
+import tw.kid7.BannerMaker.command.CommandComponent;
 import tw.kid7.BannerMaker.configuration.DefaultConfig;
 import tw.kid7.BannerMaker.configuration.Language;
 import tw.kid7.BannerMaker.version.VersionHandler;
@@ -20,9 +17,6 @@ import tw.kid7.BannerMaker.version.VersionHandler_1_8;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-
-import static tw.kid7.BannerMaker.configuration.Language.tl;
 
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
@@ -129,19 +123,23 @@ public class BannerMaker extends JavaPlugin {
      * @link https://github.com/xxyy/intake-spigot
      */
     private void registerCommands() {
-        commandsManager = new CommandsManager(this);
-        commandsManager.setLocale(Locale.ENGLISH);
-        commandsManager.addExceptionListener(new CommandExceptionListener() {
-            @Override
-            public boolean handle(String argLine, CommandSender sender, Exception exception) {
-                if (exception instanceof AuthorizationException) {
-                    sender.sendMessage(ChatColor.RED + tl("general.no-permission"));
-                    return false;
-                }
-                sender.sendMessage(ChatColor.RED + exception.getLocalizedMessage());
-                return false;
-            }
-        });
-        commandsManager.registerCommand(new BannerMakerCommands(), "BannerMaker", "bm");
+        CommandComponent bmCommand = new BannerMakerCommand();
+        getCommand("BannerMaker").setExecutor(bmCommand);
+        getCommand("BannerMaker").setTabCompleter(bmCommand);
+
+//        commandsManager = new CommandsManager(this);
+//        commandsManager.setLocale(Locale.ENGLISH);
+//        commandsManager.addExceptionListener(new CommandExceptionListener() {
+//            @Override
+//            public boolean handle(String argLine, CommandSender sender, Exception exception) {
+//                if (exception instanceof AuthorizationException) {
+//                    sender.sendMessage(ChatColor.RED + tl("general.no-permission"));
+//                    return false;
+//                }
+//                sender.sendMessage(ChatColor.RED + exception.getLocalizedMessage());
+//                return false;
+//            }
+//        });
+//        commandsManager.registerCommand(new BannerMakerCommands(), "BannerMaker", "bm");
     }
 }
