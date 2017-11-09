@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.util.DyeColorUtil;
 import tw.kid7.BannerMaker.util.InventoryMenuUtil;
 import tw.kid7.BannerMaker.util.MessageUtil;
@@ -27,8 +28,8 @@ public class SeeCommand extends CommandComponent {
     //僅能由玩家執行
     private static final boolean onlyFromPlayer = true;
 
-    public SeeCommand() {
-        super(name, description, permission, usage, onlyFromPlayer);
+    public SeeCommand(BannerMaker bm) {
+        super(bm, name, description, permission, usage, onlyFromPlayer);
     }
 
     @Override

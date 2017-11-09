@@ -123,7 +123,7 @@ public class BannerMaker extends JavaPlugin {
      * @link https://github.com/xxyy/intake-spigot
      */
     private void registerCommands() {
-        CommandComponent bmCommand = new BannerMakerCommand();
+        CommandComponent bmCommand = new BannerMakerCommand(this);
         getCommand("BannerMaker").setExecutor(bmCommand);
         getCommand("BannerMaker").setTabCompleter(bmCommand);
 

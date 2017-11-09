@@ -4,6 +4,7 @@ import club.kid7.pluginutilities.gui.CustomGUIManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import tw.kid7.BannerMaker.BannerMaker;
 import tw.kid7.BannerMaker.customMenu.MainMenu;
 
 public class BannerMakerCommand extends CommandComponent {
@@ -18,12 +19,12 @@ public class BannerMakerCommand extends CommandComponent {
     //僅能由玩家執行
     private static final boolean onlyFromPlayer = true;
 
-    public BannerMakerCommand() {
-        super(name, description, permission, usage, onlyFromPlayer);
-        registerSubCommand("help", new HelpCommand());
-        registerSubCommand("see", new SeeCommand());
-        registerSubCommand("hand", new HandCommand());
-        registerSubCommand("reload", new ReloadCommand());
+    public BannerMakerCommand(BannerMaker bm) {
+        super(bm, name, description, permission, usage, onlyFromPlayer);
+        registerSubCommand("help", new HelpCommand(bm));
+        registerSubCommand("see", new SeeCommand(bm));
+        registerSubCommand("hand", new HandCommand(bm));
+        registerSubCommand("reload", new ReloadCommand(bm));
     }
 
 

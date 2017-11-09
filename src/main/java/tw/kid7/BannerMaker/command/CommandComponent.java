@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 public abstract class CommandComponent implements CommandExecutor, TabCompleter {
     private CommandComponent parent = null;
+    protected Plugin plugin;
     //名稱
     private String name;
     //介紹
@@ -27,7 +29,8 @@ public abstract class CommandComponent implements CommandExecutor, TabCompleter 
 
     private Map<String, CommandComponent> subCommands = Maps.newHashMap();
 
-    public CommandComponent(String name, String description, String permission, String usage, boolean onlyFromPlayer) {
+    public CommandComponent(Plugin plugin, String name, String description, String permission, String usage, boolean onlyFromPlayer) {
+        this.plugin = plugin;
         this.name = name;
         this.description = description;
         this.permission = permission;

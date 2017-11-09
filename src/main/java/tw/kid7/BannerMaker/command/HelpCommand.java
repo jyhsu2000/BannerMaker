@@ -20,13 +20,13 @@ public class HelpCommand extends CommandComponent {
     //僅能由玩家執行
     private static final boolean onlyFromPlayer = false;
 
-    public HelpCommand() {
-        super(name, description, permission, usage, onlyFromPlayer);
+    public HelpCommand(BannerMaker bm) {
+        super(bm, name, description, permission, usage, onlyFromPlayer);
     }
 
     @Override
     public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        BannerMaker bm = BannerMaker.getInstance();
+        BannerMaker bm = (BannerMaker) plugin;
         //插件資訊
         String pluginName = bm.getName();
         String pluginVersion = bm.getDescription().getVersion();
