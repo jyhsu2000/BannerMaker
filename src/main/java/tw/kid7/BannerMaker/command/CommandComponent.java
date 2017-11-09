@@ -34,37 +34,37 @@ public abstract class CommandComponent implements CommandExecutor, TabCompleter 
         this.onlyFromPlayer = onlyFromPlayer;
     }
 
-    public final boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
+    public final boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //有參數
         if (args.length > 0) {
             //試著找出子指令
             CommandComponent subCommand = subCommands.get(args[0].toLowerCase());
             if (subCommand != null) {
                 //若有子指令，執行子指令
-                return subCommand.onCommand(commandSender, command, label + " " + args[0], Arrays.copyOfRange(args, 1, args.length));
+                return subCommand.onCommand(sender, command, label + " " + args[0], Arrays.copyOfRange(args, 1, args.length));
             }
         }
         //無參數或無該子指令，執行本身
         //檢查權限
-        if (!hasPermission(commandSender)) {
-            commandSender.sendMessage(ChatColor.RED + "Lacking permission " + permission);
+        if (!hasPermission(sender)) {
+            sender.sendMessage(ChatColor.RED + "Lacking permission " + permission);
         }
         //限玩家執行
-        if (onlyFromPlayer && !(commandSender instanceof Player)) {
-            commandSender.sendMessage(ChatColor.RED + "This command can only be used by players in game");
+        if (onlyFromPlayer && !(sender instanceof Player)) {
+            sender.sendMessage(ChatColor.RED + "This command can only be used by players in game");
         }
         //執行指令
-        return executeCommand(commandSender, command, label, args);
+        return executeCommand(sender, command, label, args);
     }
 
-    public final List<String> onTabComplete(CommandSender commandSender, Command command, String label, String[] args) {
+    public final List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> completions = new ArrayList<>();
         if (args.length == 1) {
             //本身的建議
-            List<String> suggestions = getSuggestions(commandSender, command, label, args);
+            List<String> suggestions = getSuggestions(sender, command, label, args);
             //根據權限產生子指令清單
             for (Map.Entry<String, CommandComponent> subCommandEntry : subCommands.entrySet()) {
-                if (subCommandEntry.getValue().hasPermission(commandSender)) {
+                if (subCommandEntry.getValue().hasPermission(sender)) {
                     suggestions.add(subCommandEntry.getKey());
                 }
             }
@@ -77,7 +77,7 @@ public abstract class CommandComponent implements CommandExecutor, TabCompleter 
             CommandComponent subCommand = subCommands.get(args[0].toLowerCase());
             if (subCommand != null) {
                 //若有子指令，交給子指令處理
-                return subCommand.onTabComplete(commandSender, command, label + " " + args[0], Arrays.copyOfRange(args, 1, args.length));
+                return subCommand.onTabComplete(sender, command, label + " " + args[0], Arrays.copyOfRange(args, 1, args.length));
             }
         }
         return completions;
@@ -94,8 +94,8 @@ public abstract class CommandComponent implements CommandExecutor, TabCompleter 
         subCommands.put(label.toLowerCase(), commandComponent);
     }
 
-    public final boolean hasPermission(CommandSender commandSender) {
-        return permission == null || permission.isEmpty() || commandSender.hasPermission(permission) || commandSender instanceof ConsoleCommandSender;
+    public final boolean hasPermission(CommandSender sender) {
+        return permission == null || permission.isEmpty() || sender.hasPermission(permission) || sender instanceof ConsoleCommandSender;
     }
 
     public final String getName() {
@@ -113,19 +113,19 @@ public abstract class CommandComponent implements CommandExecutor, TabCompleter 
     /**
      * 執行指令
      *
-     * @param commandSender 指令發送者
-     * @param command       指令
-     * @param label         標籤
-     * @param args          參數
+     * @param sender  指令發送者
+     * @param command 指令
+     * @param label   標籤
+     * @param args    參數
      * @return 是否執行成功
      */
-    public boolean executeCommand(CommandSender commandSender, Command command, String label, String[] args) {
+    public boolean executeCommand(CommandSender sender, Command command, String label, String[] args) {
         //未實作指令，可能只是群組，顯示子指令清單
         //根據權限產生子指令清單
         for (Map.Entry<String, CommandComponent> subCommandEntry : subCommands.entrySet()) {
-            if (subCommandEntry.getValue().hasPermission(commandSender)) {
+            if (subCommandEntry.getValue().hasPermission(sender)) {
                 CommandComponent subCommand = subCommandEntry.getValue();
-                commandSender.sendMessage(subCommand.getUsage() + ChatColor.GRAY + " - " + subCommand.getDescription());
+                sender.sendMessage(subCommand.getUsage() + ChatColor.GRAY + " - " + subCommand.getDescription());
             }
         }
         return true;
@@ -134,13 +134,13 @@ public abstract class CommandComponent implements CommandExecutor, TabCompleter 
     /**
      * 自動補全建議
      *
-     * @param commandSender 指令發送者
-     * @param command       指令
-     * @param label         標籤
-     * @param args          參數
+     * @param sender  指令發送者
+     * @param command 指令
+     * @param label   標籤
+     * @param args    參數
      * @return 自動補全建議
      */
-    public List<String> getSuggestions(CommandSender commandSender, Command command, String label, String[] args) {
+    public List<String> getSuggestions(CommandSender sender, Command command, String label, String[] args) {
         return new ArrayList<>();
     }
 }
