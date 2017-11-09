@@ -2,7 +2,6 @@ package tw.kid7.BannerMaker;
 
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import club.kid7.pluginutilities.gui.CustomGUI;
-import li.l1t.common.intake.CommandsManager;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,7 +23,6 @@ public class BannerMaker extends JavaPlugin {
     public boolean enableAlphabetAndNumber = true;
     private VersionHandler versionHandler = null;
     public PlayerDataMap playerDataMap = null;
-    private CommandsManager commandsManager;
 
     public VersionHandler getVersionHandler() {
         return versionHandler;
@@ -117,29 +115,9 @@ public class BannerMaker extends JavaPlugin {
         return econ != null;
     }
 
-    /**
-     * intake-spigot
-     *
-     * @link https://github.com/xxyy/intake-spigot
-     */
     private void registerCommands() {
         CommandComponent bmCommand = new BannerMakerCommand(this);
         getCommand("BannerMaker").setExecutor(bmCommand);
         getCommand("BannerMaker").setTabCompleter(bmCommand);
-
-//        commandsManager = new CommandsManager(this);
-//        commandsManager.setLocale(Locale.ENGLISH);
-//        commandsManager.addExceptionListener(new CommandExceptionListener() {
-//            @Override
-//            public boolean handle(String argLine, CommandSender sender, Exception exception) {
-//                if (exception instanceof AuthorizationException) {
-//                    sender.sendMessage(ChatColor.RED + tl("general.no-permission"));
-//                    return false;
-//                }
-//                sender.sendMessage(ChatColor.RED + exception.getLocalizedMessage());
-//                return false;
-//            }
-//        });
-//        commandsManager.registerCommand(new BannerMakerCommands(), "BannerMaker", "bm");
     }
 }
