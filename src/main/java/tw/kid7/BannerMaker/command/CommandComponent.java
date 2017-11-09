@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class CommandComponent implements CommandExecutor, TabCompleter {
+    private CommandComponent parent = null;
     //名稱
     private String name;
     //介紹
@@ -92,6 +93,7 @@ public abstract class CommandComponent implements CommandExecutor, TabCompleter 
     public final void registerSubCommand(String label, CommandComponent commandComponent) {
         Preconditions.checkArgument(label.length() > 0, "Label cannot be empty");
         subCommands.put(label.toLowerCase(), commandComponent);
+        commandComponent.setParent(this);
     }
 
     public final boolean hasPermission(CommandSender sender) {
@@ -108,6 +110,18 @@ public abstract class CommandComponent implements CommandExecutor, TabCompleter 
 
     public final String getUsage() {
         return usage;
+    }
+
+    public CommandComponent getParent() {
+        return parent;
+    }
+
+    public void setParent(CommandComponent parent) {
+        this.parent = parent;
+    }
+
+    public Map<String, CommandComponent> getSubCommands() {
+        return subCommands;
     }
 
     /**
