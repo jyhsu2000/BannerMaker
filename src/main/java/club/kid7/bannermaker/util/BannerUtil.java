@@ -179,13 +179,11 @@ public class BannerUtil {
         //移除空值
         patternMaterials.removeAll(Collections.singletonList(null));
         //重新排序
-        Collections.sort(patternMaterials, new Comparator<ItemStack>() {
-            public int compare(ItemStack itemStack1, ItemStack itemStack2) {
-                if (itemStack1.getTypeId() != itemStack2.getTypeId()) {
-                    return itemStack1.getTypeId() - itemStack2.getTypeId();
-                }
-                return itemStack1.getDurability() - itemStack2.getDurability();
+        Collections.sort(patternMaterials, (itemStack1, itemStack2) -> {
+            if (itemStack1.getTypeId() != itemStack2.getTypeId()) {
+                return itemStack1.getTypeId() - itemStack2.getTypeId();
             }
+            return itemStack1.getDurability() - itemStack2.getDurability();
         });
         //將材料加到清單中
         materialList.addAll(patternMaterials);
@@ -250,7 +248,7 @@ public class BannerUtil {
         }
         //材料清單
         List<ItemStack> materials = getMaterials(banner);
-        HashMap<Integer, ItemStack> itemCannotRemoved = inventory.removeItem(materials.toArray(new ItemStack[materials.size()]));
+        HashMap<Integer, ItemStack> itemCannotRemoved = inventory.removeItem(materials.toArray(new ItemStack[0]));
         if (!itemCannotRemoved.isEmpty()) {
             return false;
         }

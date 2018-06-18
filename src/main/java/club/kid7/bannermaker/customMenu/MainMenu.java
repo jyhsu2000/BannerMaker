@@ -7,14 +7,12 @@ import club.kid7.bannermaker.util.IOUtil;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
 import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
-import club.kid7.pluginutilities.gui.CustomGUIItemHandler;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.gui.CustomGUIMenu;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -35,12 +33,7 @@ public class MainMenu implements CustomGUIMenu {
         List<ItemStack> bannerList = IOUtil.loadBannerList(player, currentPage);
         for (int i = 0; i < bannerList.size() && i < 45; i++) {
             final ItemStack banner = bannerList.get(i);
-            menu.setClickableItem(i, banner).set(ClickType.LEFT, new CustomGUIItemHandler() {
-                @Override
-                public void action(InventoryClickEvent event) {
-                    InventoryMenuUtil.showBannerInfo(player, banner);
-                }
-            });
+            menu.setClickableItem(i, banner).set(ClickType.LEFT, event -> InventoryMenuUtil.showBannerInfo(player, banner));
         }
         //總頁數
         int totalPage = (int) Math.ceil(IOUtil.getBannerCount(player) / 45.0);
@@ -49,45 +42,29 @@ public class MainMenu implements CustomGUIMenu {
         //上一頁
         if (currentPage > 1) {
             KItemStack prevPage = new KItemStack(Material.ARROW).amount(currentPage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page")));
-            menu.setClickableItem(45, prevPage).set(ClickType.LEFT, new CustomGUIItemHandler() {
-                @Override
-                public void action(InventoryClickEvent event) {
-                    playerData.setCurrentPage(currentPage - 1);
-                    CustomGUIManager.openPrevious(player);
-                }
+            menu.setClickableItem(45, prevPage).set(ClickType.LEFT, event -> {
+                playerData.setCurrentPage(currentPage - 1);
+                CustomGUIManager.openPrevious(player);
             });
         }
         //下一頁
         if (currentPage < totalPage) {
             KItemStack nextPage = new KItemStack(Material.ARROW).amount(currentPage + 1).name(MessageUtil.format("&a" + tl("gui.next-page")));
-            menu.setClickableItem(53, nextPage).set(ClickType.LEFT, new CustomGUIItemHandler() {
-                @Override
-                public void action(InventoryClickEvent event) {
-                    playerData.setCurrentPage(currentPage + 1);
-                    CustomGUIManager.openPrevious(player);
-                }
+            menu.setClickableItem(53, nextPage).set(ClickType.LEFT, event -> {
+                playerData.setCurrentPage(currentPage + 1);
+                CustomGUIManager.openPrevious(player);
             });
         }
         //Create banner
         KItemStack btnCreateBanner = new KItemStack(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create-banner")));
-        menu.setClickableItem(49, btnCreateBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
-            @Override
-            public void action(InventoryClickEvent event) {
-                CustomGUIManager.open(player, CreateBannerMenu.class);
-            }
-        });
+        menu.setClickableItem(49, btnCreateBanner).set(ClickType.LEFT, event -> CustomGUIManager.open(player, CreateBannerMenu.class));
         //建立字母
         if (BannerMaker.getInstance().enableAlphabetAndNumber) {
             ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
             ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
             btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + tl("gui.alphabet-and-number")));
             btnCreateAlphabet.setItemMeta(btnCreateAlphabetItemMeta);
-            menu.setClickableItem(51, btnCreateAlphabet).set(ClickType.LEFT, new CustomGUIItemHandler() {
-                @Override
-                public void action(InventoryClickEvent event) {
-                    CustomGUIManager.open(player, ChooseAlphabetMenu.class);
-                }
-            });
+            menu.setClickableItem(51, btnCreateAlphabet).set(ClickType.LEFT, event -> CustomGUIManager.open(player, ChooseAlphabetMenu.class));
         }
         return menu;
     }

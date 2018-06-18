@@ -65,8 +65,7 @@ public class IOUtil {
         int startIndex = Math.max(0, (page - 1) * 45);
         //旗幟
         Set<String> keySet = config.getKeys(false);
-        List<String> keyList = new ArrayList<>();
-        keyList.addAll(keySet);
+        List<String> keyList = new ArrayList<>(keySet);
         //載入該頁旗幟，若無指定頁碼，則載入全部
         for (int i = startIndex; i < keyList.size() && (i < startIndex + 45 || page == 0); i++) {
             String key = keyList.get(i);
