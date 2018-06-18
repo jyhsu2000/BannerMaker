@@ -1,0 +1,72 @@
+package club.kid7.bannermaker.customMenu;
+
+import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.PlayerData;
+import club.kid7.bannermaker.util.AlphabetBanner;
+import club.kid7.bannermaker.util.MessageUtil;
+import club.kid7.pluginutilities.gui.CustomGUIInventory;
+import club.kid7.pluginutilities.gui.CustomGUIItemHandler;
+import club.kid7.pluginutilities.gui.CustomGUIManager;
+import club.kid7.pluginutilities.gui.CustomGUIMenu;
+import club.kid7.pluginutilities.kitemstack.KItemStack;
+import org.bukkit.DyeColor;
+import org.bukkit.Material;
+import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.banner.PatternType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+
+import static club.kid7.bannermaker.configuration.Language.tl;
+
+public class ChooseAlphabetMenu implements CustomGUIMenu {
+    @Override
+    public CustomGUIInventory build(final Player player) {
+        final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
+        //建立選單
+        String title = MessageUtil.format(tl("gui.prefix") + tl("gui.alphabet-and-number"));
+        CustomGUIInventory menu = new CustomGUIInventory(title);
+        //清除當前編輯中的字母
+        playerData.setCurrentAlphabetBanner(null);
+        //邊框切換按鈕
+        KItemStack btnBorderedBanner = new KItemStack(Material.BANNER).durability(15)
+            .name(MessageUtil.format("&a" + tl("gui.toggle-border")))
+            .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
+
+        //選擇字母
+        boolean alphabetBorder = playerData.isAlphabetBannerBordered();
+        char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.".toCharArray();
+        for (int i = 0; i < alphabetArray.length && i < 54; i++) {
+            char alphabet = alphabetArray[i];
+            final AlphabetBanner alphabetBanner = new AlphabetBanner(String.valueOf(alphabet), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
+            ItemStack alphabetItem = alphabetBanner.toItemStack();
+            menu.setClickableItem(i, alphabetItem).set(ClickType.LEFT, new CustomGUIItemHandler() {
+                @Override
+                public void action(InventoryClickEvent event) {
+                    //設定當前編輯中的字母
+                    playerData.setCurrentAlphabetBanner(alphabetBanner);
+                    CustomGUIManager.open(player, CreateAlphabetMenu.class);
+                }
+            });
+        }
+        //切換有無邊框
+        menu.setClickableItem(49, btnBorderedBanner).set(ClickType.LEFT, new CustomGUIItemHandler() {
+            @Override
+            public void action(InventoryClickEvent event) {
+                playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
+                CustomGUIManager.openPrevious(player);
+            }
+        });
+
+        //返回
+        KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
+        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, new CustomGUIItemHandler() {
+            @Override
+            public void action(InventoryClickEvent event) {
+                CustomGUIManager.open(player, MainMenu.class);
+            }
+        });
+        return menu;
+    }
+}

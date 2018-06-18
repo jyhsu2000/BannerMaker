@@ -2,7 +2,7 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <!-- The Basics -->
-    <groupId>tw.kid7</groupId>
+    <groupId>club.kid7</groupId>
     <artifactId>BannerMaker</artifactId>
     <version>1.8.1</version>
     <dependencies>
@@ -95,11 +95,11 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>tw.kid7.BannerMaker</shadedPattern>
+                            <shadedPattern>club.kid7.bannermaker</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>club.kid7.pluginutilities</pattern>
-                            <shadedPattern>tw.kid7.BannerMaker</shadedPattern>
+                            <shadedPattern>club.kid7.bannermaker</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
