@@ -57,7 +57,7 @@ public class BannerMaker extends JavaPlugin {
         //Reload
         reload();
         //bStats
-        Metrics metrics = new Metrics(this);
+        new Metrics(this);
     }
 
     @Override
