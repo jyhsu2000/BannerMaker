@@ -10,7 +10,7 @@ public class PlayerDataMap {
     /**
      * 所有玩家資料實例
      */
-    private final HashMap<UUID, PlayerData> playerDataMap = Maps.newHashMap();
+    private final HashMap<UUID, PlayerData> allPlayerData = Maps.newHashMap();
 
     /**
      * 取得玩家資料實例
@@ -20,10 +20,10 @@ public class PlayerDataMap {
      */
     public PlayerData get(Player player) {
         UUID uuid = player.getUniqueId();
-        PlayerData playerData = playerDataMap.get(uuid);
+        PlayerData playerData = allPlayerData.get(uuid);
         if (playerData == null) {
             playerData = new PlayerData();
-            playerDataMap.put(uuid, playerData);
+            allPlayerData.put(uuid, playerData);
         }
         return playerData;
     }
