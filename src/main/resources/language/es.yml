@@ -1,47 +1,53 @@
 # Spanish(es)
-# For BannerMaker v1.7.1
-# Contributor(s): stevejone1997
+# Para BannerMaker v1.8.0
+# Traducido por: stevejone1997 | Actualizado por: C4BR3R4
 general:
   prefix: '&6[&aBannerMaker&6]&r '
-  reload: Recargar configuracion
-  no-permission: Sin permisos
-  no-money: No tienes suficiente dinero
-  money-transaction: Usa {0} para obtener una bandera. Ahora tienes {1}
+  reload: Se ha recargado la configuración de BannerMaker
+  no-permission: No tienes permiso
+  no-money: No tienes dinero
+  money-transaction: Usa {0} para obtener el Estandarte. Tienes {1}
 io:
-  save-failed: Fallo al guardar.
+  save-failed: Guardado fallido.
   save-success: Guardado correcto.
-  remove-banner: Quitar bandera &r#{0}
+  remove-banner: Eliminar Estandarte &r#{0}
 command:
-  player-only: Este comando solo puede ser usado por jugadores en juego.
-  invalid-parameter: 'Parametro(s) invalido(s), uso correcto: {0}'
-  not-banner-hand: El objeto de tu mano no es una bandera.
-  not-banner-see: El bloque que estas mirando no es una bandera.
+  player-only: Este comando solo puede ser usado en el juego por un jugador
+  invalid-parameter: 'Parámetros no válidos, el uso correcto es: {0}'
+  not-banner-hand: El objeto de tu mano no es un estandarte.
+  not-banner-see: El objeto que estás mirando no es un estandarte.
 config:
-  add-setting: Sumar {0} nuevas configuraciones.
+  add-setting: Añadir {0} a la configuración
 gui:
   prefix: '&4[BM]&r '
-  main-menu: Menu principal
-  prev-page: Anterior página
-  next-page: Siguiente página
-  create-banner: Crear una bandera
-  uncraftable-warning: Aviso inconstruible
-  uncraftable: Inconstruible
-  more-than-6-patterns: Mas de seis patrones.
-  more-patterns: Mas patrones
-  back: Volver
+  prev-page: Volver
+  next-page: Continuar
+  create-banner: Crear Estandarte
+  uncraftable-warning: Atención no se puede Fabricar
+  uncraftable: Imposible Fabricar
+  more-than-6-patterns: Más de 6 patrones.
+  more-patterns: Más patrones
+  back: Atrás
   create: Crear
   delete: BORRAR
-  remove-last-pattern: Borrar el ultimo patron
-  banner-info: Informacion de la Bandera
-  pattern-s: patron(es)
-  no-patterns: Sin patrones
-  craft-recipe: Receta de crafteo
-  get-this-banner: Obten esta bandera
-  get-banner: Comprar bandera &r#{0}
+  remove-last-pattern: Eliminar último patrón
+  banner-info: Fabricación
+  pattern-s: estandartes
+  no-patterns: no hay Estandartes
+  craft-recipe: Receta de Fabricación
+  get-this-banner: Obtener este Estandarte
+  get-banner: Obtener Estandarte &r#{0}
+  get-banner-for-free: Conseguir gratis
+  buy-banner-in-price: Comprar por {0}
+  get-banner-by-craft: Fabricar
   price: 'Precio: {0}'
-  clone-and-edit: 'Clona y Edita'
-  alphabet-and-number: 'Alfabeto y numeros'
-  toggle-border: (Des)Activar borde
+  clone-and-edit: Editar y Duplicar
+  alphabet-and-number: Números y Letras
+  toggle-border: Cambiar borde
   materials:
-    enough: Materiales suficientes
-    not-enough: Materiales insuficientes
+    enough: Suficientes materiales
+    not-enough: No tienes materiales sificientes
+  click:
+    left: Clic Izquierdo
+    right: Clic Derecho
+  main-menu: Estandartes
