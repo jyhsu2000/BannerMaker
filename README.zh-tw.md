@@ -5,7 +5,6 @@
 ## Link
 * [BukkitDev](https://dev.bukkit.org/projects/bannermaker)
 * [Spigot Resource](http://www.spigotmc.org/resources/bannermaker.4380/)
-* [巴哈姆特](https://forum.gamer.com.tw/C.php?bsn=18673&snA=154623)
 * [巴哈小屋](http://home.gamer.com.tw/creationDetail.php?sn=2760067)
 * [MCBBS](http://www.mcbbs.net/thread-415289-1-1.html)
 
@@ -32,7 +31,7 @@
   * 俄文(ru)（感謝 [sdir01](https://www.spigotmc.org/members/sdir01.238854/)）
   * 葡萄牙文(pt-br)（感謝 [Rhander](https://www.spigotmc.org/members/rhander.103119/)）
   * 荷蘭文(nl)（感謝 [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/)）
-  * 西班牙文(es)（感謝 [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/)）
+  * 西班牙文(es)（感謝 [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/)、[C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/)）
   * 匈牙利文(hu)（感謝 [montlikadani](https://www.spigotmc.org/members/toldi.251100/)）
 * 支援經濟功能（需要Vault）
 * 材料估算
@@ -63,9 +62,10 @@
 3. 啟動伺服器
 
 ## 更新紀錄
-v1.8.1 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
+v1.9.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
 - 優化程式碼
-- 完成新的靈活的指令系統
+- 現在只支援 Java 8
+- 更新西班牙文(es)翻譯
 
 *在 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md) 閱讀更多*
 

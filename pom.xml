@@ -4,7 +4,7 @@
     <!-- The Basics -->
     <groupId>club.kid7</groupId>
     <artifactId>BannerMaker</artifactId>
-    <version>1.8.1</version>
+    <version>1.9.0</version>
     <dependencies>
         <!-- Bukkit API -->
         <dependency>

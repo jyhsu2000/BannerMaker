@@ -5,7 +5,6 @@
 ## Link
 * [BukkitDev](https://dev.bukkit.org/projects/bannermaker)
 * [Spigot Resource](http://www.spigotmc.org/resources/bannermaker.4380/)
-* [巴哈姆特](https://forum.gamer.com.tw/C.php?bsn=18673&snA=154623)
 * [巴哈小屋](http://home.gamer.com.tw/creationDetail.php?sn=2760067)
 * [MCBBS](http://www.mcbbs.net/thread-415289-1-1.html)
 
@@ -32,7 +31,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
   * Russian(ru) (Thanks [sdir01](https://www.spigotmc.org/members/sdir01.238854/))
   * Portuguese(pt-br) (Thanks [Rhander](https://www.spigotmc.org/members/rhander.103119/))
   * Dutch(nl) (Thanks [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/))
-  * Spanish(es) (Thanks [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/))
+  * Spanish(es) (Thanks [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/), [C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/))
   * Hungarian(hu) (Thanks [montlikadani](https://www.spigotmc.org/members/toldi.251100/))
 * Economic support (need Vault)
 * Material estimates
@@ -63,9 +62,10 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ## Change Logs
-v1.8.1 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
+v1.9.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
 - Optimize code
-- Finish new flexible command system
+- Now only support Java 8
+- Update Spanish(es) translation
 
 *Read more in [CHANGELOG.md](CHANGELOG.md)*
 
