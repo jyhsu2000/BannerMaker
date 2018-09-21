@@ -28,7 +28,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         //取得當前編輯中的字母
         final AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
         //邊框切換按鈕
-        KItemStack btnBorderedBanner = new KItemStack(Material.BANNER).durability(15)
+        KItemStack btnBorderedBanner = new KItemStack(Material.LEGACY_BANNER).durability(15)
             .name(MessageUtil.format("&a" + tl("gui.toggle-border")))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
 
@@ -36,7 +36,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         menu.setItem(0, currentAlphabetBanner.toItemStack());
         //選擇底色
         for (int i = 0; i < 16; i++) {
-            final KItemStack banner = new KItemStack(Material.BANNER).durability(i);
+            final KItemStack banner = new KItemStack(Material.LEGACY_BANNER).durability(i);
             menu.setClickableItem(i + 1 + (i / 8), banner).set(ClickType.LEFT, event -> {
                 currentAlphabetBanner.baseColor = DyeColorUtil.fromInt(banner.getDurability());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
@@ -45,7 +45,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         }
         //選擇主要顏色
         for (int i = 0; i < 16; i++) {
-            final KItemStack dye = new KItemStack(Material.INK_SACK).durability(i);
+            final KItemStack dye = new KItemStack(Material.LEGACY_INK_SACK).durability(i);
             menu.setClickableItem(18 + i + 1 + (i / 8), dye).set(ClickType.LEFT, event -> {
                 currentAlphabetBanner.dyeColor = DyeColorUtil.fromInt(dye.getDurability());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
@@ -59,7 +59,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
             CustomGUIManager.openPrevious(player);
         });
         //檢視旗幟資訊按鈕
-        KItemStack btnBannerInfo = new KItemStack(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.banner-info")));
+        KItemStack btnBannerInfo = new KItemStack(Material.LEGACY_WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.banner-info")));
         menu.setClickableItem(49, btnBannerInfo).set(ClickType.LEFT, event -> {
             //檢視旗幟資訊
             playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
@@ -69,7 +69,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         });
 
         //返回
-        KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
+        KItemStack btnBackToMenu = new KItemStack(Material.LEGACY_WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, event -> CustomGUIManager.open(player, ChooseAlphabetMenu.class));
         return menu;
     }

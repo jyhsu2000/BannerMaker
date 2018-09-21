@@ -75,10 +75,10 @@ public class BannerInfoMenu implements CustomGUIMenu {
             //總頁數
             int totalPage = patternCount + 1;
             //外框
-            KItemStack workbench = new KItemStack(Material.WORKBENCH).amount(currentRecipePage).name(MessageUtil.format("&a" + tl("gui.craft-recipe")))
+            KItemStack workbench = new KItemStack(Material.LEGACY_WORKBENCH).amount(currentRecipePage).name(MessageUtil.format("&a" + tl("gui.craft-recipe")))
                 .lore(MessageUtil.format("&r(" + currentRecipePage + "/" + totalPage + ")"));
             menu.setItem(6, workbench);
-            KItemStack border = new KItemStack(Material.STAINED_GLASS_PANE).amount(1).durability(12).name(" ");
+            KItemStack border = new KItemStack(Material.LEGACY_STAINED_GLASS_PANE).amount(1).durability(12).name(" ");
             List<Integer> borderPosition = Arrays.asList(4, 5, 7, 8, 13, 17, 22, 26, 31, 35, 40, 41, 42, 43, 44);
             for (int i : borderPosition) {
                 menu.setItem(i, border.clone());
@@ -124,7 +124,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         }
         //取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
-            KItemStack btnGetBanner = new KItemStack(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.get-this-banner")));
+            KItemStack btnGetBanner = new KItemStack(Material.LEGACY_WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.get-this-banner")));
             //顯示名稱
             final String showName = BannerUtil.getName(banner);
             if (player.hasPermission("BannerMaker.getBanner.free")) {
@@ -181,7 +181,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
             }
         }
         //複製並編輯
-        KItemStack btnCloneAndEdit = new KItemStack(Material.BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + tl("gui.clone-and-edit")));
+        KItemStack btnCloneAndEdit = new KItemStack(Material.LEGACY_BOOK_AND_QUILL).amount(1).name(MessageUtil.format("&9" + tl("gui.clone-and-edit")));
         menu.setClickableItem(51, btnCloneAndEdit).set(ClickType.LEFT, event -> {
             //設定為編輯中旗幟
             playerData.setCurrentEditBanner(banner);
@@ -189,7 +189,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         });
 
         //返回
-        KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
+        KItemStack btnBackToMenu = new KItemStack(Material.LEGACY_WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, event -> {
             if (BannerUtil.isAlphabetBanner(banner)) {
                 //若為Alphabet旗幟，回到Alphabet旗幟頁面

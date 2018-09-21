@@ -91,7 +91,7 @@ public class IOUtil {
             //嘗試以新格式讀取
             try {
                 //建立旗幟
-                banner = new ItemStack(Material.BANNER, 1, (short) config.getInt(key + ".color"));
+                banner = new ItemStack(Material.LEGACY_BANNER, 1, (short) config.getInt(key + ".color"));
                 BannerMeta bm = (BannerMeta) banner.getItemMeta();
                 //新增Patterns
                 if (config.contains(key + ".patterns")) {

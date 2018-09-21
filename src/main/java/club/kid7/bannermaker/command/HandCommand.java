@@ -41,7 +41,7 @@ public class HandCommand extends CommandComponent {
         }
         //複製旗幟，僅保留底色與樣式
         BannerMeta originalBannerMeta = (BannerMeta) itemStack.getItemMeta();
-        KItemStack banner = new KItemStack(Material.BANNER)
+        KItemStack banner = new KItemStack(Material.LEGACY_BANNER)
             .durability(itemStack.getDurability())
             .setPatterns(originalBannerMeta.getPatterns());
         //顯示旗幟

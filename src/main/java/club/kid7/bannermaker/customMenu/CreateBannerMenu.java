@@ -29,14 +29,14 @@ public class CreateBannerMenu implements CustomGUIMenu {
         String title = MessageUtil.format(tl("gui.prefix") + tl("gui.create-banner"));
         CustomGUIInventory menu = new CustomGUIInventory(title);
         //返回
-        KItemStack btnBackToMenu = new KItemStack(Material.WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
+        KItemStack btnBackToMenu = new KItemStack(Material.LEGACY_WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, event -> CustomGUIManager.open(player, MainMenu.class));
         //取得當前編輯中的旗幟
         final ItemStack currentBanner = playerData.getCurrentEditBanner();
         if (currentBanner == null) {
             //剛開始編輯，先選擇底色
             for (int i = 0; i < 16; i++) {
-                final KItemStack banner = new KItemStack(Material.BANNER).durability(i);
+                final KItemStack banner = new KItemStack(Material.LEGACY_BANNER).durability(i);
                 menu.setClickableItem(i + 1 + (i / 8), banner).set(ClickType.LEFT, event -> {
                     playerData.setCurrentEditBanner(banner);
                     CustomGUIManager.openPrevious(player);
@@ -55,7 +55,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
         }
         //顏色
         for (int i = 0; i < 16; i++) {
-            final KItemStack dye = new KItemStack(Material.INK_SACK).amount(1).durability(i);
+            final KItemStack dye = new KItemStack(Material.LEGACY_INK_SACK).amount(1).durability(i);
             menu.setClickableItem(i + 1 + (i / 8), dye).set(ClickType.LEFT, event -> {
                 playerData.setSelectedColor(DyeColorUtil.fromInt(dye.getDurability()));
                 CustomGUIManager.openPrevious(player);
@@ -74,7 +74,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
             }
             //預覽旗幟
             PatternType patternType = BannerUtil.getPatternTypeList().get(patternIndex);
-            final KItemStack banner = new KItemStack(Material.BANNER)
+            final KItemStack banner = new KItemStack(Material.LEGACY_BANNER)
                 .durability(currentBanner.getDurability())
                 .pattern(new Pattern(selectedColor, patternType));
             menu.setClickableItem(i + 19 + (i / 8), banner).set(ClickType.LEFT, event -> {
@@ -95,7 +95,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
             CustomGUIManager.openPrevious(player);
         });
         //建立旗幟
-        KItemStack btnCreate = new KItemStack(Material.WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create")));
+        KItemStack btnCreate = new KItemStack(Material.LEGACY_WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create")));
         menu.setClickableItem(53, btnCreate).set(ClickType.LEFT, event -> {
             IOUtil.saveBanner(player, currentBanner);
             playerData.setCurrentEditBanner(null);

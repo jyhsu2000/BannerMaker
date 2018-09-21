@@ -16,7 +16,7 @@ public class DyeColorUtil {
         map.put(DyeColor.LIME, 10);
         map.put(DyeColor.PINK, 9);
         map.put(DyeColor.GRAY, 8);
-        map.put(DyeColor.SILVER, 7);
+        map.put(DyeColor.LIGHT_GRAY, 7);
         map.put(DyeColor.CYAN, 6);
         map.put(DyeColor.PURPLE, 5);
         map.put(DyeColor.BLUE, 4);

@@ -28,7 +28,8 @@ public class BannerUtil {
      * @return boolean
      */
     static public boolean isBanner(ItemStack itemStack) {
-        return itemStack != null && itemStack.getType().equals(Material.BANNER);
+        //FIXME: 需要準確的判斷方式
+        return itemStack != null && itemStack.getType().name().contains("BANNER");
     }
 
     /**
@@ -80,7 +81,7 @@ public class BannerUtil {
         //顏色
         int color = 15 - banner.getDurability();
         //羊毛
-        ItemStack wool = new ItemStack(Material.WOOL, 6, (short) color);
+        ItemStack wool = new ItemStack(Material.LEGACY_WOOL, 6, (short) color);
         materialList.add(wool);
         //Pattern材料
         Inventory materialInventory = Bukkit.createInventory(null, 54);
@@ -142,7 +143,7 @@ public class BannerUtil {
                     }
                     break;
                 case CREEPER:
-                    materialInventory.addItem(new ItemStack(Material.SKULL_ITEM, 1, (short) 4));
+                    materialInventory.addItem(new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 4));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         materialInventory.addItem(dye.toItemStack(1));
                     }
@@ -154,13 +155,13 @@ public class BannerUtil {
                     }
                     break;
                 case SKULL:
-                    materialInventory.addItem(new ItemStack(Material.SKULL_ITEM, 1, (short) 1));
+                    materialInventory.addItem(new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 1));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         materialInventory.addItem(dye.toItemStack(1));
                     }
                     break;
                 case FLOWER:
-                    materialInventory.addItem(new ItemStack(Material.RED_ROSE, 1, (short) 8));
+                    materialInventory.addItem(new ItemStack(Material.LEGACY_RED_ROSE, 1, (short) 8));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         materialInventory.addItem(dye.toItemStack(1));
                     }
@@ -178,13 +179,13 @@ public class BannerUtil {
         Collections.addAll(patternMaterials, materialInventory.getContents());
         //移除空值
         patternMaterials.removeAll(Collections.singletonList(null));
-        //重新排序
-        Collections.sort(patternMaterials, (itemStack1, itemStack2) -> {
-            if (itemStack1.getTypeId() != itemStack2.getTypeId()) {
-                return itemStack1.getTypeId() - itemStack2.getTypeId();
-            }
-            return itemStack1.getDurability() - itemStack2.getDurability();
-        });
+        //FIXME: 重新排序
+//        Collections.sort(patternMaterials, (itemStack1, itemStack2) -> {
+//            if (itemStack1.getTypeId() != itemStack2.getTypeId()) {
+//                return itemStack1.getTypeId() - itemStack2.getTypeId();
+//            }
+//            return itemStack1.getDurability() - itemStack2.getDurability();
+//        });
         //將材料加到清單中
         materialList.addAll(patternMaterials);
 
@@ -406,7 +407,7 @@ public class BannerUtil {
             recipe.put(i, new ItemStack(Material.AIR));
         }
         //只處理旗幟
-        if (banner == null || !banner.getType().equals(Material.BANNER)) {
+        if (banner == null || !banner.getType().equals(Material.LEGACY_BANNER)) {
             return recipe;
         }
         BannerMeta bm = (BannerMeta) banner.getItemMeta();
@@ -416,7 +417,7 @@ public class BannerUtil {
             //顏色
             int color = 15 - banner.getDurability();
             //羊毛
-            ItemStack wool = new ItemStack(Material.WOOL, 1, (short) color);
+            ItemStack wool = new ItemStack(Material.LEGACY_WOOL, 1, (short) color);
             for (int i = 0; i < 6; i++) {
                 recipe.put(i, wool.clone());
             }
@@ -426,7 +427,7 @@ public class BannerUtil {
         } else if (step <= totalStep) {
             //新增Pattern
             //當前banner
-            ItemStack prevBanner = new ItemStack(Material.BANNER, 1, banner.getDurability());
+            ItemStack prevBanner = new ItemStack(Material.LEGACY_BANNER, 1, banner.getDurability());
             BannerMeta pbm = (BannerMeta) prevBanner.getItemMeta();
             //新增至目前的Pattern
             for (int i = 0; i < step - 2; i++) {
@@ -555,7 +556,7 @@ public class BannerUtil {
                     }
                     break;
                 case CREEPER:
-                    recipe.put(1, new ItemStack(Material.SKULL_ITEM, 1, (short) 4));
+                    recipe.put(1, new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 4));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         dyePosition = Collections.singletonList(7);
                     }
@@ -575,13 +576,13 @@ public class BannerUtil {
                     }
                     break;
                 case SKULL:
-                    recipe.put(1, new ItemStack(Material.SKULL_ITEM, 1, (short) 1));
+                    recipe.put(1, new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 1));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         dyePosition = Collections.singletonList(7);
                     }
                     break;
                 case FLOWER:
-                    recipe.put(1, new ItemStack(Material.RED_ROSE, 1, (short) 8));
+                    recipe.put(1, new ItemStack(Material.LEGACY_RED_ROSE, 1, (short) 8));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         dyePosition = Collections.singletonList(7);
                     }
@@ -601,7 +602,7 @@ public class BannerUtil {
         }
         //合成結果
         //當前banner
-        ItemStack currentBanner = new ItemStack(Material.BANNER, 1, banner.getDurability());
+        ItemStack currentBanner = new ItemStack(Material.LEGACY_BANNER, 1, banner.getDurability());
         BannerMeta cbm = (BannerMeta) currentBanner.getItemMeta();
         //新增至目前的Pattern
         for (int i = 0; i < step - 1; i++) {
