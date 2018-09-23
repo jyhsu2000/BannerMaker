@@ -176,7 +176,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
             }
             //檢查是否啟用經濟
             if (BannerMaker.getInstance().econ != null) {
-                Double price = EconUtil.getPrice(banner);
+                double price = EconUtil.getPrice(banner);
                 btnGetBanner.lore(MessageUtil.format("&a" + tl("gui.price", BannerMaker.getInstance().econ.format(price))));
             }
         }
