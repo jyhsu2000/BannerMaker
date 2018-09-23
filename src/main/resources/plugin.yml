@@ -3,6 +3,7 @@ main: club.kid7.bannermaker.BannerMaker
 version: ${project.version}
 author: KID
 softdepend: [Vault]
+api-version: 1.13
 commands:
     BannerMaker:
         description: BannerMaker
