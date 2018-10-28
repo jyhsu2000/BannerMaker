@@ -407,7 +407,7 @@ public class BannerUtil {
             recipe.put(i, new ItemStack(Material.AIR));
         }
         //只處理旗幟
-        if (banner == null || !banner.getType().equals(Material.LEGACY_BANNER)) {
+        if (!isBanner(banner)) {
             return recipe;
         }
         BannerMeta bm = (BannerMeta) banner.getItemMeta();
