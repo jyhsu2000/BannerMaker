@@ -50,7 +50,7 @@ public class AlphabetBanner {
      */
     public ItemStack toItemStack() {
         //建立旗幟
-        ItemStack banner = new ItemStack(Material.LEGACY_BANNER, 1, DyeColorUtil.toShort(baseColor));
+        ItemStack banner = new ItemStack(MaterialUtil.getBanner(baseColor));
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
         bannerMeta.setDisplayName(MessageUtil.format("&a" + alphabet));
         boolean invertBanner = false;
@@ -575,7 +575,8 @@ public class AlphabetBanner {
             }
         }
         if (invertBanner) {
-            bannerMeta.setBaseColor(dyeColor);
+//            bannerMeta.setBaseColor(dyeColor);
+            banner = new ItemStack(MaterialUtil.getBanner(dyeColor));
         }
         banner.setItemMeta(bannerMeta);
         return banner;
