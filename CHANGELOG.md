@@ -2,7 +2,7 @@
 ## Unreleased Version
 - Nothing
 
-## v2.0 (for 1.13.x)
+## v2.0.0 (for 1.13.x)
 - Update to 1.13.2
 - No longer support 1.8.x ~ 1.12.x
 
