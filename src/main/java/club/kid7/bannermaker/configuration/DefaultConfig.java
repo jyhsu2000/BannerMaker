@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
@@ -33,7 +34,7 @@ public class DefaultConfig {
             }
             //載入預設設定檔（但不儲存於資料夾）
             try {
-                Reader defaultLanguageInputStreamReader = new InputStreamReader(bm.getResource(configFileName.replace('\\', '/')), "UTF8");
+                Reader defaultLanguageInputStreamReader = new InputStreamReader(bm.getResource(configFileName.replace('\\', '/')), StandardCharsets.UTF_8);
                 defaultConfigsResource.put(configName, YamlConfiguration.loadConfiguration(defaultLanguageInputStreamReader));
             } catch (Exception ignored) {
             }

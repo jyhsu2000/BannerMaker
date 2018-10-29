@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 
 public class Language {
     private static Language instance = null;
@@ -34,13 +35,13 @@ public class Language {
         }
         //載入預設語言包（但不儲存於資料夾）
         try {
-            Reader defaultLanguageInputStreamReader = new InputStreamReader(bm.getResource(getFileName(defaultLanguage).replace('\\', '/')), "UTF8");
+            Reader defaultLanguageInputStreamReader = new InputStreamReader(bm.getResource(getFileName(defaultLanguage).replace('\\', '/')), StandardCharsets.UTF_8);
             defaultLanguageConfigResource = YamlConfiguration.loadConfiguration(defaultLanguageInputStreamReader);
         } catch (Exception ignored) {
         }
         //嘗試當前語言資源檔（但不儲存於資料夾）
         try {
-            Reader languageInputStreamReader = new InputStreamReader(bm.getResource(getFileName(language).replace('\\', '/')), "UTF8");
+            Reader languageInputStreamReader = new InputStreamReader(bm.getResource(getFileName(language).replace('\\', '/')), StandardCharsets.UTF_8);
             languageConfigResource = YamlConfiguration.loadConfiguration(languageInputStreamReader);
         } catch (Exception ignored) {
         }
