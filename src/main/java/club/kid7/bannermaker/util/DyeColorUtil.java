@@ -30,7 +30,7 @@ public class DyeColorUtil {
         return map.get(dyeColor).shortValue();
     }
 
-    public static DyeColor fromInt(int number) {
+    public static DyeColor of(int number) {
         return map.inverse().get(number);
     }
 }

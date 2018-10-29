@@ -38,7 +38,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         for (int i = 0; i < 16; i++) {
             final KItemStack banner = new KItemStack(Material.LEGACY_BANNER).durability(i);
             menu.setClickableItem(i + 1 + (i / 8), banner).set(ClickType.LEFT, event -> {
-                currentAlphabetBanner.baseColor = DyeColorUtil.fromInt(banner.getDurability());
+                currentAlphabetBanner.baseColor = DyeColorUtil.of(banner.getDurability());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CustomGUIManager.openPrevious(player);
             });
@@ -47,7 +47,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         for (int i = 0; i < 16; i++) {
             final KItemStack dye = new KItemStack(Material.LEGACY_INK_SACK).durability(i);
             menu.setClickableItem(18 + i + 1 + (i / 8), dye).set(ClickType.LEFT, event -> {
-                currentAlphabetBanner.dyeColor = DyeColorUtil.fromInt(dye.getDurability());
+                currentAlphabetBanner.dyeColor = DyeColorUtil.of(dye.getDurability());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CustomGUIManager.openPrevious(player);
             });

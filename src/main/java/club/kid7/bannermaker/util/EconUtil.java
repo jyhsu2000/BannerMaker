@@ -50,10 +50,10 @@ public class EconUtil {
         String configPath = type.toString();
         //特殊路徑
         if (type == Material.LEGACY_WOOL) {
-            DyeColor woolColor = DyeColorUtil.fromInt(15 - durability);
+            DyeColor woolColor = DyeColorUtil.of(15 - durability);
             configPath = "WOOL." + woolColor.name();
         } else if (type == Material.LEGACY_INK_SACK) {
-            DyeColor dyeColor = DyeColorUtil.fromInt(durability);
+            DyeColor dyeColor = DyeColorUtil.of(durability);
             configPath = "DYE." + dyeColor.name();
         } else if (type == Material.LEGACY_SKULL_ITEM) {
             if (durability == 1) {

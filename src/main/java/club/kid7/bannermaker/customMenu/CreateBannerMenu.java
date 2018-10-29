@@ -57,7 +57,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
         for (int i = 0; i < 16; i++) {
             final KItemStack dye = new KItemStack(Material.LEGACY_INK_SACK).amount(1).durability(i);
             menu.setClickableItem(i + 1 + (i / 8), dye).set(ClickType.LEFT, event -> {
-                playerData.setSelectedColor(DyeColorUtil.fromInt(dye.getDurability()));
+                playerData.setSelectedColor(DyeColorUtil.of(dye.getDurability()));
                 CustomGUIManager.openPrevious(player);
             });
         }
