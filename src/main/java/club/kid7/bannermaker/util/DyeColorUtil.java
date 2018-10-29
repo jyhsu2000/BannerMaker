@@ -8,7 +8,8 @@ import org.bukkit.Material;
 public class DyeColorUtil {
     final private static BiMap<DyeColor, Integer> integerMap = HashBiMap.create();
     final private static BiMap<DyeColor, Material> bannerMaterialMap = HashBiMap.create();
-    final private static BiMap<DyeColor, Material> dyeMap = HashBiMap.create();
+    final private static BiMap<DyeColor, Material> dyeMaterialMap = HashBiMap.create();
+    final private static BiMap<DyeColor, Material> woolMaterialMap = HashBiMap.create();
 
     static {
         integerMap.put(DyeColor.WHITE, 15);
@@ -45,22 +46,39 @@ public class DyeColorUtil {
         bannerMaterialMap.put(DyeColor.RED, Material.RED_BANNER);
         bannerMaterialMap.put(DyeColor.BLACK, Material.BLACK_BANNER);
 
-        dyeMap.put(DyeColor.WHITE, Material.BONE_MEAL);
-        dyeMap.put(DyeColor.ORANGE, Material.ORANGE_DYE);
-        dyeMap.put(DyeColor.MAGENTA, Material.MAGENTA_DYE);
-        dyeMap.put(DyeColor.LIGHT_BLUE, Material.LIGHT_BLUE_DYE);
-        dyeMap.put(DyeColor.YELLOW, Material.DANDELION_YELLOW);
-        dyeMap.put(DyeColor.LIME, Material.LIME_DYE);
-        dyeMap.put(DyeColor.PINK, Material.PINK_DYE);
-        dyeMap.put(DyeColor.GRAY, Material.GRAY_DYE);
-        dyeMap.put(DyeColor.LIGHT_GRAY, Material.LIGHT_GRAY_DYE);
-        dyeMap.put(DyeColor.CYAN, Material.CYAN_DYE);
-        dyeMap.put(DyeColor.PURPLE, Material.PURPLE_DYE);
-        dyeMap.put(DyeColor.BLUE, Material.LAPIS_LAZULI);
-        dyeMap.put(DyeColor.BROWN, Material.COCOA_BEANS);
-        dyeMap.put(DyeColor.GREEN, Material.CACTUS_GREEN);
-        dyeMap.put(DyeColor.RED, Material.ROSE_RED);
-        dyeMap.put(DyeColor.BLACK, Material.INK_SAC);
+        dyeMaterialMap.put(DyeColor.WHITE, Material.BONE_MEAL);
+        dyeMaterialMap.put(DyeColor.ORANGE, Material.ORANGE_DYE);
+        dyeMaterialMap.put(DyeColor.MAGENTA, Material.MAGENTA_DYE);
+        dyeMaterialMap.put(DyeColor.LIGHT_BLUE, Material.LIGHT_BLUE_DYE);
+        dyeMaterialMap.put(DyeColor.YELLOW, Material.DANDELION_YELLOW);
+        dyeMaterialMap.put(DyeColor.LIME, Material.LIME_DYE);
+        dyeMaterialMap.put(DyeColor.PINK, Material.PINK_DYE);
+        dyeMaterialMap.put(DyeColor.GRAY, Material.GRAY_DYE);
+        dyeMaterialMap.put(DyeColor.LIGHT_GRAY, Material.LIGHT_GRAY_DYE);
+        dyeMaterialMap.put(DyeColor.CYAN, Material.CYAN_DYE);
+        dyeMaterialMap.put(DyeColor.PURPLE, Material.PURPLE_DYE);
+        dyeMaterialMap.put(DyeColor.BLUE, Material.LAPIS_LAZULI);
+        dyeMaterialMap.put(DyeColor.BROWN, Material.COCOA_BEANS);
+        dyeMaterialMap.put(DyeColor.GREEN, Material.CACTUS_GREEN);
+        dyeMaterialMap.put(DyeColor.RED, Material.ROSE_RED);
+        dyeMaterialMap.put(DyeColor.BLACK, Material.INK_SAC);
+
+        woolMaterialMap.put(DyeColor.WHITE, Material.WHITE_WOOL);
+        woolMaterialMap.put(DyeColor.ORANGE, Material.ORANGE_WOOL);
+        woolMaterialMap.put(DyeColor.MAGENTA, Material.MAGENTA_WOOL);
+        woolMaterialMap.put(DyeColor.LIGHT_BLUE, Material.LIGHT_BLUE_WOOL);
+        woolMaterialMap.put(DyeColor.YELLOW, Material.YELLOW_WOOL);
+        woolMaterialMap.put(DyeColor.LIME, Material.LIME_WOOL);
+        woolMaterialMap.put(DyeColor.PINK, Material.PINK_WOOL);
+        woolMaterialMap.put(DyeColor.GRAY, Material.GRAY_WOOL);
+        woolMaterialMap.put(DyeColor.LIGHT_GRAY, Material.LIGHT_GRAY_WOOL);
+        woolMaterialMap.put(DyeColor.CYAN, Material.CYAN_WOOL);
+        woolMaterialMap.put(DyeColor.PURPLE, Material.PURPLE_WOOL);
+        woolMaterialMap.put(DyeColor.BLUE, Material.BLUE_WOOL);
+        woolMaterialMap.put(DyeColor.BROWN, Material.BROWN_WOOL);
+        woolMaterialMap.put(DyeColor.GREEN, Material.GREEN_WOOL);
+        woolMaterialMap.put(DyeColor.RED, Material.RED_WOOL);
+        woolMaterialMap.put(DyeColor.BLACK, Material.BLACK_WOOL);
     }
 
     public static DyeColor of(int number) {
@@ -74,7 +92,12 @@ public class DyeColorUtil {
             return dyeColor;
         }
 
-        dyeColor = dyeMap.inverse().get(material);
+        dyeColor = dyeMaterialMap.inverse().get(material);
+        if (dyeColor != null) {
+            return dyeColor;
+        }
+
+        dyeColor = woolMaterialMap.inverse().get(material);
         if (dyeColor != null) {
             return dyeColor;
         }
@@ -90,6 +113,10 @@ public class DyeColorUtil {
     }
 
     public static Material toDyeMaterial(DyeColor dyeColor) {
-        return dyeMap.get(dyeColor);
+        return dyeMaterialMap.get(dyeColor);
+    }
+
+    public static Material toWoolMaterial(DyeColor dyeColor) {
+        return woolMaterialMap.get(dyeColor);
     }
 }
