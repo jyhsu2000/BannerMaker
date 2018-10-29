@@ -6,7 +6,6 @@ import club.kid7.bannermaker.util.InventoryMenuUtil;
 import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
-import org.bukkit.Material;
 import org.bukkit.block.Banner;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -42,8 +41,7 @@ public class SeeCommand extends CommandComponent {
         }
         //根據方塊建立旗幟
         Banner blockState = (Banner) block.getState();
-        KItemStack banner = new KItemStack(Material.LEGACY_BANNER)
-            .durability(DyeColorUtil.toShort(blockState.getBaseColor()))
+        KItemStack banner = new KItemStack(DyeColorUtil.toBannerMaterial(blockState.getBaseColor()))
             .setPatterns(blockState.getPatterns());
         //顯示旗幟
         InventoryMenuUtil.showBannerInfo(player, banner);
