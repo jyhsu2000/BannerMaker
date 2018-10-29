@@ -28,7 +28,7 @@ public class ChooseAlphabetMenu implements CustomGUIMenu {
         //清除當前編輯中的字母
         playerData.setCurrentAlphabetBanner(null);
         //邊框切換按鈕
-        KItemStack btnBorderedBanner = new KItemStack(Material.LEGACY_BANNER).durability(15)
+        KItemStack btnBorderedBanner = new KItemStack(Material.WHITE_BANNER)
             .name(MessageUtil.format("&a" + tl("gui.toggle-border")))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
 
@@ -52,7 +52,7 @@ public class ChooseAlphabetMenu implements CustomGUIMenu {
         });
 
         //返回
-        KItemStack btnBackToMenu = new KItemStack(Material.LEGACY_WOOL).amount(1).durability(14).name(MessageUtil.format("&c" + tl("gui.back")));
+        KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, event -> CustomGUIManager.open(player, MainMenu.class));
         return menu;
     }
