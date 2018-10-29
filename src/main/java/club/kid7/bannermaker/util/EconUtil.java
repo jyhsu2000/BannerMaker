@@ -45,7 +45,6 @@ public class EconUtil {
         }
         //物品資料
         Material type = itemStack.getType();
-        Short durability = itemStack.getDurability();
         //預設路徑
         String configPath = type.toString();
         //特殊路徑
