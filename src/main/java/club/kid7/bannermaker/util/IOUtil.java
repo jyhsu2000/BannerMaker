@@ -2,7 +2,6 @@ package club.kid7.bannermaker.util;
 
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.DyeColor;
-import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -35,7 +34,7 @@ public class IOUtil {
         //旗幟資訊
         BannerMeta bm = (BannerMeta) banner.getItemMeta();
         //儲存
-        config.set(key + ".color", banner.getDurability());
+        config.set(key + ".color", DyeColorUtil.toShort(DyeColorUtil.of(banner.getType())));
         List<String> patternList = new ArrayList<>();
         for (Pattern pattern : bm.getPatterns()) {
             patternList.add(pattern.getPattern().getIdentifier() + ":" + pattern.getColor().toString());
@@ -91,7 +90,7 @@ public class IOUtil {
             //嘗試以新格式讀取
             try {
                 //建立旗幟
-                banner = new ItemStack(Material.LEGACY_BANNER, 1, (short) config.getInt(key + ".color"));
+                banner = new ItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(config.getInt(key + ".color"))));
                 BannerMeta bm = (BannerMeta) banner.getItemMeta();
                 //新增Patterns
                 if (config.contains(key + ".patterns")) {
