@@ -49,7 +49,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
         menu.setItem(0, currentBanner);
         //patterns過多的警告
         if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 6) {
-            KItemStack warning = new KItemStack(Material.SIGN).amount(1).name(MessageUtil.format("&c" + tl("gui.uncraftable-warning")))
+            KItemStack warning = new KItemStack(Material.SIGN).name(MessageUtil.format("&c" + tl("gui.uncraftable-warning")))
                 .lore(tl("gui.more-than-6-patterns"));
             menu.setItem(9, warning);
         }
@@ -88,7 +88,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
             });
         }
         //更多Pattern
-        KItemStack btnMorePattern = new KItemStack(Material.NETHER_STAR).amount(1).name(MessageUtil.format("&a" + tl("gui.more-patterns")));
+        KItemStack btnMorePattern = new KItemStack(Material.NETHER_STAR).name(MessageUtil.format("&a" + tl("gui.more-patterns")));
         menu.setClickableItem(51, btnMorePattern).set(ClickType.LEFT, event -> {
             playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
             CustomGUIManager.openPrevious(player);
@@ -101,14 +101,14 @@ public class CreateBannerMenu implements CustomGUIMenu {
             CustomGUIManager.open(player, MainMenu.class);
         });
         //刪除
-        KItemStack btnDelete = new KItemStack(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete")));
+        KItemStack btnDelete = new KItemStack(Material.BARRIER).name(MessageUtil.format("&c" + tl("gui.delete")));
         menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, event -> {
             playerData.setCurrentEditBanner(null);
             CustomGUIManager.openPrevious(player);
         });
         if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
             //移除Pattern
-            KItemStack btnRemovePattern = new KItemStack(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.remove-last-pattern")));
+            KItemStack btnRemovePattern = new KItemStack(Material.BARRIER).name(MessageUtil.format("&c" + tl("gui.remove-last-pattern")));
             menu.setClickableItem(49, btnRemovePattern).set(ClickType.LEFT, event -> {
                 BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
                 bm.removePattern(bm.numberOfPatterns() - 1);

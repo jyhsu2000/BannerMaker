@@ -46,18 +46,18 @@ public class BannerInfoMenu implements CustomGUIMenu {
         }
         KItemStack signPatternCount;
         if (BannerUtil.isCraftableInSurvival(banner)) {
-            signPatternCount = new KItemStack(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr));
+            signPatternCount = new KItemStack(Material.SIGN).name(MessageUtil.format("&a" + patternCountStr));
         } else {
-            signPatternCount = new KItemStack(Material.SIGN).amount(1).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + tl("gui.uncraftable")));
+            signPatternCount = new KItemStack(Material.SIGN).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + tl("gui.uncraftable")));
         }
         menu.setItem(1, signPatternCount);
         if (BannerUtil.isCraftableInSurvival(banner)) {
             //材料是否充足
             KItemStack enoughMaterials;
             if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
-                enoughMaterials = new KItemStack(Material.SIGN).amount(1).name(MessageUtil.format("&a" + tl("gui.materials.enough")));
+                enoughMaterials = new KItemStack(Material.SIGN).name(MessageUtil.format("&a" + tl("gui.materials.enough")));
             } else {
-                enoughMaterials = new KItemStack(Material.SIGN).amount(1).name(MessageUtil.format("&c" + tl("gui.materials.not-enough")));
+                enoughMaterials = new KItemStack(Material.SIGN).name(MessageUtil.format("&c" + tl("gui.materials.not-enough")));
             }
             menu.setItem(2, enoughMaterials);
             //材料清單
@@ -115,7 +115,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         //刪除
         if (key != null) {
             //有KEY時（儲存於玩家資料時），才顯示刪除按鈕
-            KItemStack btnDelete = new KItemStack(Material.BARRIER).amount(1).name(MessageUtil.format("&c" + tl("gui.delete")));
+            KItemStack btnDelete = new KItemStack(Material.BARRIER).name(MessageUtil.format("&c" + tl("gui.delete")));
             menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, event -> {
                 //刪除
                 IOUtil.removeBanner(player, key);
