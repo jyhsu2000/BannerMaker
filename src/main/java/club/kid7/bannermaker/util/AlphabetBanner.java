@@ -2,7 +2,6 @@ package club.kid7.bannermaker.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
-import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.inventory.ItemStack;
@@ -50,7 +49,7 @@ public class AlphabetBanner {
      */
     public ItemStack toItemStack() {
         //建立旗幟
-        ItemStack banner = new ItemStack(MaterialUtil.getBanner(baseColor));
+        ItemStack banner = new ItemStack(DyeColorUtil.toBannerMaterial(baseColor));
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
         bannerMeta.setDisplayName(MessageUtil.format("&a" + alphabet));
         boolean invertBanner = false;
@@ -576,7 +575,7 @@ public class AlphabetBanner {
         }
         if (invertBanner) {
 //            bannerMeta.setBaseColor(dyeColor);
-            banner = new ItemStack(MaterialUtil.getBanner(dyeColor));
+            banner = new ItemStack(DyeColorUtil.toBannerMaterial(dyeColor));
         }
         banner.setItemMeta(bannerMeta);
         return banner;
