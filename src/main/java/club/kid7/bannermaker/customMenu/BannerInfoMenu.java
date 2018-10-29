@@ -144,7 +144,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
                 //檢查是否啟用經濟
                 if (BannerMaker.getInstance().econ != null) {
                     //右鍵：購買
-                    Double price = EconUtil.getPrice(banner);
+                    double price = EconUtil.getPrice(banner);
                     String priceStr = BannerMaker.getInstance().econ.format(price);
                     btnGetBanner.lore(MessageUtil.format("&e[" + tl("gui.click.right") + "] &a" + tl("gui.buy-banner-in-price", priceStr)));
                 }

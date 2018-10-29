@@ -271,7 +271,7 @@ public class BannerUtil {
             return false;
         }
         //價格
-        Double price = EconUtil.getPrice(banner);
+        double price = EconUtil.getPrice(banner);
         //檢查財產是否足夠
         if (!BannerMaker.getInstance().econ.has(player, price)) {
             //財產不足
