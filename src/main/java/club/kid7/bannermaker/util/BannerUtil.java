@@ -79,9 +79,9 @@ public class BannerUtil {
         materialList.add(stick);
         //羊毛
         //顏色
-        int color = 15 - banner.getDurability();
+        DyeColor baseColor = DyeColorUtil.of(banner.getType());
         //羊毛
-        ItemStack wool = new ItemStack(Material.LEGACY_WOOL, 6, (short) color);
+        ItemStack wool = new ItemStack(DyeColorUtil.toWoolMaterial(baseColor), 6);
         materialList.add(wool);
         //Pattern材料
         Inventory materialInventory = Bukkit.createInventory(null, 54);
@@ -143,7 +143,7 @@ public class BannerUtil {
                     }
                     break;
                 case CREEPER:
-                    materialInventory.addItem(new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 4));
+                    materialInventory.addItem(new ItemStack(Material.CREEPER_HEAD));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         materialInventory.addItem(dye.toItemStack(1));
                     }
@@ -155,19 +155,19 @@ public class BannerUtil {
                     }
                     break;
                 case SKULL:
-                    materialInventory.addItem(new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 1));
+                    materialInventory.addItem(new ItemStack(Material.PLAYER_HEAD));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         materialInventory.addItem(dye.toItemStack(1));
                     }
                     break;
                 case FLOWER:
-                    materialInventory.addItem(new ItemStack(Material.LEGACY_RED_ROSE, 1, (short) 8));
+                    materialInventory.addItem(new ItemStack(Material.OXEYE_DAISY));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         materialInventory.addItem(dye.toItemStack(1));
                     }
                     break;
                 case MOJANG:
-                    materialInventory.addItem(new ItemStack(Material.GOLDEN_APPLE, 1, (short) 1));
+                    materialInventory.addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         materialInventory.addItem(dye.toItemStack(1));
                     }
@@ -412,12 +412,12 @@ public class BannerUtil {
         }
         BannerMeta bm = (BannerMeta) banner.getItemMeta();
         int totalStep = bm.numberOfPatterns() + 1;
+        //顏色
+        DyeColor baseColor = DyeColorUtil.of(banner.getType());
         if (step == 1) {
             //第一步，旗幟合成
-            //顏色
-            int color = 15 - banner.getDurability();
             //羊毛
-            ItemStack wool = new ItemStack(Material.LEGACY_WOOL, 1, (short) color);
+            ItemStack wool = new ItemStack(DyeColorUtil.toWoolMaterial(baseColor));
             for (int i = 0; i < 6; i++) {
                 recipe.put(i, wool.clone());
             }
@@ -427,7 +427,7 @@ public class BannerUtil {
         } else if (step <= totalStep) {
             //新增Pattern
             //當前banner
-            ItemStack prevBanner = new ItemStack(Material.LEGACY_BANNER, 1, banner.getDurability());
+            ItemStack prevBanner = new ItemStack(DyeColorUtil.toBannerMaterial(baseColor));
             BannerMeta pbm = (BannerMeta) prevBanner.getItemMeta();
             //新增至目前的Pattern
             for (int i = 0; i < step - 2; i++) {
@@ -556,7 +556,7 @@ public class BannerUtil {
                     }
                     break;
                 case CREEPER:
-                    recipe.put(1, new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 4));
+                    recipe.put(1, new ItemStack(Material.CREEPER_HEAD));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         dyePosition = Collections.singletonList(7);
                     }
@@ -576,19 +576,19 @@ public class BannerUtil {
                     }
                     break;
                 case SKULL:
-                    recipe.put(1, new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 1));
+                    recipe.put(1, new ItemStack(Material.PLAYER_HEAD));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         dyePosition = Collections.singletonList(7);
                     }
                     break;
                 case FLOWER:
-                    recipe.put(1, new ItemStack(Material.LEGACY_RED_ROSE, 1, (short) 8));
+                    recipe.put(1, new ItemStack(Material.OXEYE_DAISY));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         dyePosition = Collections.singletonList(7);
                     }
                     break;
                 case MOJANG:
-                    recipe.put(1, new ItemStack(Material.GOLDEN_APPLE, 1, (short) 1));
+                    recipe.put(1, new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         dyePosition = Collections.singletonList(7);
                     }
@@ -602,7 +602,7 @@ public class BannerUtil {
         }
         //合成結果
         //當前banner
-        ItemStack currentBanner = new ItemStack(Material.LEGACY_BANNER, 1, banner.getDurability());
+        ItemStack currentBanner = new ItemStack(DyeColorUtil.toBannerMaterial(baseColor));
         BannerMeta cbm = (BannerMeta) currentBanner.getItemMeta();
         //新增至目前的Pattern
         for (int i = 0; i < step - 1; i++) {
