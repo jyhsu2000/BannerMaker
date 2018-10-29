@@ -56,7 +56,7 @@ public class MainMenu implements CustomGUIMenu {
             });
         }
         //Create banner
-        KItemStack btnCreateBanner = new KItemStack(Material.LEGACY_WOOL).amount(1).durability(5).name(MessageUtil.format("&a" + tl("gui.create-banner")));
+        KItemStack btnCreateBanner = new KItemStack(Material.LIME_WOOL).name(MessageUtil.format("&a" + tl("gui.create-banner")));
         menu.setClickableItem(49, btnCreateBanner).set(ClickType.LEFT, event -> CustomGUIManager.open(player, CreateBannerMenu.class));
         //建立字母
         if (BannerMaker.getInstance().enableAlphabetAndNumber) {
