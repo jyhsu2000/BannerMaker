@@ -2,6 +2,10 @@
 ## Unreleased Version
 - Nothing
 
+## v2.0 (for 1.13.x)
+- Update to 1.13.2
+- No longer support 1.8.x ~ 1.12.x
+
 ## v1.9.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
 - Optimize code
 - Now only support Java 8

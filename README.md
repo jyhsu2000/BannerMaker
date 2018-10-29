@@ -62,10 +62,9 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ## Change Logs
-v1.9.0 (for 1.8.x, 1.9.x, 1.10.x, 1.11.x, 1.12.x)
-- Optimize code
-- Now only support Java 8
-- Update Spanish(es) translation
+v2.0 (for 1.13.x)
+- Update to 1.13.2
+- No longer support 1.8.x ~ 1.12.x
 
 *Read more in [CHANGELOG.md](CHANGELOG.md)*
 
