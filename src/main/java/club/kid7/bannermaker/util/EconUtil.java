@@ -49,20 +49,16 @@ public class EconUtil {
         //預設路徑
         String configPath = type.toString();
         //特殊路徑
-        if (type == Material.LEGACY_WOOL) {
-            DyeColor woolColor = DyeColorUtil.of(15 - durability);
-            configPath = "WOOL." + woolColor.name();
-        } else if (type == Material.LEGACY_INK_SACK) {
-            DyeColor dyeColor = DyeColorUtil.of(durability);
-            configPath = "DYE." + dyeColor.name();
-        } else if (type == Material.LEGACY_SKULL_ITEM) {
-            if (durability == 1) {
-                configPath = "WITHER_SKELETON_SKULL";
-            } else if (durability == 4) {
-                configPath = "CREEPER_SKULL";
+        if (MaterialUtil.isWool(type)) {
+            DyeColor woolColor = DyeColorUtil.of(type);
+            if (woolColor != null) {
+                configPath = "WOOL." + woolColor.name();
             }
-        } else if (type == Material.LEGACY_RED_ROSE) {
-            configPath = "ROSE";
+        } else if (MaterialUtil.isDye(type)) {
+            DyeColor dyeColor = DyeColorUtil.of(type);
+            if (dyeColor != null) {
+                configPath = "DYE." + dyeColor.name();
+            }
         }
         //檢查設定
         if (!priceConfig.contains(configPath)) {
