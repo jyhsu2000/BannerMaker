@@ -155,7 +155,7 @@ public class BannerUtil {
                     }
                     break;
                 case SKULL:
-                    materialInventory.addItem(new ItemStack(Material.PLAYER_HEAD));
+                    materialInventory.addItem(new ItemStack(Material.WITHER_SKELETON_SKULL));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         materialInventory.addItem(dye.toItemStack(1));
                     }
@@ -576,7 +576,7 @@ public class BannerUtil {
                     }
                     break;
                 case SKULL:
-                    recipe.put(1, new ItemStack(Material.PLAYER_HEAD));
+                    recipe.put(1, new ItemStack(Material.WITHER_SKELETON_SKULL));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         dyePosition = Collections.singletonList(7);
                     }
