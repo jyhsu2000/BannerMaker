@@ -8,6 +8,7 @@ import org.bukkit.Material;
 public class DyeColorUtil {
     final private static BiMap<DyeColor, Integer> integerMap = HashBiMap.create();
     final private static BiMap<DyeColor, Material> bannerMaterialMap = HashBiMap.create();
+    final private static BiMap<DyeColor, Material> dyeMap = HashBiMap.create();
 
     static {
         integerMap.put(DyeColor.WHITE, 15);
@@ -43,21 +44,52 @@ public class DyeColorUtil {
         bannerMaterialMap.put(DyeColor.GREEN, Material.GREEN_BANNER);
         bannerMaterialMap.put(DyeColor.RED, Material.RED_BANNER);
         bannerMaterialMap.put(DyeColor.BLACK, Material.BLACK_BANNER);
-    }
 
-    public static short toShort(DyeColor dyeColor) {
-        return integerMap.get(dyeColor).shortValue();
+        dyeMap.put(DyeColor.WHITE, Material.BONE_MEAL);
+        dyeMap.put(DyeColor.ORANGE, Material.ORANGE_DYE);
+        dyeMap.put(DyeColor.MAGENTA, Material.MAGENTA_DYE);
+        dyeMap.put(DyeColor.LIGHT_BLUE, Material.LIGHT_BLUE_DYE);
+        dyeMap.put(DyeColor.YELLOW, Material.DANDELION_YELLOW);
+        dyeMap.put(DyeColor.LIME, Material.LIME_DYE);
+        dyeMap.put(DyeColor.PINK, Material.PINK_DYE);
+        dyeMap.put(DyeColor.GRAY, Material.GRAY_DYE);
+        dyeMap.put(DyeColor.LIGHT_GRAY, Material.LIGHT_GRAY_DYE);
+        dyeMap.put(DyeColor.CYAN, Material.CYAN_DYE);
+        dyeMap.put(DyeColor.PURPLE, Material.PURPLE_DYE);
+        dyeMap.put(DyeColor.BLUE, Material.LAPIS_LAZULI);
+        dyeMap.put(DyeColor.BROWN, Material.COCOA_BEANS);
+        dyeMap.put(DyeColor.GREEN, Material.CACTUS_GREEN);
+        dyeMap.put(DyeColor.RED, Material.ROSE_RED);
+        dyeMap.put(DyeColor.BLACK, Material.INK_SAC);
     }
 
     public static DyeColor of(int number) {
         return integerMap.inverse().get(number);
     }
 
+    public static DyeColor of(Material material) {
+        DyeColor dyeColor;
+        dyeColor = bannerMaterialMap.inverse().get(material);
+        if (dyeColor != null) {
+            return dyeColor;
+        }
+
+        dyeColor = dyeMap.inverse().get(material);
+        if (dyeColor != null) {
+            return dyeColor;
+        }
+        return null;
+    }
+
+    public static short toShort(DyeColor dyeColor) {
+        return integerMap.get(dyeColor).shortValue();
+    }
+
     public static Material toBannerMaterial(DyeColor dyeColor) {
         return bannerMaterialMap.get(dyeColor);
     }
 
-    public static DyeColor of(Material material) {
-        return bannerMaterialMap.inverse().get(material);
+    public static Material toDyeMaterial(DyeColor dyeColor) {
+        return dyeMap.get(dyeColor);
     }
 }
