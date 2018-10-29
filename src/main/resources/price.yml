@@ -8,7 +8,7 @@ WOOL:
   LIME: 0
   PINK: 0
   GRAY: 0
-  SILVER: 0
+  LIGHT_GRAY: 0
   CYAN: 0
   PURPLE: 0
   BLUE: 0
@@ -25,7 +25,7 @@ DYE:
   LIME: 0
   PINK: 0
   GRAY: 0
-  SILVER: 0
+  LIGHT_GRAY: 0
   CYAN: 0
   PURPLE: 0
   BLUE: 0
