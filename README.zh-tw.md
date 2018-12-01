@@ -62,11 +62,7 @@
 3. 啟動伺服器
 
 ## 更新紀錄
-v2.0.0 (for 1.13.x)
-- 升級至1.13.2
-- 不再支援1.8.x ~ 1.12.x
-
-*在 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md) 閱讀更多*
+*請參閱 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md)*
 
 ## 圖片
 ![Main menu](http://i.imgur.com/rMTTfsE.png)  
