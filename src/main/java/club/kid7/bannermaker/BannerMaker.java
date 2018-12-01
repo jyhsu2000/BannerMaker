@@ -3,8 +3,6 @@ package club.kid7.bannermaker;
 import club.kid7.bannermaker.command.BannerMakerCommand;
 import club.kid7.bannermaker.configuration.DefaultConfig;
 import club.kid7.bannermaker.configuration.Language;
-import club.kid7.bannermaker.version.VersionHandler;
-import club.kid7.bannermaker.version.VersionHandler_1_8;
 import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import club.kid7.pluginutilities.gui.CustomGUI;
@@ -21,28 +19,11 @@ public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     public Economy econ = null;
     public boolean enableAlphabetAndNumber = true;
-    private VersionHandler versionHandler = null;
     public PlayerDataMap playerDataMap = null;
-
-    public VersionHandler getVersionHandler() {
-        return versionHandler;
-    }
 
     @Override
     public void onEnable() {
         instance = this;
-        //根據不同版本選擇Handler
-        String version = getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
-        switch (version) {
-            case "v1_8_R1":
-            case "v1_8_R2":
-            case "v1_8_R3":
-                versionHandler = new VersionHandler_1_8();
-                break;
-            default:
-                versionHandler = new VersionHandler();
-                break;
-        }
 
         //Commands
         registerCommands();

@@ -34,7 +34,7 @@ public class HandCommand extends CommandComponent {
     public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args) {
         BannerMaker bm = (BannerMaker) plugin;
         Player player = (Player) sender;
-        ItemStack itemStack = bm.getVersionHandler().getItemInMainHand(player);
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
         if (!BannerUtil.isBanner(itemStack)) {
             player.sendMessage(MessageUtil.format(true, "&c" + Language.tl("command.not-banner-hand")));
             return true;
