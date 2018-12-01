@@ -177,15 +177,8 @@ public class BannerUtil {
         //加到暫存清單
         List<ItemStack> patternMaterials = new ArrayList<>();
         Collections.addAll(patternMaterials, materialInventory.getContents());
-        //移除空值
-        patternMaterials.removeAll(Collections.singletonList(null));
-        //FIXME: 重新排序
-//        Collections.sort(patternMaterials, (itemStack1, itemStack2) -> {
-//            if (itemStack1.getTypeId() != itemStack2.getTypeId()) {
-//                return itemStack1.getTypeId() - itemStack2.getTypeId();
-//            }
-//            return itemStack1.getDurability() - itemStack2.getDurability();
-//        });
+        //重新排序
+        InventoryUtil.sort(patternMaterials);
         //將材料加到清單中
         materialList.addAll(patternMaterials);
 

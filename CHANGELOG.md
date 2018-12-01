@@ -1,6 +1,6 @@
 # Change Logs
 ## Unreleased Version
-- Nothing
+- Fix sorting of materials
 
 ## v2.0.0 (for 1.13.x)
 - Update to 1.13.2
