@@ -2,6 +2,9 @@
 ## Unreleased Version
 - Nothing
 
+## v2.1.1 (for 1.13.x)
+- Fix bug of missing dye materials when crafting banners
+
 ## v2.1.0 (for 1.13.x)
 - Add simple preview mode (Toggleable in "Create Banner" menu)
   - https://imgur.com/a/ydF8frS
