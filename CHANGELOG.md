@@ -3,7 +3,8 @@
 - Nothing
 
 ## v2.1.0 (for 1.13.x)
-- Add simple preview mode
+- Add simple preview mode (Toggleable in "Create Banner" menu)
+  - https://imgur.com/a/ydF8frS
 
 ## v2.0.1 (for 1.13.x)
 - Fix sorting of materials
