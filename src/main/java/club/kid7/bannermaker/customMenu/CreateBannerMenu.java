@@ -68,8 +68,8 @@ public class CreateBannerMenu implements CustomGUIMenu {
         boolean isInSimplePreviewMode = playerData.isInSimplePreviewMode();
         //預覽模式切換按鈕
         final KItemStack previewDye = new KItemStack(DyeColorUtil.toDyeMaterial(selectedColor))
-            .name(ChatColor.BLUE + "Selected pattern color")
-            .lore(ChatColor.GREEN + "Toggle preview mode");
+            .name(MessageUtil.format("&9"+tl("gui.selected-pattern-color")))
+            .lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.toggle-preview-mode")));
         menu.setClickableItem(18, previewDye).set(ClickType.LEFT, event -> {
             playerData.setInSimplePreviewMode(!isInSimplePreviewMode);
             CustomGUIManager.openPrevious(player);

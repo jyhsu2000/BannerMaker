@@ -51,3 +51,5 @@ gui:
   click:
     left: 左鍵
     right: 右鍵
+  selected-pattern-color: 已選擇圖形顏色
+  toggle-preview-mode: 切換預覽模式

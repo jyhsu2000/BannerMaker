@@ -51,3 +51,5 @@ gui:
   click:
     left: Left Click
     right: Right Click
+  selected-pattern-color: Selected pattern color
+  toggle-preview-mode: Toggle preview mode
