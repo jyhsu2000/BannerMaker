@@ -17,6 +17,7 @@ public class PlayerData {
     private ItemStack currentEditBanner = null;
     private boolean showMorePatterns = false;
     private DyeColor selectedColor = DyeColor.BLACK;
+    private boolean inSimplePreviewMode = false;
 
     public Integer getCurrentPage() {
         return currentPage;
@@ -80,5 +81,13 @@ public class PlayerData {
 
     public void setSelectedColor(DyeColor selectedColor) {
         this.selectedColor = selectedColor;
+    }
+
+    public boolean isInSimplePreviewMode() {
+        return inSimplePreviewMode;
+    }
+
+    public void setInSimplePreviewMode(boolean inSimplePreviewMode) {
+        this.inSimplePreviewMode = inSimplePreviewMode;
     }
 }

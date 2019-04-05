@@ -10,6 +10,7 @@ import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.gui.CustomGUIMenu;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
+import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -61,9 +62,32 @@ public class CreateBannerMenu implements CustomGUIMenu {
                 CustomGUIManager.openPrevious(player);
             });
         }
-        //Pattern
         //選擇的顏色
         DyeColor selectedColor = playerData.getSelectedColor();
+        //預覽模式
+        boolean isInSimplePreviewMode = playerData.isInSimplePreviewMode();
+        //預覽模式切換按鈕
+        final KItemStack previewDye = new KItemStack(DyeColorUtil.toDyeMaterial(selectedColor))
+            .name(ChatColor.BLUE + "Selected pattern color")
+            .lore(ChatColor.GREEN + "Toggle preview mode");
+        menu.setClickableItem(18, previewDye).set(ClickType.LEFT, event -> {
+            playerData.setInSimplePreviewMode(!isInSimplePreviewMode);
+            CustomGUIManager.openPrevious(player);
+        });
+
+        //預覽模式
+        final KItemStack baseBannerForPreview;
+        final DyeColor selectedColorForPreview;
+        if (isInSimplePreviewMode) {
+            //簡易預覽模式：一律黑底+白色圖樣
+            baseBannerForPreview = new KItemStack(Material.WHITE_BANNER);
+            selectedColorForPreview = DyeColor.BLACK;
+        } else {
+            //預設預覽模式：與旗幟相同底色+選擇顏色之圖樣
+            baseBannerForPreview = new KItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(currentBanner.getType())));
+            selectedColorForPreview = selectedColor;
+        }
+        //Pattern
         for (int i = 0; i < 24; i++) {
             int patternIndex = i;
             if (playerData.isShowMorePatterns()) {
@@ -74,14 +98,12 @@ public class CreateBannerMenu implements CustomGUIMenu {
             }
             //預覽旗幟
             PatternType patternType = BannerUtil.getPatternTypeList().get(patternIndex);
-            final KItemStack banner = new KItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(currentBanner.getType())))
-                .pattern(new Pattern(selectedColor, patternType));
+            final KItemStack banner = ((KItemStack) baseBannerForPreview.clone())
+                .pattern(new Pattern(selectedColorForPreview, patternType));
             menu.setClickableItem(i + 19 + (i / 8), banner).set(ClickType.LEFT, event -> {
                 //新增Pattern
-                BannerMeta bm = (BannerMeta) banner.getItemMeta();
-                Pattern pattern = bm.getPattern(bm.numberOfPatterns() - 1);
                 BannerMeta currentBm = (BannerMeta) currentBanner.getItemMeta();
-                currentBm.addPattern(pattern);
+                currentBm.addPattern(new Pattern(selectedColor, patternType));
                 currentBanner.setItemMeta(currentBm);
                 playerData.setCurrentEditBanner(currentBanner);
                 CustomGUIManager.openPrevious(player);
