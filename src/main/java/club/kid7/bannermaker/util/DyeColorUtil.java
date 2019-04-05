@@ -4,6 +4,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class DyeColorUtil {
     final private static BiMap<DyeColor, Integer> integerMap = HashBiMap.create();
@@ -114,6 +115,10 @@ public class DyeColorUtil {
 
     public static Material toDyeMaterial(DyeColor dyeColor) {
         return dyeMaterialMap.get(dyeColor);
+    }
+
+    public static ItemStack toDyeItemStack(DyeColor dyeColor, int amount) {
+        return new ItemStack(toDyeMaterial(dyeColor), amount);
     }
 
     public static Material toWoolMaterial(DyeColor dyeColor) {
