@@ -2,6 +2,9 @@
 ## Unreleased Version
 - Nothing
 
+## v2.1.0 (for 1.13.x)
+- Add simple preview mode
+
 ## v2.0.1 (for 1.13.x)
 - Fix sorting of materials
 - Cleanup code
