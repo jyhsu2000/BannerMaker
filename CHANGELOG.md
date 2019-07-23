@@ -2,6 +2,13 @@
 ## Unreleased Version
 - Nothing
 
+## v2.2.0 (for 1.14.x)
+- Update to 1.14.4
+- Fix dye materials in recipes
+- Update language mechanism
+  - Auto detect environment language if set language to "auto"
+  - Change filename syntax of language files from "zh-tw" to "zh_TW"
+
 ## v2.1.1 (for 1.13.x)
 - Fix bug of missing dye materials when crafting banners
 
