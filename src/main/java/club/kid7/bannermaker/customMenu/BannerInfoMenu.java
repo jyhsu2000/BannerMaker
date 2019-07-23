@@ -2,7 +2,11 @@ package club.kid7.bannermaker.customMenu;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
-import club.kid7.bannermaker.util.*;
+import club.kid7.bannermaker.util.BannerUtil;
+import club.kid7.bannermaker.util.EconUtil;
+import club.kid7.bannermaker.util.IOUtil;
+import club.kid7.bannermaker.util.InventoryUtil;
+import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIItem;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
@@ -46,18 +50,18 @@ public class BannerInfoMenu implements CustomGUIMenu {
         }
         KItemStack signPatternCount;
         if (BannerUtil.isCraftableInSurvival(banner)) {
-            signPatternCount = new KItemStack(Material.SIGN).name(MessageUtil.format("&a" + patternCountStr));
+            signPatternCount = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&a" + patternCountStr));
         } else {
-            signPatternCount = new KItemStack(Material.SIGN).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + tl("gui.uncraftable")));
+            signPatternCount = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + tl("gui.uncraftable")));
         }
         menu.setItem(1, signPatternCount);
         if (BannerUtil.isCraftableInSurvival(banner)) {
             //材料是否充足
             KItemStack enoughMaterials;
             if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
-                enoughMaterials = new KItemStack(Material.SIGN).name(MessageUtil.format("&a" + tl("gui.materials.enough")));
+                enoughMaterials = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&a" + tl("gui.materials.enough")));
             } else {
-                enoughMaterials = new KItemStack(Material.SIGN).name(MessageUtil.format("&c" + tl("gui.materials.not-enough")));
+                enoughMaterials = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&c" + tl("gui.materials.not-enough")));
             }
             menu.setItem(2, enoughMaterials);
             //材料清單

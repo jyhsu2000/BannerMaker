@@ -10,7 +10,7 @@ public class MaterialUtil {
             case ORANGE_DYE:
             case MAGENTA_DYE:
             case LIGHT_BLUE_DYE:
-            case DANDELION_YELLOW:
+            case YELLOW_DYE:
             case LIME_DYE:
             case PINK_DYE:
             case GRAY_DYE:
@@ -19,9 +19,9 @@ public class MaterialUtil {
             case PURPLE_DYE:
             case LAPIS_LAZULI:
             case COCOA_BEANS:
-            case CACTUS_GREEN:
-            case ROSE_RED:
-            case INK_SAC:
+            case GREEN_DYE:
+            case RED_DYE:
+            case BLACK_DYE:
                 //</editor-fold>
                 return true;
             default:

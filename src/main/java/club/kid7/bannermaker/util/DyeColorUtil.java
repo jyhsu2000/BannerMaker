@@ -47,22 +47,22 @@ public class DyeColorUtil {
         bannerMaterialMap.put(DyeColor.RED, Material.RED_BANNER);
         bannerMaterialMap.put(DyeColor.BLACK, Material.BLACK_BANNER);
 
-        dyeMaterialMap.put(DyeColor.WHITE, Material.BONE_MEAL);
+        dyeMaterialMap.put(DyeColor.WHITE, Material.WHITE_DYE);
         dyeMaterialMap.put(DyeColor.ORANGE, Material.ORANGE_DYE);
         dyeMaterialMap.put(DyeColor.MAGENTA, Material.MAGENTA_DYE);
         dyeMaterialMap.put(DyeColor.LIGHT_BLUE, Material.LIGHT_BLUE_DYE);
-        dyeMaterialMap.put(DyeColor.YELLOW, Material.DANDELION_YELLOW);
+        dyeMaterialMap.put(DyeColor.YELLOW, Material.YELLOW_DYE);
         dyeMaterialMap.put(DyeColor.LIME, Material.LIME_DYE);
         dyeMaterialMap.put(DyeColor.PINK, Material.PINK_DYE);
         dyeMaterialMap.put(DyeColor.GRAY, Material.GRAY_DYE);
         dyeMaterialMap.put(DyeColor.LIGHT_GRAY, Material.LIGHT_GRAY_DYE);
         dyeMaterialMap.put(DyeColor.CYAN, Material.CYAN_DYE);
         dyeMaterialMap.put(DyeColor.PURPLE, Material.PURPLE_DYE);
-        dyeMaterialMap.put(DyeColor.BLUE, Material.LAPIS_LAZULI);
-        dyeMaterialMap.put(DyeColor.BROWN, Material.COCOA_BEANS);
-        dyeMaterialMap.put(DyeColor.GREEN, Material.CACTUS_GREEN);
-        dyeMaterialMap.put(DyeColor.RED, Material.ROSE_RED);
-        dyeMaterialMap.put(DyeColor.BLACK, Material.INK_SAC);
+        dyeMaterialMap.put(DyeColor.BLUE, Material.BLUE_DYE);
+        dyeMaterialMap.put(DyeColor.BROWN, Material.BROWN_DYE);
+        dyeMaterialMap.put(DyeColor.GREEN, Material.GREEN_DYE);
+        dyeMaterialMap.put(DyeColor.RED, Material.RED_DYE);
+        dyeMaterialMap.put(DyeColor.BLACK, Material.BLACK_DYE);
 
         woolMaterialMap.put(DyeColor.WHITE, Material.WHITE_WOOL);
         woolMaterialMap.put(DyeColor.ORANGE, Material.ORANGE_WOOL);

@@ -10,7 +10,6 @@ import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.gui.CustomGUIMenu;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
-import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -50,7 +49,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
         menu.setItem(0, currentBanner);
         //patterns過多的警告
         if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 6) {
-            KItemStack warning = new KItemStack(Material.SIGN).name(MessageUtil.format("&c" + tl("gui.uncraftable-warning")))
+            KItemStack warning = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&c" + tl("gui.uncraftable-warning")))
                 .lore(tl("gui.more-than-6-patterns"));
             menu.setItem(9, warning);
         }
