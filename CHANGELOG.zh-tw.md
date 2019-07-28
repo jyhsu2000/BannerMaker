@@ -2,6 +2,9 @@
 ## 未釋出版本
 - 暫無
 
+## v2.2.1 (for 1.14.x)
+- 新增波蘭語(pl)翻譯（感謝 [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/)）
+
 ## v2.2.0 (for 1.14.x)
 - 升級至 1.14.4
 - 修正合成表中的染料

@@ -33,6 +33,7 @@
   * 荷蘭文(nl)（感謝 [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/)）
   * 西班牙文(es)（感謝 [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/)、[C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/)）
   * 匈牙利文(hu)（感謝 [montlikadani](https://www.spigotmc.org/members/toldi.251100/)）
+  * 波蘭語(pl)（感謝 [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/)）
 * 支援經濟功能（需要Vault）
 * 材料估算
 * 使用材料合成旗幟

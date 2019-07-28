@@ -1,0 +1,55 @@
+# Polish(pl)
+# For BannerMaker v2.1.0
+# Contributor(s): ziemniok99
+general:
+  prefix: '&6[&aBannerMaker&6]&r '
+  reload: Przeładuj konfiguracje
+  no-permission: Brak permisji
+  no-money: Nie wystarczająca ilość środków na koncie
+  money-transaction: Użyto {0} aby dostać banner. Masz teraz {1}
+io:
+  save-failed: Zapis nieudany.
+  save-success: Zapis udany.
+  remove-banner: Usuń banner &r#{0}
+command:
+  player-only: Ta komenda może być użyta tylko przez graczy w grze.
+  invalid-parameter: 'Nieprawidłowe parametry, prawidłowe użycie: {0}'
+  not-banner-hand: Przedmiot w ręce nie jest bannerem.
+  not-banner-see: Blok na który się patrzysz nie jest bannerem.
+config:
+  add-setting: Dodaj {0} nowe ustawienia
+gui:
+  prefix: '&4[BM]&r '
+  main-menu: Menu główne
+  prev-page: Poprzednia strona
+  next-page: Następna strona
+  create-banner: Stwórz banner
+  uncraftable-warning: UWAGA Nie do scraftowania
+  uncraftable: Nie do scraftowania
+  more-than-6-patterns: Więcej niż 6 wzorów.
+  more-patterns: Więcej wzorów
+  back: Wróć
+  create: Stwórz
+  delete: USUŃ
+  remove-last-pattern: Usuń ostatnij wzór
+  banner-info: informacje o banerze
+  pattern-s: wzór / wzory
+  no-patterns: Brak wzorów
+  craft-recipe: Przepis craftingu
+  get-this-banner: Otrzymaj ten banner
+  get-banner: Otrzymaj banner &r#{0}
+  get-banner-for-free: Dostań banner za darmo
+  buy-banner-in-price: Kup w {0}
+  get-banner-by-craft: Scraftuj
+  price: 'Cena: {0}'
+  clone-and-edit: 'Zdupikuj i Edytuj'
+  alphabet-and-number: 'Alfabet i Numery'
+  toggle-border: Zmień krawędzie
+  materials:
+    enough: Wystarczające materiały
+    not-enough: Nie wystarczjące materiały
+  click:
+    left: Lewy przycisk
+    right: Prawy Przycisk
+  selected-pattern-color: Wybrano kolor wzoru
+  toggle-preview-mode: Przełącz tryb podglądu

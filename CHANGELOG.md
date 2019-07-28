@@ -2,6 +2,9 @@
 ## Unreleased Version
 - Nothing
 
+## v2.2.1 (for 1.14.x)
+- Add Polish(pl) translation (Thanks [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/))
+
 ## v2.2.0 (for 1.14.x)
 - Update to 1.14.4
 - Fix dye materials in recipes
