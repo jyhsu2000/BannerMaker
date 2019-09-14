@@ -1,0 +1,55 @@
+# Italian(it)
+# For BannerMaker v2.2.1
+# Contributor(s): Leomixer17
+general:
+  prefix: '&6[&aBannerMaker&6]&r '
+  reload: Ricarica la configurazione
+  no-permission: Non hai i permessi
+  no-money: Non hai abbastanza soldi
+  money-transaction: Usa {0} per ottenere uno stendardo. Ora hai {1}
+io:
+  save-failed: Salvataggio fallito.
+  save-success: Salvataggio avvenuto con successo.
+  remove-banner: Rimuovi lo stendardo &r#{0}
+command:
+  player-only: Questo comando può essere utilizzato solo dai giocatori
+  invalid-parameter: 'Parametri non validi, utilizzo corretto: {0}'
+  not-banner-hand: L'oggetto nella mano non è uno stendardo.
+  not-banner-see: Il blocco che stai guardando non è uno stendardo.
+config:
+  add-setting: Aggiungi {0} nuove impostazioni
+gui:
+  prefix: '&4[BM]&r '
+  main-menu: Menu principale
+  prev-page: Pagina precedente
+  next-page: Pagina successiva
+  create-banner: Crea uno stendardo
+  uncraftable-warning: Avviso non creabile
+  uncraftable: Non creabile
+  more-than-6-patterns: Più di 6 motivi.
+  more-patterns: Altri motivi
+  back: Indietro
+  create: Crea
+  delete: ELIMINA
+  remove-last-pattern: Rimuovi l'ultimo motivo
+  banner-info: Informazioni stendardo
+  pattern-s: motivo/i
+  no-patterns: Nessun motivo
+  craft-recipe: Crea la Ricetta
+  get-this-banner: Ottieni questo stendardo
+  get-banner: Ottieni lo stendardo &r#{0}
+  get-banner-for-free: Ottieni lo stendardo gratuitamente
+  buy-banner-in-price: Compra in {0}
+  get-banner-by-craft: Crea
+  price: 'Prezzo: {0}'
+  clone-and-edit: 'Copia e Modifica'
+  alphabet-and-number: 'Alfabeto e Numeri'
+  toggle-border: Abilita/disabilita i bordi
+  materials:
+    enough: Materiali sufficienti
+    not-enough: Materiali non sufficienti
+  click:
+    left: Clic Sinistro
+    right: Clic Destro
+  selected-pattern-color: Colore del motivo selezionato
+  toggle-preview-mode: Attiva/disattiva modalità anteprima

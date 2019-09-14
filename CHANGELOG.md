@@ -2,6 +2,9 @@
 ## Unreleased Version
 - Nothing
 
+## v2.2.2 (for 1.14.x)
+- Add Italian(it) translation (Thanks [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/))
+
 ## v2.2.1 (for 1.14.x)
 - Add Polish(pl) translation (Thanks [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/))
 

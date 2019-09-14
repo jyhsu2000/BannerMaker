@@ -34,6 +34,7 @@ You don't need to know how to craft. All you need to know is how it will looks l
   * Spanish(es) (Thanks [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/), [C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/))
   * Hungarian(hu) (Thanks [montlikadani](https://www.spigotmc.org/members/toldi.251100/))
   * Polish(pl) (Thanks [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/))
+  * Italian(it) (Thanks [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/))
 * Economic support (need Vault)
 * Material estimates
 * Craft banner by using materials
