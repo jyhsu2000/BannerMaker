@@ -2,6 +2,9 @@
 ## Unreleased Version
 - Nothing
 
+## v2.3.0 (for 1.16.x)
+- Update to 1.16.1
+
 ## v2.2.2 (for 1.14.x)
 - Add Italian(it) translation (Thanks [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/))
 
