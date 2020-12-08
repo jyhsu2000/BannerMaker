@@ -1,17 +1,19 @@
 package club.kid7.bannermaker.util;
 
+import club.kid7.bannermaker.BannerMaker;
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.DyeColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -103,8 +105,9 @@ public class IOUtil {
                     }
                     banner.setItemMeta(bm);
                 }
-                //將key藏於Lore
-                bm.setLore(Collections.singletonList(HiddenStringUtil.encodeString(key)));
+                //將 key 藏於 PersistentData
+                NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-key");
+                bm.getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, key);
                 banner.setItemMeta(bm);
             } catch (Exception e) {
                 banner = null;

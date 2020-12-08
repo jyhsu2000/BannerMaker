@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
@@ -15,8 +16,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Dye;
+import org.bukkit.persistence.PersistentDataType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
 
@@ -318,7 +324,8 @@ public class BannerUtil {
         String key;
         //嘗試取出key
         try {
-            key = HiddenStringUtil.extractHiddenString(banner.getItemMeta().getLore().get(0));
+            NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-key");
+            key = banner.getItemMeta().getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
         } catch (Exception exception) {
             return null;
         }
