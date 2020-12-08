@@ -1,14 +1,23 @@
 # 更新紀錄
+
 ## 未釋出版本
+
 - 暫無
 
+## v2.3.1 (for 1.16.x)
+
+- 修正在 1.16.x 中，刪除按鈕消失的錯誤
+
 ## v2.3.0 (for 1.16.x)
+
 - 升級至 1.16.1
 
 ## v2.2.2 (for 1.14.x)
+
 - 新增義大利文(it)翻譯（感謝 [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/)）
 
 ## v2.2.1 (for 1.14.x)
+
 - 新增波蘭文(pl)翻譯（感謝 [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/)）
 
 ## v2.2.0 (for 1.14.x)

@@ -1,14 +1,23 @@
 # Change Logs
+
 ## Unreleased Version
+
 - Nothing
 
+## v2.3.1 (for 1.16.x)
+
+- Fix delete button missing bug in 1.16.x
+
 ## v2.3.0 (for 1.16.x)
+
 - Update to 1.16.1
 
 ## v2.2.2 (for 1.14.x)
+
 - Add Italian(it) translation (Thanks [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/))
 
 ## v2.2.1 (for 1.14.x)
+
 - Add Polish(pl) translation (Thanks [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/))
 
 ## v2.2.0 (for 1.14.x)
