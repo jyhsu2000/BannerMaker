@@ -79,9 +79,6 @@ public class BannerInfoMenu implements CustomGUIMenu {
             //總頁數
             int totalPage = patternCount + 1;
             //外框
-            KItemStack workbench = new KItemStack(Material.CRAFTING_TABLE).amount(currentRecipePage).name(MessageUtil.format("&a" + tl("gui.craft-recipe")))
-                .lore(MessageUtil.format("&r(" + currentRecipePage + "/" + totalPage + ")"));
-            menu.setItem(6, workbench);
             KItemStack border = new KItemStack(Material.BROWN_STAINED_GLASS_PANE).name(" ");
             List<Integer> borderPosition = Arrays.asList(4, 5, 7, 8, 13, 17, 22, 26, 31, 35, 40, 41, 42, 43, 44);
             for (int i : borderPosition) {
@@ -104,8 +101,17 @@ public class BannerInfoMenu implements CustomGUIMenu {
                     CustomGUIManager.openPrevious(player);
                 });
             }
-            //合成表
+            //取得合成表配方
             HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
+            //合成表圖示
+            KItemStack workbench = new KItemStack(Material.CRAFTING_TABLE).amount(currentRecipePage)
+                .name(MessageUtil.format("&a" + tl("gui.craft-recipe")))
+                .lore(MessageUtil.format("&r(" + currentRecipePage + "/" + totalPage + ")"));
+            if (BannerUtil.isLoomRecipe(patternRecipe)) {
+                workbench.setType(Material.LOOM);
+            }
+            menu.setItem(6, workbench);
+            //合成表
             List<Integer> craftPosition = Arrays.asList(14, 15, 16, 23, 24, 25, 32, 33, 34, 42);
             for (int i = 0; i < 10; i++) {
                 int position = craftPosition.get(i);
