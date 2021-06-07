@@ -284,6 +284,8 @@ public class BannerUtil {
         }
         //材料清單
         List<ItemStack> materials = getMaterials(banner);
+        //過濾材料，不須消耗旗幟圖形
+        materials.removeIf(BannerUtil::isBannerPatternItemStack);
         HashMap<Integer, ItemStack> itemCannotRemoved = inventory.removeItem(materials.toArray(new ItemStack[0]));
         if (!itemCannotRemoved.isEmpty()) {
             return false;
