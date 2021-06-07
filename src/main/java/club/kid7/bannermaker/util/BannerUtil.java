@@ -206,6 +206,14 @@ public class BannerUtil {
                         materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
                     }
                     break;
+                case PIGLIN:
+                    materialInventory.addItem(new ItemStack(Material.PIGLIN_BANNER_PATTERN));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                    break;
+                case GLOBE:
+                    materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                    break;
             }
         }
         //加到暫存清單
@@ -397,6 +405,7 @@ public class BannerUtil {
             PatternType.DIAGONAL_RIGHT,
             PatternType.DIAGONAL_RIGHT_MIRROR,
             PatternType.FLOWER,
+            PatternType.GLOBE,
             PatternType.GRADIENT,
             PatternType.GRADIENT_UP,
             PatternType.HALF_HORIZONTAL,
@@ -404,6 +413,7 @@ public class BannerUtil {
             PatternType.HALF_VERTICAL,
             PatternType.HALF_VERTICAL_MIRROR,
             PatternType.MOJANG,
+            PatternType.PIGLIN,
             PatternType.RHOMBUS_MIDDLE,
             PatternType.SKULL,
             PatternType.SQUARE_BOTTOM_LEFT,
@@ -620,6 +630,14 @@ public class BannerUtil {
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
                         dyePosition = Collections.singletonList(7);
                     }
+                    break;
+                case PIGLIN:
+                    recipe.put(7, new ItemStack(Material.PIGLIN_BANNER_PATTERN));
+                    dyePosition = Collections.singletonList(5);
+                    break;
+                case GLOBE:
+                    recipe.put(7, new ItemStack(Material.GLOBE_BANNER_PATTERN));
+                    dyePosition = Collections.singletonList(5);
                     break;
             }
             //放置旗幟與染料
