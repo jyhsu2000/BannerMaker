@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
 
@@ -36,6 +37,33 @@ public class BannerUtil {
     static public boolean isBanner(ItemStack itemStack) {
         //FIXME: 需要準確的判斷方式
         return itemStack != null && itemStack.getType().name().contains("BANNER");
+    }
+
+    /**
+     * 判斷是否為紡織機配方
+     *
+     * @param patternRecipe 欲檢查配方，由 getPatternRecipe() 產出
+     * @return 是否為紡織機配方
+     */
+    static public boolean isLoomRecipe(HashMap<Integer, ItemStack> patternRecipe) {
+        for (Map.Entry<Integer, ItemStack> entry : patternRecipe.entrySet()) {
+            ItemStack itemStack = entry.getValue();
+            // 包含旗幟圖形物品者，直接視為紡織機配方
+            if (isBannerPatternItemStack(itemStack)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判斷是否為旗幟圖形物品
+     *
+     * @param itemStack 欲檢查的物品
+     * @return 是否為旗幟圖形物品
+     */
+    static public boolean isBannerPatternItemStack(ItemStack itemStack) {
+        return itemStack.getType().toString().endsWith("_BANNER_PATTERN");
     }
 
     /**
