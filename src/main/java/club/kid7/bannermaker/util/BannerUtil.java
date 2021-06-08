@@ -207,11 +207,17 @@ public class BannerUtil {
                     }
                     break;
                 case PIGLIN:
-                    materialInventory.addItem(new ItemStack(Material.PIGLIN_BANNER_PATTERN));
+                    // 圖形樣式材料不會被消耗，最多只會需要一個
+                    if (!materialInventory.contains(Material.PIGLIN_BANNER_PATTERN)) {
+                        materialInventory.addItem(new ItemStack(Material.PIGLIN_BANNER_PATTERN));
+                    }
                     materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
                     break;
                 case GLOBE:
-                    materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
+                    // 圖形樣式材料不會被消耗，最多只會需要一個
+                    if (!materialInventory.contains(Material.GLOBE_BANNER_PATTERN)) {
+                        materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
+                    }
                     materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
                     break;
             }
