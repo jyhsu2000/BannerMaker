@@ -208,6 +208,7 @@ public class BannerUtil {
                     break;
                 case PIGLIN:
                     // 圖形樣式材料不會被消耗，最多只會需要一個
+                    // TODO: 應該移到後面整個一起處理
                     if (!materialInventory.contains(Material.PIGLIN_BANNER_PATTERN)) {
                         materialInventory.addItem(new ItemStack(Material.PIGLIN_BANNER_PATTERN));
                     }
@@ -215,6 +216,7 @@ public class BannerUtil {
                     break;
                 case GLOBE:
                     // 圖形樣式材料不會被消耗，最多只會需要一個
+                    // TODO: 應該移到後面整個一起處理
                     if (!materialInventory.contains(Material.GLOBE_BANNER_PATTERN)) {
                         materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
                     }
