@@ -15,7 +15,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.Dye;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
@@ -123,15 +122,14 @@ public class BannerUtil {
         //逐Pattern計算
         for (Pattern pattern : bm.getPatterns()) {
             //所需染料
-            Dye dye = new Dye();
-            dye.setColor(pattern.getColor());
+            DyeColor dyeColor = pattern.getColor();
             switch (pattern.getPattern()) {
                 case SQUARE_BOTTOM_LEFT:
                 case SQUARE_BOTTOM_RIGHT:
                 case SQUARE_TOP_LEFT:
                 case SQUARE_TOP_RIGHT:
                 case CIRCLE_MIDDLE:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     break;
                 case STRIPE_BOTTOM:
                 case STRIPE_TOP:
@@ -149,61 +147,61 @@ public class BannerUtil {
                 case DIAGONAL_RIGHT:
                 case DIAGONAL_LEFT_MIRROR:
                 case DIAGONAL_RIGHT_MIRROR:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 3));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 3));
                     break;
                 case STRIPE_SMALL:
                 case RHOMBUS_MIDDLE:
                 case GRADIENT:
                 case GRADIENT_UP:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 4));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 4));
                     break;
                 case CROSS:
                 case STRAIGHT_CROSS:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 5));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 5));
                     break;
                 case HALF_VERTICAL:
                 case HALF_HORIZONTAL:
                 case HALF_VERTICAL_MIRROR:
                 case HALF_HORIZONTAL_MIRROR:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 6));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 6));
                     break;
                 case BORDER:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 8));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 8));
                     break;
                 case CURLY_BORDER:
                     materialInventory.addItem(new ItemStack(Material.VINE));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     }
                     break;
                 case CREEPER:
                     materialInventory.addItem(new ItemStack(Material.CREEPER_HEAD));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     }
                     break;
                 case BRICKS:
                     materialInventory.addItem(new ItemStack(Material.BRICK));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     }
                     break;
                 case SKULL:
                     materialInventory.addItem(new ItemStack(Material.WITHER_SKELETON_SKULL));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     }
                     break;
                 case FLOWER:
                     materialInventory.addItem(new ItemStack(Material.OXEYE_DAISY));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     }
                     break;
                 case MOJANG:
                     materialInventory.addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
                     if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     }
                     break;
                 case PIGLIN:
@@ -212,7 +210,7 @@ public class BannerUtil {
                     if (!materialInventory.contains(Material.PIGLIN_BANNER_PATTERN)) {
                         materialInventory.addItem(new ItemStack(Material.PIGLIN_BANNER_PATTERN));
                     }
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     break;
                 case GLOBE:
                     // 圖形樣式材料不會被消耗，最多只會需要一個
@@ -220,7 +218,7 @@ public class BannerUtil {
                     if (!materialInventory.contains(Material.GLOBE_BANNER_PATTERN)) {
                         materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
                     }
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dye.getColor(), 1));
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     break;
             }
         }
@@ -485,9 +483,8 @@ public class BannerUtil {
             //當前Pattern
             Pattern pattern = bm.getPattern(step - 2);
             //所需染料
-            Dye dye = new Dye();
-            dye.setColor(pattern.getColor());
-            ItemStack dyeItem = DyeColorUtil.toDyeItemStack(dye.getColor(), 1);
+            DyeColor dyeColor = pattern.getColor();
+            ItemStack dyeItem = DyeColorUtil.toDyeItemStack(dyeColor, 1);
             //旗幟位置
             int bannerPosition = 4;
             //染料位置
