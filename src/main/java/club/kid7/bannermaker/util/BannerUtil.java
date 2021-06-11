@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
 
@@ -79,7 +80,7 @@ public class BannerUtil {
         if (!itemStack.hasItemMeta()) {
             return false;
         }
-        ItemMeta itemMeta = itemStack.getItemMeta();
+        ItemMeta itemMeta = Objects.requireNonNull(itemStack.getItemMeta());
         if (!itemMeta.hasDisplayName()) {
             return false;
         }
@@ -118,7 +119,7 @@ public class BannerUtil {
         materialList.add(wool);
         //Pattern材料
         Inventory materialInventory = Bukkit.createInventory(null, 54);
-        BannerMeta bm = (BannerMeta) banner.getItemMeta();
+        BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
         //逐Pattern計算
         for (Pattern pattern : bm.getPatterns()) {
             //所需染料
@@ -268,7 +269,7 @@ public class BannerUtil {
         if (!isBanner(banner)) {
             return false;
         }
-        int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();
+        int patternCount = ((BannerMeta) Objects.requireNonNull(banner.getItemMeta())).numberOfPatterns();
         return patternCount <= 6;
     }
 
@@ -369,7 +370,7 @@ public class BannerUtil {
         //嘗試取出key
         try {
             NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-key");
-            key = banner.getItemMeta().getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
+            key = Objects.requireNonNull(banner.getItemMeta()).getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
         } catch (Exception exception) {
             return null;
         }
@@ -388,7 +389,7 @@ public class BannerUtil {
             return null;
         }
         //先試著取得自訂名稱
-        if (banner.hasItemMeta() && banner.getItemMeta().hasDisplayName()) {
+        if (banner.hasItemMeta() && Objects.requireNonNull(banner.getItemMeta()).hasDisplayName()) {
             return banner.getItemMeta().getDisplayName();
         }
         //嘗試取得key
@@ -456,7 +457,7 @@ public class BannerUtil {
         if (!isBanner(banner)) {
             return recipe;
         }
-        BannerMeta bm = (BannerMeta) banner.getItemMeta();
+        BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
         int totalStep = bm.numberOfPatterns() + 1;
         //顏色
         DyeColor baseColor = DyeColorUtil.of(banner.getType());
@@ -474,7 +475,7 @@ public class BannerUtil {
             //新增Pattern
             //當前banner
             ItemStack prevBanner = new ItemStack(DyeColorUtil.toBannerMaterial(baseColor));
-            BannerMeta pbm = (BannerMeta) prevBanner.getItemMeta();
+            BannerMeta pbm = (BannerMeta) Objects.requireNonNull(prevBanner.getItemMeta());
             //新增至目前的Pattern
             for (int i = 0; i < step - 2; i++) {
                 pbm.addPattern(bm.getPattern(i));
@@ -656,7 +657,7 @@ public class BannerUtil {
         //合成結果
         //當前banner
         ItemStack currentBanner = new ItemStack(DyeColorUtil.toBannerMaterial(baseColor));
-        BannerMeta cbm = (BannerMeta) currentBanner.getItemMeta();
+        BannerMeta cbm = (BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta());
         //新增至目前的Pattern
         for (int i = 0; i < step - 1; i++) {
             cbm.addPattern(bm.getPattern(i));

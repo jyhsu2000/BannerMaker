@@ -21,6 +21,7 @@ import org.bukkit.inventory.meta.BannerMeta;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
 
@@ -41,7 +42,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         CustomGUIInventory menu = new CustomGUIInventory(title);
         menu.setItem(0, banner);
         //patterns數量
-        int patternCount = ((BannerMeta) banner.getItemMeta()).numberOfPatterns();
+        int patternCount = ((BannerMeta) Objects.requireNonNull(banner.getItemMeta())).numberOfPatterns();
         String patternCountStr;
         if (patternCount > 0) {
             patternCountStr = patternCount + " " + tl("gui.pattern-s");

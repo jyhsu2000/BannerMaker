@@ -19,6 +19,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
+import java.util.Objects;
+
 import static club.kid7.bannermaker.configuration.Language.tl;
 
 public class CreateBannerMenu implements CustomGUIMenu {
@@ -48,7 +50,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
         //當前旗幟
         menu.setItem(0, currentBanner);
         //patterns過多的警告
-        if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 6) {
+        if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 6) {
             KItemStack warning = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&c" + tl("gui.uncraftable-warning")))
                 .lore(tl("gui.more-than-6-patterns"));
             menu.setItem(9, warning);
@@ -102,7 +104,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
             menu.setClickableItem(i + 19 + (i / 8), banner).set(ClickType.LEFT, event -> {
                 //新增Pattern
                 BannerMeta currentBm = (BannerMeta) currentBanner.getItemMeta();
-                currentBm.addPattern(new Pattern(selectedColor, patternType));
+                Objects.requireNonNull(currentBm).addPattern(new Pattern(selectedColor, patternType));
                 currentBanner.setItemMeta(currentBm);
                 playerData.setCurrentEditBanner(currentBanner);
                 CustomGUIManager.openPrevious(player);
@@ -127,7 +129,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
             playerData.setCurrentEditBanner(null);
             CustomGUIManager.openPrevious(player);
         });
-        if (currentBanner.hasItemMeta() && ((BannerMeta) currentBanner.getItemMeta()).numberOfPatterns() > 0) {
+        if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 0) {
             //移除Pattern
             KItemStack btnRemovePattern = new KItemStack(Material.BARRIER).name(MessageUtil.format("&c" + tl("gui.remove-last-pattern")));
             menu.setClickableItem(49, btnRemovePattern).set(ClickType.LEFT, event -> {

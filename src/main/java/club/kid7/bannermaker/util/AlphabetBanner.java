@@ -7,6 +7,8 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
+import java.util.Objects;
+
 /*
  * 無框字母
  * https://www.youtube.com/watch?v=PncIlxt8TtI
@@ -51,7 +53,7 @@ public class AlphabetBanner {
         //建立旗幟
         ItemStack banner = new ItemStack(DyeColorUtil.toBannerMaterial(baseColor));
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-        bannerMeta.setDisplayName(MessageUtil.format("&a" + alphabet));
+        Objects.requireNonNull(bannerMeta).setDisplayName(MessageUtil.format("&a" + alphabet));
         boolean invertBanner = false;
         //繪製字母
         if (!bordered) {

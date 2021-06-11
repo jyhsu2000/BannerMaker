@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
+import java.util.Objects;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
 
@@ -62,7 +63,7 @@ public class MainMenu implements CustomGUIMenu {
         if (BannerMaker.getInstance().enableAlphabetAndNumber) {
             ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
             ItemMeta btnCreateAlphabetItemMeta = btnCreateAlphabet.getItemMeta();
-            btnCreateAlphabetItemMeta.setDisplayName(MessageUtil.format("&a" + tl("gui.alphabet-and-number")));
+            Objects.requireNonNull(btnCreateAlphabetItemMeta).setDisplayName(MessageUtil.format("&a" + tl("gui.alphabet-and-number")));
             btnCreateAlphabet.setItemMeta(btnCreateAlphabetItemMeta);
             menu.setClickableItem(51, btnCreateAlphabet).set(ClickType.LEFT, event -> CustomGUIManager.open(player, ChooseAlphabetMenu.class));
         }

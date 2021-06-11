@@ -15,6 +15,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
@@ -36,10 +37,10 @@ public class IOUtil {
         //旗幟資訊
         BannerMeta bm = (BannerMeta) banner.getItemMeta();
         //儲存
-        config.set(key + ".color", DyeColorUtil.of(banner.getType()).toString());
+        config.set(key + ".color", Objects.requireNonNull(DyeColorUtil.of(banner.getType())).toString());
         List<String> patternList = new ArrayList<>();
-        for (Pattern pattern : bm.getPatterns()) {
-            patternList.add(pattern.getPattern().getIdentifier() + ":" + pattern.getColor().toString());
+        for (Pattern pattern : Objects.requireNonNull(bm).getPatterns()) {
+            patternList.add(pattern.getPattern().getIdentifier() + ":" + pattern.getColor());
         }
         if (patternList.size() > 0) {
             config.set(key + ".patterns", patternList);
@@ -106,14 +107,14 @@ public class IOUtil {
                     for (String str : patternsList) {
                         String strPattern = str.split(":")[0];
                         String strColor = str.split(":")[1];
-                        Pattern pattern = new Pattern(DyeColor.valueOf(strColor), PatternType.getByIdentifier(strPattern));
-                        bm.addPattern(pattern);
+                        Pattern pattern = new Pattern(DyeColor.valueOf(strColor), Objects.requireNonNull(PatternType.getByIdentifier(strPattern)));
+                        Objects.requireNonNull(bm).addPattern(pattern);
                     }
                     banner.setItemMeta(bm);
                 }
                 //將 key 藏於 PersistentData
                 NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-key");
-                bm.getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, key);
+                Objects.requireNonNull(bm).getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, key);
                 banner.setItemMeta(bm);
             } catch (Exception e) {
                 banner = null;
@@ -141,7 +142,7 @@ public class IOUtil {
 
     //取得旗幟總數
     static public int getBannerCount(Player player) {
-        List<ItemStack> bannerList = loadBannerList(player, 0);
+        List<ItemStack> bannerList = loadBannerList(player);
         return bannerList.size();
     }
 

@@ -14,6 +14,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
+import java.util.Objects;
+
 public class HandCommand extends CommandComponent {
     //名稱
     private static final String name = "Hand";
@@ -32,7 +34,6 @@ public class HandCommand extends CommandComponent {
 
     @Override
     public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        BannerMaker bm = (BannerMaker) plugin;
         Player player = (Player) sender;
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         if (!BannerUtil.isBanner(itemStack)) {
@@ -42,7 +43,7 @@ public class HandCommand extends CommandComponent {
         //複製旗幟，僅保留底色與樣式
         BannerMeta originalBannerMeta = (BannerMeta) itemStack.getItemMeta();
         KItemStack banner = new KItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(itemStack.getType())))
-            .setPatterns(originalBannerMeta.getPatterns());
+            .setPatterns(Objects.requireNonNull(originalBannerMeta).getPatterns());
         //顯示旗幟
         InventoryMenuUtil.showBannerInfo(player, banner);
         return true;
