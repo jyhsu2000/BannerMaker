@@ -35,11 +35,11 @@ public class IOUtil {
         //索引值（時間戳記，不會重複）
         String key = String.valueOf(System.currentTimeMillis());
         //旗幟資訊
-        BannerMeta bm = (BannerMeta) banner.getItemMeta();
+        BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
         //儲存
         config.set(key + ".color", Objects.requireNonNull(DyeColorUtil.of(banner.getType())).toString());
         List<String> patternList = new ArrayList<>();
-        for (Pattern pattern : Objects.requireNonNull(bm).getPatterns()) {
+        for (Pattern pattern : bm.getPatterns()) {
             patternList.add(pattern.getPattern().getIdentifier() + ":" + pattern.getColor());
         }
         if (patternList.size() > 0) {
