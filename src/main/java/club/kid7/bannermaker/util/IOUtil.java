@@ -86,13 +86,12 @@ public class IOUtil {
         //設定檔
         String fileName = getFileName(player);
         FileConfiguration config = KConfigManager.get(fileName);
-        //檢查是否為物品
-        ItemStack banner = null;
         //檢查是否為正確格式
         if ((!config.isInt(key + ".color") && !config.isString(key + ".color"))
             || (config.contains(key + ".patterns") && !config.isList(key + ".patterns"))) {
             return null;
         }
+        ItemStack banner;
         //嘗試以新格式讀取
         try {
             //建立旗幟
@@ -122,10 +121,6 @@ public class IOUtil {
             banner = null;
         }
 
-        //只處理旗幟
-        if (!BannerUtil.isBanner(banner)) {
-            return null;
-        }
         return banner;
     }
 
