@@ -35,8 +35,7 @@ public class BannerUtil {
      * @return boolean
      */
     static public boolean isBanner(ItemStack itemStack) {
-        //FIXME: 需要準確的判斷方式
-        return itemStack != null && itemStack.getType().name().contains("BANNER");
+        return itemStack != null && itemStack.getType().name().endsWith("_BANNER");
     }
 
     /**

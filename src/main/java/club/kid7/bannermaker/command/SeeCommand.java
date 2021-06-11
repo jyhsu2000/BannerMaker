@@ -34,8 +34,7 @@ public class SeeCommand extends CommandComponent {
     public boolean executeCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         Block block = player.getTargetBlock(null, 20);
-        //FIXME: 需要準確的判斷方式
-        if (!block.getType().name().contains("BANNER")) {
+        if (!block.getType().name().endsWith("_BANNER")) {
             player.sendMessage(MessageUtil.format(true, "&c" + tl("command.not-banner-see")));
             return true;
         }
