@@ -89,37 +89,39 @@ public class IOUtil {
         //檢查是否為物品
         ItemStack banner = null;
         //檢查是否為正確格式
-        if ((config.isInt(key + ".color") || config.isString(key + ".color"))
-            && (!config.contains(key + ".patterns") || config.isList(key + ".patterns"))) {
-            //嘗試以新格式讀取
-            try {
-                //建立旗幟
-                if (config.isInt(key + ".color")) {
-                    // FIXME: 維持舊版相容性
-                    banner = new ItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(config.getInt(key + ".color"))));
-                } else {
-                    banner = new ItemStack(DyeColorUtil.toBannerMaterial(DyeColor.valueOf(config.getString(key + ".color"))));
-                }
-                BannerMeta bm = (BannerMeta) banner.getItemMeta();
-                //新增Patterns
-                if (config.contains(key + ".patterns")) {
-                    List<String> patternsList = config.getStringList(key + ".patterns");
-                    for (String str : patternsList) {
-                        String strPattern = str.split(":")[0];
-                        String strColor = str.split(":")[1];
-                        Pattern pattern = new Pattern(DyeColor.valueOf(strColor), Objects.requireNonNull(PatternType.getByIdentifier(strPattern)));
-                        Objects.requireNonNull(bm).addPattern(pattern);
-                    }
-                    banner.setItemMeta(bm);
-                }
-                //將 key 藏於 PersistentData
-                NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-key");
-                Objects.requireNonNull(bm).getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, key);
-                banner.setItemMeta(bm);
-            } catch (Exception e) {
-                banner = null;
-            }
+        if ((!config.isInt(key + ".color") && !config.isString(key + ".color"))
+            || (config.contains(key + ".patterns") && !config.isList(key + ".patterns"))) {
+            return null;
         }
+        //嘗試以新格式讀取
+        try {
+            //建立旗幟
+            if (config.isInt(key + ".color")) {
+                // FIXME: 維持舊版相容性
+                banner = new ItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(config.getInt(key + ".color"))));
+            } else {
+                banner = new ItemStack(DyeColorUtil.toBannerMaterial(DyeColor.valueOf(config.getString(key + ".color"))));
+            }
+            BannerMeta bm = (BannerMeta) banner.getItemMeta();
+            //新增Patterns
+            if (config.contains(key + ".patterns")) {
+                List<String> patternsList = config.getStringList(key + ".patterns");
+                for (String str : patternsList) {
+                    String strPattern = str.split(":")[0];
+                    String strColor = str.split(":")[1];
+                    Pattern pattern = new Pattern(DyeColor.valueOf(strColor), Objects.requireNonNull(PatternType.getByIdentifier(strPattern)));
+                    Objects.requireNonNull(bm).addPattern(pattern);
+                }
+                banner.setItemMeta(bm);
+            }
+            //將 key 藏於 PersistentData
+            NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-key");
+            Objects.requireNonNull(bm).getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, key);
+            banner.setItemMeta(bm);
+        } catch (Exception e) {
+            banner = null;
+        }
+
         //只處理旗幟
         if (!BannerUtil.isBanner(banner)) {
             return null;
