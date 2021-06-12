@@ -63,30 +63,6 @@ public class BannerUtil {
     }
 
     /**
-     * 檢查ItemStack是否為字母旗幟
-     *
-     * @param itemStack 欲檢查的物品
-     * @return boolean
-     */
-    static public boolean isAlphabetBanner(ItemStack itemStack) {
-        if (!isBanner(itemStack)) {
-            return false;
-        }
-        if (!itemStack.hasItemMeta()) {
-            return false;
-        }
-        ItemMeta itemMeta = Objects.requireNonNull(itemStack.getItemMeta());
-
-        //檢查 PersistentData 中的旗幟類型
-        String bannerType = PersistentDataUtil.get(itemMeta, "banner-type");
-        if (bannerType == null || !bannerType.equals("alphabet-banner")) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * 取得旗幟材料清單
      *
      * @param banner 欲取得材料清單之旗幟

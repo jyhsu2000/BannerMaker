@@ -6,6 +6,7 @@ import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Objects;
 
@@ -44,6 +45,30 @@ public class AlphabetBanner {
     public static ItemStack get(String alphabet, DyeColor baseColor, DyeColor dyeColor, boolean bordered) {
         AlphabetBanner alphabetBanner = new AlphabetBanner(alphabet, baseColor, dyeColor, bordered);
         return alphabetBanner.toItemStack();
+    }
+
+    /**
+     * 檢查ItemStack是否為字母旗幟
+     *
+     * @param itemStack 欲檢查的物品
+     * @return boolean
+     */
+    static public boolean isAlphabetBanner(ItemStack itemStack) {
+        if (!BannerUtil.isBanner(itemStack)) {
+            return false;
+        }
+        if (!itemStack.hasItemMeta()) {
+            return false;
+        }
+        ItemMeta itemMeta = Objects.requireNonNull(itemStack.getItemMeta());
+
+        //檢查 PersistentData 中的旗幟類型
+        String bannerType = PersistentDataUtil.get(itemMeta, "banner-type");
+        if (bannerType == null || !bannerType.equals("alphabet-banner")) {
+            return false;
+        }
+
+        return true;
     }
 
     /*

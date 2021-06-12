@@ -2,6 +2,7 @@ package club.kid7.bannermaker.customMenu;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
+import club.kid7.bannermaker.util.AlphabetBanner;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.EconUtil;
 import club.kid7.bannermaker.util.IOUtil;
@@ -202,7 +203,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         //返回
         KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
         menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, event -> {
-            if (BannerUtil.isAlphabetBanner(banner)) {
+            if (AlphabetBanner.isAlphabetBanner(banner)) {
                 //若為Alphabet旗幟，回到Alphabet旗幟頁面
                 CustomGUIManager.open(player, CreateAlphabetMenu.class);
                 return;
