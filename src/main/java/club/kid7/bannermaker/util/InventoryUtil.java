@@ -2,11 +2,13 @@ package club.kid7.bannermaker.util;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class InventoryUtil {
     /**
@@ -16,6 +18,10 @@ public class InventoryUtil {
      * @param itemStack 要給予的物品
      */
     public static void give(Player player, ItemStack itemStack) {
+        //移除所有 PersistentData
+        ItemMeta itemMeta = Objects.requireNonNull(itemStack.getItemMeta());
+        PersistentDataUtil.removeAll(itemMeta);
+        itemStack.setItemMeta(itemMeta);
         //放進玩家的物品欄
         HashMap<Integer, ItemStack> itemsCanNotAddToInv = player.getInventory().addItem(itemStack);
         //若有放不進去的部分，直接噴在地上
