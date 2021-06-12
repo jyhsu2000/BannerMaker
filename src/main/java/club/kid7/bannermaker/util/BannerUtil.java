@@ -6,7 +6,6 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
@@ -14,7 +13,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,8 +78,7 @@ public class BannerUtil {
         ItemMeta itemMeta = Objects.requireNonNull(itemStack.getItemMeta());
 
         //檢查 PersistentData 中的旗幟類型
-        NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-type");
-        String bannerType = Objects.requireNonNull(itemMeta).getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
+        String bannerType = PersistentDataUtil.get(itemMeta, "banner-type");
         if (bannerType == null || !bannerType.equals("alphabet-banner")) {
             return false;
         }
@@ -360,15 +357,8 @@ public class BannerUtil {
         if (!isBanner(banner)) {
             return null;
         }
-        String key;
-        //嘗試取出key
-        try {
-            NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-key");
-            key = Objects.requireNonNull(banner.getItemMeta()).getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
-        } catch (Exception exception) {
-            return null;
-        }
-        return key;
+        ItemMeta itemMeta = Objects.requireNonNull(banner.getItemMeta());
+        return PersistentDataUtil.get(itemMeta, "banner-key");
     }
 
     /**
