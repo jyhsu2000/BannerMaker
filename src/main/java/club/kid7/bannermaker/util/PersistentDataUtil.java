@@ -29,7 +29,7 @@ public class PersistentDataUtil {
             NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), keyName);
             value = itemMeta.getPersistentDataContainer().get(namespacedKey, persistentDataType);
         } catch (Exception exception) {
-            return null;
+            value = null;
         }
         return value;
     }
