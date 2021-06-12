@@ -4,7 +4,6 @@ import club.kid7.bannermaker.BannerMaker;
 import com.google.common.collect.Maps;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -67,7 +66,6 @@ public class BannerUtil {
 
     /**
      * 檢查ItemStack是否為字母旗幟
-     * FIXME: 暫時只檢查名稱是否為單一字元帶顏色，判斷依據須更精確
      *
      * @param itemStack 欲檢查的物品
      * @return boolean
@@ -80,14 +78,11 @@ public class BannerUtil {
             return false;
         }
         ItemMeta itemMeta = Objects.requireNonNull(itemStack.getItemMeta());
-        if (!itemMeta.hasDisplayName()) {
-            return false;
-        }
-        String displayName = itemMeta.getDisplayName();
-        if (displayName.equals(ChatColor.stripColor(displayName))) {
-            return false;
-        }
-        if (ChatColor.stripColor(displayName).length() != 1) {
+
+        //檢查 PersistentData 中的旗幟類型
+        NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-type");
+        String bannerType = Objects.requireNonNull(itemMeta).getPersistentDataContainer().get(namespacedKey, PersistentDataType.STRING);
+        if (bannerType == null || !bannerType.equals("alphabet-banner")) {
             return false;
         }
 

@@ -1,11 +1,14 @@
 package club.kid7.bannermaker.util;
 
+import club.kid7.bannermaker.BannerMaker;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
 
@@ -54,6 +57,10 @@ public class AlphabetBanner {
         ItemStack banner = new ItemStack(DyeColorUtil.toBannerMaterial(baseColor));
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
         Objects.requireNonNull(bannerMeta).setDisplayName(MessageUtil.format("&a" + alphabet));
+        //在 PersistentData 標記旗幟類型
+        NamespacedKey namespacedKey = new NamespacedKey(BannerMaker.getInstance(), "banner-type");
+        Objects.requireNonNull(bannerMeta).getPersistentDataContainer().set(namespacedKey, PersistentDataType.STRING, "alphabet-banner");
+
         boolean invertBanner = false;
         //繪製字母
         if (!bordered) {
