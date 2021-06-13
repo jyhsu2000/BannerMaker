@@ -18,6 +18,8 @@ public class InventoryUtil {
      * @param itemStack 要給予的物品
      */
     public static void give(Player player, ItemStack itemStack) {
+        //複製 ItemStack 以避免修改到原物品
+        itemStack = itemStack.clone();
         //移除所有 PersistentData
         ItemMeta itemMeta = Objects.requireNonNull(itemStack.getItemMeta());
         PersistentDataUtil.removeAll(itemMeta);
