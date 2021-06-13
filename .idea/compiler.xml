@@ -9,6 +9,8 @@
         <module name="BannerMaker" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="16" />
+    <bytecodeTargetLevel target="16">
+      <module name="BannerMaker" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

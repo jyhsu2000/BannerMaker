@@ -33,5 +33,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.bstats:bstats-bukkit:1.4" level="project" />
     <orderEntry type="library" name="Maven: com.github.jyhsu2000:PluginUtilities:1.4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains:annotations:19.0.0" level="project" />
   </component>
 </module>
