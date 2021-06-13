@@ -186,11 +186,6 @@ public class BannerInfoMenu implements CustomGUIMenu {
                     });
                 }
             }
-            //檢查是否啟用經濟
-            if (BannerMaker.getInstance().econ != null) {
-                double price = EconUtil.getPrice(banner);
-                btnGetBanner.lore(MessageUtil.format("&a" + tl("gui.price", BannerMaker.getInstance().econ.format(price))));
-            }
         }
         //複製並編輯
         KItemStack btnCloneAndEdit = new KItemStack(Material.WRITABLE_BOOK).name(MessageUtil.format("&9" + tl("gui.clone-and-edit")));
