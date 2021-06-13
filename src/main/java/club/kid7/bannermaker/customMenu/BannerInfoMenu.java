@@ -177,10 +177,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
                         //嘗試給予玩家旗幟
                         boolean success = BannerUtil.buy(player, banner);
                         if (success) {
-                            //顯示名稱
-                            String showName1 = BannerUtil.getName(banner);
-                            //顯示訊息
-                            player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName1)));
+                            player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
                         }
                         CustomGUIManager.openPrevious(player);
                     });
