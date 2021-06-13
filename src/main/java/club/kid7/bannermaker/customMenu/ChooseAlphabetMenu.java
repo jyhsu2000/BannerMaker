@@ -1,8 +1,8 @@
 package club.kid7.bannermaker.customMenu;
 
+import club.kid7.bannermaker.AlphabetBanner;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
-import club.kid7.bannermaker.util.AlphabetBanner;
 import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;

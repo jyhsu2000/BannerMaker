@@ -1,5 +1,9 @@
-package club.kid7.bannermaker.util;
+package club.kid7.bannermaker;
 
+import club.kid7.bannermaker.util.BannerUtil;
+import club.kid7.bannermaker.util.DyeColorUtil;
+import club.kid7.bannermaker.util.MessageUtil;
+import club.kid7.bannermaker.util.PersistentDataUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.block.banner.Pattern;

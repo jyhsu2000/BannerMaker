@@ -1,8 +1,8 @@
 package club.kid7.bannermaker.customMenu;
 
+import club.kid7.bannermaker.AlphabetBanner;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
-import club.kid7.bannermaker.util.AlphabetBanner;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.EconUtil;
 import club.kid7.bannermaker.util.IOUtil;

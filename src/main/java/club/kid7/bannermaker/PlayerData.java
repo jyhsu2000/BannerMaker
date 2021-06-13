@@ -1,6 +1,5 @@
 package club.kid7.bannermaker;
 
-import club.kid7.bannermaker.util.AlphabetBanner;
 import org.bukkit.DyeColor;
 import org.bukkit.inventory.ItemStack;
 
