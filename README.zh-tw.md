@@ -3,6 +3,7 @@
 [![bStats](https://img.shields.io/badge/bStats-1.4-brightgreen.svg)](https://bstats.org/plugin/bukkit/BannerMaker)
 [![license](https://img.shields.io/github/license/jyhsu2000/BannerMaker.svg)](https://github.com/jyhsu2000/BannerMaker/blob/master/LICENSE)
 [![GitHub Actions](https://github.com/jyhsu2000/BannerMaker/actions/workflows/maven.yml/badge.svg)](https://github.com/jyhsu2000/BannerMaker/actions/workflows/maven.yml)
+[![Crowdin](https://badges.crowdin.net/bannermaker/localized.svg)](https://crowdin.com/project/bannermaker)
 ## Link
 * [BukkitDev](https://dev.bukkit.org/projects/bannermaker)
 * [Spigot Resource](http://www.spigotmc.org/resources/bannermaker.4380/)
