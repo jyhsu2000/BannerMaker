@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,13 +43,13 @@ public class Language {
 
         //載入預設語言包（但不儲存於資料夾）
         try {
-            Reader defaultLanguageInputStreamReader = new InputStreamReader(bm.getResource(getFileName(defaultLocale).replace('\\', '/')), StandardCharsets.UTF_8);
+            Reader defaultLanguageInputStreamReader = new InputStreamReader(Objects.requireNonNull(bm.getResource(getFileName(defaultLocale).replace('\\', '/'))), StandardCharsets.UTF_8);
             defaultLanguageConfigResource = YamlConfiguration.loadConfiguration(defaultLanguageInputStreamReader);
         } catch (Exception ignored) {
         }
         //嘗試當前語言資源檔（但不儲存於資料夾）
         try {
-            Reader languageInputStreamReader = new InputStreamReader(bm.getResource(getFileName(locale).replace('\\', '/')), StandardCharsets.UTF_8);
+            Reader languageInputStreamReader = new InputStreamReader(Objects.requireNonNull(bm.getResource(getFileName(locale).replace('\\', '/'))), StandardCharsets.UTF_8);
             languageConfigResource = YamlConfiguration.loadConfiguration(languageInputStreamReader);
         } catch (Exception ignored) {
         }
