@@ -83,14 +83,14 @@
 
 ### 貢獻者
 
-Translators:
-[Marrarus](https://github.com/Marrarus) (德文),
-[RedNesto](https://github.com/RedNesto) (法文),
-[sdir01](https://www.spigotmc.org/members/sdir01.238854/) (俄文),
-[Rhander](https://www.spigotmc.org/members/rhander.103119/) (葡萄牙文),
-[DeTrollers](https://www.spigotmc.org/members/detrollers.174265/) (荷蘭文),
-[stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/) (西班牙文)
-, [C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/) (西班牙文),
-[montlikadani](https://www.spigotmc.org/members/toldi.251100/) (匈牙利文),
-[ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/) (波蘭文),
-[Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/) (義大利文)
+翻譯者：
+[Marrarus](https://github.com/Marrarus) （德文）、
+[RedNesto](https://github.com/RedNesto) （法文）、
+[sdir01](https://www.spigotmc.org/members/sdir01.238854/) （俄文）、
+[Rhander](https://www.spigotmc.org/members/rhander.103119/) （葡萄牙文）、
+[DeTrollers](https://www.spigotmc.org/members/detrollers.174265/) （荷蘭文）、
+[stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/) （西班牙文）、
+[C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/) （西班牙文）、
+[montlikadani](https://www.spigotmc.org/members/toldi.251100/) （匈牙利文）、
+[ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/) （波蘭文）、
+[Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/) （義大利文）
