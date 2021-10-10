@@ -28,15 +28,15 @@
   * 英文(en)
   * 正體中文(zh_TW)
   * 簡體中文(zh_CN)
-  * 德文(de)（感謝 [Marrarus](https://github.com/Marrarus)）
-  * 法文(fr)（感謝 [RedNesto](https://github.com/RedNesto)）
-  * 俄文(ru)（感謝 [sdir01](https://www.spigotmc.org/members/sdir01.238854/)）
-  * 葡萄牙文(pt_BR)（感謝 [Rhander](https://www.spigotmc.org/members/rhander.103119/)）
-  * 荷蘭文(nl)（感謝 [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/)）
-  * 西班牙文(es)（感謝 [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/)、[C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/)）
-  * 匈牙利文(hu)（感謝 [montlikadani](https://www.spigotmc.org/members/toldi.251100/)）
-  * 波蘭文(pl)（感謝 [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/)）
-  * 義大利文(it)（感謝 [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/)）
+  * 德文(de)
+  * 法文(fr)
+  * 俄文(ru)
+  * 葡萄牙文(pt_BR)
+  * 荷蘭文(nl)
+  * 西班牙文(es)
+  * 匈牙利文(hu)
+  * 波蘭文(pl)
+  * 義大利文(it)
 * 支援經濟功能（需要Vault）
 * 材料估算
 * 使用材料合成旗幟
@@ -66,10 +66,31 @@
 3. 啟動伺服器
 
 ## 更新紀錄
+
 *請參閱 [CHANGELOG.zh-tw.md](CHANGELOG.zh-tw.md)*
 
 ## 圖片
+
 ![Main menu](http://i.imgur.com/rMTTfsE.png)  
 ![Create banner](http://i.imgur.com/HB6Dhm3.png)  
 ![Banner info](http://i.imgur.com/Xydmcbj.png)  
 ![Alphabet & Number](http://i.imgur.com/tGHmakp.png)
+
+## 貢獻
+
+歡迎提交 Pull Request。 對於較大的改動，請先建立 Issue 來讓我們討論一下你想做些什麼。 對於語言包，你也可以使用 [Crowdin](https://crowdin.com/project/bannermaker)
+來更新或請求新語言。
+
+### 貢獻者
+
+Translators:
+[Marrarus](https://github.com/Marrarus) (德文),
+[RedNesto](https://github.com/RedNesto) (法文),
+[sdir01](https://www.spigotmc.org/members/sdir01.238854/) (俄文),
+[Rhander](https://www.spigotmc.org/members/rhander.103119/) (葡萄牙文),
+[DeTrollers](https://www.spigotmc.org/members/detrollers.174265/) (荷蘭文),
+[stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/) (西班牙文)
+, [C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/) (西班牙文),
+[montlikadani](https://www.spigotmc.org/members/toldi.251100/) (匈牙利文),
+[ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/) (波蘭文),
+[Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/) (義大利文)

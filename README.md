@@ -28,15 +28,15 @@ You don't need to know how to craft. All you need to know is how it will looks l
   * English(en)
   * Traditional Chinese(zh_TW)
   * Simplified Chinese(zh_CN)
-  * German(de) (Thanks [Marrarus](https://github.com/Marrarus))
-  * French(fr) (Thanks [RedNesto](https://github.com/RedNesto))
-  * Russian(ru) (Thanks [sdir01](https://www.spigotmc.org/members/sdir01.238854/))
-  * Portuguese(pt_BR) (Thanks [Rhander](https://www.spigotmc.org/members/rhander.103119/))
-  * Dutch(nl) (Thanks [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/))
-  * Spanish(es) (Thanks [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/), [C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/))
-  * Hungarian(hu) (Thanks [montlikadani](https://www.spigotmc.org/members/toldi.251100/))
-  * Polish(pl) (Thanks [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/))
-  * Italian(it) (Thanks [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/))
+  * German(de)
+  * French(fr)
+  * Russian(ru)
+  * Portuguese(pt_BR)
+  * Dutch(nl)
+  * Spanish(es)
+  * Hungarian(hu)
+  * Polish(pl)
+  * Italian(it)
 * Economic support (need Vault)
 * Material estimates
 * Craft banner by using materials
@@ -66,10 +66,33 @@ You don't need to know how to craft. All you need to know is how it will looks l
 3. Start the server
 
 ## Change Logs
+
 *Read in [CHANGELOG.md](CHANGELOG.md)*
 
 ## Pictures
+
 ![Main menu](http://i.imgur.com/rMTTfsE.png)  
 ![Create banner](http://i.imgur.com/HB6Dhm3.png)  
 ![Banner info](http://i.imgur.com/Xydmcbj.png)  
 ![Alphabet & Number](http://i.imgur.com/tGHmakp.png)
+
+## Contributing
+
+Pull requests are welcome.  
+For major changes, please open an issue first to discuss what you would like to change.  
+For language packs, you can also use [Crowdin](https://crowdin.com/project/bannermaker) for updating or request for new
+languages.
+
+### Contributors
+
+Translators:
+[Marrarus](https://github.com/Marrarus) (German),
+[RedNesto](https://github.com/RedNesto) (French),
+[sdir01](https://www.spigotmc.org/members/sdir01.238854/) (Russian),
+[Rhander](https://www.spigotmc.org/members/rhander.103119/) (Portuguese),
+[DeTrollers](https://www.spigotmc.org/members/detrollers.174265/) (Dutch),
+[stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/) (Spanish)
+, [C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/) (Spanish),
+[montlikadani](https://www.spigotmc.org/members/toldi.251100/) (Hungarian),
+[ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/) (Polish),
+[Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/) (Italian)
