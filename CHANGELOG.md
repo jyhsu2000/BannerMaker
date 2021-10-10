@@ -2,6 +2,11 @@
 
 ## Unreleased Version
 
+- None
+
+## v2.3.2 (for 1.17.x)
+
+- Update to 1.17.1
 - Support loom recipes (for non-crafting patterns)
 
 ## v2.3.1 (for 1.16.x)
