@@ -240,6 +240,20 @@ public class BannerUtil {
         return patternCount <= 6;
     }
 
+    static public boolean isCraftable(Player player, ItemStack banner) {
+        //只檢查旗幟
+        if (!isBanner(banner)) {
+            return false;
+        }
+        // 若啟用複雜合成功能，則額外檢查玩家是否擁有對應權限
+        if (BannerMaker.getInstance().enableComplexBannerCraft) {
+            if (player.hasPermission("BannerMaker.getBanner.complex-craft")) {
+                return true;
+            }
+        }
+        return isCraftableInSurvival(banner);
+    }
+
     /**
      * 從物品欄移除材料
      *

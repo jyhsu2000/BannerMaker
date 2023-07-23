@@ -57,7 +57,8 @@ public class BannerInfoMenu implements CustomGUIMenu {
             signPatternCount = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + tl("gui.uncraftable")));
         }
         menu.setItem(1, signPatternCount);
-        if (BannerUtil.isCraftableInSurvival(banner)) {
+        // 材料清單
+        if (BannerUtil.isCraftable(player, banner)) {
             //材料是否充足
             KItemStack enoughMaterials;
             if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
@@ -74,8 +75,9 @@ public class BannerInfoMenu implements CustomGUIMenu {
                 int position = materialPosition.get(i);
                 menu.setItem(position, materialItem);
             }
-
-            //合成表
+        }
+        // 合成表
+        if (BannerUtil.isCraftableInSurvival(banner)) {
             //當前頁數
             final int currentRecipePage = playerData.getCurrentRecipePage();
             //總頁數
