@@ -1,10 +1,13 @@
 # BannerMaker
+
 [![Build Status](https://ci.kid7.club/job/BannerMaker/badge/icon)](https://ci.kid7.club/job/BannerMaker/)
 [![bStats](https://img.shields.io/badge/bStats-1.4-brightgreen.svg)](https://bstats.org/plugin/bukkit/BannerMaker)
 [![license](https://img.shields.io/github/license/jyhsu2000/BannerMaker.svg)](https://github.com/jyhsu2000/BannerMaker/blob/master/LICENSE)
 [![GitHub Actions](https://github.com/jyhsu2000/BannerMaker/actions/workflows/maven.yml/badge.svg)](https://github.com/jyhsu2000/BannerMaker/actions/workflows/maven.yml)
 [![Crowdin](https://badges.crowdin.net/bannermaker/localized.svg)](https://crowdin.com/project/bannermaker)
+
 ## Link
+
 * [BukkitDev](https://dev.bukkit.org/projects/bannermaker)
 * [Spigot Resource](http://www.spigotmc.org/resources/bannermaker.4380/)
 * [巴哈小屋](http://home.gamer.com.tw/creationDetail.php?sn=2760067)
@@ -17,43 +20,48 @@
 *Read this in other languages: [English](README.md), [正體中文](README.zh-tw.md).*
 
 ## 描述
+
 只要一個指令，你將能透過這插件的介面，設計無數種旗幟。  
 不需要瞭解旗幟合成方式，只要知道你希望旗幟長怎樣。
 
 ## 功能
+
 * 設計並儲存旗幟
 * 查詢旗幟合成表
 * 支援UUID
-* 多國語言（在config.yml設定）  
-  * 英文(en)
-  * 正體中文(zh_TW)
-  * 簡體中文(zh_CN)
-  * 德文(de)
-  * 法文(fr)
-  * 俄文(ru)
-  * 葡萄牙文(pt_BR)
-  * 荷蘭文(nl)
-  * 西班牙文(es)
-  * 匈牙利文(hu)
-  * 波蘭文(pl)
-  * 義大利文(it)
+* 多國語言（在config.yml設定）
+    * 英文(en)
+    * 正體中文(zh_TW)
+    * 簡體中文(zh_CN)
+    * 德文(de)
+    * 法文(fr)
+    * 俄文(ru)
+    * 葡萄牙文(pt_BR)
+    * 荷蘭文(nl)
+    * 西班牙文(es)
+    * 匈牙利文(hu)
+    * 波蘭文(pl)
+    * 義大利文(it)
 * 支援經濟功能（需要Vault）
 * 材料估算
 * 使用材料合成旗幟
 
 ## 使用方法
+
 * 請見最下方圖片
 
 ## 指令
-|**指令**|**描述**|**權限**|
-|---|---|---|
-|/bm|開啟主要介面|BannerMaker.use|
-|/bm help|指令清單||
-|/bm hand|顯示手上持有的旗幟的資訊|BannerMaker.hand|
-|/bm see|顯示看著的旗幟的資訊|BannerMaker.see|
-|/bm reload|重新載入設定檔|BannerMaker.reload|
+
+| **指令**     | **描述**       | **權限**             |
+|------------|--------------|--------------------|
+| /bm        | 開啟主要介面       | BannerMaker.use    |
+| /bm help   | 指令清單         |                    |
+| /bm hand   | 顯示手上持有的旗幟的資訊 | BannerMaker.hand   |
+| /bm see    | 顯示看著的旗幟的資訊   | BannerMaker.see    |
+| /bm reload | 重新載入設定檔      | BannerMaker.reload |
 
 ## 其他權限
+
 | **權限**                              | **描述**                     |
 |-------------------------------------|----------------------------|
 | BannerMaker.*                       | 完整權限                       |
@@ -62,6 +70,7 @@
 | BannerMaker.getBanner.free          | 免費取得旗幟                     |
 
 ## 安裝
+
 1. 關閉伺服器
 2. 將 .jar 放入 plugins 資料夾
 3. 啟動伺服器
@@ -79,7 +88,8 @@
 
 ## 貢獻
 
-歡迎提交 Pull Request。 對於較大的改動，請先建立 Issue 來讓我們討論一下你想做些什麼。 對於語言包，你也可以使用 [Crowdin](https://crowdin.com/project/bannermaker)
+歡迎提交 Pull Request。 對於較大的改動，請先建立 Issue 來讓我們討論一下你想做些什麼。
+對於語言包，你也可以使用 [Crowdin](https://crowdin.com/project/bannermaker)
 來更新或請求新語言。
 
 ### 貢獻者
