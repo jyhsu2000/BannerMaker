@@ -240,6 +240,13 @@ public class BannerUtil {
         return patternCount <= 6;
     }
 
+    /**
+     * 是否可以合成
+     *
+     * @param player 玩家
+     * @param banner 旗幟
+     * @return 是否可以合成
+     */
     static public boolean isCraftable(Player player, ItemStack banner) {
         //只檢查旗幟
         if (!isBanner(banner)) {
