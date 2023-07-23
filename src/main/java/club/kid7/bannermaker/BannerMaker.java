@@ -19,6 +19,7 @@ public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     public Economy econ = null;
     public boolean enableAlphabetAndNumber = true;
+    public boolean enableComplexBannerCraft = false;
     public PlayerDataMap playerDataMap = null;
 
     @Override
@@ -70,6 +71,8 @@ public class BannerMaker extends JavaPlugin {
         if (config != null) {
             //字母與數字
             enableAlphabetAndNumber = config.getBoolean("AlphabetAndNumberBanner.Enable", true);
+            //複雜旗幟合成
+            enableComplexBannerCraft = config.getBoolean("ComplexBannerCraft.Enable", false);
         }
         //玩家資料
         playerDataMap = new PlayerDataMap();

@@ -4,3 +4,5 @@ Economy:
   Price: 100
 AlphabetAndNumberBanner:
   Enable: true
+ComplexBannerCraft:
+  Enable: false
