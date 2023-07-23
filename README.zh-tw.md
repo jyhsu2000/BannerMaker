@@ -54,11 +54,12 @@
 |/bm reload|重新載入設定檔|BannerMaker.reload|
 
 ## 其他權限
-|**權限**|**描述**|
-|---|---|
-|BannerMaker.*|完整權限|
-|BannerMaker.getBanner|從介面取得旗幟|
-|BannerMaker.getBanner.free|免費取得旗幟|
+| **權限**                              | **描述**                     |
+|-------------------------------------|----------------------------|
+| BannerMaker.*                       | 完整權限                       |
+| BannerMaker.getBanner               | 從介面取得旗幟                    |
+| BannerMaker.getBanner.complex-craft | 取得旗幟時，忽略 6 種樣式的限制（於設定檔中啟用） |
+| BannerMaker.getBanner.free          | 免費取得旗幟                     |
 
 ## 安裝
 1. 關閉伺服器

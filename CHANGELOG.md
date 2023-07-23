@@ -2,7 +2,7 @@
 
 ## Unreleased Version
 
-- None
+- Add permission node for bypassing 6-patterns limit when getting banners (Enabled in config)
 
 ## v2.3.2 (for 1.17.x)
 

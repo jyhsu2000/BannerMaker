@@ -54,11 +54,12 @@ You don't need to know how to craft. All you need to know is how it will looks l
 |/bm reload|Reload config|BannerMaker.reload|
 
 ## Other Permissions
-|**Permission**|**Description**|
-|---|---|
-|BannerMaker.*|Whole permission|
-|BannerMaker.getBanner|Get banners from GUI|
-|BannerMaker.getBanner.free|Get banners for free|
+| **Permission**                      | **Description**                                                 |
+|-------------------------------------|-----------------------------------------------------------------|
+| BannerMaker.*                       | Whole permission                                                |
+| BannerMaker.getBanner               | Get banners from GUI                                            |
+| BannerMaker.getBanner.complex-craft | Bypass 6-patterns limit when getting banner (Enabled in config) |
+| BannerMaker.getBanner.free          | Get banners for free                                            |
 
 ## Installation
 1. Shutdown the server
