@@ -1,6 +1,6 @@
 # Russian(ru)
-# For BannerMaker v1.4.6
-# Contributor(s): sdir01
+# For BannerMaker v2.3.2
+# Contributor(s): sdir01, maz1lovo
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: Перезагрузить конфиг
@@ -13,6 +13,9 @@ io:
   remove-banner: Удалить баннер &r#{0}
 command:
   player-only: Эта команда может быть использована только игроками
+  invalid-parameter: 'Недопустимый(е) параметр(ы), правильное использование: {0}'
+  not-banner-hand: Предмет в руке, не баннер.
+  not-banner-see: Блок, на который вы смотрите, не является баннером.
 config:
   add-setting: Добавить {0} новые настройки
 gui:
@@ -36,9 +39,17 @@ gui:
   get-this-banner: Получить этот баннер
   get-banner: Получен баннер &r#{0}
   price: 'Стоимость: {0}'
-  clone-and-edit: 'Клонировать и изменить'
-  alphabet-and-number: 'Буквы и Цифры'
+  clone-and-edit: Клонировать и изменить
+  alphabet-and-number: Буквы и Цифры
   toggle-border: Включить обводку
   materials:
     enough: Материалов достаточно
     not-enough: Материалов не достаточно
+  get-banner-for-free: Получитm баннер бесплатно
+  buy-banner-in-price: Купить за {0}
+  get-banner-by-craft: Скрафтить
+  click:
+    left: Левый Клик
+    right: Правый Клик
+  selected-pattern-color: Выбранный цвет узора
+  toggle-preview-mode: Переключить режим предпросмотра
