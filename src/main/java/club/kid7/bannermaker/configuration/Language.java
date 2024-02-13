@@ -160,7 +160,7 @@ public class Language {
 
     private static Locale parseLocale(String localeName) {
         //自動
-        if (localeName == null || localeName.equalsIgnoreCase("auto") || localeName.length() == 0) {
+        if (localeName == null || localeName.equalsIgnoreCase("auto") || localeName.isEmpty()) {
             return Locale.getDefault();
         }
         //嘗試直接搜尋

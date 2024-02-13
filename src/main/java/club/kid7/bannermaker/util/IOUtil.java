@@ -39,7 +39,7 @@ public class IOUtil {
         for (Pattern pattern : bm.getPatterns()) {
             patternList.add(pattern.getPattern().getIdentifier() + ":" + pattern.getColor());
         }
-        if (patternList.size() > 0) {
+        if (!patternList.isEmpty()) {
             config.set(key + ".patterns", patternList);
         }
         KConfigManager.save(fileName);
