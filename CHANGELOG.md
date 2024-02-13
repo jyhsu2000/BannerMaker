@@ -3,6 +3,9 @@
 ## Unreleased Version
 
 - Add permission node for bypassing 6-patterns limit when getting banners (Enabled in config)
+- Update Spigot API to 1.20.4
+- Update Java compile target version to 17
+- Stop providing technical support for legacy Spigot (prior to Spigot 1.20)
 
 ## v2.3.2 (for 1.17.x)
 
