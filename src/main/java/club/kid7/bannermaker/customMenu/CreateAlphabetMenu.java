@@ -5,6 +5,7 @@ import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
 import club.kid7.bannermaker.util.DyeColorUtil;
 import club.kid7.bannermaker.util.MessageUtil;
+import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.gui.CustomGUIMenu;
@@ -37,40 +38,40 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         //選擇底色
         for (int i = 0; i < 16; i++) {
             final KItemStack banner = new KItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(i)));
-            menu.setClickableItem(i + 1 + (i / 8), banner).set(ClickType.LEFT, event -> {
+            menu.setItem(i + 1 + (i / 8), banner, new ClickAction(ClickType.LEFT, event -> {
                 currentAlphabetBanner.baseColor = DyeColorUtil.of(banner.getType());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CustomGUIManager.openPrevious(player);
-            });
+            }));
         }
         //選擇主要顏色
         for (int i = 0; i < 16; i++) {
             final KItemStack dye = new KItemStack(DyeColorUtil.toDyeMaterial(DyeColorUtil.of(i)));
-            menu.setClickableItem(18 + i + 1 + (i / 8), dye).set(ClickType.LEFT, event -> {
+            menu.setItem(18 + i + 1 + (i / 8), dye, new ClickAction(ClickType.LEFT, event -> {
                 currentAlphabetBanner.dyeColor = DyeColorUtil.of(dye.getType());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CustomGUIManager.openPrevious(player);
-            });
+            }));
         }
         //切換有無邊框
-        menu.setClickableItem(37, btnBorderedBanner).set(ClickType.LEFT, event -> {
+        menu.setItem(37, btnBorderedBanner, new ClickAction(ClickType.LEFT, event -> {
             currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
             playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
             CustomGUIManager.openPrevious(player);
-        });
+        }));
         //檢視旗幟資訊按鈕
         KItemStack btnBannerInfo = new KItemStack(Material.LIME_WOOL).name(MessageUtil.format("&a" + tl("gui.banner-info")));
-        menu.setClickableItem(49, btnBannerInfo).set(ClickType.LEFT, event -> {
+        menu.setItem(49, btnBannerInfo, new ClickAction(ClickType.LEFT, event -> {
             //檢視旗幟資訊
             playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
             //重置頁數
             playerData.setCurrentRecipePage(1);
             CustomGUIManager.open(player, BannerInfoMenu.class);
-        });
+        }));
 
         //返回
         KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
-        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, event -> CustomGUIManager.open(player, ChooseAlphabetMenu.class));
+        menu.setItem(45, btnBackToMenu, new ClickAction(ClickType.LEFT, event -> CustomGUIManager.open(player, ChooseAlphabetMenu.class)));
         return menu;
     }
 }

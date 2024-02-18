@@ -4,6 +4,7 @@ import club.kid7.bannermaker.AlphabetBanner;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
 import club.kid7.bannermaker.util.MessageUtil;
+import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.gui.CustomGUIMenu;
@@ -39,21 +40,21 @@ public class ChooseAlphabetMenu implements CustomGUIMenu {
             char alphabet = alphabetArray[i];
             final AlphabetBanner alphabetBanner = new AlphabetBanner(String.valueOf(alphabet), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
             ItemStack alphabetItem = alphabetBanner.toItemStack();
-            menu.setClickableItem(i, alphabetItem).set(ClickType.LEFT, event -> {
+            menu.setItem(i, alphabetItem, new ClickAction(ClickType.LEFT, event -> {
                 //設定當前編輯中的字母
                 playerData.setCurrentAlphabetBanner(alphabetBanner);
                 CustomGUIManager.open(player, CreateAlphabetMenu.class);
-            });
+            }));
         }
         //切換有無邊框
-        menu.setClickableItem(49, btnBorderedBanner).set(ClickType.LEFT, event -> {
+        menu.setItem(49, btnBorderedBanner, new ClickAction(ClickType.LEFT, event -> {
             playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
             CustomGUIManager.openPrevious(player);
-        });
+        }));
 
         //返回
         KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
-        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, event -> CustomGUIManager.open(player, MainMenu.class));
+        menu.setItem(45, btnBackToMenu, new ClickAction(ClickType.LEFT, event -> CustomGUIManager.open(player, MainMenu.class)));
         return menu;
     }
 }

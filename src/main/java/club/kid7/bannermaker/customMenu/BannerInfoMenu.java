@@ -8,8 +8,8 @@ import club.kid7.bannermaker.util.EconUtil;
 import club.kid7.bannermaker.util.IOUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
 import club.kid7.bannermaker.util.MessageUtil;
+import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
-import club.kid7.pluginutilities.gui.CustomGUIItem;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.gui.CustomGUIMenu;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
@@ -92,18 +92,18 @@ public class BannerInfoMenu implements CustomGUIMenu {
             //上一頁
             if (currentRecipePage > 1) {
                 KItemStack prevPage = new KItemStack(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page")));
-                menu.setClickableItem(22, prevPage).set(ClickType.LEFT, event -> {
+                menu.setItem(22, prevPage, new ClickAction(ClickType.LEFT, event -> {
                     playerData.setCurrentRecipePage(currentRecipePage - 1);
                     CustomGUIManager.openPrevious(player);
-                });
+                }));
             }
             //下一頁
             if (currentRecipePage < totalPage) {
                 KItemStack nextPage = new KItemStack(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&a" + tl("gui.next-page")));
-                menu.setClickableItem(26, nextPage).set(ClickType.LEFT, event -> {
+                menu.setItem(26, nextPage, new ClickAction(ClickType.LEFT, event -> {
                     playerData.setCurrentRecipePage(currentRecipePage + 1);
                     CustomGUIManager.openPrevious(player);
-                });
+                }));
             }
             //取得合成表配方
             HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
@@ -130,11 +130,11 @@ public class BannerInfoMenu implements CustomGUIMenu {
         if (key != null) {
             //有KEY時（儲存於玩家資料時），才顯示刪除按鈕
             KItemStack btnDelete = new KItemStack(Material.BARRIER).name(MessageUtil.format("&c" + tl("gui.delete")));
-            menu.setClickableItem(47, btnDelete).set(ClickType.LEFT, event -> {
+            menu.setItem(47, btnDelete, new ClickAction(ClickType.LEFT, event -> {
                 //刪除
                 IOUtil.removeBanner(player, key);
                 CustomGUIManager.open(player, MainMenu.class);
-            });
+            }));
         }
         //取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
@@ -145,13 +145,13 @@ public class BannerInfoMenu implements CustomGUIMenu {
                 //具有免費取得權限
                 //左鍵：免費取得
                 btnGetBanner.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-for-free")));
-                menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, event -> {
+                menu.setItem(49, btnGetBanner, new ClickAction(ClickType.LEFT, event -> {
                     //取得旗幟
                     InventoryUtil.give(player, banner);
                     //顯示訊息
                     player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
                     CustomGUIManager.openPrevious(player);
-                });
+                }));
             } else {
                 //左鍵：合成
                 btnGetBanner.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-by-craft")));
@@ -162,7 +162,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
                     String priceStr = BannerMaker.getInstance().econ.format(price);
                     btnGetBanner.lore(MessageUtil.format("&e[" + tl("gui.click.right") + "] &a" + tl("gui.buy-banner-in-price", priceStr)));
                 }
-                CustomGUIItem customGUIItemGetBanner = menu.setClickableItem(49, btnGetBanner).set(ClickType.LEFT, event -> {
+                menu.setItem(49, btnGetBanner, new ClickAction(ClickType.LEFT, event -> {
                     //嘗試合成旗幟
                     boolean success = BannerUtil.craft(player, banner);
                     if (success) {
@@ -171,10 +171,10 @@ public class BannerInfoMenu implements CustomGUIMenu {
                         player.sendMessage(MessageUtil.format(true, "&c" + tl("gui.materials.not-enough")));
                     }
                     CustomGUIManager.openPrevious(player);
-                });
+                }));
                 //檢查是否啟用經濟
                 if (BannerMaker.getInstance().econ != null) {
-                    customGUIItemGetBanner.set(ClickType.RIGHT, event -> {
+                    menu.addActions(49, new ClickAction(ClickType.RIGHT, event -> {
                         //取得旗幟
                         //嘗試給予玩家旗幟
                         boolean success = BannerUtil.buy(player, banner);
@@ -182,28 +182,28 @@ public class BannerInfoMenu implements CustomGUIMenu {
                             player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
                         }
                         CustomGUIManager.openPrevious(player);
-                    });
+                    }));
                 }
             }
         }
         //複製並編輯
         KItemStack btnCloneAndEdit = new KItemStack(Material.WRITABLE_BOOK).name(MessageUtil.format("&9" + tl("gui.clone-and-edit")));
-        menu.setClickableItem(51, btnCloneAndEdit).set(ClickType.LEFT, event -> {
+        menu.setItem(51, btnCloneAndEdit, new ClickAction(ClickType.LEFT, event -> {
             //設定為編輯中旗幟
             playerData.setCurrentEditBanner(banner);
             CustomGUIManager.open(player, CreateBannerMenu.class);
-        });
+        }));
 
         //返回
         KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
-        menu.setClickableItem(45, btnBackToMenu).set(ClickType.LEFT, event -> {
+        menu.setItem(45, btnBackToMenu, new ClickAction(ClickType.LEFT, event -> {
             if (AlphabetBanner.isAlphabetBanner(banner)) {
                 //若為Alphabet旗幟，回到Alphabet旗幟頁面
                 CustomGUIManager.open(player, CreateAlphabetMenu.class);
                 return;
             }
             CustomGUIManager.open(player, MainMenu.class);
-        });
+        }));
         return menu;
     }
 }
