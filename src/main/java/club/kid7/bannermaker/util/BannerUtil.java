@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -647,5 +648,51 @@ public class BannerUtil {
         recipe.put(9, currentBanner);
 
         return recipe;
+    }
+
+    static public String serialize(ItemStack banner) {
+        //只檢查旗幟
+        if (!isBanner(banner)) {
+            return null;
+        }
+        DyeColor color = Objects.requireNonNull(DyeColorUtil.of(banner.getType()));
+        short colorCode = DyeColorUtil.toShort(color);
+        StringBuilder dataStringBuilder = new StringBuilder(String.valueOf(colorCode));
+
+        BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
+
+        for (Pattern pattern : bm.getPatterns()) {
+            dataStringBuilder
+                .append(";")
+                .append(pattern.getPattern().getIdentifier())
+                .append(":")
+                .append(DyeColorUtil.toShort(pattern.getColor()));
+        }
+        String dataString = dataStringBuilder.toString();
+
+        return SerializationUtil.objectToBase64(dataString);
+    }
+
+    static public ItemStack deserialize(String bannerString) {
+        try {
+            String dataString = SerializationUtil.objectFromBase64(bannerString);
+            String[] dataArray = dataString.split(";");
+
+            ItemStack banner = new ItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(Short.parseShort(dataArray[0]))));
+
+            BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
+
+            for (int i = 1; i < dataArray.length; i++) {
+                String[] patternData = dataArray[i].split(":");
+                PatternType patternType = PatternType.getByIdentifier(patternData[0]);
+                DyeColor patternColor = DyeColorUtil.of(Short.parseShort(patternData[1]));
+                Pattern pattern = new Pattern(patternColor, Objects.requireNonNull(patternType));
+                bm.addPattern(pattern);
+            }
+            banner.setItemMeta(bm);
+            return banner;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
