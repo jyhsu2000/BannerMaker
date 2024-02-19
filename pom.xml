@@ -10,7 +10,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- VaultAPI -->
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>com.github.jyhsu2000</groupId>
             <artifactId>PluginUtilities</artifactId>
-            <version>1.6.0</version>
+            <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
