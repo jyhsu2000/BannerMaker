@@ -25,6 +25,7 @@ public class BannerMakerCommand extends CommandComponent {
         registerSubCommand("help", new HelpCommand(bm));
         registerSubCommand("see", new SeeCommand(bm));
         registerSubCommand("hand", new HandCommand(bm));
+        registerSubCommand("view", new ViewCommand(bm));
         registerSubCommand("reload", new ReloadCommand(bm));
     }
 

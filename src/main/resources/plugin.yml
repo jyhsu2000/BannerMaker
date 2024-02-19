@@ -20,6 +20,7 @@ permissions:
             BannerMaker.getBanner: true
             BannerMaker.hand: true
             BannerMaker.see: true
+            BannerMaker.view: true
             BannerMaker.reload: true
     BannerMaker.use:
         description: Permission of using BannerMaker
@@ -35,6 +36,9 @@ permissions:
         default: op
     BannerMaker.see:
         description: Show banner info of the banner you're looking at
+        default: op
+    BannerMaker.view:
+        description: View banner info of the banner command
         default: op
     BannerMaker.reload:
         description: Permission to reload all config

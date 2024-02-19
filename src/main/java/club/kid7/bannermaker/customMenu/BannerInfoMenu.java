@@ -13,6 +13,10 @@ import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.gui.CustomGUIMenu;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -193,6 +197,20 @@ public class BannerInfoMenu implements CustomGUIMenu {
             playerData.setCurrentEditBanner(banner);
             CustomGUIManager.open(player, CreateBannerMenu.class);
         }));
+
+        // 生成指令
+        if (player.hasPermission("BannerMaker.view")) {
+            // TODO: 新增至語系檔
+            KItemStack btnGenerateCommand = new KItemStack(Material.COMMAND_BLOCK).name(MessageUtil.format("&9Get share command"));
+            menu.setItem(53, btnGenerateCommand, new ClickAction(ClickType.LEFT, event -> {
+                String bannerString = BannerUtil.serialize(banner);
+                TextComponent msg = new TextComponent("[Click here to get command in chat for copy]");
+                msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Get command for copy")));
+                msg.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/bm view " + bannerString));
+                player.spigot().sendMessage(msg);
+                player.closeInventory();
+            }));
+        }
 
         //返回
         KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
