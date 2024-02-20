@@ -6,6 +6,7 @@
 - Update Spigot API to 1.20.1
 - Update Java compile target version to 17
 - Stop providing technical support for legacy Spigot (prior to Spigot 1.20)
+- Show `/bm help` info when providing invalid arguments to `/bm`
 - [Experimental] Add `/bm view` command for banner sharing
 
 ## v2.3.2 (for 1.17.x)

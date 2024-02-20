@@ -3,6 +3,7 @@ package club.kid7.bannermaker.command;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.customMenu.MainMenu;
 import club.kid7.pluginutilities.command.CommandComponent;
+import club.kid7.pluginutilities.command.exception.CommandExecuteException;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,7 +32,11 @@ public class BannerMakerCommand extends CommandComponent {
 
 
     @Override
-    public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args) throws CommandExecuteException {
+        if (args.length > 0) {
+            // 無效指令，顯示 help
+            return getSubCommands().get("help").executeCommand(sender, cmd, label, args);
+        }
         Player player = (Player) sender;
         //開啟選單
         CustomGUIManager.openPrevious(player, MainMenu.class);
