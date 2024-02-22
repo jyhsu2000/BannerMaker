@@ -200,46 +200,66 @@ public class BannerInfoMenu implements CustomGUIMenu {
             CustomGUIManager.open(player, CreateBannerMenu.class);
         }));
         // 展示旗幟
-        // TODO: 權限
         // TODO: 新增至語系檔
-        KItemStack btnShow = new KItemStack(Material.BELL).name(MessageUtil.format("&9Show banner to players"));
-        btnShow.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &aShow to nearby players"));
-        btnShow.lore(MessageUtil.format("&e[" + tl("gui.click.right") + "] &aShow to all players"));
-        menu.setItem(52, btnShow, new ClickAction(ClickType.LEFT, event -> {
-            String bannerString = BannerUtil.serialize(banner);
-            TextComponent msgBannerName = new TextComponent(new TextComponent("["), MessageComponentUtil.getTranslatableComponent(banner), new TextComponent("]"));
-            msgBannerName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, MessageComponentUtil.getHoverEventItem(banner)));
-            msgBannerName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bm view " + bannerString));
-            // 廣播給附近的玩家
-            double maxDistance = 16;
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                if (p.getWorld() != player.getWorld()) {
-                    continue;
-                }
-                if (p.getLocation().distanceSquared(player.getLocation()) > maxDistance * maxDistance) {
-                    continue;
-                }
-                p.spigot().sendMessage(
-                    new TextComponent(player.getDisplayName() + " shows you the banner "),
-                    msgBannerName,
-                    new TextComponent(" (Click to view)")
-                );
+        if (player.hasPermission("BannerMaker.show.nearby") || player.hasPermission("BannerMaker.show.all")) {
+            KItemStack btnShow = new KItemStack(Material.BELL).name(MessageUtil.format("&9Show banner to players"));
+            if (player.hasPermission("BannerMaker.show.nearby")) {
+                btnShow.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &aShow to nearby players"));
             }
-
-            player.closeInventory();
-        }), new ClickAction(ClickType.RIGHT, event -> {
-            String bannerString = BannerUtil.serialize(banner);
-            TextComponent msgBannerName = new TextComponent(new TextComponent("["), MessageComponentUtil.getTranslatableComponent(banner), new TextComponent("]"));
-            msgBannerName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, MessageComponentUtil.getHoverEventItem(banner)));
-            msgBannerName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bm view " + bannerString));
-            // 廣播給所有玩家
-            Bukkit.getServer().spigot().broadcast(
-                new TextComponent(player.getDisplayName() + " shows you the banner "),
-                msgBannerName,
-                new TextComponent(" (Click to view)")
-            );
-            player.closeInventory();
-        }));
+            if (player.hasPermission("BannerMaker.show.all")) {
+                btnShow.lore(MessageUtil.format("&e[" + tl("gui.click.right") + "] &aShow to all players"));
+            }
+            menu.setItem(52, btnShow);
+            if (player.hasPermission("BannerMaker.show.nearby")) {
+                menu.addActions(52, new ClickAction(ClickType.LEFT, event -> {
+                    String bannerString = BannerUtil.serialize(banner);
+                    TextComponent msgBannerName = new TextComponent(new TextComponent("["), MessageComponentUtil.getTranslatableComponent(banner), new TextComponent("]"));
+                    msgBannerName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, MessageComponentUtil.getHoverEventItem(banner)));
+                    msgBannerName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bm view " + bannerString));
+                    // 廣播給附近的玩家
+                    double maxDistance = 16;
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        // 只發給有權限的玩家（與發送者自己）
+                        if (!p.hasPermission("BannerMaker.show.receive") && p != player) {
+                            continue;
+                        }
+                        if (p.getWorld() != player.getWorld()) {
+                            continue;
+                        }
+                        if (p.getLocation().distanceSquared(player.getLocation()) > maxDistance * maxDistance) {
+                            continue;
+                        }
+                        p.spigot().sendMessage(
+                            new TextComponent(player.getDisplayName() + " shows you the banner "),
+                            msgBannerName,
+                            new TextComponent(" (Click to view)")
+                        );
+                    }
+                    player.closeInventory();
+                }));
+            }
+            if (player.hasPermission("BannerMaker.show.all")) {
+                menu.addActions(52, new ClickAction(ClickType.RIGHT, event -> {
+                    String bannerString = BannerUtil.serialize(banner);
+                    TextComponent msgBannerName = new TextComponent(new TextComponent("["), MessageComponentUtil.getTranslatableComponent(banner), new TextComponent("]"));
+                    msgBannerName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, MessageComponentUtil.getHoverEventItem(banner)));
+                    msgBannerName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bm view " + bannerString));
+                    // 廣播給所有玩家
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        // 只發給有權限的玩家（與發送者自己）
+                        if (!p.hasPermission("BannerMaker.show.receive") && p != player) {
+                            continue;
+                        }
+                        p.spigot().sendMessage(
+                            new TextComponent(player.getDisplayName() + " shows you the banner "),
+                            msgBannerName,
+                            new TextComponent(" (Click to view)")
+                        );
+                    }
+                    player.closeInventory();
+                }));
+            }
+        }
 
         // 生成指令
         if (player.hasPermission("BannerMaker.view")) {

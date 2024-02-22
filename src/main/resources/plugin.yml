@@ -21,6 +21,7 @@ permissions:
             BannerMaker.hand: true
             BannerMaker.see: true
             BannerMaker.view: true
+            BannerMaker.show: true
             BannerMaker.reload: true
     BannerMaker.use:
         description: Permission of using BannerMaker
@@ -40,6 +41,22 @@ permissions:
     BannerMaker.view:
         description: View banner info of the banner command
         default: op
+    BannerMaker.show:
+      description: Show banner to players
+      default: op
+      children:
+        BannerMaker.show.nearby: true
+        BannerMaker.show.all: true
+        BannerMaker.show.receive: true
+    BannerMaker.show.nearby:
+      description: Show banner to nearby players
+      default: op
+    BannerMaker.show.all:
+      description: Show banner to all players
+      default: op
+    BannerMaker.show.receive:
+      description: Receive banner showing messages from other players
+      default: op
     BannerMaker.reload:
         description: Permission to reload all config
         default: op
