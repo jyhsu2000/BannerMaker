@@ -7,6 +7,7 @@ import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.EconUtil;
 import club.kid7.bannermaker.util.IOUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
+import club.kid7.bannermaker.util.MessageComponentUtil;
 import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
@@ -17,6 +18,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -196,6 +198,47 @@ public class BannerInfoMenu implements CustomGUIMenu {
             //設定為編輯中旗幟
             playerData.setCurrentEditBanner(banner);
             CustomGUIManager.open(player, CreateBannerMenu.class);
+        }));
+        // 展示旗幟
+        // TODO: 權限
+        // TODO: 新增至語系檔
+        KItemStack btnShow = new KItemStack(Material.BELL).name(MessageUtil.format("&9Show banner to players"));
+        btnShow.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &aShow to nearby players"));
+        btnShow.lore(MessageUtil.format("&e[" + tl("gui.click.right") + "] &aShow to all players"));
+        menu.setItem(52, btnShow, new ClickAction(ClickType.LEFT, event -> {
+            String bannerString = BannerUtil.serialize(banner);
+            TextComponent msgBannerName = new TextComponent(new TextComponent("["), MessageComponentUtil.getTranslatableComponent(banner), new TextComponent("]"));
+            msgBannerName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, MessageComponentUtil.getHoverEventItem(banner)));
+            msgBannerName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bm view " + bannerString));
+            // 廣播給附近的玩家
+            double maxDistance = 16;
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (p.getWorld() != player.getWorld()) {
+                    continue;
+                }
+                if (p.getLocation().distanceSquared(player.getLocation()) > maxDistance * maxDistance) {
+                    continue;
+                }
+                p.spigot().sendMessage(
+                    new TextComponent(player.getDisplayName() + " shows you the banner "),
+                    msgBannerName,
+                    new TextComponent(" (Click to view)")
+                );
+            }
+
+            player.closeInventory();
+        }), new ClickAction(ClickType.RIGHT, event -> {
+            String bannerString = BannerUtil.serialize(banner);
+            TextComponent msgBannerName = new TextComponent(new TextComponent("["), MessageComponentUtil.getTranslatableComponent(banner), new TextComponent("]"));
+            msgBannerName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, MessageComponentUtil.getHoverEventItem(banner)));
+            msgBannerName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bm view " + bannerString));
+            // 廣播給所有玩家
+            Bukkit.getServer().spigot().broadcast(
+                new TextComponent(player.getDisplayName() + " shows you the banner "),
+                msgBannerName,
+                new TextComponent(" (Click to view)")
+            );
+            player.closeInventory();
         }));
 
         // 生成指令
