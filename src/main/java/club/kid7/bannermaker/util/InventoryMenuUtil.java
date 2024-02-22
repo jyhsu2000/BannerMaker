@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class InventoryMenuUtil {
 
-    public static void showBannerInfo(Player player, ItemStack banner) {
+    public static void openBannerInfo(Player player, ItemStack banner) {
         if (!BannerUtil.isBanner(banner)) {
             return;
         }

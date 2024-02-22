@@ -45,7 +45,7 @@ public class HandCommand extends CommandComponent {
         KItemStack banner = new KItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(itemStack.getType())))
             .setPatterns(Objects.requireNonNull(originalBannerMeta).getPatterns());
         //顯示旗幟
-        InventoryMenuUtil.showBannerInfo(player, banner);
+        InventoryMenuUtil.openBannerInfo(player, banner);
         return true;
     }
 }

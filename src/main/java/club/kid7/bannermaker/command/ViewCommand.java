@@ -38,7 +38,7 @@ public class ViewCommand extends CommandComponent {
         try {
             ItemStack banner = BannerUtil.deserialize(bannerString);
             //顯示旗幟
-            InventoryMenuUtil.showBannerInfo(player, banner);
+            InventoryMenuUtil.openBannerInfo(player, banner);
         } catch (Exception e) {
             player.sendMessage(MessageUtil.format(true, "&cInvalid banner string"));
             return true;

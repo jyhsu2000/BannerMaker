@@ -43,7 +43,7 @@ public class SeeCommand extends CommandComponent {
         KItemStack banner = new KItemStack(DyeColorUtil.toBannerMaterial(blockState.getBaseColor()))
             .setPatterns(blockState.getPatterns());
         //顯示旗幟
-        InventoryMenuUtil.showBannerInfo(player, banner);
+        InventoryMenuUtil.openBannerInfo(player, banner);
         return true;
     }
 }

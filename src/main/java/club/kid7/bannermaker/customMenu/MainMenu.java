@@ -35,7 +35,7 @@ public class MainMenu implements CustomGUIMenu {
         List<ItemStack> bannerList = IOUtil.loadBannerList(player, currentPage);
         for (int i = 0; i < bannerList.size() && i < 45; i++) {
             final ItemStack banner = bannerList.get(i);
-            menu.setItem(i, banner, new ClickAction(ClickType.LEFT, event -> InventoryMenuUtil.showBannerInfo(player, banner)));
+            menu.setItem(i, banner, new ClickAction(ClickType.LEFT, event -> InventoryMenuUtil.openBannerInfo(player, banner)));
         }
         //總頁數
         int totalPage = (int) Math.ceil(IOUtil.getBannerCount(player) / 45.0);
