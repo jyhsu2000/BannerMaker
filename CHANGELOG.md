@@ -7,7 +7,9 @@
 - Update Java compile target version to 17
 - Stop providing technical support for legacy Spigot (prior to Spigot 1.20)
 - Show `/bm help` info when providing invalid arguments to `/bm`
-- [Experimental] Add `/bm view` command for banner sharing
+- [Experimental] Add banner showing feature to banner info page
+- [Experimental] Add `/bm view` command for banner sharing (via text, in social media other than Minecraft)
+    - Example: `/bm view rO0ABXQADjE0O2NyOjE7Y3JlOjEx`
 
 ## v2.3.2 (for 1.17.x)
 
