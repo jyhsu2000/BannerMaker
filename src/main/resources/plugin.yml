@@ -2,61 +2,67 @@ name: ${project.artifactId}
 main: club.kid7.bannermaker.BannerMaker
 version: ${project.version}
 author: KID
-softdepend: [Vault]
+softdepend: [ Vault ]
 api-version: 1.13
 commands:
-    BannerMaker:
-        description: BannerMaker
-        usage: /<command>
-        aliases: [bm]
-        permission: BannerMaker.use
-        permission-message: Lacking permission <permission>
+  BannerMaker:
+    description: BannerMaker
+    usage: /<command>
+    aliases: [ bm ]
+    permission: BannerMaker.use
+    permission-message: Lacking permission <permission>
 permissions:
-    BannerMaker.*:
-        description: Whole permission of BannerMaker
-        default: op
-        children:
-            BannerMaker.use: true
-            BannerMaker.getBanner: true
-            BannerMaker.hand: true
-            BannerMaker.see: true
-            BannerMaker.view: true
-            BannerMaker.show: true
-            BannerMaker.reload: true
-    BannerMaker.use:
-        description: Permission of using BannerMaker
-        default: op
-    BannerMaker.getBanner:
-        description: Permission to get banners from BannerMaker
-        default: op
-    BannerMaker.getBanner.free:
-        description: Bypass fee of get Banner
-        default: op
-    BannerMaker.hand:
-        description: Show banner info of the banner in hand
-        default: op
-    BannerMaker.see:
-        description: Show banner info of the banner you're looking at
-        default: op
-    BannerMaker.view:
-        description: View banner info of the banner command
-        default: op
-    BannerMaker.show:
-      description: Show banner to players
-      default: op
-      children:
-        BannerMaker.show.nearby: true
-        BannerMaker.show.all: true
-        BannerMaker.show.receive: true
-    BannerMaker.show.nearby:
-      description: Show banner to nearby players
-      default: op
-    BannerMaker.show.all:
-      description: Show banner to all players
-      default: op
-    BannerMaker.show.receive:
-      description: Receive banner showing messages from other players
-      default: op
-    BannerMaker.reload:
-        description: Permission to reload all config
-        default: op
+  BannerMaker.*:
+    description: Whole permission of BannerMaker
+    default: op
+    children:
+      BannerMaker.player: true
+      BannerMaker.getBanner.free: true
+      BannerMaker.reload: true
+  BannerMaker.player:
+    description: Permissions for normal players
+    default: true
+    children:
+      BannerMaker.use: true
+      BannerMaker.getBanner: true
+      BannerMaker.hand: true
+      BannerMaker.see: true
+      BannerMaker.view: true
+      BannerMaker.show: true
+  BannerMaker.use:
+    description: Permission of using BannerMaker
+    default: true
+  BannerMaker.getBanner:
+    description: Permission to get banners from BannerMaker
+    default: op
+  BannerMaker.getBanner.free:
+    description: Bypass fee of get Banner
+    default: op
+  BannerMaker.hand:
+    description: Show banner info of the banner in hand
+    default: true
+  BannerMaker.see:
+    description: Show banner info of the banner you're looking at
+    default: true
+  BannerMaker.view:
+    description: View banner info of the banner command
+    default: true
+  BannerMaker.show:
+    description: Show banner to players
+    default: op
+    children:
+      BannerMaker.show.nearby: true
+      BannerMaker.show.all: true
+      BannerMaker.show.receive: true
+  BannerMaker.show.nearby:
+    description: Show banner to nearby players
+    default: op
+  BannerMaker.show.all:
+    description: Show banner to all players
+    default: op
+  BannerMaker.show.receive:
+    description: Receive banner showing messages from other players
+    default: true
+  BannerMaker.reload:
+    description: Permission to reload all config
+    default: op
