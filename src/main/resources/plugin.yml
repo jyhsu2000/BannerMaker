@@ -35,33 +35,36 @@ permissions:
   BannerMaker.getBanner:
     description: Permission to get banners from BannerMaker
     default: op
+  BannerMaker.getBanner.complex-craft:
+    description: Bypass 6-patterns limit when getting banner (Enabled in config)
+    default: op
   BannerMaker.getBanner.free:
     description: Bypass fee of get Banner
     default: op
   BannerMaker.hand:
-    description: Show banner info of the banner in hand
+    description: View banner info of the banner in hand
     default: true
   BannerMaker.see:
-    description: Show banner info of the banner you're looking at
+    description: View banner info of the banner you're looking at
     default: true
   BannerMaker.view:
     description: View banner info of the banner command
     default: true
   BannerMaker.show:
-    description: Show banner to players
+    description: Show banner info to players
     default: op
     children:
       BannerMaker.show.nearby: true
       BannerMaker.show.all: true
       BannerMaker.show.receive: true
   BannerMaker.show.nearby:
-    description: Show banner to nearby players
+    description: Show banner info to nearby players
     default: op
   BannerMaker.show.all:
-    description: Show banner to all players
+    description: Show banner info to all players
     default: op
   BannerMaker.show.receive:
-    description: Receive banner showing messages from other players
+    description: Receive banner info showing messages from other players
     default: true
   BannerMaker.reload:
     description: Permission to reload all config
