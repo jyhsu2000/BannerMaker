@@ -1,9 +1,10 @@
 # BannerMaker
 
-[![bStats](https://img.shields.io/badge/bStats-1.4-brightgreen.svg)](https://bstats.org/plugin/bukkit/BannerMaker)
-[![license](https://img.shields.io/github/license/jyhsu2000/BannerMaker.svg)](https://github.com/jyhsu2000/BannerMaker/blob/master/LICENSE)
 [![GitHub Actions](https://github.com/jyhsu2000/BannerMaker/actions/workflows/maven.yml/badge.svg)](https://github.com/jyhsu2000/BannerMaker/actions/workflows/maven.yml)
+[![license](https://img.shields.io/github/license/jyhsu2000/BannerMaker.svg)](https://github.com/jyhsu2000/BannerMaker/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/bannermaker/localized.svg)](https://crowdin.com/project/bannermaker)
+[![bStats Servers](https://img.shields.io/bstats/servers/383?label=bStats%20servers)](https://bstats.org/plugin/bukkit/BannerMaker)
+[![bStats Players](https://img.shields.io/bstats/players/383?label=bStats%20players)](https://bstats.org/plugin/bukkit/BannerMaker)
 
 ## Link
 
