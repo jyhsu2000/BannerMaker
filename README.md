@@ -6,78 +6,82 @@
 [![bStats Servers](https://img.shields.io/bstats/servers/383?label=bStats%20servers)](https://bstats.org/plugin/bukkit/BannerMaker)
 [![bStats Players](https://img.shields.io/bstats/players/383?label=bStats%20players)](https://bstats.org/plugin/bukkit/BannerMaker)
 
-## Link
+[![changelog](https://img.shields.io/badge/changelog-en-green)](CHANGELOG.md)
+[![contributing](https://img.shields.io/badge/contributing-guide-green)](CONTRIBUTING.md)
+[![contributors](https://img.shields.io/badge/contributors-5d5d5d)](CONTRIBUTORS.md)
 
-* [BukkitDev](https://dev.bukkit.org/projects/bannermaker)
-* [Spigot Resource](http://www.spigotmc.org/resources/bannermaker.4380/)
-* [巴哈小屋](http://home.gamer.com.tw/creationDetail.php?sn=2760067)
-* [MCBBS](http://www.mcbbs.net/thread-415289-1-1.html)
-
-Feel banner is fun but you don't know how to craft?  
-It's too hard to craft so you make wrong usually?  
-You must try this plugin.
+External Links:
+[[BukkitDev]](https://dev.bukkit.org/projects/bannermaker)
+[[Spigot Resource]](http://www.spigotmc.org/resources/bannermaker.4380/)
+[[巴哈小屋]](http://home.gamer.com.tw/creationDetail.php?sn=2760067)
+[[MCBBS]](http://www.mcbbs.net/thread-415289-1-1.html)
 
 *Read this in other languages: [English](README.md), [正體中文](README.zh-tw.md).*
+
+Feel banner is fun, but you don't know how to craft?  
+It's too hard to craft, so you make wrong usually?  
+You must try this plugin.
 
 ## Description
 
 Using just one command, you can use GUI of this plugin to design any kind of banner.  
-You don't need to know how to craft. All you need to know is how it will looks like.
+You don't need to know how to craft. All you need to know is how it will look like.
 
 ## Features
 
-* Design and save banner
-* Look up recipe of banner
-* Support UUID
-* Multi language support (Setting in config.yml)
-    * English(en)
-    * Traditional Chinese(zh_TW)
-    * Simplified Chinese(zh_CN)
-    * German(de)
-    * French(fr)
-    * Russian(ru)
-    * Portuguese(pt_BR)
-    * Dutch(nl)
-    * Spanish(es)
-    * Hungarian(hu)
-    * Polish(pl)
-    * Italian(it)
-* Economic support (need Vault)
-* Material estimates
-* Craft banner by using materials
+- Design and save banners
+- Look up recipe of banners
+- Multi-language support (Setting in `config.yml`)
+    - English (`en`)
+    - Traditional Chinese (`zh_TW`)
+    - Simplified Chinese (`zh_CN`)
+    - German (`de`)
+    - French (`fr`)
+    - Russian (`ru`)
+    - Portuguese (`pt_BR`)
+    - Dutch (`nl`)
+    - Spanish (`es`)
+    - Hungarian (`hu`)
+    - Polish (`pl`)
+    - Italian (`it`)
+- Economic support (require Vault installed)
+- Material estimates
+- Craft banner by using materials
+- Show your banners to others
 
 ## How to use
 
-* Look at pictures at bottom of page
+1. Run command `/bm` to open GUI
+2. Enjoy it
 
 ## Commands
 
-| **Command** | **Description**                                  | **Permission**     |
-|-------------|--------------------------------------------------|--------------------|
-| /bm         | Open main gui                                    | BannerMaker.use    |
-| /bm help    | Command list                                     |                    |
-| /bm hand    | Show banner info of the banner in hand           | BannerMaker.hand   |
-| /bm see     | Show banner info of the banner you're looking at | BannerMaker.see    |
-| /bm reload  | Reload config                                    | BannerMaker.reload |
+| **Command**    | **Description**                                  | **Permission**       |
+|----------------|--------------------------------------------------|----------------------|
+| `/bm`          | Open GUI                                         | `BannerMaker.use`    |
+| `/bm help`     | Command list                                     |                      |
+| `/bm hand`     | View banner info of the banner in hand           | `BannerMaker.hand`   |
+| `/bm see`      | View banner info of the banner you're looking at | `BannerMaker.see`    |
+| `/bm view ...` | View banner info of the banner command           | `BannerMaker.view`   |
+| `/bm reload`   | Reload config                                    | `BannerMaker.reload` |
+
+## Major Permission Sets
+
+| **Permission**       | **Description**                | **Default** |
+|----------------------|--------------------------------|-------------|
+| `BannerMaker.player` | Permissions for normal players | True        |
+| `BannerMaker.admin`  | Whole permission               | OP          |
+| `BannerMaker.show`   | Show banner info to players    | OP          |
 
 ## Other Permissions
 
-| **Permission**                      | **Description**                                                 |
-|-------------------------------------|-----------------------------------------------------------------|
-| BannerMaker.*                       | Whole permission                                                |
-| BannerMaker.getBanner               | Get banners from GUI                                            |
-| BannerMaker.getBanner.complex-craft | Bypass 6-patterns limit when getting banner (Enabled in config) |
-| BannerMaker.getBanner.free          | Get banners for free                                            |
+| **Permission**                        | **Description**                                                 | **Default** |
+|---------------------------------------|-----------------------------------------------------------------|-------------|
+| `BannerMaker.getBanner`               | Get banners from GUI                                            | OP          |
+| `BannerMaker.getBanner.complex-craft` | Bypass 6-patterns limit when getting banner (Enabled in config) | OP          |
+| `BannerMaker.getBanner.free`          | Get banners for free                                            | OP          |
 
-## Installation
-
-1. Shutdown the server
-2. Put the .jar into the plugins folder
-3. Start the server
-
-## Change Logs
-
-*Read in [CHANGELOG.md](CHANGELOG.md)*
+*All detailed permissions can be found in [plugin.yml](src/main/resources/plugin.yml)*
 
 ## Pictures
 
@@ -85,25 +89,3 @@ You don't need to know how to craft. All you need to know is how it will looks l
 ![Create banner](http://i.imgur.com/HB6Dhm3.png)  
 ![Banner info](http://i.imgur.com/Xydmcbj.png)  
 ![Alphabet & Number](http://i.imgur.com/tGHmakp.png)
-
-## Contributing
-
-Pull requests are welcome.  
-For major changes, please open an issue first to discuss what you would like to change.  
-For language packs, you can also use [Crowdin](https://crowdin.com/project/bannermaker) for updating or request for new
-languages.
-
-### Contributors
-
-Translators:
-[Marrarus](https://github.com/Marrarus) (German),
-[RedNesto](https://github.com/RedNesto) (French),
-[sdir01](https://www.spigotmc.org/members/sdir01.238854/) (Russian),
-[maz1lovo](https://github.com/authorless) (Russian),
-[Rhander](https://www.spigotmc.org/members/rhander.103119/) (Portuguese),
-[DeTrollers](https://www.spigotmc.org/members/detrollers.174265/) (Dutch),
-[stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/) (Spanish),
-[C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/) (Spanish),
-[montlikadani](https://www.spigotmc.org/members/toldi.251100/) (Hungarian),
-[ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/) (Polish),
-[Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/) (Italian).
