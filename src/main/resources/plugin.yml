@@ -12,7 +12,7 @@ commands:
     permission: BannerMaker.use
     permission-message: Lacking permission <permission>
 permissions:
-  BannerMaker.*:
+  BannerMaker.admin:
     description: Whole permission of BannerMaker
     default: op
     children:
