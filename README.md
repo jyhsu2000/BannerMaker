@@ -89,3 +89,5 @@ You don't need to know how to craft. All you need to know is how it will look li
 ![Create banner](http://i.imgur.com/HB6Dhm3.png)  
 ![Banner info](http://i.imgur.com/Xydmcbj.png)  
 ![Alphabet & Number](http://i.imgur.com/tGHmakp.png)
+
+[![bStats](https://bstats.org/signatures/bukkit/BannerMaker.svg)](https://bstats.org/plugin/bukkit/BannerMaker)
