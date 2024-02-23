@@ -47,7 +47,7 @@ You don't need to know how to craft. All you need to know is how it will look li
 - Economic support (require Vault installed)
 - Material estimates
 - Craft banner by using materials
-- Show your banners to others
+- Show/share your banners to others
 
 ## How to use
 
