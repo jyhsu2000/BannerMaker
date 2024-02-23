@@ -2,6 +2,10 @@
 
 ## Unreleased Version
 
+- None
+
+## v2.4.0 (for v1.20.x)
+
 - Add permission node for bypassing 6-patterns limit when getting banners (Enabled in config)
 - Update Spigot API to 1.20.1
 - Update Java compile target version to 17
@@ -10,6 +14,8 @@
 - [Experimental] Add banner showing feature to banner info page
 - [Experimental] Add `/bm view` command for banner sharing (via text, in social media other than Minecraft)
     - Example: `/bm view rO0ABXQADjE0O2NyOjE7Y3JlOjEx`
+
+*Note: Some messages of **Experimental features** cannot be translated yet.*
 
 ## v2.3.2 (for 1.17.x)
 
