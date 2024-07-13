@@ -100,7 +100,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
             }
             //預覽旗幟
             PatternType patternType = BannerUtil.getPatternTypeList().get(patternIndex);
-            final KItemStack banner = ((KItemStack) baseBannerForPreview.clone())
+            final KItemStack banner = (new KItemStack(baseBannerForPreview))
                 .pattern(new Pattern(selectedColorForPreview, patternType));
             menu.setItem(i + 19 + (i / 8), banner, new ClickAction(ClickType.LEFT, event -> {
                 //新增Pattern
