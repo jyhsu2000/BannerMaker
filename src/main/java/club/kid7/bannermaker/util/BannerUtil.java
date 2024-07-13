@@ -97,7 +97,7 @@ public class BannerUtil {
                 case SQUARE_BOTTOM_RIGHT:
                 case SQUARE_TOP_LEFT:
                 case SQUARE_TOP_RIGHT:
-                case CIRCLE_MIDDLE:
+                case CIRCLE:
                     materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
                     break;
                 case STRIPE_BOTTOM:
@@ -114,12 +114,12 @@ public class BannerUtil {
                 case TRIANGLES_TOP:
                 case DIAGONAL_LEFT:
                 case DIAGONAL_RIGHT:
-                case DIAGONAL_LEFT_MIRROR:
-                case DIAGONAL_RIGHT_MIRROR:
+                case DIAGONAL_UP_LEFT:
+                case DIAGONAL_UP_RIGHT:
                     materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 3));
                     break;
-                case STRIPE_SMALL:
-                case RHOMBUS_MIDDLE:
+                case SMALL_STRIPES:
+                case RHOMBUS:
                 case GRADIENT:
                 case GRADIENT_UP:
                     materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 4));
@@ -130,8 +130,8 @@ public class BannerUtil {
                     break;
                 case HALF_VERTICAL:
                 case HALF_HORIZONTAL:
-                case HALF_VERTICAL_MIRROR:
-                case HALF_HORIZONTAL_MIRROR:
+                case HALF_VERTICAL_RIGHT:
+                case HALF_HORIZONTAL_BOTTOM:
                     materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 6));
                     break;
                 case BORDER:
@@ -387,25 +387,25 @@ public class BannerUtil {
         List<PatternType> list = Arrays.asList(
             PatternType.BORDER,
             PatternType.BRICKS,
-            PatternType.CIRCLE_MIDDLE,
+            PatternType.CIRCLE,
             PatternType.CREEPER,
             PatternType.CROSS,
             PatternType.CURLY_BORDER,
             PatternType.DIAGONAL_LEFT,
-            PatternType.DIAGONAL_LEFT_MIRROR,
+            PatternType.DIAGONAL_UP_LEFT,
             PatternType.DIAGONAL_RIGHT,
-            PatternType.DIAGONAL_RIGHT_MIRROR,
+            PatternType.DIAGONAL_UP_RIGHT,
             PatternType.FLOWER,
             PatternType.GLOBE,
             PatternType.GRADIENT,
             PatternType.GRADIENT_UP,
             PatternType.HALF_HORIZONTAL,
-            PatternType.HALF_HORIZONTAL_MIRROR,
+            PatternType.HALF_HORIZONTAL_BOTTOM,
             PatternType.HALF_VERTICAL,
-            PatternType.HALF_VERTICAL_MIRROR,
+            PatternType.HALF_VERTICAL_RIGHT,
             PatternType.MOJANG,
             PatternType.PIGLIN,
-            PatternType.RHOMBUS_MIDDLE,
+            PatternType.RHOMBUS,
             PatternType.SKULL,
             PatternType.SQUARE_BOTTOM_LEFT,
             PatternType.SQUARE_BOTTOM_RIGHT,
@@ -419,7 +419,7 @@ public class BannerUtil {
             PatternType.STRIPE_LEFT,
             PatternType.STRIPE_MIDDLE,
             PatternType.STRIPE_RIGHT,
-            PatternType.STRIPE_SMALL,
+            PatternType.SMALL_STRIPES,
             PatternType.STRIPE_TOP,
             PatternType.TRIANGLE_BOTTOM,
             PatternType.TRIANGLE_TOP,
@@ -514,7 +514,7 @@ public class BannerUtil {
                     bannerPosition = 1;
                     dyePosition = Arrays.asList(2, 4, 6);
                     break;
-                case STRIPE_SMALL:
+                case SMALL_STRIPES:
                     dyePosition = Arrays.asList(0, 2, 3, 5);
                     break;
                 case CROSS:
@@ -545,17 +545,17 @@ public class BannerUtil {
                 case DIAGONAL_RIGHT:
                     dyePosition = Arrays.asList(5, 7, 8);
                     break;
-                case DIAGONAL_LEFT_MIRROR:
+                case DIAGONAL_UP_LEFT:
                     dyePosition = Arrays.asList(3, 6, 7);
                     break;
-                case DIAGONAL_RIGHT_MIRROR:
+                case DIAGONAL_UP_RIGHT:
                     dyePosition = Arrays.asList(1, 2, 5);
                     break;
-                case CIRCLE_MIDDLE:
+                case CIRCLE:
                     bannerPosition = 1;
                     dyePosition = Collections.singletonList(4);
                     break;
-                case RHOMBUS_MIDDLE:
+                case RHOMBUS:
                     dyePosition = Arrays.asList(1, 3, 5, 7);
                     break;
                 case HALF_VERTICAL:
@@ -566,11 +566,11 @@ public class BannerUtil {
                     bannerPosition = 7;
                     dyePosition = Arrays.asList(0, 1, 2, 3, 4, 5);
                     break;
-                case HALF_VERTICAL_MIRROR:
+                case HALF_VERTICAL_RIGHT:
                     bannerPosition = 3;
                     dyePosition = Arrays.asList(1, 2, 4, 5, 7, 8);
                     break;
-                case HALF_HORIZONTAL_MIRROR:
+                case HALF_HORIZONTAL_BOTTOM:
                     bannerPosition = 1;
                     dyePosition = Arrays.asList(3, 4, 5, 6, 7, 8);
                     break;

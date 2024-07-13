@@ -112,7 +112,7 @@ public class AlphabetBanner {
                     break;
                 case "D":
                     invertBanner = true;
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
@@ -202,7 +202,7 @@ public class AlphabetBanner {
                     break;
                 case "R":
                     invertBanner = true;
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
@@ -214,7 +214,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLE_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_TOP_RIGHT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
                     break;
                 case "T":
@@ -243,7 +243,7 @@ public class AlphabetBanner {
                     break;
                 case "Y":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
                     break;
                 case "Z":
@@ -252,7 +252,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.TRIANGLE_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_TOP_LEFT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_RIGHT));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
                     break;
                 case "1":
@@ -277,10 +277,10 @@ public class AlphabetBanner {
                     break;
                 case "5":
                     invertBanner = true;
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_MIRROR));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_RIGHT));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.DIAGONAL_RIGHT_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.DIAGONAL_UP_RIGHT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
                     break;
@@ -299,7 +299,7 @@ public class AlphabetBanner {
                     break;
                 case "9":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
@@ -313,7 +313,7 @@ public class AlphabetBanner {
                     break;
                 case "?":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
@@ -322,7 +322,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_RIGHT));
                     break;
                 case ".":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
@@ -410,7 +410,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_RIGHT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CROSS));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
                     break;
@@ -428,7 +428,7 @@ public class AlphabetBanner {
                     break;
                 case "N":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.DIAGONAL_RIGHT_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.DIAGONAL_UP_RIGHT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
@@ -460,7 +460,7 @@ public class AlphabetBanner {
                 case "R":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_LEFT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
@@ -468,7 +468,7 @@ public class AlphabetBanner {
                 case "S":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNRIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.CURLY_BORDER));
@@ -506,7 +506,7 @@ public class AlphabetBanner {
                     break;
                 case "Y":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.CROSS));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_RIGHT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
                     break;
@@ -524,7 +524,7 @@ public class AlphabetBanner {
                     break;
                 case "2":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS_MIDDLE));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.RHOMBUS));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_DOWNLEFT));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
@@ -555,7 +555,7 @@ public class AlphabetBanner {
                     break;
                 case "6":
                     invertBanner = true;
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.STRIPE_TOP));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_BOTTOM));
@@ -588,7 +588,7 @@ public class AlphabetBanner {
                     break;
                 case "?":
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_RIGHT));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_HORIZONTAL_BOTTOM));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_TOP));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
@@ -598,7 +598,7 @@ public class AlphabetBanner {
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.HALF_HORIZONTAL));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.STRIPE_MIDDLE));
                     bannerMeta.addPattern(new Pattern(dyeColor, PatternType.SQUARE_BOTTOM_LEFT));
-                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_MIRROR));
+                    bannerMeta.addPattern(new Pattern(baseColor, PatternType.HALF_VERTICAL_RIGHT));
                     bannerMeta.addPattern(new Pattern(baseColor, PatternType.BORDER));
                     break;
                 case ".":
