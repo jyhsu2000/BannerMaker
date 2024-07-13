@@ -2,7 +2,7 @@
 
 ## Unreleased Version
 
-- None
+- Update Spigot API to 1.21
 
 ## v2.4.0 (for v1.20.x)
 
