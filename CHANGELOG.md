@@ -2,7 +2,12 @@
 
 ## Unreleased Version
 
+- None
+
+## v2.5.0 (for v1.21.x)
+
 - Update Spigot API to 1.21
+- Copy share command to clipboard directly instead of showing it in chat input box
 
 ## v2.4.0 (for v1.20.x)
 
