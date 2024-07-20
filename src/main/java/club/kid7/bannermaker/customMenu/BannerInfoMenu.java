@@ -267,9 +267,9 @@ public class BannerInfoMenu implements CustomGUIMenu {
             KItemStack btnGenerateCommand = new KItemStack(Material.COMMAND_BLOCK).name(MessageUtil.format("&9Get share command"));
             menu.setItem(53, btnGenerateCommand, new ClickAction(ClickType.LEFT, event -> {
                 String bannerString = BannerUtil.serialize(banner);
-                TextComponent msg = new TextComponent("[Click here to get command in chat for copy]");
-                msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Get command for copy")));
-                msg.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/bm view " + bannerString));
+                TextComponent msg = new TextComponent("[Click here to copy command to clipboard]");
+                msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Copy command to clipboard")));
+                msg.setClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, "/bm view " + bannerString));
                 player.spigot().sendMessage(msg);
                 player.closeInventory();
             }));
