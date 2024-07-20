@@ -18,7 +18,6 @@ External Links:
 [[BukkitDev]](https://dev.bukkit.org/projects/bannermaker)
 [[Spigot Resource]](http://www.spigotmc.org/resources/bannermaker.4380/)
 [[巴哈小屋]](http://home.gamer.com.tw/creationDetail.php?sn=2760067)
-[[MCBBS]](http://www.mcbbs.net/thread-415289-1-1.html)
 
 *Read this in other languages: [English](README.md), [正體中文](README.zh-tw.md).*
 
