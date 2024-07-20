@@ -35,18 +35,8 @@ You don't need to know how to craft. All you need to know is how it will look li
 - Design and save banners
 - Look up recipe of banners
 - Multi-language support (Setting in `config.yml`)
-    - English (`en`)
-    - Traditional Chinese (`zh_TW`)
-    - Simplified Chinese (`zh_CN`)
-    - German (`de`)
-    - French (`fr`)
-    - Russian (`ru`)
-    - Portuguese (`pt_BR`)
-    - Dutch (`nl`)
-    - Spanish (`es`)
-    - Hungarian (`hu`)
-    - Polish (`pl`)
-    - Italian (`it`)
+    - [All available languages](https://github.com/jyhsu2000/BannerMaker/tree/master/src/main/resources/language)
+    - Welcome to contribute your translation [here](https://crowdin.com/project/bannermaker)
 - Economic support (require Vault installed)
 - Material estimates
 - Craft banner by using materials

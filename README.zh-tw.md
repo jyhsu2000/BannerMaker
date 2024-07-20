@@ -35,18 +35,8 @@
 - 設計並儲存旗幟
 - 查詢旗幟合成表
 - 多國語言（在 `config.yml` 設定）
-    - 英文（`en`）
-    - 正體中文（`zh_TW`）
-    - 簡體中文（`zh_CN`）
-    - 德文（`de`）
-    - 法文（`fr`）
-    - 俄文（`ru`）
-    - 葡萄牙文（`pt_BR`）
-    - 荷蘭文（`nl`）
-    - 西班牙文（`es`）
-    - 匈牙利文（`hu`）
-    - 波蘭文（`pl`）
-    - 義大利文（`it`）
+    - [所有可用語言](https://github.com/jyhsu2000/BannerMaker/tree/master/src/main/resources/language)
+    - 歡迎在[這裡](https://crowdin.com/project/bannermaker)貢獻您的翻譯
 - 支援經濟功能（需安裝 Vault）
 - 材料估算
 - 使用材料合成旗幟
