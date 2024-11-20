@@ -92,103 +92,87 @@ public class BannerUtil {
         for (Pattern pattern : bm.getPatterns()) {
             //所需染料
             DyeColor dyeColor = pattern.getColor();
-            switch (pattern.getPattern()) {
-                case SQUARE_BOTTOM_LEFT:
-                case SQUARE_BOTTOM_RIGHT:
-                case SQUARE_TOP_LEFT:
-                case SQUARE_TOP_RIGHT:
-                case CIRCLE:
+            PatternType patternType = pattern.getPattern();
+            if (patternType.equals(PatternType.SQUARE_BOTTOM_LEFT)
+                || patternType.equals(PatternType.SQUARE_BOTTOM_RIGHT)
+                || patternType.equals(PatternType.SQUARE_TOP_LEFT)
+                || patternType.equals(PatternType.SQUARE_TOP_RIGHT)
+                || patternType.equals(PatternType.CIRCLE)) {
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+            } else if (patternType.equals(PatternType.STRIPE_BOTTOM)
+                || patternType.equals(PatternType.STRIPE_TOP)
+                || patternType.equals(PatternType.STRIPE_LEFT)
+                || patternType.equals(PatternType.STRIPE_RIGHT)
+                || patternType.equals(PatternType.STRIPE_CENTER)
+                || patternType.equals(PatternType.STRIPE_MIDDLE)
+                || patternType.equals(PatternType.STRIPE_DOWNRIGHT)
+                || patternType.equals(PatternType.STRIPE_DOWNLEFT)
+                || patternType.equals(PatternType.TRIANGLE_BOTTOM)
+                || patternType.equals(PatternType.TRIANGLE_TOP)
+                || patternType.equals(PatternType.TRIANGLES_BOTTOM)
+                || patternType.equals(PatternType.TRIANGLES_TOP)
+                || patternType.equals(PatternType.DIAGONAL_LEFT)
+                || patternType.equals(PatternType.DIAGONAL_RIGHT)
+                || patternType.equals(PatternType.DIAGONAL_UP_LEFT)
+                || patternType.equals(PatternType.DIAGONAL_UP_RIGHT)) {
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 3));
+            } else if (patternType.equals(PatternType.SMALL_STRIPES)
+                || patternType.equals(PatternType.RHOMBUS)
+                || patternType.equals(PatternType.GRADIENT)
+                || patternType.equals(PatternType.GRADIENT_UP)) {
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 4));
+            } else if (patternType.equals(PatternType.CROSS)
+                || patternType.equals(PatternType.STRAIGHT_CROSS)) {
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 5));
+            } else if (patternType.equals(PatternType.HALF_VERTICAL)
+                || patternType.equals(PatternType.HALF_HORIZONTAL)
+                || patternType.equals(PatternType.HALF_VERTICAL_RIGHT)
+                || patternType.equals(PatternType.HALF_HORIZONTAL_BOTTOM)) {
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 6));
+            } else if (patternType.equals(PatternType.BORDER)) {
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 8));
+            } else if (patternType.equals(PatternType.CURLY_BORDER)) {
+                materialInventory.addItem(new ItemStack(Material.VINE));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
                     materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
-                    break;
-                case STRIPE_BOTTOM:
-                case STRIPE_TOP:
-                case STRIPE_LEFT:
-                case STRIPE_RIGHT:
-                case STRIPE_CENTER:
-                case STRIPE_MIDDLE:
-                case STRIPE_DOWNRIGHT:
-                case STRIPE_DOWNLEFT:
-                case TRIANGLE_BOTTOM:
-                case TRIANGLE_TOP:
-                case TRIANGLES_BOTTOM:
-                case TRIANGLES_TOP:
-                case DIAGONAL_LEFT:
-                case DIAGONAL_RIGHT:
-                case DIAGONAL_UP_LEFT:
-                case DIAGONAL_UP_RIGHT:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 3));
-                    break;
-                case SMALL_STRIPES:
-                case RHOMBUS:
-                case GRADIENT:
-                case GRADIENT_UP:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 4));
-                    break;
-                case CROSS:
-                case STRAIGHT_CROSS:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 5));
-                    break;
-                case HALF_VERTICAL:
-                case HALF_HORIZONTAL:
-                case HALF_VERTICAL_RIGHT:
-                case HALF_HORIZONTAL_BOTTOM:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 6));
-                    break;
-                case BORDER:
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 8));
-                    break;
-                case CURLY_BORDER:
-                    materialInventory.addItem(new ItemStack(Material.VINE));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
-                    }
-                    break;
-                case CREEPER:
-                    materialInventory.addItem(new ItemStack(Material.CREEPER_HEAD));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
-                    }
-                    break;
-                case BRICKS:
-                    materialInventory.addItem(new ItemStack(Material.BRICK));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
-                    }
-                    break;
-                case SKULL:
-                    materialInventory.addItem(new ItemStack(Material.WITHER_SKELETON_SKULL));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
-                    }
-                    break;
-                case FLOWER:
-                    materialInventory.addItem(new ItemStack(Material.OXEYE_DAISY));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
-                    }
-                    break;
-                case MOJANG:
-                    materialInventory.addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
-                    }
-                    break;
-                case PIGLIN:
-                    // 圖形樣式材料不會被消耗，最多只會需要一個
-                    // TODO: 應該移到後面整個一起處理
-                    if (!materialInventory.contains(Material.PIGLIN_BANNER_PATTERN)) {
-                        materialInventory.addItem(new ItemStack(Material.PIGLIN_BANNER_PATTERN));
-                    }
+                }
+            } else if (patternType.equals(PatternType.CREEPER)) {
+                materialInventory.addItem(new ItemStack(Material.CREEPER_HEAD));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
                     materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
-                    break;
-                case GLOBE:
-                    // 圖形樣式材料不會被消耗，最多只會需要一個
-                    // TODO: 應該移到後面整個一起處理
-                    if (!materialInventory.contains(Material.GLOBE_BANNER_PATTERN)) {
-                        materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
-                    }
+                }
+            } else if (patternType.equals(PatternType.BRICKS)) {
+                materialInventory.addItem(new ItemStack(Material.BRICK));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
                     materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
-                    break;
+                }
+            } else if (patternType.equals(PatternType.SKULL)) {
+                materialInventory.addItem(new ItemStack(Material.WITHER_SKELETON_SKULL));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                }
+            } else if (patternType.equals(PatternType.FLOWER)) {
+                materialInventory.addItem(new ItemStack(Material.OXEYE_DAISY));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                }
+            } else if (patternType.equals(PatternType.MOJANG)) {
+                materialInventory.addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
+                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                }
+            } else if (patternType.equals(PatternType.PIGLIN)) {// 圖形樣式材料不會被消耗，最多只會需要一個
+                // TODO: 應該移到後面整個一起處理
+                if (!materialInventory.contains(Material.PIGLIN_BANNER_PATTERN)) {
+                    materialInventory.addItem(new ItemStack(Material.PIGLIN_BANNER_PATTERN));
+                }
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+            } else if (patternType.equals(PatternType.GLOBE)) {// 圖形樣式材料不會被消耗，最多只會需要一個
+                // TODO: 應該移到後面整個一起處理
+                if (!materialInventory.contains(Material.GLOBE_BANNER_PATTERN)) {
+                    materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
+                }
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
             }
         }
         //加到暫存清單
@@ -473,162 +457,122 @@ public class BannerUtil {
             //染料位置
             List<Integer> dyePosition = Collections.emptyList();
             //根據Pattern決定位置
-            switch (pattern.getPattern()) {
-                case SQUARE_BOTTOM_LEFT:
-                    dyePosition = Collections.singletonList(6);
-                    break;
-                case SQUARE_BOTTOM_RIGHT:
-                    dyePosition = Collections.singletonList(8);
-                    break;
-                case SQUARE_TOP_LEFT:
-                    dyePosition = Collections.singletonList(0);
-                    break;
-                case SQUARE_TOP_RIGHT:
-                    dyePosition = Collections.singletonList(2);
-                    break;
-                case STRIPE_BOTTOM:
-                    dyePosition = Arrays.asList(6, 7, 8);
-                    break;
-                case STRIPE_TOP:
-                    dyePosition = Arrays.asList(0, 1, 2);
-                    break;
-                case STRIPE_LEFT:
-                    dyePosition = Arrays.asList(0, 3, 6);
-                    break;
-                case STRIPE_RIGHT:
-                    dyePosition = Arrays.asList(2, 5, 8);
-                    break;
-                case STRIPE_CENTER:
-                    bannerPosition = 3;
-                    dyePosition = Arrays.asList(1, 4, 7);
-                    break;
-                case STRIPE_MIDDLE:
-                    bannerPosition = 1;
-                    dyePosition = Arrays.asList(3, 4, 5);
-                    break;
-                case STRIPE_DOWNRIGHT:
-                    bannerPosition = 1;
-                    dyePosition = Arrays.asList(0, 4, 8);
-                    break;
-                case STRIPE_DOWNLEFT:
-                    bannerPosition = 1;
-                    dyePosition = Arrays.asList(2, 4, 6);
-                    break;
-                case SMALL_STRIPES:
-                    dyePosition = Arrays.asList(0, 2, 3, 5);
-                    break;
-                case CROSS:
-                    bannerPosition = 1;
-                    dyePosition = Arrays.asList(0, 2, 4, 6, 8);
-                    break;
-                case STRAIGHT_CROSS:
-                    bannerPosition = 0;
-                    dyePosition = Arrays.asList(1, 3, 4, 5, 7);
-                    break;
-                case TRIANGLE_BOTTOM:
-                    bannerPosition = 7;
-                    dyePosition = Arrays.asList(4, 6, 8);
-                    break;
-                case TRIANGLE_TOP:
-                    bannerPosition = 1;
-                    dyePosition = Arrays.asList(0, 2, 4);
-                    break;
-                case TRIANGLES_BOTTOM:
-                    dyePosition = Arrays.asList(3, 5, 7);
-                    break;
-                case TRIANGLES_TOP:
-                    dyePosition = Arrays.asList(1, 3, 5);
-                    break;
-                case DIAGONAL_LEFT:
-                    dyePosition = Arrays.asList(0, 1, 3);
-                    break;
-                case DIAGONAL_RIGHT:
-                    dyePosition = Arrays.asList(5, 7, 8);
-                    break;
-                case DIAGONAL_UP_LEFT:
-                    dyePosition = Arrays.asList(3, 6, 7);
-                    break;
-                case DIAGONAL_UP_RIGHT:
-                    dyePosition = Arrays.asList(1, 2, 5);
-                    break;
-                case CIRCLE:
-                    bannerPosition = 1;
-                    dyePosition = Collections.singletonList(4);
-                    break;
-                case RHOMBUS:
-                    dyePosition = Arrays.asList(1, 3, 5, 7);
-                    break;
-                case HALF_VERTICAL:
-                    bannerPosition = 5;
-                    dyePosition = Arrays.asList(0, 1, 3, 4, 6, 7);
-                    break;
-                case HALF_HORIZONTAL:
-                    bannerPosition = 7;
-                    dyePosition = Arrays.asList(0, 1, 2, 3, 4, 5);
-                    break;
-                case HALF_VERTICAL_RIGHT:
-                    bannerPosition = 3;
-                    dyePosition = Arrays.asList(1, 2, 4, 5, 7, 8);
-                    break;
-                case HALF_HORIZONTAL_BOTTOM:
-                    bannerPosition = 1;
-                    dyePosition = Arrays.asList(3, 4, 5, 6, 7, 8);
-                    break;
-                case BORDER:
-                    dyePosition = Arrays.asList(0, 1, 2, 3, 5, 6, 7, 8);
-                    break;
-                case CURLY_BORDER:
-                    recipe.put(1, new ItemStack(Material.VINE));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        dyePosition = Collections.singletonList(7);
-                    }
-                    break;
-                case CREEPER:
-                    recipe.put(1, new ItemStack(Material.CREEPER_HEAD));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        dyePosition = Collections.singletonList(7);
-                    }
-                    break;
-                case GRADIENT:
-                    bannerPosition = 1;
-                    dyePosition = Arrays.asList(0, 2, 4, 7);
-                    break;
-                case GRADIENT_UP:
-                    bannerPosition = 7;
-                    dyePosition = Arrays.asList(1, 4, 6, 8);
-                    break;
-                case BRICKS:
-                    recipe.put(1, new ItemStack(Material.BRICK));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        dyePosition = Collections.singletonList(7);
-                    }
-                    break;
-                case SKULL:
-                    recipe.put(1, new ItemStack(Material.WITHER_SKELETON_SKULL));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        dyePosition = Collections.singletonList(7);
-                    }
-                    break;
-                case FLOWER:
-                    recipe.put(1, new ItemStack(Material.OXEYE_DAISY));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        dyePosition = Collections.singletonList(7);
-                    }
-                    break;
-                case MOJANG:
-                    recipe.put(1, new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
-                    if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                        dyePosition = Collections.singletonList(7);
-                    }
-                    break;
-                case PIGLIN:
-                    recipe.put(7, new ItemStack(Material.PIGLIN_BANNER_PATTERN));
-                    dyePosition = Collections.singletonList(5);
-                    break;
-                case GLOBE:
-                    recipe.put(7, new ItemStack(Material.GLOBE_BANNER_PATTERN));
-                    dyePosition = Collections.singletonList(5);
-                    break;
+            PatternType patternType = pattern.getPattern();
+            if (patternType.equals(PatternType.SQUARE_BOTTOM_LEFT)) {
+                dyePosition = Collections.singletonList(6);
+            } else if (patternType.equals(PatternType.SQUARE_BOTTOM_RIGHT)) {
+                dyePosition = Collections.singletonList(8);
+            } else if (patternType.equals(PatternType.SQUARE_TOP_LEFT)) {
+                dyePosition = Collections.singletonList(0);
+            } else if (patternType.equals(PatternType.SQUARE_TOP_RIGHT)) {
+                dyePosition = Collections.singletonList(2);
+            } else if (patternType.equals(PatternType.STRIPE_BOTTOM)) {
+                dyePosition = Arrays.asList(6, 7, 8);
+            } else if (patternType.equals(PatternType.STRIPE_TOP)) {
+                dyePosition = Arrays.asList(0, 1, 2);
+            } else if (patternType.equals(PatternType.STRIPE_LEFT)) {
+                dyePosition = Arrays.asList(0, 3, 6);
+            } else if (patternType.equals(PatternType.STRIPE_RIGHT)) {
+                dyePosition = Arrays.asList(2, 5, 8);
+            } else if (patternType.equals(PatternType.STRIPE_CENTER)) {
+                bannerPosition = 3;
+                dyePosition = Arrays.asList(1, 4, 7);
+            } else if (patternType.equals(PatternType.STRIPE_MIDDLE)) {
+                bannerPosition = 1;
+                dyePosition = Arrays.asList(3, 4, 5);
+            } else if (patternType.equals(PatternType.STRIPE_DOWNRIGHT)) {
+                bannerPosition = 1;
+                dyePosition = Arrays.asList(0, 4, 8);
+            } else if (patternType.equals(PatternType.STRIPE_DOWNLEFT)) {
+                bannerPosition = 1;
+                dyePosition = Arrays.asList(2, 4, 6);
+            } else if (patternType.equals(PatternType.SMALL_STRIPES)) {
+                dyePosition = Arrays.asList(0, 2, 3, 5);
+            } else if (patternType.equals(PatternType.CROSS)) {
+                bannerPosition = 1;
+                dyePosition = Arrays.asList(0, 2, 4, 6, 8);
+            } else if (patternType.equals(PatternType.STRAIGHT_CROSS)) {
+                bannerPosition = 0;
+                dyePosition = Arrays.asList(1, 3, 4, 5, 7);
+            } else if (patternType.equals(PatternType.TRIANGLE_BOTTOM)) {
+                bannerPosition = 7;
+                dyePosition = Arrays.asList(4, 6, 8);
+            } else if (patternType.equals(PatternType.TRIANGLE_TOP)) {
+                bannerPosition = 1;
+                dyePosition = Arrays.asList(0, 2, 4);
+            } else if (patternType.equals(PatternType.TRIANGLES_BOTTOM)) {
+                dyePosition = Arrays.asList(3, 5, 7);
+            } else if (patternType.equals(PatternType.TRIANGLES_TOP)) {
+                dyePosition = Arrays.asList(1, 3, 5);
+            } else if (patternType.equals(PatternType.DIAGONAL_LEFT)) {
+                dyePosition = Arrays.asList(0, 1, 3);
+            } else if (patternType.equals(PatternType.DIAGONAL_RIGHT)) {
+                dyePosition = Arrays.asList(5, 7, 8);
+            } else if (patternType.equals(PatternType.DIAGONAL_UP_LEFT)) {
+                dyePosition = Arrays.asList(3, 6, 7);
+            } else if (patternType.equals(PatternType.DIAGONAL_UP_RIGHT)) {
+                dyePosition = Arrays.asList(1, 2, 5);
+            } else if (patternType.equals(PatternType.CIRCLE)) {
+                bannerPosition = 1;
+                dyePosition = Collections.singletonList(4);
+            } else if (patternType.equals(PatternType.RHOMBUS)) {
+                dyePosition = Arrays.asList(1, 3, 5, 7);
+            } else if (patternType.equals(PatternType.HALF_VERTICAL)) {
+                bannerPosition = 5;
+                dyePosition = Arrays.asList(0, 1, 3, 4, 6, 7);
+            } else if (patternType.equals(PatternType.HALF_HORIZONTAL)) {
+                bannerPosition = 7;
+                dyePosition = Arrays.asList(0, 1, 2, 3, 4, 5);
+            } else if (patternType.equals(PatternType.HALF_VERTICAL_RIGHT)) {
+                bannerPosition = 3;
+                dyePosition = Arrays.asList(1, 2, 4, 5, 7, 8);
+            } else if (patternType.equals(PatternType.HALF_HORIZONTAL_BOTTOM)) {
+                bannerPosition = 1;
+                dyePosition = Arrays.asList(3, 4, 5, 6, 7, 8);
+            } else if (patternType.equals(PatternType.BORDER)) {
+                dyePosition = Arrays.asList(0, 1, 2, 3, 5, 6, 7, 8);
+            } else if (patternType.equals(PatternType.CURLY_BORDER)) {
+                recipe.put(1, new ItemStack(Material.VINE));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
+                    dyePosition = Collections.singletonList(7);
+                }
+            } else if (patternType.equals(PatternType.CREEPER)) {
+                recipe.put(1, new ItemStack(Material.CREEPER_HEAD));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
+                    dyePosition = Collections.singletonList(7);
+                }
+            } else if (patternType.equals(PatternType.GRADIENT)) {
+                bannerPosition = 1;
+                dyePosition = Arrays.asList(0, 2, 4, 7);
+            } else if (patternType.equals(PatternType.GRADIENT_UP)) {
+                bannerPosition = 7;
+                dyePosition = Arrays.asList(1, 4, 6, 8);
+            } else if (patternType.equals(PatternType.BRICKS)) {
+                recipe.put(1, new ItemStack(Material.BRICK));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
+                    dyePosition = Collections.singletonList(7);
+                }
+            } else if (patternType.equals(PatternType.SKULL)) {
+                recipe.put(1, new ItemStack(Material.WITHER_SKELETON_SKULL));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
+                    dyePosition = Collections.singletonList(7);
+                }
+            } else if (patternType.equals(PatternType.FLOWER)) {
+                recipe.put(1, new ItemStack(Material.OXEYE_DAISY));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
+                    dyePosition = Collections.singletonList(7);
+                }
+            } else if (patternType.equals(PatternType.MOJANG)) {
+                recipe.put(1, new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
+                if (!pattern.getColor().equals(DyeColor.BLACK)) {
+                    dyePosition = Collections.singletonList(7);
+                }
+            } else if (patternType.equals(PatternType.PIGLIN)) {
+                recipe.put(7, new ItemStack(Material.PIGLIN_BANNER_PATTERN));
+                dyePosition = Collections.singletonList(5);
+            } else if (patternType.equals(PatternType.GLOBE)) {
+                recipe.put(7, new ItemStack(Material.GLOBE_BANNER_PATTERN));
+                dyePosition = Collections.singletonList(5);
             }
             //放置旗幟與染料
             recipe.put(bannerPosition, prevBanner);
