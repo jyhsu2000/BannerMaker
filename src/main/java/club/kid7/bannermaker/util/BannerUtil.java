@@ -6,6 +6,7 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.Registry;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
@@ -18,10 +19,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
 
@@ -380,49 +383,10 @@ public class BannerUtil {
     }
 
     public static List<PatternType> getPatternTypeList() {
-        List<PatternType> list = Arrays.asList(
-            PatternType.BORDER,
-            PatternType.BRICKS,
-            PatternType.CIRCLE,
-            PatternType.CREEPER,
-            PatternType.CROSS,
-            PatternType.CURLY_BORDER,
-            PatternType.DIAGONAL_LEFT,
-            PatternType.DIAGONAL_UP_LEFT,
-            PatternType.DIAGONAL_RIGHT,
-            PatternType.DIAGONAL_UP_RIGHT,
-            PatternType.FLOWER,
-            PatternType.GLOBE,
-            PatternType.GRADIENT,
-            PatternType.GRADIENT_UP,
-            PatternType.HALF_HORIZONTAL,
-            PatternType.HALF_HORIZONTAL_BOTTOM,
-            PatternType.HALF_VERTICAL,
-            PatternType.HALF_VERTICAL_RIGHT,
-            PatternType.MOJANG,
-            PatternType.PIGLIN,
-            PatternType.RHOMBUS,
-            PatternType.SKULL,
-            PatternType.SQUARE_BOTTOM_LEFT,
-            PatternType.SQUARE_BOTTOM_RIGHT,
-            PatternType.SQUARE_TOP_LEFT,
-            PatternType.SQUARE_TOP_RIGHT,
-            PatternType.STRAIGHT_CROSS,
-            PatternType.STRIPE_BOTTOM,
-            PatternType.STRIPE_CENTER,
-            PatternType.STRIPE_DOWNLEFT,
-            PatternType.STRIPE_DOWNRIGHT,
-            PatternType.STRIPE_LEFT,
-            PatternType.STRIPE_MIDDLE,
-            PatternType.STRIPE_RIGHT,
-            PatternType.SMALL_STRIPES,
-            PatternType.STRIPE_TOP,
-            PatternType.TRIANGLE_BOTTOM,
-            PatternType.TRIANGLE_TOP,
-            PatternType.TRIANGLES_BOTTOM,
-            PatternType.TRIANGLES_TOP
-        );
-        return list;
+        return Registry.BANNER_PATTERN.stream()
+            .sorted(Comparator.comparing(p -> p.getKey().toString()))
+            .filter(pattern -> !pattern.getKey().getKey().equals("base"))
+            .collect(Collectors.toList());
     }
 
     static public HashMap<Integer, ItemStack> getPatternRecipe(final ItemStack banner, int step) {
