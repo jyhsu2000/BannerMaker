@@ -173,6 +173,18 @@ public class BannerUtil {
                     materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
                 }
                 materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+            } else if (patternType.equals(PatternType.FLOW)) {// 圖形樣式材料不會被消耗，最多只會需要一個
+                // TODO: 應該移到後面整個一起處理
+                if (!materialInventory.contains(Material.FLOW_BANNER_PATTERN)) {
+                    materialInventory.addItem(new ItemStack(Material.FLOW_BANNER_PATTERN));
+                }
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+            } else if (patternType.equals(PatternType.GUSTER)) {// 圖形樣式材料不會被消耗，最多只會需要一個
+                // TODO: 應該移到後面整個一起處理
+                if (!materialInventory.contains(Material.GUSTER_BANNER_PATTERN)) {
+                    materialInventory.addItem(new ItemStack(Material.GUSTER_BANNER_PATTERN));
+                }
+                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
             }
         }
         //加到暫存清單
@@ -572,6 +584,12 @@ public class BannerUtil {
                 dyePosition = Collections.singletonList(5);
             } else if (patternType.equals(PatternType.GLOBE)) {
                 recipe.put(7, new ItemStack(Material.GLOBE_BANNER_PATTERN));
+                dyePosition = Collections.singletonList(5);
+            } else if (patternType.equals(PatternType.FLOW)) {
+                recipe.put(7, new ItemStack(Material.FLOW_BANNER_PATTERN));
+                dyePosition = Collections.singletonList(5);
+            } else if (patternType.equals(PatternType.GUSTER)) {
+                recipe.put(7, new ItemStack(Material.GUSTER_BANNER_PATTERN));
                 dyePosition = Collections.singletonList(5);
             }
             //放置旗幟與染料
