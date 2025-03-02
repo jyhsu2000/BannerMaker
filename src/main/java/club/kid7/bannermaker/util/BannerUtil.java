@@ -485,11 +485,11 @@ public class BannerUtil {
                 dyePosition = Arrays.asList(0, 1, 3);
             } else if (patternType.equals(PatternType.DIAGONAL_RIGHT)) {
                 // FIXME: 會遇到核心 DIAGONAL_RIGHT 的問題，https://github.com/jyhsu2000/BannerMaker/issues/28
-                dyePosition = Arrays.asList(5, 7, 8);
+                dyePosition = Arrays.asList(1, 2, 5);
             } else if (patternType.equals(PatternType.DIAGONAL_UP_LEFT)) {
                 dyePosition = Arrays.asList(3, 6, 7);
             } else if (patternType.equals(PatternType.DIAGONAL_UP_RIGHT)) {
-                dyePosition = Arrays.asList(1, 2, 5);
+                dyePosition = Arrays.asList(5, 7, 8);
             } else if (patternType.equals(PatternType.CIRCLE)) {
                 bannerPosition = 1;
                 dyePosition = Collections.singletonList(4);
