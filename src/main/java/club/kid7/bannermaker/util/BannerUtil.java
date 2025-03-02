@@ -115,7 +115,6 @@ public class BannerUtil {
                 || patternType.equals(PatternType.TRIANGLES_BOTTOM)
                 || patternType.equals(PatternType.TRIANGLES_TOP)
                 || patternType.equals(PatternType.DIAGONAL_LEFT)
-                // FIXME: 會遇到核心 DIAGONAL_RIGHT 的問題，https://github.com/jyhsu2000/BannerMaker/issues/28
                 || patternType.equals(PatternType.DIAGONAL_RIGHT)
                 || patternType.equals(PatternType.DIAGONAL_UP_LEFT)
                 || patternType.equals(PatternType.DIAGONAL_UP_RIGHT)) {
@@ -484,7 +483,6 @@ public class BannerUtil {
             } else if (patternType.equals(PatternType.DIAGONAL_LEFT)) {
                 dyePosition = Arrays.asList(0, 1, 3);
             } else if (patternType.equals(PatternType.DIAGONAL_RIGHT)) {
-                // FIXME: 會遇到核心 DIAGONAL_RIGHT 的問題，https://github.com/jyhsu2000/BannerMaker/issues/28
                 dyePosition = Arrays.asList(1, 2, 5);
             } else if (patternType.equals(PatternType.DIAGONAL_UP_LEFT)) {
                 dyePosition = Arrays.asList(3, 6, 7);
