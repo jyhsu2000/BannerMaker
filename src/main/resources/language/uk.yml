@@ -1,0 +1,55 @@
+# Ukrainian(uk)
+# For BannerMaker v2.1.0
+# Contributor(s): lolmaojustmeme
+general:
+  prefix: '&6[&aBannerMaker&6]&r '
+  reload: Перезавантажити конфіг
+  no-permission: Немає дозволу
+  no-money: Недостатньо коштів
+  money-transaction: Використовуйте {0}, щоб отримати стяг. Наразі у Вас є {1}
+io:
+  save-failed: Не вдалося зберегти.
+  save-success: Збереження успішне.
+  remove-banner: Прибрати стяг &r#{0}
+command:
+  player-only: Цю команду можуть використовувати лише гравці онлайн
+  invalid-parameter: 'Неправильний параметр(и), коректне використання: {0}'
+  not-banner-hand: Предмет у руці не є стягом.
+  not-banner-see: Блок, на який Ви дивитися, не є стягом.
+config:
+  add-setting: Доднано {0} налаштувань
+gui:
+  prefix: '&4[BM]&r '
+  main-menu: Головне меню
+  prev-page: Попередня сторінка
+  next-page: Наступна сторінка
+  create-banner: Створити стяг
+  uncraftable-warning: Попередження - не крафтиться
+  uncraftable: Не крафтиться
+  more-than-6-patterns: Більше, ніж 6 візерунків.
+  more-patterns: Більше візерунків
+  back: Назад
+  create: Створити
+  delete: ВИДАЛИТИ
+  remove-last-pattern: Видалити останній візерунок
+  banner-info: Інформація про стяг
+  pattern-s: візерунок(ки)
+  no-patterns: Немає візерунків
+  craft-recipe: Рецепт Крафту
+  get-this-banner: Отримати стяг
+  get-banner: Отримати стяг &r#{0}
+  get-banner-for-free: Отримати безкоштовно
+  buy-banner-in-price: Придбати за {0}
+  get-banner-by-craft: Скрафтити
+  price: 'Ціна: {0}'
+  clone-and-edit: 'Клонувати та Редагувати'
+  alphabet-and-number: 'Цифри та Літери'
+  toggle-border: Ввімкнути окантовку
+  materials:
+    enough: Матеріалів достатньо
+    not-enough: Матеріалів недостатньо
+  click:
+    left: ЛКМ
+    right: ПКМ
+  selected-pattern-color: Обрати колір візерунку
+  toggle-preview-mode: Увімкнути режим попереднього перегляду

@@ -3,6 +3,7 @@
 ## Unreleased Version
 
 - Optimize code
+- Add Ukrainian(uk) translation
 
 ## v2.5.0 (for v1.21.x)
 
