@@ -1,7 +1,7 @@
 package club.kid7.bannermaker.command;
 
 import club.kid7.bannermaker.BannerMaker;
-import club.kid7.bannermaker.util.DyeColorUtil;
+import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
 import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.command.CommandComponent;
@@ -40,7 +40,7 @@ public class SeeCommand extends CommandComponent {
         }
         //根據方塊建立旗幟
         Banner blockState = (Banner) block.getState();
-        KItemStack banner = new KItemStack(DyeColorUtil.toBannerMaterial(blockState.getBaseColor()))
+        KItemStack banner = new KItemStack(DyeColorRegistry.getBannerMaterial(blockState.getBaseColor()))
             .setPatterns(blockState.getPatterns());
         //顯示旗幟
         InventoryMenuUtil.openBannerInfo(player, banner);

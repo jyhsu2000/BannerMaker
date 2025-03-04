@@ -1,6 +1,7 @@
 package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.registry.DyeColorRegistry;
 import com.google.common.collect.Maps;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
@@ -84,9 +85,9 @@ public class BannerUtil {
         materialList.add(stick);
         //羊毛
         //顏色
-        DyeColor baseColor = DyeColorUtil.of(banner.getType());
+        DyeColor baseColor = DyeColorRegistry.getDyeColor(banner.getType());
         //羊毛
-        ItemStack wool = new ItemStack(DyeColorUtil.toWoolMaterial(baseColor), 6);
+        ItemStack wool = new ItemStack(DyeColorRegistry.getWoolMaterial(baseColor), 6);
         materialList.add(wool);
         //Pattern材料
         Inventory materialInventory = Bukkit.createInventory(null, 54);
@@ -101,7 +102,7 @@ public class BannerUtil {
                 || patternType.equals(PatternType.SQUARE_TOP_LEFT)
                 || patternType.equals(PatternType.SQUARE_TOP_RIGHT)
                 || patternType.equals(PatternType.CIRCLE)) {
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
             } else if (patternType.equals(PatternType.STRIPE_BOTTOM)
                 || patternType.equals(PatternType.STRIPE_TOP)
                 || patternType.equals(PatternType.STRIPE_LEFT)
@@ -118,76 +119,76 @@ public class BannerUtil {
                 || patternType.equals(PatternType.DIAGONAL_RIGHT)
                 || patternType.equals(PatternType.DIAGONAL_UP_LEFT)
                 || patternType.equals(PatternType.DIAGONAL_UP_RIGHT)) {
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 3));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 3));
             } else if (patternType.equals(PatternType.SMALL_STRIPES)
                 || patternType.equals(PatternType.RHOMBUS)
                 || patternType.equals(PatternType.GRADIENT)
                 || patternType.equals(PatternType.GRADIENT_UP)) {
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 4));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 4));
             } else if (patternType.equals(PatternType.CROSS)
                 || patternType.equals(PatternType.STRAIGHT_CROSS)) {
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 5));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 5));
             } else if (patternType.equals(PatternType.HALF_VERTICAL)
                 || patternType.equals(PatternType.HALF_HORIZONTAL)
                 || patternType.equals(PatternType.HALF_VERTICAL_RIGHT)
                 || patternType.equals(PatternType.HALF_HORIZONTAL_BOTTOM)) {
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 6));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 6));
             } else if (patternType.equals(PatternType.BORDER)) {
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 8));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 8));
             } else if (patternType.equals(PatternType.CURLY_BORDER)) {
                 materialInventory.addItem(new ItemStack(Material.VINE));
                 if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
                 }
             } else if (patternType.equals(PatternType.CREEPER)) {
                 materialInventory.addItem(new ItemStack(Material.CREEPER_HEAD));
                 if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
                 }
             } else if (patternType.equals(PatternType.BRICKS)) {
                 materialInventory.addItem(new ItemStack(Material.BRICK));
                 if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
                 }
             } else if (patternType.equals(PatternType.SKULL)) {
                 materialInventory.addItem(new ItemStack(Material.WITHER_SKELETON_SKULL));
                 if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
                 }
             } else if (patternType.equals(PatternType.FLOWER)) {
                 materialInventory.addItem(new ItemStack(Material.OXEYE_DAISY));
                 if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
                 }
             } else if (patternType.equals(PatternType.MOJANG)) {
                 materialInventory.addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
                 if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
                 }
             } else if (patternType.equals(PatternType.PIGLIN)) {// 圖形樣式材料不會被消耗，最多只會需要一個
                 // TODO: 應該移到後面整個一起處理
                 if (!materialInventory.contains(Material.PIGLIN_BANNER_PATTERN)) {
                     materialInventory.addItem(new ItemStack(Material.PIGLIN_BANNER_PATTERN));
                 }
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
             } else if (patternType.equals(PatternType.GLOBE)) {// 圖形樣式材料不會被消耗，最多只會需要一個
                 // TODO: 應該移到後面整個一起處理
                 if (!materialInventory.contains(Material.GLOBE_BANNER_PATTERN)) {
                     materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
                 }
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
             } else if (patternType.equals(PatternType.FLOW)) {// 圖形樣式材料不會被消耗，最多只會需要一個
                 // TODO: 應該移到後面整個一起處理
                 if (!materialInventory.contains(Material.FLOW_BANNER_PATTERN)) {
                     materialInventory.addItem(new ItemStack(Material.FLOW_BANNER_PATTERN));
                 }
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
             } else if (patternType.equals(PatternType.GUSTER)) {// 圖形樣式材料不會被消耗，最多只會需要一個
                 // TODO: 應該移到後面整個一起處理
                 if (!materialInventory.contains(Material.GUSTER_BANNER_PATTERN)) {
                     materialInventory.addItem(new ItemStack(Material.GUSTER_BANNER_PATTERN));
                 }
-                materialInventory.addItem(DyeColorUtil.toDyeItemStack(dyeColor, 1));
+                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
             }
         }
         //加到暫存清單
@@ -402,11 +403,11 @@ public class BannerUtil {
         BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
         int totalStep = bm.numberOfPatterns() + 1;
         //顏色
-        DyeColor baseColor = DyeColorUtil.of(banner.getType());
+        DyeColor baseColor = DyeColorRegistry.getDyeColor(banner.getType());
         if (step == 1) {
             //第一步，旗幟合成
             //羊毛
-            ItemStack wool = new ItemStack(DyeColorUtil.toWoolMaterial(baseColor));
+            ItemStack wool = new ItemStack(DyeColorRegistry.getWoolMaterial(baseColor));
             for (int i = 0; i < 6; i++) {
                 recipe.put(i, wool.clone());
             }
@@ -416,7 +417,7 @@ public class BannerUtil {
         } else if (step <= totalStep) {
             //新增Pattern
             //當前banner
-            ItemStack prevBanner = new ItemStack(DyeColorUtil.toBannerMaterial(baseColor));
+            ItemStack prevBanner = new ItemStack(DyeColorRegistry.getBannerMaterial(baseColor));
             BannerMeta pbm = (BannerMeta) Objects.requireNonNull(prevBanner.getItemMeta());
             //新增至目前的Pattern
             for (int i = 0; i < step - 2; i++) {
@@ -427,7 +428,7 @@ public class BannerUtil {
             Pattern pattern = bm.getPattern(step - 2);
             //所需染料
             DyeColor dyeColor = pattern.getColor();
-            ItemStack dyeItem = DyeColorUtil.toDyeItemStack(dyeColor, 1);
+            ItemStack dyeItem = DyeColorRegistry.getDyeItemStack(dyeColor, 1);
             //旗幟位置
             int bannerPosition = 4;
             //染料位置
@@ -564,7 +565,7 @@ public class BannerUtil {
         }
         //合成結果
         //當前banner
-        ItemStack currentBanner = new ItemStack(DyeColorUtil.toBannerMaterial(baseColor));
+        ItemStack currentBanner = new ItemStack(DyeColorRegistry.getBannerMaterial(baseColor));
         BannerMeta cbm = (BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta());
         //新增至目前的Pattern
         for (int i = 0; i < step - 1; i++) {
@@ -581,8 +582,8 @@ public class BannerUtil {
         if (!isBanner(banner)) {
             return null;
         }
-        DyeColor color = Objects.requireNonNull(DyeColorUtil.of(banner.getType()));
-        short colorCode = DyeColorUtil.toShort(color);
+        DyeColor color = Objects.requireNonNull(DyeColorRegistry.getDyeColor(banner.getType()));
+        int colorCode = DyeColorRegistry.getValue(color);
         StringBuilder dataStringBuilder = new StringBuilder(String.valueOf(colorCode));
 
         BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
@@ -592,7 +593,7 @@ public class BannerUtil {
                 .append(";")
                 .append(pattern.getPattern().getIdentifier())
                 .append(":")
-                .append(DyeColorUtil.toShort(pattern.getColor()));
+                .append(DyeColorRegistry.getValue(pattern.getColor()));
         }
         String dataString = dataStringBuilder.toString();
 
@@ -604,14 +605,14 @@ public class BannerUtil {
             String dataString = SerializationUtil.objectFromBase64(bannerString);
             String[] dataArray = dataString.split(";");
 
-            ItemStack banner = new ItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(Short.parseShort(dataArray[0]))));
+            ItemStack banner = new ItemStack(DyeColorRegistry.getBannerMaterial(Integer.parseInt(dataArray[0])));
 
             BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
 
             for (int i = 1; i < dataArray.length; i++) {
                 String[] patternData = dataArray[i].split(":");
                 PatternType patternType = PatternType.getByIdentifier(patternData[0]);
-                DyeColor patternColor = DyeColorUtil.of(Short.parseShort(patternData[1]));
+                DyeColor patternColor = DyeColorRegistry.getDyeColor(Integer.parseInt(patternData[1]));
                 Pattern pattern = new Pattern(patternColor, Objects.requireNonNull(patternType));
                 bm.addPattern(pattern);
             }

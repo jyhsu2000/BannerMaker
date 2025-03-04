@@ -2,8 +2,8 @@ package club.kid7.bannermaker.command;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.configuration.Language;
+import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
-import club.kid7.bannermaker.util.DyeColorUtil;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
 import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.command.CommandComponent;
@@ -42,7 +42,7 @@ public class HandCommand extends CommandComponent {
         }
         //複製旗幟，僅保留底色與樣式
         BannerMeta originalBannerMeta = (BannerMeta) itemStack.getItemMeta();
-        KItemStack banner = new KItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(itemStack.getType())))
+        KItemStack banner = new KItemStack(DyeColorRegistry.getBannerMaterial(itemStack.getType()))
             .setPatterns(Objects.requireNonNull(originalBannerMeta).getPatterns());
         //顯示旗幟
         InventoryMenuUtil.openBannerInfo(player, banner);

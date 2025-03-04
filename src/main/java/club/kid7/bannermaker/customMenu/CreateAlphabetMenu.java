@@ -3,7 +3,7 @@ package club.kid7.bannermaker.customMenu;
 import club.kid7.bannermaker.AlphabetBanner;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
-import club.kid7.bannermaker.util.DyeColorUtil;
+import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
@@ -37,18 +37,18 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         menu.setItem(0, currentAlphabetBanner.toItemStack());
         //選擇底色
         for (int i = 0; i < 16; i++) {
-            final KItemStack banner = new KItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(i)));
+            final KItemStack banner = new KItemStack(DyeColorRegistry.getBannerMaterial(i));
             menu.setItem(i + 1 + (i / 8), banner, new ClickAction(ClickType.LEFT, event -> {
-                currentAlphabetBanner.baseColor = DyeColorUtil.of(banner.getType());
+                currentAlphabetBanner.baseColor = DyeColorRegistry.getDyeColor(banner.getType());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CustomGUIManager.openPrevious(player);
             }));
         }
         //選擇主要顏色
         for (int i = 0; i < 16; i++) {
-            final KItemStack dye = new KItemStack(DyeColorUtil.toDyeMaterial(DyeColorUtil.of(i)));
+            final KItemStack dye = new KItemStack(DyeColorRegistry.getDyeMaterial(i));
             menu.setItem(18 + i + 1 + (i / 8), dye, new ClickAction(ClickType.LEFT, event -> {
-                currentAlphabetBanner.dyeColor = DyeColorUtil.of(dye.getType());
+                currentAlphabetBanner.dyeColor = DyeColorRegistry.getDyeColor(dye.getType());
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CustomGUIManager.openPrevious(player);
             }));

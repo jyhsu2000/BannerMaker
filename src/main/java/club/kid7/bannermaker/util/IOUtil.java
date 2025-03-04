@@ -1,5 +1,6 @@
 package club.kid7.bannermaker.util;
 
+import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.DyeColor;
 import org.bukkit.block.banner.Pattern;
@@ -34,7 +35,7 @@ public class IOUtil {
         //旗幟資訊
         BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
         //儲存
-        config.set(key + ".color", Objects.requireNonNull(DyeColorUtil.of(banner.getType())).toString());
+        config.set(key + ".color", Objects.requireNonNull(DyeColorRegistry.getDyeColor(banner.getType())).toString());
         List<String> patternList = new ArrayList<>();
         for (Pattern pattern : bm.getPatterns()) {
             patternList.add(pattern.getPattern().getIdentifier() + ":" + pattern.getColor());
@@ -94,9 +95,9 @@ public class IOUtil {
             //建立旗幟
             if (config.isInt(key + ".color")) {
                 // FIXME: 維持舊版相容性
-                banner = new ItemStack(DyeColorUtil.toBannerMaterial(DyeColorUtil.of(config.getInt(key + ".color"))));
+                banner = new ItemStack(DyeColorRegistry.getBannerMaterial(config.getInt(key + ".color")));
             } else {
-                banner = new ItemStack(DyeColorUtil.toBannerMaterial(DyeColor.valueOf(config.getString(key + ".color"))));
+                banner = new ItemStack(DyeColorRegistry.getBannerMaterial(DyeColor.valueOf(config.getString(key + ".color"))));
             }
             BannerMeta bm = (BannerMeta) banner.getItemMeta();
             //新增Patterns

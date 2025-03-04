@@ -1,6 +1,7 @@
 package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -49,12 +50,12 @@ public class EconUtil {
         String configPath = type.toString();
         //特殊路徑
         if (MaterialUtil.isWool(type)) {
-            DyeColor woolColor = DyeColorUtil.of(type);
+            DyeColor woolColor = DyeColorRegistry.getDyeColor(type);
             if (woolColor != null) {
                 configPath = "WOOL." + woolColor.name();
             }
         } else if (MaterialUtil.isDye(type)) {
-            DyeColor dyeColor = DyeColorUtil.of(type);
+            DyeColor dyeColor = DyeColorRegistry.getDyeColor(type);
             if (dyeColor != null) {
                 configPath = "DYE." + dyeColor.name();
             }
