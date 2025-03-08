@@ -33,8 +33,8 @@ public class SeeCommand extends CommandComponent {
     @Override
     public boolean executeCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
-        Block block = player.getTargetBlock(null, 20);
-        if (!block.getType().name().endsWith("_BANNER")) {
+        Block block = player.getTargetBlockExact(20);
+        if (block == null || !block.getType().name().endsWith("_BANNER")) {
             player.sendMessage(MessageUtil.format(true, "&c" + tl("command.not-banner-see")));
             return true;
         }
