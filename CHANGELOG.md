@@ -4,6 +4,7 @@
 
 - Optimize code
 - Add Ukrainian(uk) translation
+- Improve precise block targeting of `/bm see` command
 
 ## v2.5.0 (for v1.21.x)
 
