@@ -2,6 +2,10 @@
 
 ## Unreleased Version
 
+- None
+
+## v2.5.1 (for v1.21.x)
+
 - Optimize code
 - Add Ukrainian(uk) translation
 - Improve precise block targeting of `/bm see` command
