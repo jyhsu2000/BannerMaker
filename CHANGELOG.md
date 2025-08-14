@@ -9,6 +9,7 @@
 - Optimize code
 - Add Ukrainian(uk) translation
 - Improve precise block targeting of `/bm see` command
+- Fix the diagonal right pattern in menu
 
 ## v2.5.0 (for v1.21.x)
 
