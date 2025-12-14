@@ -1,5 +1,6 @@
 package club.kid7.bannermaker.util;
 
+import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.DyeColor;
@@ -21,11 +22,11 @@ import static club.kid7.bannermaker.configuration.Language.tl;
 public class IOUtil {
 
     //儲存旗幟
-    static public void saveBanner(Player player, ItemStack banner) {
+    static public boolean saveBanner(Player player, ItemStack banner) {
         //只處理旗幟
         if (!BannerUtil.isBanner(banner)) {
-            player.sendMessage(MessageUtil.format(true, "&c" + tl("io.save-failed")));
-            return;
+            BannerMaker.getInstance().getMessageService().send(player, "&c" + tl("io.save-failed"));
+            return false;
         }
         //設定檔
         String fileName = getFileName(player);
@@ -44,8 +45,9 @@ public class IOUtil {
             config.set(key + ".patterns", patternList);
         }
         KConfigManager.save(fileName);
-        //訊息
-        player.sendMessage(MessageUtil.format(true, "&a" + tl("io.save-success")));
+        //儲存成功
+        BannerMaker.getInstance().getMessageService().send(player, "&a" + tl("io.save-success"));
+        return true;
     }
 
     //讀取旗幟清單
@@ -122,7 +124,7 @@ public class IOUtil {
     }
 
     //刪除旗幟
-    static public void removeBanner(Player player, String key) {
+    static public boolean removeBanner(Player player, String key) {
         //設定檔
         String fileName = getFileName(player);
         FileConfiguration config = KConfigManager.get(fileName);
@@ -131,7 +133,8 @@ public class IOUtil {
         //儲存
         KConfigManager.save(fileName);
         //顯示訊息
-        player.sendMessage(MessageUtil.format(true, "&a" + tl("io.remove-banner", key)));
+        BannerMaker.getInstance().getMessageService().send(player, "&a" + tl("io.remove-banner", key));
+        return true;
     }
 
     //取得旗幟總數

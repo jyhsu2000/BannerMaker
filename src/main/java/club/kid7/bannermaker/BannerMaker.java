@@ -3,6 +3,7 @@ package club.kid7.bannermaker;
 import club.kid7.bannermaker.command.BannerMakerCommand;
 import club.kid7.bannermaker.configuration.DefaultConfig;
 import club.kid7.bannermaker.configuration.Language;
+import club.kid7.bannermaker.service.MessageService;
 import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import club.kid7.pluginutilities.gui.CustomGUI;
@@ -21,10 +22,18 @@ public class BannerMaker extends JavaPlugin {
     public boolean enableAlphabetAndNumber = true;
     public boolean enableComplexBannerCraft = false;
     public PlayerDataMap playerDataMap = null;
+    private MessageService messageService; // 新增 MessageService 實例
+
+    public static BannerMaker getInstance() {
+        return instance;
+    }
 
     @Override
     public void onEnable() {
         instance = this;
+
+        // 初始化 MessageService
+        messageService = new MessageService(this);
 
         //Commands
         registerCommands();
@@ -47,10 +56,15 @@ public class BannerMaker extends JavaPlugin {
     public void onDisable() {
         //CustomGUI
         CustomGUI.disable();
+        // 關閉 MessageService 的 Audiences
+        if (messageService != null) {
+            messageService.closeAudiences();
+        }
     }
 
-    public static BannerMaker getInstance() {
-        return instance;
+    // 提供 MessageService 的 getter
+    public MessageService getMessageService() {
+        return messageService;
     }
 
     public void reload() {
@@ -62,9 +76,9 @@ public class BannerMaker extends JavaPlugin {
         new DefaultConfig(this).checkConfig();
         //經濟
         if (setupEconomy()) {
-            getLogger().info("Vault dependency found! Enable economy supported");
+            messageService.send(getServer().getConsoleSender(), "&a[BannerMaker] Vault dependency found! Enable economy supported");
         } else {
-            getLogger().info("Disable economy supported");
+            messageService.send(getServer().getConsoleSender(), "&c[BannerMaker] Disable economy supported");
         }
         //設定檔
         FileConfiguration config = KConfigManager.get("config");

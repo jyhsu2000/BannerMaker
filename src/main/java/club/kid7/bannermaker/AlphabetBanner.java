@@ -2,7 +2,6 @@ package club.kid7.bannermaker;
 
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.bannermaker.util.PersistentDataUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -82,7 +81,10 @@ public class AlphabetBanner {
         //建立旗幟
         ItemStack banner = new ItemStack(DyeColorRegistry.getBannerMaterial(baseColor));
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
-        Objects.requireNonNull(bannerMeta).setDisplayName(MessageUtil.format("&a" + alphabet));
+        //設定名稱
+        Objects.requireNonNull(bannerMeta).setDisplayName(BannerMaker.getInstance().getMessageService().formatToString("&a" + alphabet));
+        //完成
+        banner.setItemMeta(bannerMeta);
         //在 PersistentData 標記旗幟類型
         PersistentDataUtil.set(bannerMeta, "banner-type", "alphabet-banner");
 

@@ -3,7 +3,6 @@ package club.kid7.bannermaker.command;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.command.CommandComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,7 +30,7 @@ public class ViewCommand extends CommandComponent {
         // TODO: 將訊息新增至語系檔
         Player player = (Player) sender;
         if (args.length != 1) {
-            player.sendMessage(MessageUtil.format(true, "&cUsage: " + usage));
+            BannerMaker.getInstance().getMessageService().send(player, "&cUsage: " + usage);
             return true;
         }
         String bannerString = args[0];
@@ -40,7 +39,7 @@ public class ViewCommand extends CommandComponent {
             //顯示旗幟
             InventoryMenuUtil.openBannerInfo(player, banner);
         } catch (Exception e) {
-            player.sendMessage(MessageUtil.format(true, "&cInvalid banner string"));
+            BannerMaker.getInstance().getMessageService().send(player, "&cInvalid banner string");
             return true;
         }
         return true;

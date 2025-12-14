@@ -8,7 +8,6 @@ import club.kid7.bannermaker.util.EconUtil;
 import club.kid7.bannermaker.util.IOUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
 import club.kid7.bannermaker.util.MessageComponentUtil;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
@@ -45,7 +44,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
             return null;
         }
         //建立選單
-        String title = MessageUtil.format(tl("gui.prefix") + tl("gui.banner-info"));
+        String title = BannerMaker.getInstance().getMessageService().formatToString(tl("gui.prefix") + tl("gui.banner-info"));
         CustomGUIInventory menu = new CustomGUIInventory(title);
         menu.setItem(0, banner);
         //patterns數量
@@ -58,9 +57,9 @@ public class BannerInfoMenu implements CustomGUIMenu {
         }
         KItemStack signPatternCount;
         if (BannerUtil.isCraftableInSurvival(banner)) {
-            signPatternCount = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&a" + patternCountStr));
+            signPatternCount = new KItemStack(Material.OAK_SIGN).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + patternCountStr));
         } else {
-            signPatternCount = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&a" + patternCountStr)).lore(MessageUtil.format("&c" + tl("gui.uncraftable")));
+            signPatternCount = new KItemStack(Material.OAK_SIGN).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + patternCountStr)).lore(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.uncraftable")));
         }
         menu.setItem(1, signPatternCount);
         // 材料清單
@@ -68,9 +67,9 @@ public class BannerInfoMenu implements CustomGUIMenu {
             //材料是否充足
             KItemStack enoughMaterials;
             if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
-                enoughMaterials = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&a" + tl("gui.materials.enough")));
+                enoughMaterials = new KItemStack(Material.OAK_SIGN).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.materials.enough")));
             } else {
-                enoughMaterials = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&c" + tl("gui.materials.not-enough")));
+                enoughMaterials = new KItemStack(Material.OAK_SIGN).name(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.materials.not-enough")));
             }
             menu.setItem(2, enoughMaterials);
             //材料清單
@@ -97,7 +96,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
             //換頁按鈕
             //上一頁
             if (currentRecipePage > 1) {
-                KItemStack prevPage = new KItemStack(Material.ARROW).amount(currentRecipePage - 1).name(MessageUtil.format("&a" + tl("gui.prev-page")));
+                KItemStack prevPage = new KItemStack(Material.ARROW).amount(currentRecipePage - 1).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.prev-page")));
                 menu.setItem(22, prevPage, new ClickAction(ClickType.LEFT, event -> {
                     playerData.setCurrentRecipePage(currentRecipePage - 1);
                     CustomGUIManager.openPrevious(player);
@@ -105,7 +104,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
             }
             //下一頁
             if (currentRecipePage < totalPage) {
-                KItemStack nextPage = new KItemStack(Material.ARROW).amount(currentRecipePage + 1).name(MessageUtil.format("&a" + tl("gui.next-page")));
+                KItemStack nextPage = new KItemStack(Material.ARROW).amount(currentRecipePage + 1).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.next-page")));
                 menu.setItem(26, nextPage, new ClickAction(ClickType.LEFT, event -> {
                     playerData.setCurrentRecipePage(currentRecipePage + 1);
                     CustomGUIManager.openPrevious(player);
@@ -115,8 +114,8 @@ public class BannerInfoMenu implements CustomGUIMenu {
             HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
             //合成表圖示
             KItemStack workbench = new KItemStack(Material.CRAFTING_TABLE).amount(currentRecipePage)
-                .name(MessageUtil.format("&a" + tl("gui.craft-recipe")))
-                .lore(MessageUtil.format("&r(" + currentRecipePage + "/" + totalPage + ")"));
+                .name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.craft-recipe")))
+                .lore(BannerMaker.getInstance().getMessageService().formatToString("&r(" + currentRecipePage + "/" + totalPage + ")"));
             if (BannerUtil.isLoomRecipe(patternRecipe)) {
                 workbench.setType(Material.LOOM);
             }
@@ -135,7 +134,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         //刪除
         if (key != null) {
             //有KEY時（儲存於玩家資料時），才顯示刪除按鈕
-            KItemStack btnDelete = new KItemStack(Material.BARRIER).name(MessageUtil.format("&c" + tl("gui.delete")));
+            KItemStack btnDelete = new KItemStack(Material.BARRIER).name(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.delete")));
             menu.setItem(47, btnDelete, new ClickAction(ClickType.LEFT, event -> {
                 //刪除
                 IOUtil.removeBanner(player, key);
@@ -144,37 +143,37 @@ public class BannerInfoMenu implements CustomGUIMenu {
         }
         //取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
-            KItemStack btnGetBanner = new KItemStack(Material.LIME_WOOL).name(MessageUtil.format("&a" + tl("gui.get-this-banner")));
+            KItemStack btnGetBanner = new KItemStack(Material.LIME_WOOL).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.get-this-banner")));
             //顯示名稱
             final String showName = BannerUtil.getName(banner);
             if (player.hasPermission("BannerMaker.getBanner.free")) {
                 //具有免費取得權限
                 //左鍵：免費取得
-                btnGetBanner.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-for-free")));
+                btnGetBanner.lore(BannerMaker.getInstance().getMessageService().formatToString("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-for-free")));
                 menu.setItem(49, btnGetBanner, new ClickAction(ClickType.LEFT, event -> {
                     //取得旗幟
                     InventoryUtil.give(player, banner);
                     //顯示訊息
-                    player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
+                    BannerMaker.getInstance().getMessageService().send(player, "&a" + tl("gui.get-banner", showName));
                     CustomGUIManager.openPrevious(player);
                 }));
             } else {
                 //左鍵：合成
-                btnGetBanner.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-by-craft")));
+                btnGetBanner.lore(BannerMaker.getInstance().getMessageService().formatToString("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-by-craft")));
                 //檢查是否啟用經濟
                 if (BannerMaker.getInstance().econ != null) {
                     //右鍵：購買
                     double price = EconUtil.getPrice(banner);
                     String priceStr = BannerMaker.getInstance().econ.format(price);
-                    btnGetBanner.lore(MessageUtil.format("&e[" + tl("gui.click.right") + "] &a" + tl("gui.buy-banner-in-price", priceStr)));
+                    btnGetBanner.lore(BannerMaker.getInstance().getMessageService().formatToString("&e[" + tl("gui.click.right") + "] &a" + tl("gui.buy-banner-in-price", priceStr)));
                 }
                 menu.setItem(49, btnGetBanner, new ClickAction(ClickType.LEFT, event -> {
                     //嘗試合成旗幟
                     boolean success = BannerUtil.craft(player, banner);
                     if (success) {
-                        player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
+                        BannerMaker.getInstance().getMessageService().send(player, "&a" + tl("gui.get-banner", showName));
                     } else {
-                        player.sendMessage(MessageUtil.format(true, "&c" + tl("gui.materials.not-enough")));
+                        BannerMaker.getInstance().getMessageService().send(player, "&c" + tl("gui.materials.not-enough"));
                     }
                     CustomGUIManager.openPrevious(player);
                 }));
@@ -185,7 +184,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
                         //嘗試給予玩家旗幟
                         boolean success = BannerUtil.buy(player, banner);
                         if (success) {
-                            player.sendMessage(MessageUtil.format(true, "&a" + tl("gui.get-banner", showName)));
+                            BannerMaker.getInstance().getMessageService().send(player, "&a" + tl("gui.get-banner", showName));
                         }
                         CustomGUIManager.openPrevious(player);
                     }));
@@ -193,7 +192,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
             }
         }
         //複製並編輯
-        KItemStack btnCloneAndEdit = new KItemStack(Material.WRITABLE_BOOK).name(MessageUtil.format("&9" + tl("gui.clone-and-edit")));
+        KItemStack btnCloneAndEdit = new KItemStack(Material.WRITABLE_BOOK).name(BannerMaker.getInstance().getMessageService().formatToString("&9" + tl("gui.clone-and-edit")));
         menu.setItem(51, btnCloneAndEdit, new ClickAction(ClickType.LEFT, event -> {
             //設定為編輯中旗幟
             playerData.setCurrentEditBanner(banner);
@@ -202,12 +201,12 @@ public class BannerInfoMenu implements CustomGUIMenu {
         // 展示旗幟
         // TODO: 新增至語系檔
         if (player.hasPermission("BannerMaker.show.nearby") || player.hasPermission("BannerMaker.show.all")) {
-            KItemStack btnShow = new KItemStack(Material.BELL).name(MessageUtil.format("&9Show banner to players"));
+            KItemStack btnShow = new KItemStack(Material.BELL).name(BannerMaker.getInstance().getMessageService().formatToString("&9Show banner to players"));
             if (player.hasPermission("BannerMaker.show.nearby")) {
-                btnShow.lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &aShow to nearby players"));
+                btnShow.lore(BannerMaker.getInstance().getMessageService().formatToString("&e[" + tl("gui.click.left") + "] &aShow to nearby players"));
             }
             if (player.hasPermission("BannerMaker.show.all")) {
-                btnShow.lore(MessageUtil.format("&e[" + tl("gui.click.right") + "] &aShow to all players"));
+                btnShow.lore(BannerMaker.getInstance().getMessageService().formatToString("&e[" + tl("gui.click.right") + "] &aShow to all players"));
             }
             menu.setItem(52, btnShow);
             if (player.hasPermission("BannerMaker.show.nearby")) {
@@ -264,7 +263,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         // 生成指令
         if (player.hasPermission("BannerMaker.view")) {
             // TODO: 新增至語系檔
-            KItemStack btnGenerateCommand = new KItemStack(Material.COMMAND_BLOCK).name(MessageUtil.format("&9Get share command"));
+            KItemStack btnGenerateCommand = new KItemStack(Material.COMMAND_BLOCK).name(BannerMaker.getInstance().getMessageService().formatToString("&9Get share command"));
             menu.setItem(53, btnGenerateCommand, new ClickAction(ClickType.LEFT, event -> {
                 String bannerString = BannerUtil.serialize(banner);
                 TextComponent msg = new TextComponent("[Click here to copy command to clipboard]");
@@ -276,7 +275,7 @@ public class BannerInfoMenu implements CustomGUIMenu {
         }
 
         //返回
-        KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
+        KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.back")));
         menu.setItem(45, btnBackToMenu, new ClickAction(ClickType.LEFT, event -> {
             if (AlphabetBanner.isAlphabetBanner(banner)) {
                 //若為Alphabet旗幟，回到Alphabet旗幟頁面

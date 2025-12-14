@@ -1,7 +1,6 @@
 package club.kid7.bannermaker.command;
 
 import club.kid7.bannermaker.BannerMaker;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.command.CommandComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -32,7 +31,7 @@ public class HelpCommand extends CommandComponent {
         String pluginName = bm.getName();
         String pluginVersion = bm.getDescription().getVersion();
         //顯示標題
-        sender.sendMessage(MessageUtil.format(true, pluginName + " - " + pluginVersion));
+        BannerMaker.getInstance().getMessageService().send(sender, pluginName + " - " + pluginVersion);
         //主要指令
         sender.sendMessage(getParent().getUsage() + ChatColor.GRAY + " - " + getParent().getDescription());
         //子指令

@@ -3,7 +3,6 @@ package club.kid7.bannermaker.command;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.block.Banner;
@@ -35,7 +34,7 @@ public class SeeCommand extends CommandComponent {
         Player player = (Player) sender;
         Block block = player.getTargetBlockExact(20);
         if (block == null || !block.getType().name().endsWith("_BANNER")) {
-            player.sendMessage(MessageUtil.format(true, "&c" + tl("command.not-banner-see")));
+            BannerMaker.getInstance().getMessageService().send(player, "&c" + tl("command.not-banner-see"));
             return true;
         }
         //根據方塊建立旗幟

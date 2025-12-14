@@ -300,7 +300,7 @@ public class BannerUtil {
         //檢查是否啟用經濟
         if (BannerMaker.getInstance().econ == null) {
             //未啟用經濟，強制失敗
-            player.sendMessage(MessageUtil.format(true, "&cError: Economy not supported"));
+            BannerMaker.getInstance().getMessageService().send(player, "&cError: Economy not supported");
             return false;
         }
         //價格
@@ -308,7 +308,7 @@ public class BannerUtil {
         //檢查財產是否足夠
         if (!BannerMaker.getInstance().econ.has(player, price)) {
             //財產不足
-            player.sendMessage(MessageUtil.format(true, "&c" + tl("general.no-money")));
+            BannerMaker.getInstance().getMessageService().send(player, "&c" + tl("general.no-money"));
             return false;
         }
         //扣款
@@ -316,11 +316,11 @@ public class BannerUtil {
         //檢查交易是否成功
         if (!response.transactionSuccess()) {
             //交易失敗
-            player.sendMessage(MessageUtil.format(true, "&cError: " + response.errorMessage));
+            BannerMaker.getInstance().getMessageService().send(player, "&cError: " + response.errorMessage);
             return false;
         }
         InventoryUtil.give(player, banner);
-        player.sendMessage(MessageUtil.format(true, "&a" + tl("general.money-transaction", BannerMaker.getInstance().econ.format(response.amount), BannerMaker.getInstance().econ.format(response.balance))));
+        BannerMaker.getInstance().getMessageService().send(player, "&a" + tl("general.money-transaction", BannerMaker.getInstance().econ.format(response.amount), BannerMaker.getInstance().econ.format(response.balance)));
         return true;
     }
 

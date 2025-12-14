@@ -3,7 +3,6 @@ package club.kid7.bannermaker.customMenu;
 import club.kid7.bannermaker.AlphabetBanner;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
@@ -24,13 +23,13 @@ public class ChooseAlphabetMenu implements CustomGUIMenu {
     public CustomGUIInventory build(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
-        String title = MessageUtil.format(tl("gui.prefix") + tl("gui.alphabet-and-number"));
+        String title = BannerMaker.getInstance().getMessageService().formatToString(tl("gui.prefix") + tl("gui.alphabet-and-number"));
         CustomGUIInventory menu = new CustomGUIInventory(title);
         //清除當前編輯中的字母
         playerData.setCurrentAlphabetBanner(null);
         //邊框切換按鈕
         KItemStack btnBorderedBanner = new KItemStack(Material.WHITE_BANNER)
-            .name(MessageUtil.format("&a" + tl("gui.toggle-border")))
+            .name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.toggle-border")))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
 
         //選擇字母
@@ -53,7 +52,7 @@ public class ChooseAlphabetMenu implements CustomGUIMenu {
         }));
 
         //返回
-        KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
+        KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.back")));
         menu.setItem(45, btnBackToMenu, new ClickAction(ClickType.LEFT, event -> CustomGUIManager.open(player, MainMenu.class)));
         return menu;
     }

@@ -5,7 +5,6 @@ import club.kid7.bannermaker.configuration.Language;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.command.Command;
@@ -37,7 +36,7 @@ public class HandCommand extends CommandComponent {
         Player player = (Player) sender;
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         if (!BannerUtil.isBanner(itemStack)) {
-            player.sendMessage(MessageUtil.format(true, "&c" + Language.tl("command.not-banner-hand")));
+            BannerMaker.getInstance().getMessageService().send(player, "&c" + Language.tl("command.not-banner-hand"));
             return true;
         }
         //複製旗幟，僅保留底色與樣式

@@ -5,7 +5,6 @@ import club.kid7.bannermaker.PlayerData;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.IOUtil;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
@@ -29,10 +28,10 @@ public class CreateBannerMenu implements CustomGUIMenu {
     public CustomGUIInventory build(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
-        String title = MessageUtil.format(tl("gui.prefix") + tl("gui.create-banner"));
+        String title = BannerMaker.getInstance().getMessageService().formatToString(tl("gui.prefix") + tl("gui.create-banner"));
         CustomGUIInventory menu = new CustomGUIInventory(title);
         //返回
-        KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
+        KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.back")));
         menu.setItem(45, btnBackToMenu, new ClickAction(ClickType.LEFT, event -> CustomGUIManager.open(player, MainMenu.class)));
         //取得當前編輯中的旗幟
         final ItemStack currentBanner = playerData.getCurrentEditBanner();
@@ -52,7 +51,7 @@ public class CreateBannerMenu implements CustomGUIMenu {
         menu.setItem(0, currentBanner);
         //patterns過多的警告
         if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 6) {
-            KItemStack warning = new KItemStack(Material.OAK_SIGN).name(MessageUtil.format("&c" + tl("gui.uncraftable-warning")))
+            KItemStack warning = new KItemStack(Material.OAK_SIGN).name(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.uncraftable-warning")))
                 .lore(tl("gui.more-than-6-patterns"));
             menu.setItem(9, warning);
         }
@@ -70,8 +69,8 @@ public class CreateBannerMenu implements CustomGUIMenu {
         boolean isInSimplePreviewMode = playerData.isInSimplePreviewMode();
         //預覽模式切換按鈕
         final KItemStack previewDye = new KItemStack(DyeColorRegistry.getDyeMaterial(selectedColor))
-            .name(MessageUtil.format("&9" + tl("gui.selected-pattern-color")))
-            .lore(MessageUtil.format("&e[" + tl("gui.click.left") + "] &a" + tl("gui.toggle-preview-mode")));
+            .name(BannerMaker.getInstance().getMessageService().formatToString("&9" + tl("gui.selected-pattern-color")))
+            .lore(BannerMaker.getInstance().getMessageService().formatToString("&e[" + tl("gui.click.left") + "] &a" + tl("gui.toggle-preview-mode")));
         menu.setItem(18, previewDye, new ClickAction(ClickType.LEFT, event -> {
             playerData.setInSimplePreviewMode(!isInSimplePreviewMode);
             CustomGUIManager.openPrevious(player);
@@ -112,27 +111,27 @@ public class CreateBannerMenu implements CustomGUIMenu {
             }));
         }
         //更多Pattern
-        KItemStack btnMorePattern = new KItemStack(Material.NETHER_STAR).name(MessageUtil.format("&a" + tl("gui.more-patterns")));
+        KItemStack btnMorePattern = new KItemStack(Material.NETHER_STAR).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.more-patterns")));
         menu.setItem(51, btnMorePattern, new ClickAction(ClickType.LEFT, event -> {
             playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
             CustomGUIManager.openPrevious(player);
         }));
         //建立旗幟
-        KItemStack btnCreate = new KItemStack(Material.LIME_WOOL).name(MessageUtil.format("&a" + tl("gui.create")));
+        KItemStack btnCreate = new KItemStack(Material.LIME_WOOL).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.create")));
         menu.setItem(53, btnCreate, new ClickAction(ClickType.LEFT, event -> {
             IOUtil.saveBanner(player, currentBanner);
             playerData.setCurrentEditBanner(null);
             CustomGUIManager.open(player, MainMenu.class);
         }));
         //刪除
-        KItemStack btnDelete = new KItemStack(Material.BARRIER).name(MessageUtil.format("&c" + tl("gui.delete")));
+        KItemStack btnDelete = new KItemStack(Material.BARRIER).name(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.delete")));
         menu.setItem(47, btnDelete, new ClickAction(ClickType.LEFT, event -> {
             playerData.setCurrentEditBanner(null);
             CustomGUIManager.openPrevious(player);
         }));
         if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 0) {
             //移除Pattern
-            KItemStack btnRemovePattern = new KItemStack(Material.BARRIER).name(MessageUtil.format("&c" + tl("gui.remove-last-pattern")));
+            KItemStack btnRemovePattern = new KItemStack(Material.BARRIER).name(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.remove-last-pattern")));
             menu.setItem(49, btnRemovePattern, new ClickAction(ClickType.LEFT, event -> {
                 BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
                 bm.removePattern(bm.numberOfPatterns() - 1);

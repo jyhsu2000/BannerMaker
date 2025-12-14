@@ -1,8 +1,9 @@
 package club.kid7.bannermaker.configuration;
 
 import club.kid7.bannermaker.BannerMaker;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.configuration.KConfigManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.apache.commons.lang.LocaleUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -154,7 +155,7 @@ public class Language {
         }
         if (newSettingCount > 0) {
             KConfigManager.save(getFileName(checkLocale));
-            bm.getServer().getConsoleSender().sendMessage(MessageUtil.format(true, tl("config.add-setting", newSettingCount)));
+            bm.getMessageService().send(bm.getServer().getConsoleSender(), bm.getMessageService().formatWithPrefix(Component.text("[BannerMaker] ", NamedTextColor.AQUA), tl("config.add-setting", newSettingCount)));
         }
     }
 

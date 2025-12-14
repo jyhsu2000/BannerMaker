@@ -4,7 +4,6 @@ import club.kid7.bannermaker.AlphabetBanner;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
@@ -24,13 +23,13 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
     public CustomGUIInventory build(final Player player) {
         final PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
         //建立選單
-        String title = MessageUtil.format(tl("gui.prefix") + tl("gui.alphabet-and-number"));
+        String title = BannerMaker.getInstance().getMessageService().formatToString(tl("gui.prefix") + tl("gui.alphabet-and-number"));
         CustomGUIInventory menu = new CustomGUIInventory(title);
         //取得當前編輯中的字母
         final AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
         //邊框切換按鈕
         KItemStack btnBorderedBanner = new KItemStack(Material.WHITE_BANNER)
-            .name(MessageUtil.format("&a" + tl("gui.toggle-border")))
+            .name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.toggle-border")))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER));
 
         //選擇顏色
@@ -60,7 +59,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
             CustomGUIManager.openPrevious(player);
         }));
         //檢視旗幟資訊按鈕
-        KItemStack btnBannerInfo = new KItemStack(Material.LIME_WOOL).name(MessageUtil.format("&a" + tl("gui.banner-info")));
+        KItemStack btnBannerInfo = new KItemStack(Material.LIME_WOOL).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.banner-info")));
         menu.setItem(49, btnBannerInfo, new ClickAction(ClickType.LEFT, event -> {
             //檢視旗幟資訊
             playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
@@ -70,7 +69,7 @@ public class CreateAlphabetMenu implements CustomGUIMenu {
         }));
 
         //返回
-        KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(MessageUtil.format("&c" + tl("gui.back")));
+        KItemStack btnBackToMenu = new KItemStack(Material.RED_WOOL).name(BannerMaker.getInstance().getMessageService().formatToString("&c" + tl("gui.back")));
         menu.setItem(45, btnBackToMenu, new ClickAction(ClickType.LEFT, event -> CustomGUIManager.open(player, ChooseAlphabetMenu.class)));
         return menu;
     }

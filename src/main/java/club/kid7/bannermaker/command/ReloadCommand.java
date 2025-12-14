@@ -1,7 +1,6 @@
 package club.kid7.bannermaker.command;
 
 import club.kid7.bannermaker.BannerMaker;
-import club.kid7.bannermaker.util.MessageUtil;
 import club.kid7.pluginutilities.command.CommandComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -28,7 +27,7 @@ public class ReloadCommand extends CommandComponent {
     public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args) {
         BannerMaker bm = (BannerMaker) plugin;
         bm.reload();
-        sender.sendMessage(MessageUtil.format(true, tl("general.reload")));
+        BannerMaker.getInstance().getMessageService().send(sender, tl("general.reload"));
         return true;
     }
 }
