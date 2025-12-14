@@ -1,10 +1,8 @@
 package club.kid7.bannermaker;
 
-import club.kid7.bannermaker.command.BannerMakerCommand;
 import club.kid7.bannermaker.configuration.DefaultConfig;
 import club.kid7.bannermaker.configuration.Language;
 import club.kid7.bannermaker.service.MessageService;
-import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import club.kid7.pluginutilities.gui.CustomGUI;
 import co.aikar.commands.PaperCommandManager;
@@ -124,8 +122,12 @@ public class BannerMaker extends JavaPlugin {
     }
 
     private void registerCommands() {
-        CommandComponent bmCommand = new BannerMakerCommand(this);
-        getCommand("BannerMaker").setExecutor(bmCommand);
-        getCommand("BannerMaker").setTabCompleter(bmCommand);
+        // Old Command Registration (Disabled)
+        // CommandComponent bmCommand = new BannerMakerCommand(this);
+        // getCommand("BannerMaker").setExecutor(bmCommand);
+        // getCommand("BannerMaker").setTabCompleter(bmCommand);
+
+        // New ACF Command Registration
+        commandManager.registerCommand(new club.kid7.bannermaker.command.acf.BannerMakerCommand(this));
     }
 }
