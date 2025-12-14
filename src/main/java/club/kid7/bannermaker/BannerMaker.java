@@ -7,6 +7,7 @@ import club.kid7.bannermaker.service.MessageService;
 import club.kid7.pluginutilities.command.CommandComponent;
 import club.kid7.pluginutilities.configuration.KConfigManager;
 import club.kid7.pluginutilities.gui.CustomGUI;
+import co.aikar.commands.PaperCommandManager;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -23,6 +24,7 @@ public class BannerMaker extends JavaPlugin {
     public boolean enableComplexBannerCraft = false;
     public PlayerDataMap playerDataMap = null;
     private MessageService messageService; // 新增 MessageService 實例
+    private PaperCommandManager commandManager;
 
     public static BannerMaker getInstance() {
         return instance;
@@ -34,6 +36,9 @@ public class BannerMaker extends JavaPlugin {
 
         // 初始化 MessageService
         messageService = new MessageService(this);
+
+        // 初始化 ACF Command Manager
+        commandManager = new PaperCommandManager(this);
 
         //Commands
         registerCommands();
@@ -65,6 +70,10 @@ public class BannerMaker extends JavaPlugin {
     // 提供 MessageService 的 getter
     public MessageService getMessageService() {
         return messageService;
+    }
+
+    public PaperCommandManager getCommandManager() {
+        return commandManager;
     }
 
     public void reload() {
