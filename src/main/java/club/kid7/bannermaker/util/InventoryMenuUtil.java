@@ -2,8 +2,7 @@ package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
-import club.kid7.bannermaker.customMenu.BannerInfoMenu;
-import club.kid7.pluginutilities.gui.CustomGUIManager;
+import club.kid7.bannermaker.gui.BannerInfoGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -19,6 +18,6 @@ public class InventoryMenuUtil {
         //重置頁數
         playerData.setCurrentRecipePage(1);
         //開啟選單
-        CustomGUIManager.open(player, BannerInfoMenu.class);
+        BannerInfoGUI.show(player);
     }
 }

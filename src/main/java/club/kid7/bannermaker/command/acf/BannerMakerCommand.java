@@ -2,12 +2,11 @@ package club.kid7.bannermaker.command.acf;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.configuration.Language;
-import club.kid7.bannermaker.customMenu.MainMenu;
+import club.kid7.bannermaker.gui.MainMenuGUI;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
-import club.kid7.pluginutilities.gui.CustomGUIManager;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
@@ -38,7 +37,8 @@ public class BannerMakerCommand extends BaseCommand {
     @CommandPermission("BannerMaker.use")
     public void onDefault(Player player) {
         // 開啟選單
-        CustomGUIManager.openPrevious(player, MainMenu.class);
+        // TODO: (GUI 遷移) 未來若有需要，可考慮整合 PlayerData 中的頁碼記憶功能。
+        MainMenuGUI.show(player);
     }
 
     @Subcommand("help")
