@@ -48,6 +48,10 @@ XSeries)。
 
 ### Phase 6: 清理與測試 (Cleanup & Testing)
 
+-   [ ] **修復運行時問題 (Runtime Issues Fixes)**:
+    - **AIR ItemMeta 異常**: 解決 `MainMenuGUI`、`/bm see`、`/bm hand` 中出現的
+      `item must be able to have ItemMeta (it mustn't be AIR)` 錯誤。
+    - **GUI 排版錯亂**: 全面檢查並修正所有 `StaticPane` 的座標設定，確保與舊版 6x9 佈局一致。
 -   [ ] **移除 PluginUtilities**: 當 GUI 和 ItemStack 都遷移完畢後，從 `pom.xml` 移除依賴。
 -   [ ] **重建單元測試**:
     - 恢復並修復 `BannerUtilTest`。
@@ -59,46 +63,34 @@ XSeries)。
 
 ---
 
-## ⚠️ 編譯問題與待辦事項 (Compilation Issues & Pending Tasks)
+## ⚠️ 編譯與運行問題 (Compilation & Runtime Issues)
 
 ### Maven 編譯指令
 
 * 目前使用的完整 Maven 編譯指令為：
   `& "C:\Users\jyhsu\AppData\Local\Programs\IntelliJ IDEA Ultimate\plugins\maven\lib\maven3\bin\mvn.cmd" clean package`
+* **狀態**: ✅ 編譯成功 (BUILD SUCCESS)。
 
-### 當前編譯錯誤 (位於 `BannerInfoGUI.java` 和 `MessageComponentUtil.java`)
+### 運行時問題 (Runtime Issues)
 
-* **錯誤詳情**:
-    1. **`MessageComponentUtil.java`**: 報錯 `cannot find symbol class BukkitAdapter` (
-       `net.kyori.adventure.platform.bukkit.BukkitAdapter`) 以及 `package net.kyori.adventure.item does not exist`。
-        * **初步診斷**: 這可能是由於 `maven-shade-plugin` 的重定位配置（`net.kyori` -> `club.kid7.bannermaker.lib.kyori`
-          ）導致編譯器在原始碼編譯時無法正確找到 `BukkitAdapter` 的原始路徑。
-        * **目前的嘗試與回溯**: 曾嘗試修改 `MessageComponentUtil.java` 中的 `import` 語句以匹配重定位路徑，但這並不正確。原始碼中的
-          `import` 語句應始終使用原始庫的包路徑。
-        * **待解決**: 需要進一步確認 `adventure-platform-bukkit` 依賴在編譯時是否正確被包含，以及 `BukkitAdapter`
-          的正確使用方式。
-    2. **`BannerInfoGUI.java`**: 報錯
-       `incompatible types: net.kyori.adventure.text.event.HoverEvent.ShowItem cannot be converted to net.kyori.adventure.text.event.HoverEventSource<?>`
-       以及 `no suitable method found for sendMessage(net.kyori.adventure.text.TextComponent)`。
-        * **初步診斷**:
-            * `HoverEvent` 的錯誤是因為 `HoverEvent.showItem` 方法的參數類型不匹配 Adventure API 的期望。
-            * `sendMessage` 的錯誤是因為 `Player.sendMessage` 方法在編譯環境中可能不接受 Adventure `Component` 類型，或
-              `MessageService.send(player, String)` 的重載方法被意外匹配。
-        * **目前的嘗試**: `MessageComponentUtil.java` 已被調整為返回 Bukkit 的 `ItemStack`，讓 `BannerInfoGUI` 負責使用
-          `BukkitAdapter.adapt` 進行轉換。同時，`BannerInfoGUI` 中所有訊息發送都已改為透過 `messageService.format()`
-          來統一處理。
+1. **主畫面與指令中的 AIR ItemMeta 異常**:
+    * **症狀**: 主畫面點擊已儲存旗幟、使用 `/bm see` 或 `/bm hand` 時，出現
+      `java.lang.IllegalArgumentException: item must be able to have ItemMeta (it mustn't be AIR)`。
+    * **可能原因**: `IOUtil.loadBannerList` 載入的旗幟列表、`ItemBuilder` 處理空物品時，或 `InventoryFramework`
+      處理點擊事件時，可能傳遞了 `AIR` 類型的物品。
+    * **待解決**: 需要在 `BannerUtil`、`ItemBuilder` 和各 GUI 點擊事件中增加對 `AIR` 的防禦性檢查。
 
-### 功能一致性與註記
+2. **GUI 排版位置錯亂**:
+    * **症狀**: 多個 GUI (如 `CreateBannerGUI`, `CreateAlphabetGUI`) 的元件位置偏移。
+    * **可能原因**: `StaticPane` 的座標計算 (x, y) 可能有誤，特別是與舊版 `index` (0-53) 的轉換。需注意 `PaginatedPane` 和
+      `StaticPane` 混用時的層級與座標。
+    * **待解決**: 重新審查所有 GUI 類別的 `addItem` 座標參數。
 
-* **MainMenuGUI**: 遷移後的功能與舊版 `MainMenu` 保持一致。
-* **BannerInfoGUI**: 遷移後的功能與舊版 `BannerInfoMenu` 保持一致，包括合成表第 10 格 (Slot 42) 用於展示合成結果的功能。
-* **CreateBannerGUI**: 遷移後的功能與舊版 `CreateBannerMenu` 保持一致，透過重新開啟 GUI 模擬舊版 `openPrevious` 的刷新行為。
-* **ChooseAlphabetGUI**: 遷移後的功能與舊版 `ChooseAlphabetMenu` 保持一致。
-* **CreateAlphabetGUI**: 遷移後的功能與舊版 `CreateAlphabetMenu` 保持一致。
-* **TODO/FIXME 註記**:
-    * `BannerMakerCommand.java`: 在 `onDefault` 方法中，已加入
-      `// TODO: (GUI 遷移) 未來若有需要，可考慮整合 PlayerData 中的頁碼記憶功能。`。
-    * 所有 GUI 檔案的註解已更新為正體中文，以增強說明性。
+### 已解決的編譯錯誤
+
+1. **`MessageComponentUtil.java`**: 解決了 `BukkitAdapter` 找不到的問題，改為在 `MessageComponentUtil` 中封裝
+   `HoverEvent` 的創建，並使用原始路徑導入 `BukkitAdapter`。
+2. **`BannerInfoGUI.java`**: 解決了 `sendMessage` 不兼容問題（改用 `MessageService.send`），以及 `HoverEvent` 類型不匹配問題。
 
 ---
 

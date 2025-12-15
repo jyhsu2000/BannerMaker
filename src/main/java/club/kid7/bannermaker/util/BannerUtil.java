@@ -193,7 +193,11 @@ public class BannerUtil {
         }
         //加到暫存清單
         List<ItemStack> patternMaterials = new ArrayList<>();
-        Collections.addAll(patternMaterials, materialInventory.getContents());
+        for (ItemStack item : materialInventory.getContents()) {
+            if (item != null && !item.getType().isAir()) {
+                patternMaterials.add(item);
+            }
+        }
         //重新排序
         InventoryUtil.sort(patternMaterials);
         //將材料加到清單中

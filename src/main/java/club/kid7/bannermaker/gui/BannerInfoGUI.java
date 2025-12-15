@@ -13,7 +13,6 @@ import club.kid7.bannermaker.util.MessageComponentUtil;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
-import net.kyori.adventure.platform.bukkit.BukkitAdapter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -167,7 +166,7 @@ public class BannerInfoGUI {
             mainPane.addItem(new GuiItem(btnShow, event -> {
                 String bannerString = BannerUtil.serialize(banner);
                 Component msgBannerName = MessageComponentUtil.getTranslatableComponent(banner)
-                    .hoverEvent(HoverEvent.showItem(BukkitAdapter.adapt(MessageComponentUtil.getHoverEventItem(banner)))) // 使用 BukkitAdapter 轉換
+                    .hoverEvent(MessageComponentUtil.getHoverEventItem(banner)) // 直接使用 MessageComponentUtil 返回的 Adventure HoverEvent
                     .clickEvent(ClickEvent.runCommand("/bm view " + bannerString));
 
                 if (event.getClick().isLeftClick() && player.hasPermission("BannerMaker.show.nearby")) {
@@ -182,7 +181,8 @@ public class BannerInfoGUI {
                         if (p.getLocation().distanceSquared(player.getLocation()) > maxDistance * maxDistance) {
                             continue;
                         }
-                        p.sendMessage(Component.text(player.getDisplayName()).color(NamedTextColor.YELLOW)
+                        // 修正：使用 messageService.send
+                        messageService.send(p, Component.text(player.getDisplayName()).color(NamedTextColor.YELLOW)
                             .append(Component.text(" shows you the banner ").color(NamedTextColor.GRAY))
                             .append(msgBannerName)
                             .append(Component.text(" (Click to view)").color(NamedTextColor.DARK_GRAY)));
@@ -192,7 +192,8 @@ public class BannerInfoGUI {
                         if (!p.hasPermission("BannerMaker.show.receive") && !p.equals(player)) {
                             continue;
                         }
-                        p.sendMessage(Component.text(player.getDisplayName()).color(NamedTextColor.YELLOW)
+                        // 修正：使用 messageService.send
+                        messageService.send(p, Component.text(player.getDisplayName()).color(NamedTextColor.YELLOW)
                             .append(Component.text(" shows you the banner ").color(NamedTextColor.GRAY))
                             .append(msgBannerName)
                             .append(Component.text(" (Click to view)").color(NamedTextColor.DARK_GRAY)));
@@ -211,7 +212,8 @@ public class BannerInfoGUI {
                 Component msg = Component.text("[Click here to copy command to clipboard]")
                     .hoverEvent(HoverEvent.showText(Component.text("Copy command to clipboard")))
                     .clickEvent(ClickEvent.copyToClipboard("/bm view " + bannerString));
-                player.sendMessage(msg);
+                // 修正：使用 messageService.send
+                messageService.send(player, msg);
                 player.closeInventory();
                 event.setCancelled(true);
             }), 1, 5); // Slot 53 (0-indexed 座標為 1,5)
