@@ -25,6 +25,7 @@ public class ChooseAlphabetGUI {
 
         String title = messageService.formatToString(tl("gui.prefix") + tl("gui.alphabet-and-number"));
         ChestGui gui = new ChestGui(6, title);
+        gui.setOnGlobalClick(event -> event.setCancelled(true));
 
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);

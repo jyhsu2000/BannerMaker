@@ -30,6 +30,7 @@ public class CreateBannerGUI {
 
         String title = messageService.formatToString(tl("gui.prefix") + tl("gui.create-banner"));
         ChestGui gui = new ChestGui(6, title);
+        gui.setOnGlobalClick(event -> event.setCancelled(true));
 
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);

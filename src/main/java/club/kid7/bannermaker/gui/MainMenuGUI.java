@@ -27,6 +27,7 @@ public class MainMenuGUI {
         String title = messageService.formatToString(tl("gui.prefix") + tl("gui.main-menu"));
 
         ChestGui gui = new ChestGui(6, title);
+        gui.setOnGlobalClick(event -> event.setCancelled(true));
 
         // 1. 旗幟列表分頁面 (Paginated Pane)
         PaginatedPane paginatedPane = new PaginatedPane(0, 0, 9, 5);

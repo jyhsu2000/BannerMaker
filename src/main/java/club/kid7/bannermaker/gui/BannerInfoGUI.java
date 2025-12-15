@@ -45,6 +45,7 @@ public class BannerInfoGUI {
 
         String title = messageService.formatToString(tl("gui.prefix") + tl("gui.banner-info"));
         ChestGui gui = new ChestGui(6, title);
+        gui.setOnGlobalClick(event -> event.setCancelled(true));
 
         // 主面板 (Main Pane)
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
@@ -294,7 +295,7 @@ public class BannerInfoGUI {
         for (int i = 0; i < 10; i++) { // 9 個材料 + 1 個結果 = 10 個項目
             int position = craftPositions.get(i);
             ItemStack itemStack = patternRecipe.get(i);
-            if (itemStack != null) {
+            if (itemStack != null && !itemStack.getType().isAir()) {
                 mainPane.addItem(new GuiItem(itemStack), position % 9, position / 9);
             }
         }
