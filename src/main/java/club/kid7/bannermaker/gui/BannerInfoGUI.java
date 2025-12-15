@@ -116,7 +116,6 @@ public class BannerInfoGUI {
                 mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                     InventoryUtil.give(player, banner);
                     messageService.send(player, messageService.format("&a" + tl("gui.get-banner", showName))); // 使用 format 方法轉換為 Adventure Component
-                    MainMenuGUI.show(player); // 動作完成後返回主選單
                     event.setCancelled(true);
                 }), 6, 5); // Slot 49 (0-indexed 座標為 6,5)
             } else {
@@ -141,7 +140,6 @@ public class BannerInfoGUI {
                             messageService.send(player, messageService.format("&a" + tl("gui.get-banner", showName))); // 使用 format 方法轉換為 Adventure Component
                         }
                     }
-                    MainMenuGUI.show(player); // 動作完成後返回主選單
                     event.setCancelled(true);
                 }), 6, 5); // Slot 49 (0-indexed 座標為 6,5)
             }
