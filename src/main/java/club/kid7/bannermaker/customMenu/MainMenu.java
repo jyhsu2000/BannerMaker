@@ -5,11 +5,11 @@ import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
 import club.kid7.bannermaker.util.IOUtil;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
+import club.kid7.bannermaker.util.ItemBuilder;
 import club.kid7.pluginutilities.gui.ClickAction;
 import club.kid7.pluginutilities.gui.CustomGUIInventory;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
 import club.kid7.pluginutilities.gui.CustomGUIMenu;
-import club.kid7.pluginutilities.kitemstack.KItemStack;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -42,7 +42,7 @@ public class MainMenu implements CustomGUIMenu {
         //換頁按鈕
         //上一頁
         if (currentPage > 1) {
-            KItemStack prevPage = new KItemStack(Material.ARROW).amount(currentPage - 1).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.prev-page")));
+            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentPage - 1).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.prev-page"))).build();
             menu.setItem(45, prevPage, new ClickAction(ClickType.LEFT, event -> {
                 playerData.setCurrentPage(currentPage - 1);
                 CustomGUIManager.openPrevious(player);
@@ -50,14 +50,14 @@ public class MainMenu implements CustomGUIMenu {
         }
         //下一頁
         if (currentPage < totalPage) {
-            KItemStack nextPage = new KItemStack(Material.ARROW).amount(currentPage + 1).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.next-page")));
+            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentPage + 1).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.next-page"))).build();
             menu.setItem(53, nextPage, new ClickAction(ClickType.LEFT, event -> {
                 playerData.setCurrentPage(currentPage + 1);
                 CustomGUIManager.openPrevious(player);
             }));
         }
         //Create banner
-        KItemStack btnCreateBanner = new KItemStack(Material.LIME_WOOL).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.create-banner")));
+        ItemStack btnCreateBanner = new ItemBuilder(Material.LIME_WOOL).name(BannerMaker.getInstance().getMessageService().formatToString("&a" + tl("gui.create-banner"))).build();
         menu.setItem(49, btnCreateBanner, new ClickAction(ClickType.LEFT, event -> CustomGUIManager.open(player, CreateBannerMenu.class)));
         //建立字母
         if (BannerMaker.getInstance().enableAlphabetAndNumber) {

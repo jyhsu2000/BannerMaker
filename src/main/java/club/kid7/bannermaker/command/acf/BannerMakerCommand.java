@@ -6,8 +6,8 @@ import club.kid7.bannermaker.customMenu.MainMenu;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
+import club.kid7.bannermaker.util.ItemBuilder;
 import club.kid7.pluginutilities.gui.CustomGUIManager;
-import club.kid7.pluginutilities.kitemstack.KItemStack;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
@@ -75,8 +75,8 @@ public class BannerMakerCommand extends BaseCommand {
         }
         //根據方塊建立旗幟
         Banner blockState = (Banner) block.getState();
-        KItemStack banner = new KItemStack(DyeColorRegistry.getBannerMaterial(blockState.getBaseColor()))
-            .setPatterns(blockState.getPatterns());
+        ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(blockState.getBaseColor()))
+            .setPatterns(blockState.getPatterns()).build();
         //顯示旗幟
         InventoryMenuUtil.openBannerInfo(player, banner);
     }
@@ -92,8 +92,8 @@ public class BannerMakerCommand extends BaseCommand {
         }
         //複製旗幟，僅保留底色與樣式
         BannerMeta originalBannerMeta = (BannerMeta) itemStack.getItemMeta();
-        KItemStack banner = new KItemStack(DyeColorRegistry.getBannerMaterial(itemStack.getType()))
-            .setPatterns(Objects.requireNonNull(originalBannerMeta).getPatterns());
+        ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(itemStack.getType()))
+            .setPatterns(Objects.requireNonNull(originalBannerMeta).getPatterns()).build();
         //顯示旗幟
         InventoryMenuUtil.openBannerInfo(player, banner);
     }

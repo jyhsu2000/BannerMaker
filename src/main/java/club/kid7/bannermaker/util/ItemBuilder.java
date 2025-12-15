@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,6 +79,18 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder addLore(String... lore) {
+        if (itemMeta != null) {
+            List<String> currentLore = itemMeta.getLore();
+            if (currentLore == null) {
+                currentLore = new ArrayList<>();
+            }
+            currentLore.addAll(Arrays.asList(lore));
+            itemMeta.setLore(currentLore);
+        }
+        return this;
+    }
+
     public ItemBuilder amount(int amount) {
         itemStack.setAmount(amount);
         return this;
@@ -105,6 +118,20 @@ public class ItemBuilder {
             } catch (NoSuchMethodError ignored) {
                 // 舊版本不支援 CustomModelData
             }
+        }
+        return this;
+    }
+
+    public ItemBuilder pattern(org.bukkit.block.banner.Pattern pattern) {
+        if (itemMeta instanceof org.bukkit.inventory.meta.BannerMeta) {
+            ((org.bukkit.inventory.meta.BannerMeta) itemMeta).addPattern(pattern);
+        }
+        return this;
+    }
+
+    public ItemBuilder setPatterns(List<org.bukkit.block.banner.Pattern> patterns) {
+        if (itemMeta instanceof org.bukkit.inventory.meta.BannerMeta) {
+            ((org.bukkit.inventory.meta.BannerMeta) itemMeta).setPatterns(patterns);
         }
         return this;
     }
