@@ -1,6 +1,6 @@
 # BannerMaker 現代化遷移狀態報告 (Migration Status)
 
-**最後更新日期**: 2025年12月14日  
+**最後更新日期**: 2025年12月15日  
 **目標**: 將 BannerMaker 從舊有的 PluginUtilities 架構遷移至現代化 Spigot 開發堆疊 (Adventure, ACF, InventoryFramework,
 XSeries)。
 
@@ -29,10 +29,10 @@ XSeries)。
   `club.kid7.bannermaker.command.acf.BannerMakerCommand`)。
 * **舊代碼**: 舊的 `command` package 及其下檔案已刪除。
 
-### 4. 物品系統 (Item System) - 🟡 部分完成
+### 4. 物品系統 (Item System) - ✅ 完成
 
 * **ItemBuilder**: 已建立 (`club.kid7.bannermaker.util.ItemBuilder`)，整合了 XMaterial 與 Adventure。
-* **應用**: 尚未全面替換舊有的 `KItemStack`。
+* **應用**: 已全面替換舊有的 `KItemStack`。
 
 ### 5. GUI 介面 (GUI) - 🔴 未開始
 
@@ -43,12 +43,12 @@ XSeries)。
 
 ## 📋 待辦事項清單 (To-Do List)
 
-### Phase 4: 物品建構現代化 (Item Builder Adoption) - 🔥 優先執行
+### Phase 4: 物品建構現代化 (Item Builder Adoption) - ✅ 完成
 
 目標：移除對 `PluginUtilities.kitemstack.KItemStack` 的依賴。
 
-- [ ] **找出所有引用**: 搜尋 `KItemStack` 的使用位置。
-- [ ] **替換為 ItemBuilder**: 將 `new KItemStack(...)` 替換為 `new ItemBuilder(...)`。
+- [x] **找出所有引用**: 搜尋 `KItemStack` 的使用位置。
+- [x] **替換為 ItemBuilder**: 將 `new KItemStack(...)` 替換為 `new ItemBuilder(...)`。
     - 注意 `ItemBuilder` 目前的 API 設計 (fluent API) 與 `KItemStack` 的差異。
     - 確保 `XMaterial` 正確解析跨版本材料。
 
