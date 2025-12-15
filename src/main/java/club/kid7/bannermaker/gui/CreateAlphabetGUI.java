@@ -27,6 +27,7 @@ public class CreateAlphabetGUI {
         String title = messageService.formatToString(tl("gui.prefix") + tl("gui.alphabet-and-number"));
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));
+
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 
@@ -36,21 +37,13 @@ public class CreateAlphabetGUI {
             return;
         }
 
-        // Slot 0: 預覽
+        // Slot 0 (0,0): 預覽
         mainPane.addItem(new GuiItem(currentAlphabetBanner.toItemStack()), 0, 0);
 
-        // 底色選擇 (Slots 1-17, 大約是第 0 和 1 行)
-        // 原始邏輯: i + 1 + (i / 8) -> 1, 2, ..., 8, 10, 11, ...
-        // 我們將其映射到整潔的佈局。
-        // 讓我們使用 Slot 1-8 (第 0 行) 和 9-16 (第 1 行) 作為底色選擇區
+        // 底色選擇 (Slots 1-17, 第 0 和 1 行)
+        // 原始邏輯: i + 1 + (i / 8) -> Slot 1-8, 10-17
         for (int i = 0; i < 16; i++) {
             final ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(i)).build();
-            // 原始公式映射:
-            // i=0 -> slot 1 (1,0)
-            // i=7 -> slot 8 (8,0)
-            // i=8 -> slot 10 (1,1)
-            // i=15 -> slot 17 (8,1)
-            // 這裡我們重現這個邏輯以保持熟悉感。
             int slot = i + 1 + (i / 8);
             mainPane.addItem(new GuiItem(banner, event -> {
                 currentAlphabetBanner.baseColor = DyeColorRegistry.getDyeColor(banner.getType());
@@ -60,12 +53,8 @@ public class CreateAlphabetGUI {
             }), slot % 9, slot / 9);
         }
 
-        // 染料顏色選擇 (Slots 19-35, 大約是第 2 和 3 行)
-        // 原始邏輯: 18 + i + 1 + (i / 8)
-        // i=0 -> 19 (1,2)
-        // i=7 -> 26 (8,2)
-        // i=8 -> 28 (1,3)
-        // i=15 -> 35 (8,3)
+        // 染料顏色選擇 (Slots 19-35, 第 2 和 3 行)
+        // 原始邏輯: 18 + i + 1 + (i / 8) -> Slot 19-26, 28-35
         for (int i = 0; i < 16; i++) {
             final ItemStack dye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(i)).build();
             int slot = 18 + i + 1 + (i / 8);
@@ -77,7 +66,7 @@ public class CreateAlphabetGUI {
             }), slot % 9, slot / 9);
         }
 
-        // Slot 37: 切換邊框
+        // Slot 37 (1,4): 切換邊框
         ItemStack btnBorderedBanner = new ItemBuilder(Material.WHITE_BANNER)
             .name(messageService.formatToString("&a" + tl("gui.toggle-border")))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER)).build();
@@ -86,23 +75,23 @@ public class CreateAlphabetGUI {
             playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
             CreateAlphabetGUI.show(player);
             event.setCancelled(true);
-        }), 1, 4); // Slot 37 (1,4)
+        }), 1, 4); // 修正為 (1, 4)
 
-        // Slot 49: 旗幟資訊
+        // Slot 49 (4,5): 旗幟資訊
         ItemStack btnBannerInfo = new ItemBuilder(Material.LIME_WOOL).name(messageService.formatToString("&a" + tl("gui.banner-info"))).build();
         mainPane.addItem(new GuiItem(btnBannerInfo, event -> {
             playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
             playerData.setCurrentRecipePage(1);
             BannerInfoGUI.show(player);
             event.setCancelled(true);
-        }), 4, 5); // Slot 49
+        }), 4, 5); // 修正為 (4, 5)
 
-        // Slot 45: 返回按鈕
+        // Slot 45 (0,5): 返回按鈕
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(messageService.formatToString("&c" + tl("gui.back"))).build();
         mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
             ChooseAlphabetGUI.show(player);
             event.setCancelled(true);
-        }), 0, 5); // Slot 45
+        }), 0, 5); // 修正為 (0, 5)
 
         gui.show(player);
     }

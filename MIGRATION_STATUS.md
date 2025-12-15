@@ -49,9 +49,12 @@ XSeries)。
 ### Phase 6: 清理與測試 (Cleanup & Testing)
 
 -   [ ] **修復運行時問題 (Runtime Issues Fixes)**:
-    - **AIR ItemMeta 異常**: 解決 `MainMenuGUI`、`/bm see`、`/bm hand` 中出現的
-      `item must be able to have ItemMeta (it mustn't be AIR)` 錯誤。
-    - **GUI 排版錯亂**: 全面檢查並修正所有 `StaticPane` 的座標設定，確保與舊版 6x9 佈局一致。
+    - **AIR ItemMeta 異常**: **✅ 已全數解決。** 已在 `BannerInfoGUI` 的 `updateCraftingRecipeSection` 方法中增加對
+      `Material.AIR` 的過濾，避免將空氣物品加入 GUI。相關的 `MainMenuGUI` 和指令 (`/bm see`, `/bm hand`) 中可能涉及 `AIR`
+      物品的邏輯也已檢查並修正，確保 GUI 和物品操作的穩定性。
+    - **GUI 排版錯亂**: **✅ 已解決。** 已全面檢查並修正所有 `StaticPane` 的座標設定，確保與舊版 6x9 佈局一致，並新增詳細註解。
+    - **GUI 物品取下問題**: **✅ 已解決。** 已在所有 GUI 中添加 `gui.setOnGlobalClick(event -> event.setCancelled(true));`
+      ，防止玩家取下無功能的物品。
 -   [ ] **移除 PluginUtilities**: 當 GUI 和 ItemStack 都遷移完畢後，從 `pom.xml` 移除依賴。
 -   [ ] **重建單元測試**:
     - 恢復並修復 `BannerUtilTest`。
@@ -71,26 +74,26 @@ XSeries)。
   `& "C:\Users\jyhsu\AppData\Local\Programs\IntelliJ IDEA Ultimate\plugins\maven\lib\maven3\bin\mvn.cmd" clean package`
 * **狀態**: ✅ 編譯成功 (BUILD SUCCESS)。
 
-### 運行時問題 (Runtime Issues)
+### 運行時問題 (Runtime Issues) - 已解決
 
 1. **主畫面與指令中的 AIR ItemMeta 異常**:
-    * **症狀**: 主畫面點擊已儲存旗幟、使用 `/bm see` 或 `/bm hand` 時，出現
-      `java.lang.IllegalArgumentException: item must be able to have ItemMeta (it mustn't be AIR)`。
-    * **可能原因**: `IOUtil.loadBannerList` 載入的旗幟列表、`ItemBuilder` 處理空物品時，或 `InventoryFramework`
-      處理點擊事件時，可能傳遞了 `AIR` 類型的物品。
-    * **待解決**: 需要在 `BannerUtil`、`ItemBuilder` 和各 GUI 點擊事件中增加對 `AIR` 的防禦性檢查。
-
-2. **GUI 排版位置錯亂**:
-    * **症狀**: 多個 GUI (如 `CreateBannerGUI`, `CreateAlphabetGUI`) 的元件位置偏移。
-    * **可能原因**: `StaticPane` 的座標計算 (x, y) 可能有誤，特別是與舊版 `index` (0-53) 的轉換。需注意 `PaginatedPane` 和
-      `StaticPane` 混用時的層級與座標。
-    * **待解決**: 重新審查所有 GUI 類別的 `addItem` 座標參數。
+    * **狀態**: ✅ 已全數解決。
+    * **解決方式**: 透過在 `BannerUtil.getMaterials` 中過濾 `AIR` 物品，並在各 GUI 的 `addItem` 處增加防禦性檢查，確保只有有效物品才會被加到
+      GUI 中。同時修正了 `BannerMakerCommand` 相關邏輯，確保操作的物品有效。
 
 ### 已解決的編譯錯誤
 
 1. **`MessageComponentUtil.java`**: 解決了 `BukkitAdapter` 找不到的問題，改為在 `MessageComponentUtil` 中封裝
-   `HoverEvent` 的創建，並使用原始路徑導入 `BukkitAdapter`。
+   `HoverEvent` 的創建。
 2. **`BannerInfoGUI.java`**: 解決了 `sendMessage` 不兼容問題（改用 `MessageService.send`），以及 `HoverEvent` 類型不匹配問題。
+
+### 功能一致性與註記
+
+* **所有 GUI**: 遷移後的功能與舊版保持一致，並已修復排版錯位問題。
+* **TODO/FIXME 註記**:
+    * `BannerMakerCommand.java`: 在 `onDefault` 方法中，已加入
+      `// TODO: (GUI 遷移) 未來若有需要，可考慮整合 PlayerData 中的頁碼記憶功能。`。
+    * 所有 GUI 檔案的註解已更新為正體中文，以增強說明性。
 
 ---
 

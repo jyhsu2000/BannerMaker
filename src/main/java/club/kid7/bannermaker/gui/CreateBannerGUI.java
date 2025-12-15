@@ -35,26 +35,28 @@ public class CreateBannerGUI {
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 
-        // Slot 45: 返回按鈕
+        // Slot 45 (0,5): 返回按鈕
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(messageService.formatToString("&c" + tl("gui.back"))).build();
         mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
             MainMenuGUI.show(player);
             event.setCancelled(true);
-        }), 0, 5); // Slot 45 (0-indexed 座標為 0,5)
+        }), 0, 5); // 修正為 (0, 5)
 
         // 取得當前正在編輯的旗幟
         ItemStack currentBanner = playerData.getCurrentEditBanner();
 
         if (currentBanner == null) {
-            // 初次開啟，選擇底色
+            // 初次開啟，選擇底色 (使用與顏色選擇相同的佈局邏輯)
             for (int i = 0; i < 16; i++) {
                 final int colorIndex = i;
                 ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(colorIndex)).build();
+                // 舊邏輯: i + 1 + (i / 8) -> Slot 1-8, 10-17
+                int slot = i + 1 + (i / 8);
                 mainPane.addItem(new GuiItem(banner, event -> {
                     playerData.setCurrentEditBanner(banner);
                     CreateBannerGUI.show(player); // 重新開啟以進入編輯模式
                     event.setCancelled(true);
-                }), (i % 9), (i / 9) + 1); // 從第二行開始
+                }), slot % 9, slot / 9);
             }
             gui.show(player);
             return;
@@ -62,29 +64,32 @@ public class CreateBannerGUI {
 
         // --- 編輯模式 ---
 
-        // Slot 0: 當前編輯中的旗幟
+        // Slot 0 (0,0): 當前編輯中的旗幟
         mainPane.addItem(new GuiItem(currentBanner), 0, 0);
 
-        // Slot 9: 圖案過多警告
+        // Slot 9 (0,1): 圖案過多警告
         if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 6) {
             ItemStack warning = new ItemBuilder(Material.OAK_SIGN)
                 .name(messageService.formatToString("&c" + tl("gui.uncraftable-warning")))
                 .lore(messageService.formatToString(tl("gui.more-than-6-patterns"))).build();
-            mainPane.addItem(new GuiItem(warning), 0, 1); // Slot 9
+            mainPane.addItem(new GuiItem(warning), 0, 1); // 修正為 (0, 1)
         }
 
-        // 顏色選擇 (第 2 和 3 行)
+        // 顏色選擇 (i=0-15)
+        // 放置在 Slot 1-8 (Row 0) 和 Slot 10-17 (Row 1)
         for (int i = 0; i < 16; i++) {
             final int colorIndex = i;
             ItemStack dye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(DyeColorRegistry.getDyeColor(colorIndex))).build();
+            // 舊邏輯: i + 1 + (i / 8)
+            int slot = i + 1 + (i / 8);
             mainPane.addItem(new GuiItem(dye, event -> {
                 playerData.setSelectedColor(DyeColorRegistry.getDyeColor(dye.getType()));
                 CreateBannerGUI.show(player); // 重新開啟以刷新圖案
                 event.setCancelled(true);
-            }), (i % 9), (i / 9) + 2); // 第 2 和 3 行
+            }), slot % 9, slot / 9);
         }
 
-        // 選擇的顏色與預覽模式切換 (Slot 18)
+        // Slot 18 (0,2): 選擇的顏色與預覽模式切換
         DyeColor selectedColor = playerData.getSelectedColor();
         boolean isInSimplePreviewMode = playerData.isInSimplePreviewMode();
         ItemStack previewDye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(selectedColor))
@@ -94,7 +99,7 @@ public class CreateBannerGUI {
             playerData.setInSimplePreviewMode(!isInSimplePreviewMode);
             CreateBannerGUI.show(player); // 重新開啟以刷新圖案
             event.setCancelled(true);
-        }), 0, 2); // Slot 18
+        }), 0, 2); // 修正為 (0, 2)
 
         // 圖案預覽邏輯
         final ItemStack baseBannerForPreview;
@@ -107,7 +112,8 @@ public class CreateBannerGUI {
             selectedColorForPreview = selectedColor;
         }
 
-        // 圖案選擇 (第 3, 4, 5 行)
+        // 圖案選擇 (i=0-23)
+        // 放置在 Slot 19-26 (Row 2), 28-35 (Row 3), 37-44 (Row 4)
         for (int i = 0; i < 24; i++) {
             int patternIndex = i;
             if (playerData.isShowMorePatterns()) {
@@ -120,6 +126,8 @@ public class CreateBannerGUI {
             ItemStack patternItem = new ItemBuilder(baseBannerForPreview.clone())
                 .pattern(new Pattern(selectedColorForPreview, patternType)).build();
 
+            // 舊邏輯: i + 19 + (i / 8)
+            int slot = i + 19 + (i / 8);
             mainPane.addItem(new GuiItem(patternItem, event -> {
                 BannerMeta currentBm = (BannerMeta) currentBanner.getItemMeta();
                 Objects.requireNonNull(currentBm).addPattern(new Pattern(selectedColor, patternType));
@@ -127,35 +135,35 @@ public class CreateBannerGUI {
                 playerData.setCurrentEditBanner(currentBanner);
                 CreateBannerGUI.show(player); // 重新開啟以反映變更
                 event.setCancelled(true);
-            }), (i % 9), (i / 9) + 3); // 第 3, 4, 5 行
+            }), slot % 9, slot / 9);
         }
 
-        // Slot 51: 更多圖案按鈕
+        // Slot 51 (6,5): 更多圖案按鈕
         ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).name(messageService.formatToString("&a" + tl("gui.more-patterns"))).build();
         mainPane.addItem(new GuiItem(btnMorePattern, event -> {
             playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
             CreateBannerGUI.show(player); // 重新開啟以顯示更多圖案
             event.setCancelled(true);
-        }), 6, 5); // Slot 51
+        }), 6, 5); // 修正為 (6, 5)
 
-        // Slot 53: 建立/儲存旗幟
+        // Slot 53 (8,5): 建立/儲存旗幟
         ItemStack btnCreate = new ItemBuilder(Material.LIME_WOOL).name(messageService.formatToString("&a" + tl("gui.create"))).build();
         mainPane.addItem(new GuiItem(btnCreate, event -> {
             IOUtil.saveBanner(player, currentBanner);
             playerData.setCurrentEditBanner(null);
             MainMenuGUI.show(player); // 返回主選單
             event.setCancelled(true);
-        }), 8, 5); // Slot 53
+        }), 8, 5); // 修正為 (8, 5)
 
-        // Slot 47: 刪除當前編輯旗幟
+        // Slot 47 (2,5): 刪除當前編輯旗幟
         ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(messageService.formatToString("&c" + tl("gui.delete"))).build();
         mainPane.addItem(new GuiItem(btnDelete, event -> {
             playerData.setCurrentEditBanner(null);
             CreateBannerGUI.show(player); // 重新開啟以回到底色選擇
             event.setCancelled(true);
-        }), 2, 5); // Slot 47
+        }), 2, 5); // 修正為 (2, 5)
 
-        // Slot 49: 移除上一個圖案
+        // Slot 49 (4,5): 移除上一個圖案
         if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 0) {
             ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).name(messageService.formatToString("&c" + tl("gui.remove-last-pattern"))).build();
             mainPane.addItem(new GuiItem(btnRemovePattern, event -> {
@@ -165,7 +173,7 @@ public class CreateBannerGUI {
                 playerData.setCurrentEditBanner(currentBanner);
                 CreateBannerGUI.show(player); // 重新開啟以反映變更
                 event.setCancelled(true);
-            }), 4, 5); // Slot 49
+            }), 4, 5); // 修正為 (4, 5)
         }
 
         gui.show(player);

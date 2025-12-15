@@ -51,10 +51,10 @@ public class BannerInfoGUI {
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 
-        // Slot 0: 旗幟預覽
+        // Slot 0 (0,0): 旗幟預覽
         mainPane.addItem(new GuiItem(banner), 0, 0);
 
-        // Slot 1: 圖案數量
+        // Slot 1 (1,0): 圖案數量
         int patternCount = ((BannerMeta) Objects.requireNonNull(banner.getItemMeta())).numberOfPatterns();
         String patternCountStr;
         if (patternCount > 0) {
@@ -70,7 +70,7 @@ public class BannerInfoGUI {
         }
         mainPane.addItem(new GuiItem(signPatternCount), 1, 0);
 
-        // Slot 2: 材料是否充足 (若可合成)
+        // Slot 2 (2,0): 材料是否充足 (若可合成)
         if (BannerUtil.isCraftable(player, banner)) {
             ItemStack enoughMaterials;
             if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
@@ -84,6 +84,7 @@ public class BannerInfoGUI {
             List<Integer> materialPositions = Arrays.asList(9, 10, 11, 12, 18, 19, 20, 21, 27, 28, 29, 30, 36, 37, 38, 39);
             List<ItemStack> materialList = BannerUtil.getMaterials(banner);
             for (int i = 0; i < materialList.size() && i < materialPositions.size(); i++) {
+                // x = slot % 9, y = slot / 9
                 mainPane.addItem(new GuiItem(materialList.get(i)), materialPositions.get(i) % 9, materialPositions.get(i) / 9);
             }
         }
@@ -93,9 +94,20 @@ public class BannerInfoGUI {
             updateCraftingRecipeSection(player, gui, mainPane, playerData, banner, messageService);
         }
 
-        // 功能按鈕 (底部行或特定欄位)
+        // 功能按鈕 (底部行)
 
-        // Slot 47: 刪除旗幟 (若已儲存)
+        // Slot 45 (0,5): 返回按鈕
+        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(messageService.formatToString("&c" + tl("gui.back"))).build();
+        mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
+            if (AlphabetBanner.isAlphabetBanner(banner)) {
+                CreateAlphabetGUI.show(player);
+            } else {
+                MainMenuGUI.show(player);
+            }
+            event.setCancelled(true);
+        }), 0, 5); // 修正為 (0, 5)
+
+        // Slot 47 (2,5): 刪除旗幟 (若已儲存)
         final String key = BannerUtil.getKey(banner);
         if (key != null) {
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(messageService.formatToString("&c" + tl("gui.delete"))).build();
@@ -103,10 +115,10 @@ public class BannerInfoGUI {
                 IOUtil.removeBanner(player, key);
                 MainMenuGUI.show(player);
                 event.setCancelled(true);
-            }), 4, 5); // Slot 47 (0-indexed 座標為 4,5)
+            }), 2, 5); // 修正為 (2, 5)
         }
 
-        // Slot 49: 取得旗幟
+        // Slot 49 (4,5): 取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
             ItemStack btnGetBanner = new ItemBuilder(Material.LIME_WOOL).name(messageService.formatToString("&a" + tl("gui.get-this-banner"))).build();
             final String showName = BannerUtil.getName(banner);
@@ -116,8 +128,9 @@ public class BannerInfoGUI {
                 mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                     InventoryUtil.give(player, banner);
                     messageService.send(player, messageService.format("&a" + tl("gui.get-banner", showName))); // 使用 format 方法轉換為 Adventure Component
+                    MainMenuGUI.show(player); // 動作完成後返回主選單
                     event.setCancelled(true);
-                }), 6, 5); // Slot 49 (0-indexed 座標為 6,5)
+                }), 4, 5); // 修正為 (4, 5)
             } else {
                 btnGetBanner = new ItemBuilder(btnGetBanner).addLore(messageService.formatToString("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-by-craft"))).build();
                 if (BannerMaker.getInstance().econ != null) {
@@ -140,20 +153,21 @@ public class BannerInfoGUI {
                             messageService.send(player, messageService.format("&a" + tl("gui.get-banner", showName))); // 使用 format 方法轉換為 Adventure Component
                         }
                     }
+                    MainMenuGUI.show(player); // 動作完成後返回主選單
                     event.setCancelled(true);
-                }), 6, 5); // Slot 49 (0-indexed 座標為 6,5)
+                }), 4, 5); // 修正為 (4, 5)
             }
         }
 
-        // Slot 51: 複製並編輯
+        // Slot 51 (6,5): 複製並編輯
         ItemStack btnCloneAndEdit = new ItemBuilder(Material.WRITABLE_BOOK).name(messageService.formatToString("&9" + tl("gui.clone-and-edit"))).build();
         mainPane.addItem(new GuiItem(btnCloneAndEdit, event -> {
             playerData.setCurrentEditBanner(banner);
             CreateBannerGUI.show(player); // 開啟新版編輯介面
             event.setCancelled(true);
-        }), 8, 5); // Slot 51 (0-indexed 座標為 8,5)
+        }), 6, 5); // 修正為 (6, 5)
 
-        // Slot 52: 展示旗幟
+        // Slot 52 (7,5): 展示旗幟
         if (player.hasPermission("BannerMaker.show.nearby") || player.hasPermission("BannerMaker.show.all")) {
             ItemStack btnShow = new ItemBuilder(Material.BELL).name(messageService.formatToString("&9Show banner to players")).build();
             if (player.hasPermission("BannerMaker.show.nearby")) {
@@ -200,10 +214,10 @@ public class BannerInfoGUI {
                 }
                 player.closeInventory();
                 event.setCancelled(true);
-            }), 0, 5); // Slot 52 (0-indexed 座標為 0,5)
+            }), 7, 5); // 修正為 (7, 5)
         }
 
-        // Slot 53: 生成指令
+        // Slot 53 (8,5): 生成指令
         if (player.hasPermission("BannerMaker.view")) {
             ItemStack btnGenerateCommand = new ItemBuilder(Material.COMMAND_BLOCK).name(messageService.formatToString("&9Get share command")).build();
             mainPane.addItem(new GuiItem(btnGenerateCommand, event -> {
@@ -215,20 +229,8 @@ public class BannerInfoGUI {
                 messageService.send(player, msg);
                 player.closeInventory();
                 event.setCancelled(true);
-            }), 1, 5); // Slot 53 (0-indexed 座標為 1,5)
+            }), 8, 5); // 修正為 (8, 5)
         }
-
-
-        // Slot 45: 返回按鈕
-        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(messageService.formatToString("&c" + tl("gui.back"))).build();
-        mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
-            if (AlphabetBanner.isAlphabetBanner(banner)) {
-                CreateAlphabetGUI.show(player);
-            } else {
-                MainMenuGUI.show(player);
-            }
-            event.setCancelled(true);
-        }), 2, 5); // Slot 45 (0-indexed 座標為 2,5)
 
         gui.show(player);
     }
@@ -255,7 +257,7 @@ public class BannerInfoGUI {
             mainPane.addItem(new GuiItem(border.clone()), pos % 9, pos / 9);
         }
 
-        // 上一頁按鈕
+        // Slot 22 (4,2): 上一頁按鈕
         if (currentRecipePage > 1) {
             ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(messageService.formatToString("&a" + tl("gui.prev-page"))).build();
             mainPane.addItem(new GuiItem(prevPage, event -> {
@@ -263,10 +265,10 @@ public class BannerInfoGUI {
                 updateCraftingRecipeSection(player, gui, mainPane, playerData, banner, messageService);
                 gui.update();
                 event.setCancelled(true);
-            }), 4, 2); // Slot 22 (0-indexed 座標為 4,2)
+            }), 4, 2); // 修正為 (4, 2)
         }
 
-        // 下一頁按鈕
+        // Slot 26 (8,2): 下一頁按鈕
         if (currentRecipePage < totalPage) {
             ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(messageService.formatToString("&a" + tl("gui.next-page"))).build();
             mainPane.addItem(new GuiItem(nextPage, event -> {
@@ -274,10 +276,10 @@ public class BannerInfoGUI {
                 updateCraftingRecipeSection(player, gui, mainPane, playerData, banner, messageService);
                 gui.update();
                 event.setCancelled(true);
-            }), 8, 2); // Slot 26 (0-indexed 座標為 8,2)
+            }), 8, 2); // 修正為 (8, 2)
         }
 
-        // 合成表工作台/織布機圖示 (Slot 6)
+        // Slot 6 (6,0): 合成表工作台/織布機圖示
         HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
         ItemStack workbench = new ItemBuilder(Material.CRAFTING_TABLE).amount(currentRecipePage)
             .name(messageService.formatToString("&a" + tl("gui.craft-recipe")))
@@ -285,7 +287,7 @@ public class BannerInfoGUI {
         if (BannerUtil.isLoomRecipe(patternRecipe)) {
             workbench.setType(Material.LOOM);
         }
-        mainPane.addItem(new GuiItem(workbench), 6 % 9, 6 / 9);
+        mainPane.addItem(new GuiItem(workbench), 6, 0); // 修正為 (6, 0)
 
         // 合成材料與結果 (Slots 14, 15, 16, 23, 24, 25, 32, 33, 34, 42)
         // 0-8 為材料，9 為結果
