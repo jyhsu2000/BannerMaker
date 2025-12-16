@@ -31,7 +31,6 @@ class ItemBuilderTest {
 
     @BeforeEach
     void setUp() {
-        System.setProperty("bstats.relocate.check", "false");
         server = MockBukkit.mock();
         plugin = MockBukkit.load(BannerMaker.class);
     }

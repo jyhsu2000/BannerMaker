@@ -48,9 +48,18 @@ public class BannerMaker extends JavaPlugin {
         //Reload
         reload();
         //bStats
-        if (!"false".equals(System.getProperty("bstats.relocate.check"))) {
+        if (!isUnitTest()) {
             int pluginId = 383;
             new Metrics(this, pluginId);
+        }
+    }
+
+    private boolean isUnitTest() {
+        try {
+            Class.forName("org.mockbukkit.mockbukkit.MockBukkit");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
         }
     }
 
