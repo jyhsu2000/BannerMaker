@@ -14,7 +14,6 @@ import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.block.Banner;
 import org.bukkit.block.Block;
@@ -72,7 +71,7 @@ public class BannerMakerCommand extends BaseCommand {
     public void onSee(Player player) {
         Block block = player.getTargetBlockExact(20);
         if (block == null || !block.getType().name().endsWith("_BANNER")) {
-            plugin.getMessageService().send(player, Component.empty().color(NamedTextColor.RED).append(Language.tl("command.not-banner-see")));
+            plugin.getMessageService().send(player, Language.tl(NamedTextColor.RED, "command.not-banner-see"));
             return;
         }
         //根據方塊建立旗幟
@@ -89,7 +88,7 @@ public class BannerMakerCommand extends BaseCommand {
     public void onHand(Player player) {
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         if (!BannerUtil.isBanner(itemStack)) {
-            plugin.getMessageService().send(player, Component.empty().color(NamedTextColor.RED).append(Language.tl("command.not-banner-hand")));
+            plugin.getMessageService().send(player, Language.tl(NamedTextColor.RED, "command.not-banner-hand"));
             return;
         }
         //複製旗幟，僅保留底色與樣式

@@ -57,7 +57,7 @@ public class MainMenuGUI {
 
         // 製作旗幟按鈕
         ItemStack btnCreateBanner = new ItemBuilder(Material.LIME_WOOL)
-            .name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.create-banner")))
+            .name(tl(NamedTextColor.GREEN, "gui.create-banner"))
             .build();
         navigationPane.addItem(new GuiItem(btnCreateBanner, event -> {
             CreateBannerGUI.show(player);
@@ -68,7 +68,7 @@ public class MainMenuGUI {
         if (BannerMaker.getInstance().enableAlphabetAndNumber) {
             ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
             ItemBuilder btnBuilder = new ItemBuilder(btnCreateAlphabet);
-            btnBuilder.name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.alphabet-and-number")));
+            btnBuilder.name(tl(NamedTextColor.GREEN, "gui.alphabet-and-number"));
             navigationPane.addItem(new GuiItem(btnBuilder.build(), event -> {
                 ChooseAlphabetGUI.show(player);
                 event.setCancelled(true);
@@ -88,7 +88,7 @@ public class MainMenuGUI {
         if (paginatedPane.getPage() > 0) {
             ItemStack prevPage = new ItemBuilder(Material.ARROW)
                 .amount(paginatedPane.getPage()) // 將當前頁碼設為物品數量 (視覺效果)
-                .name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.prev-page")))
+                .name(tl(NamedTextColor.GREEN, "gui.prev-page"))
                 .build();
 
             navigationPane.addItem(new GuiItem(prevPage, event -> {
@@ -105,7 +105,7 @@ public class MainMenuGUI {
         if (paginatedPane.getPage() < paginatedPane.getPages() - 1) {
             ItemStack nextPage = new ItemBuilder(Material.ARROW)
                 .amount(paginatedPane.getPage() + 2) // 將下一頁碼設為物品數量 (視覺效果)
-                .name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.next-page")))
+                .name(tl(NamedTextColor.GREEN, "gui.next-page"))
                 .build();
 
             navigationPane.addItem(new GuiItem(nextPage, event -> {
