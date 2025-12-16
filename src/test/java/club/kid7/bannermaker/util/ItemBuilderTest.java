@@ -1,6 +1,7 @@
 package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.configuration.ConfigManager;
 import com.cryptomorin.xseries.XMaterial;
 import net.kyori.adventure.text.Component;
 import org.bukkit.DyeColor;
@@ -38,6 +39,7 @@ class ItemBuilderTest {
     @AfterEach
     void tearDown() {
         MockBukkit.unmock();
+        ConfigManager.reset();
     }
 
     @Test

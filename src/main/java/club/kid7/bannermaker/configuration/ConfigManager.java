@@ -170,4 +170,11 @@ public class ConfigManager {
             reload(fileName);
         }
     }
+
+    /**
+     * 清除所有已載入的設定檔（主要用於單元測試）。
+     */
+    public static void reset() {
+        configs.clear();
+    }
 }

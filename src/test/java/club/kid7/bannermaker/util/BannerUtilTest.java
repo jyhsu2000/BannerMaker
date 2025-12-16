@@ -1,6 +1,7 @@
 package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.configuration.ConfigManager;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -34,6 +35,7 @@ class BannerUtilTest {
     @AfterEach
     void tearDown() {
         MockBukkit.unmock();
+        ConfigManager.reset();
     }
 
     @Test
