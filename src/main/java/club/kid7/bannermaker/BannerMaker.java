@@ -1,10 +1,9 @@
 package club.kid7.bannermaker;
 
+import club.kid7.bannermaker.configuration.ConfigManager;
 import club.kid7.bannermaker.configuration.DefaultConfig;
 import club.kid7.bannermaker.configuration.Language;
 import club.kid7.bannermaker.service.MessageService;
-import club.kid7.pluginutilities.configuration.KConfigManager;
-import club.kid7.pluginutilities.gui.CustomGUI;
 import co.aikar.commands.PaperCommandManager;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
@@ -41,12 +40,10 @@ public class BannerMaker extends JavaPlugin {
         //Commands
         registerCommands();
 
-        //CustomGUI
-        CustomGUI.enable();
         //Config
         List<String> configList = Arrays.asList("config", "price");
         for (String config : configList) {
-            KConfigManager.load(config);
+            ConfigManager.load(config);
         }
         //Reload
         reload();
@@ -57,8 +54,6 @@ public class BannerMaker extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        //CustomGUI
-        CustomGUI.disable();
         // 關閉 MessageService 的 Audiences
         if (messageService != null) {
             messageService.closeAudiences();
@@ -76,7 +71,7 @@ public class BannerMaker extends JavaPlugin {
 
     public void reload() {
         //Reload Config
-        KConfigManager.reloadAll();
+        ConfigManager.reloadAll();
         //載入語言包
         new Language(this).loadLanguage();
         //Check Default Config
@@ -88,7 +83,7 @@ public class BannerMaker extends JavaPlugin {
             messageService.send(getServer().getConsoleSender(), "&c[BannerMaker] Disable economy supported");
         }
         //設定檔
-        FileConfiguration config = KConfigManager.get("config");
+        FileConfiguration config = ConfigManager.get("config");
         if (config != null) {
             //字母與數字
             enableAlphabetAndNumber = config.getBoolean("AlphabetAndNumberBanner.Enable", true);
@@ -102,7 +97,7 @@ public class BannerMaker extends JavaPlugin {
     private boolean setupEconomy() {
         econ = null;
         //檢查設定
-        FileConfiguration config = KConfigManager.get("config");
+        FileConfiguration config = ConfigManager.get("config");
         //若無啟用經濟
         if (!config.getBoolean("Economy.Enable", false)) {
             return false;

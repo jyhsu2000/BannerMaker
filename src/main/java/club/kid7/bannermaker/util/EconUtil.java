@@ -1,8 +1,8 @@
 package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.configuration.ConfigManager;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
-import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,7 +24,7 @@ public class EconUtil {
         if (BannerMaker.getInstance().econ == null) {
             return 0;
         }
-        FileConfiguration config = KConfigManager.get("config");
+        FileConfiguration config = ConfigManager.get("config");
         if (config == null) {
             return 0;
         }
@@ -40,7 +40,7 @@ public class EconUtil {
 
     private static double getMaterialPrice(ItemStack itemStack) {
         String priceConfigFileName = "price";
-        FileConfiguration priceConfig = KConfigManager.get(priceConfigFileName);
+        FileConfiguration priceConfig = ConfigManager.get(priceConfigFileName);
         if (priceConfig == null) {
             return 0;
         }
@@ -63,7 +63,7 @@ public class EconUtil {
         //檢查設定
         if (!priceConfig.contains(configPath)) {
             priceConfig.set(configPath, 0);
-            KConfigManager.save(priceConfigFileName);
+            ConfigManager.save(priceConfigFileName);
         }
 
         //取得金額

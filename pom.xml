@@ -35,11 +35,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.jyhsu2000</groupId>
-            <artifactId>PluginUtilities</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>19.0.0</version>
@@ -149,10 +144,6 @@
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <shadedPattern>club.kid7.bannermaker.lib.bstats</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>club.kid7.pluginutilities</pattern>
-                            <shadedPattern>club.kid7.bannermaker.lib.pluginutilities</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>co.aikar.commands</pattern>

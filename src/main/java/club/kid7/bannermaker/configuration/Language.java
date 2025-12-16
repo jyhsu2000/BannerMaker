@@ -1,7 +1,6 @@
 package club.kid7.bannermaker.configuration;
 
 import club.kid7.bannermaker.BannerMaker;
-import club.kid7.pluginutilities.configuration.KConfigManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.apache.commons.lang.LocaleUtils;
@@ -33,7 +32,7 @@ public class Language {
     public void loadLanguage() {
         //從設定檔取得語言
         String configFileName = "config.yml";
-        FileConfiguration config = KConfigManager.get(configFileName);
+        FileConfiguration config = ConfigManager.get(configFileName);
         Locale defaultLocale = Locale.ENGLISH;
         String language = "auto";
         if (config != null && config.contains("Language")) {
@@ -71,7 +70,7 @@ public class Language {
             }
         }
         //載入語言包
-        KConfigManager.load(getFileName(locale));
+        ConfigManager.load(getFileName(locale));
         //檢查語言包
         checkConfig(locale);
         bm.getLogger().info("Language: " + locale);
@@ -89,11 +88,11 @@ public class Language {
     }
 
     private String get(String path, Object... args) {
-        FileConfiguration config = KConfigManager.get(getFileName(locale));
+        FileConfiguration config = ConfigManager.get(getFileName(locale));
         if (!config.contains(path) || !config.isString(path)) {
             //若無法取得，則自該語言資源檔取得，並儲存於語系檔
             config.set(path, getFromLanguageResource(path, args));
-            KConfigManager.save(getFileName(locale));
+            ConfigManager.save(getFileName(locale));
         }
         return replaceArgument((String) config.get(path), args);
     }
@@ -131,7 +130,7 @@ public class Language {
 
     private void checkConfig(Locale checkLocale) {
         //當前語言設定檔
-        FileConfiguration config = KConfigManager.get(getFileName(checkLocale));
+        FileConfiguration config = ConfigManager.get(getFileName(checkLocale));
         //根據預設語言資源檔檢查
         int newSettingCount = 0;
         for (String key : defaultLanguageConfigResource.getKeys(true)) {
@@ -154,7 +153,7 @@ public class Language {
             newSettingCount++;
         }
         if (newSettingCount > 0) {
-            KConfigManager.save(getFileName(checkLocale));
+            ConfigManager.save(getFileName(checkLocale));
             bm.getMessageService().send(bm.getServer().getConsoleSender(), bm.getMessageService().formatWithPrefix(Component.text("[BannerMaker] ", NamedTextColor.AQUA), tl("config.add-setting", newSettingCount)));
         }
     }

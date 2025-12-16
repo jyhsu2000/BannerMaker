@@ -55,7 +55,7 @@ XSeries)。
     - **GUI 排版錯亂**: **✅ 已解決。** 已全面檢查並修正所有 `StaticPane` 的座標設定，確保與舊版 6x9 佈局一致，並新增詳細註解。
     - **GUI 物品取下問題**: **✅ 已解決。** 已在所有 GUI 中添加 `gui.setOnGlobalClick(event -> event.setCancelled(true));`
       ，防止玩家取下無功能的物品。
--   [ ] **移除 PluginUtilities**: 當 GUI 和 ItemStack 都遷移完畢後，從 `pom.xml` 移除依賴。
+-   [x] **移除 PluginUtilities**: 當 GUI 和 ItemStack 都遷移完畢後，從 `pom.xml` 移除依賴。
 -   [ ] **重建單元測試**:
     - 恢復並修復 `BannerUtilTest`。
     - 為 `ItemBuilder` 撰寫測試。

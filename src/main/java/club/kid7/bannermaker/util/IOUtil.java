@@ -1,8 +1,8 @@
 package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.configuration.ConfigManager;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
-import club.kid7.pluginutilities.configuration.KConfigManager;
 import org.bukkit.DyeColor;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
@@ -30,7 +30,7 @@ public class IOUtil {
         }
         //設定檔
         String fileName = getFileName(player);
-        FileConfiguration config = KConfigManager.get(fileName);
+        FileConfiguration config = ConfigManager.get(fileName);
         //索引值（時間戳記，不會重複）
         String key = String.valueOf(System.currentTimeMillis());
         //旗幟資訊
@@ -44,7 +44,7 @@ public class IOUtil {
         if (!patternList.isEmpty()) {
             config.set(key + ".patterns", patternList);
         }
-        KConfigManager.save(fileName);
+        ConfigManager.save(fileName);
         //儲存成功
         BannerMaker.getInstance().getMessageService().send(player, "&a" + tl("io.save-success"));
         return true;
@@ -59,10 +59,10 @@ public class IOUtil {
         List<ItemStack> bannerList = new ArrayList<>();
         //設定檔
         String fileName = getFileName(player);
-        KConfigManager.load(fileName);
+        ConfigManager.load(fileName);
         //強制重新讀取，以避免選單內容未即時更新
-        KConfigManager.reload(fileName);
-        FileConfiguration config = KConfigManager.get(fileName);
+        ConfigManager.reload(fileName);
+        FileConfiguration config = ConfigManager.get(fileName);
         //起始索引值
         int startIndex = Math.max(0, (page - 1) * 45);
         //旗幟
@@ -85,7 +85,7 @@ public class IOUtil {
     private static ItemStack loadBanner(Player player, String key) {
         //設定檔
         String fileName = getFileName(player);
-        FileConfiguration config = KConfigManager.get(fileName);
+        FileConfiguration config = ConfigManager.get(fileName);
         //檢查是否為正確格式
         if ((!config.isInt(key + ".color") && !config.isString(key + ".color"))
             || (config.contains(key + ".patterns") && !config.isList(key + ".patterns"))) {
@@ -127,11 +127,11 @@ public class IOUtil {
     static public boolean removeBanner(Player player, String key) {
         //設定檔
         String fileName = getFileName(player);
-        FileConfiguration config = KConfigManager.get(fileName);
+        FileConfiguration config = ConfigManager.get(fileName);
         //移除
         config.set(key, null);
         //儲存
-        KConfigManager.save(fileName);
+        ConfigManager.save(fileName);
         //顯示訊息
         BannerMaker.getInstance().getMessageService().send(player, "&a" + tl("io.remove-banner", key));
         return true;

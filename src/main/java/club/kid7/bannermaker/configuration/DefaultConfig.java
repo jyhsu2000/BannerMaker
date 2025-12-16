@@ -1,7 +1,6 @@
 package club.kid7.bannermaker.configuration;
 
 import club.kid7.bannermaker.BannerMaker;
-import club.kid7.pluginutilities.configuration.KConfigManager;
 import com.google.common.collect.Maps;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -30,7 +29,7 @@ public class DefaultConfig {
         for (String configName : defaultConfigs) {
             //當前設定檔
             String configFileName = configName + ".yml";
-            FileConfiguration config = KConfigManager.get(configFileName);
+            FileConfiguration config = ConfigManager.get(configFileName);
             if (config == null) {
                 continue;
             }
@@ -58,7 +57,7 @@ public class DefaultConfig {
                 newSettingCount++;
             }
             if (newSettingCount > 0) {
-                KConfigManager.save(configFileName);
+                ConfigManager.save(configFileName);
                 bm.getMessageService().send(bm.getServer().getConsoleSender(), bm.getMessageService().formatWithPrefix(Component.text("[BannerMaker] ", NamedTextColor.AQUA), tl("config.add-setting", newSettingCount)));
             }
         }
