@@ -3,6 +3,7 @@ package club.kid7.bannermaker.configuration;
 import club.kid7.bannermaker.BannerMaker;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.apache.commons.lang.LocaleUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -80,21 +81,36 @@ public class Language {
         return "language" + File.separator + locale.toString() + ".yml";
     }
 
-    public static String tl(String path, Object... args) {
+    public static Component tl(String path, Object... args) {
         if (instance == null) {
-            return null;
+            // 如果 Language 實例尚未初始化，返回一個空的 Component
+            return Component.empty();
         }
         return instance.get(path, args);
     }
 
-    private String get(String path, Object... args) {
+    /**
+     * 取得帶有預設顏色的翻譯 Component。
+     *
+     * @param color 預設顏色
+     * @param path  語言檔路徑
+     * @param args  參數
+     * @return 帶有顏色的 Component
+     */
+    public static Component tl(NamedTextColor color, String path, Object... args) {
+        return Component.empty().color(color).append(tl(path, args));
+    }
+
+    private Component get(String path, Object... args) {
         FileConfiguration config = ConfigManager.get(getFileName(locale));
         if (!config.contains(path) || !config.isString(path)) {
-            //若無法取得，則自該語言資源檔取得，並儲存於語系檔
+            //若無法取得，則自該語言資源檔取得，但不儲存於語系檔 (避免執行時阻塞 I/O)
             config.set(path, getFromLanguageResource(path, args));
-            ConfigManager.save(getFileName(locale));
         }
-        return replaceArgument((String) config.get(path), args);
+        // 取得訊息字串並替換參數
+        String messageString = replaceArgument((String) config.get(path), args);
+        // 使用 LegacyComponentSerializer 將帶有 '&' 顏色代碼的字串轉換為 Component
+        return LegacyComponentSerializer.legacyAmpersand().deserialize(messageString);
     }
 
     private String getFromLanguageResource(String path, Object... args) {
@@ -121,11 +137,10 @@ public class Language {
     }
 
     public String getIgnoreColors(String path, Object... args) {
-        String translatedString = tl(path, args);
-        if (translatedString == null) {
-            return null;
-        }
-        return ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', translatedString));
+        Component translatedComponent = tl(path, args);
+        // 先轉為 Legacy String，再使用 ChatColor 移除顏色代碼
+        String legacyString = LegacyComponentSerializer.legacyAmpersand().serialize(translatedComponent);
+        return ChatColor.stripColor(legacyString);
     }
 
     private void checkConfig(Locale checkLocale) {

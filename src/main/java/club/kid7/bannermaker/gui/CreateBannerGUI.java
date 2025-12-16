@@ -10,6 +10,9 @@ import club.kid7.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -28,7 +31,8 @@ public class CreateBannerGUI {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
 
-        String title = messageService.formatToString(tl("gui.prefix") + tl("gui.create-banner"));
+        Component titleComponent = tl("gui.prefix").append(tl("gui.create-banner"));
+        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));
 
@@ -36,7 +40,7 @@ public class CreateBannerGUI {
         gui.addPane(mainPane);
 
         // Slot 45 (0,5): 返回按鈕
-        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(messageService.formatToString("&c" + tl("gui.back"))).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
         mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
             MainMenuGUI.show(player);
             event.setCancelled(true);
@@ -70,8 +74,8 @@ public class CreateBannerGUI {
         // Slot 9 (0,1): 圖案過多警告
         if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 6) {
             ItemStack warning = new ItemBuilder(Material.OAK_SIGN)
-                .name(messageService.formatToString("&c" + tl("gui.uncraftable-warning")))
-                .lore(messageService.formatToString(tl("gui.more-than-6-patterns"))).build();
+                .name(tl(NamedTextColor.RED, "gui.uncraftable-warning"))
+                .lore(tl("gui.more-than-6-patterns")).build();
             mainPane.addItem(new GuiItem(warning), 0, 1); // 修正為 (0, 1)
         }
 
@@ -93,8 +97,8 @@ public class CreateBannerGUI {
         DyeColor selectedColor = playerData.getSelectedColor();
         boolean isInSimplePreviewMode = playerData.isInSimplePreviewMode();
         ItemStack previewDye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(selectedColor))
-            .name(messageService.formatToString("&9" + tl("gui.selected-pattern-color")))
-            .lore(messageService.formatToString("&e[" + tl("gui.click.left") + "] &a" + tl("gui.toggle-preview-mode"))).build();
+            .name(tl(NamedTextColor.BLUE, "gui.selected-pattern-color"))
+            .addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left")).append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.toggle-preview-mode"))).build();
         mainPane.addItem(new GuiItem(previewDye, event -> {
             playerData.setInSimplePreviewMode(!isInSimplePreviewMode);
             CreateBannerGUI.show(player); // 重新開啟以刷新圖案
@@ -139,7 +143,7 @@ public class CreateBannerGUI {
         }
 
         // Slot 51 (6,5): 更多圖案按鈕
-        ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).name(messageService.formatToString("&a" + tl("gui.more-patterns"))).build();
+        ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).name(tl(NamedTextColor.GREEN, "gui.more-patterns")).build();
         mainPane.addItem(new GuiItem(btnMorePattern, event -> {
             playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
             CreateBannerGUI.show(player); // 重新開啟以顯示更多圖案
@@ -147,7 +151,7 @@ public class CreateBannerGUI {
         }), 6, 5); // 修正為 (6, 5)
 
         // Slot 53 (8,5): 建立/儲存旗幟
-        ItemStack btnCreate = new ItemBuilder(Material.LIME_WOOL).name(messageService.formatToString("&a" + tl("gui.create"))).build();
+        ItemStack btnCreate = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.create")).build();
         mainPane.addItem(new GuiItem(btnCreate, event -> {
             IOUtil.saveBanner(player, currentBanner);
             playerData.setCurrentEditBanner(null);
@@ -156,7 +160,7 @@ public class CreateBannerGUI {
         }), 8, 5); // 修正為 (8, 5)
 
         // Slot 47 (2,5): 刪除當前編輯旗幟
-        ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(messageService.formatToString("&c" + tl("gui.delete"))).build();
+        ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.delete")).build();
         mainPane.addItem(new GuiItem(btnDelete, event -> {
             playerData.setCurrentEditBanner(null);
             CreateBannerGUI.show(player); // 重新開啟以回到底色選擇
@@ -165,7 +169,7 @@ public class CreateBannerGUI {
 
         // Slot 49 (4,5): 移除上一個圖案
         if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 0) {
-            ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).name(messageService.formatToString("&c" + tl("gui.remove-last-pattern"))).build();
+            ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.remove-last-pattern")).build();
             mainPane.addItem(new GuiItem(btnRemovePattern, event -> {
                 BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
                 bm.removePattern(bm.numberOfPatterns() - 1);

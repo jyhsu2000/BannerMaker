@@ -9,6 +9,9 @@ import club.kid7.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -24,7 +27,8 @@ public class CreateAlphabetGUI {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
 
-        String title = messageService.formatToString(tl("gui.prefix") + tl("gui.alphabet-and-number"));
+        Component titleComponent = tl("gui.prefix").append(tl("gui.alphabet-and-number"));
+        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));
 
@@ -68,7 +72,7 @@ public class CreateAlphabetGUI {
 
         // Slot 37 (1,4): 切換邊框
         ItemStack btnBorderedBanner = new ItemBuilder(Material.WHITE_BANNER)
-            .name(messageService.formatToString("&a" + tl("gui.toggle-border")))
+            .name(tl(NamedTextColor.GREEN, "gui.toggle-border"))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER)).build();
         mainPane.addItem(new GuiItem(btnBorderedBanner, event -> {
             currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
@@ -78,7 +82,7 @@ public class CreateAlphabetGUI {
         }), 1, 4); // 修正為 (1, 4)
 
         // Slot 49 (4,5): 旗幟資訊
-        ItemStack btnBannerInfo = new ItemBuilder(Material.LIME_WOOL).name(messageService.formatToString("&a" + tl("gui.banner-info"))).build();
+        ItemStack btnBannerInfo = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.banner-info")).build();
         mainPane.addItem(new GuiItem(btnBannerInfo, event -> {
             playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
             playerData.setCurrentRecipePage(1);
@@ -87,7 +91,7 @@ public class CreateAlphabetGUI {
         }), 4, 5); // 修正為 (4, 5)
 
         // Slot 45 (0,5): 返回按鈕
-        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(messageService.formatToString("&c" + tl("gui.back"))).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
         mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
             ChooseAlphabetGUI.show(player);
             event.setCancelled(true);

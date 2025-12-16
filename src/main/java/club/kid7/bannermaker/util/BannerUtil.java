@@ -3,6 +3,8 @@ package club.kid7.bannermaker.util;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import com.google.common.collect.Maps;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
@@ -304,7 +306,7 @@ public class BannerUtil {
         //檢查是否啟用經濟
         if (BannerMaker.getInstance().econ == null) {
             //未啟用經濟，強制失敗
-            BannerMaker.getInstance().getMessageService().send(player, "&cError: Economy not supported");
+            BannerMaker.getInstance().getMessageService().send(player, Component.text("Error: Economy not supported", NamedTextColor.RED));
             return false;
         }
         //價格
@@ -312,7 +314,7 @@ public class BannerUtil {
         //檢查財產是否足夠
         if (!BannerMaker.getInstance().econ.has(player, price)) {
             //財產不足
-            BannerMaker.getInstance().getMessageService().send(player, "&c" + tl("general.no-money"));
+            BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.RED, "general.no-money"));
             return false;
         }
         //扣款
@@ -320,11 +322,11 @@ public class BannerUtil {
         //檢查交易是否成功
         if (!response.transactionSuccess()) {
             //交易失敗
-            BannerMaker.getInstance().getMessageService().send(player, "&cError: " + response.errorMessage);
+            BannerMaker.getInstance().getMessageService().send(player, Component.text("Error: " + response.errorMessage, NamedTextColor.RED));
             return false;
         }
         InventoryUtil.give(player, banner);
-        BannerMaker.getInstance().getMessageService().send(player, "&a" + tl("general.money-transaction", BannerMaker.getInstance().econ.format(response.amount), BannerMaker.getInstance().econ.format(response.balance)));
+        BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.GREEN, "general.money-transaction", BannerMaker.getInstance().econ.format(response.amount), BannerMaker.getInstance().econ.format(response.balance)));
         return true;
     }
 

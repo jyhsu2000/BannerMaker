@@ -8,6 +8,9 @@ import club.kid7.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -23,7 +26,8 @@ public class ChooseAlphabetGUI {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
 
-        String title = messageService.formatToString(tl("gui.prefix") + tl("gui.alphabet-and-number"));
+        Component titleComponent = tl("gui.prefix").append(tl("gui.alphabet-and-number"));
+        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));
 
@@ -53,7 +57,7 @@ public class ChooseAlphabetGUI {
         // 注意：這會覆蓋掉字母列表在 Slot 49 的項目（如果有的話）
         // 字母列表最多到 '.' (index 38)，所以 Slot 49 是安全的。
         ItemStack btnBorderedBanner = new ItemBuilder(Material.WHITE_BANNER)
-            .name(messageService.formatToString("&a" + tl("gui.toggle-border")))
+            .name(tl(NamedTextColor.GREEN, "gui.toggle-border"))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER)).build();
         mainPane.addItem(new GuiItem(btnBorderedBanner, event -> {
             playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
@@ -62,7 +66,7 @@ public class ChooseAlphabetGUI {
         }), 4, 5); // 修正為 (4, 5)
 
         // Slot 45 (0,5): 返回按鈕
-        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(messageService.formatToString("&c" + tl("gui.back"))).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
         mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
             MainMenuGUI.show(player);
             event.setCancelled(true);

@@ -92,6 +92,17 @@ public class MessageService {
     }
 
     /**
+     * 格式化訊息 Component，並在前面加上一個前綴 Component。
+     *
+     * @param prefix  前綴 Adventure Component。
+     * @param message 訊息 Adventure Component。
+     * @return 包含前綴並格式化後的 Adventure Component。
+     */
+    public Component formatWithPrefix(Component prefix, Component message) {
+        return prefix.append(message);
+    }
+
+    /**
      * 將 MiniMessage 或 '&' 顏色代碼格式化為傳統的 '§' 顏色字串。
      * 用於兼容舊版 API 或不支援 Component 的地方。
      *

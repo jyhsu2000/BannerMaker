@@ -17,6 +17,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -43,7 +44,8 @@ public class BannerInfoGUI {
             return;
         }
 
-        String title = messageService.formatToString(tl("gui.prefix") + tl("gui.banner-info"));
+        Component titleComponent = tl("gui.prefix").append(tl("gui.banner-info"));
+        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));
 
@@ -56,17 +58,19 @@ public class BannerInfoGUI {
 
         // Slot 1 (1,0): 圖案數量
         int patternCount = ((BannerMeta) Objects.requireNonNull(banner.getItemMeta())).numberOfPatterns();
-        String patternCountStr;
+        Component patternCountComp;
         if (patternCount > 0) {
-            patternCountStr = patternCount + " " + tl("gui.pattern-s");
+            patternCountComp = Component.text(patternCount + " ").append(tl("gui.pattern-s"));
         } else {
-            patternCountStr = tl("gui.no-patterns");
+            patternCountComp = tl("gui.no-patterns");
         }
         ItemStack signPatternCount;
         if (BannerUtil.isCraftableInSurvival(banner)) {
-            signPatternCount = new ItemBuilder(Material.OAK_SIGN).name(messageService.formatToString("&a" + patternCountStr)).build();
+            signPatternCount = new ItemBuilder(Material.OAK_SIGN).name(Component.empty().color(NamedTextColor.GREEN).append(patternCountComp)).build();
         } else {
-            signPatternCount = new ItemBuilder(Material.OAK_SIGN).name(messageService.formatToString("&a" + patternCountStr)).lore(messageService.formatToString("&c" + tl("gui.uncraftable"))).build();
+            signPatternCount = new ItemBuilder(Material.OAK_SIGN)
+                .name(Component.empty().color(NamedTextColor.GREEN).append(patternCountComp))
+                .lore(Component.empty().color(NamedTextColor.RED).append(tl("gui.uncraftable"))).build();
         }
         mainPane.addItem(new GuiItem(signPatternCount), 1, 0);
 
@@ -74,9 +78,9 @@ public class BannerInfoGUI {
         if (BannerUtil.isCraftable(player, banner)) {
             ItemStack enoughMaterials;
             if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
-                enoughMaterials = new ItemBuilder(Material.OAK_SIGN).name(messageService.formatToString("&a" + tl("gui.materials.enough"))).build();
+                enoughMaterials = new ItemBuilder(Material.OAK_SIGN).name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.materials.enough"))).build();
             } else {
-                enoughMaterials = new ItemBuilder(Material.OAK_SIGN).name(messageService.formatToString("&c" + tl("gui.materials.not-enough"))).build();
+                enoughMaterials = new ItemBuilder(Material.OAK_SIGN).name(Component.empty().color(NamedTextColor.RED).append(tl("gui.materials.not-enough"))).build();
             }
             mainPane.addItem(new GuiItem(enoughMaterials), 2, 0);
 
@@ -97,7 +101,7 @@ public class BannerInfoGUI {
         // 功能按鈕 (底部行)
 
         // Slot 45 (0,5): 返回按鈕
-        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(messageService.formatToString("&c" + tl("gui.back"))).build();
+        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(Component.empty().color(NamedTextColor.RED).append(tl("gui.back"))).build();
         mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
             if (AlphabetBanner.isAlphabetBanner(banner)) {
                 CreateAlphabetGUI.show(player);
@@ -110,7 +114,7 @@ public class BannerInfoGUI {
         // Slot 47 (2,5): 刪除旗幟 (若已儲存)
         final String key = BannerUtil.getKey(banner);
         if (key != null) {
-            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(messageService.formatToString("&c" + tl("gui.delete"))).build();
+            ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(Component.empty().color(NamedTextColor.RED).append(tl("gui.delete"))).build();
             mainPane.addItem(new GuiItem(btnDelete, event -> {
                 IOUtil.removeBanner(player, key);
                 MainMenuGUI.show(player);
@@ -120,37 +124,37 @@ public class BannerInfoGUI {
 
         // Slot 49 (4,5): 取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
-            ItemStack btnGetBanner = new ItemBuilder(Material.LIME_WOOL).name(messageService.formatToString("&a" + tl("gui.get-this-banner"))).build();
+            ItemStack btnGetBanner = new ItemBuilder(Material.LIME_WOOL).name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.get-this-banner"))).build();
             final String showName = BannerUtil.getName(banner);
 
             if (player.hasPermission("BannerMaker.getBanner.free")) {
-                btnGetBanner = new ItemBuilder(btnGetBanner).addLore(messageService.formatToString("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-for-free"))).build();
+                btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left")).append(Component.text("] ", NamedTextColor.YELLOW)).append(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.get-banner-for-free")))).build();
                 mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                     InventoryUtil.give(player, banner);
-                    messageService.send(player, messageService.format("&a" + tl("gui.get-banner", showName))); // 使用 format 方法轉換為 Adventure Component
+                    messageService.send(player, Component.empty().color(NamedTextColor.GREEN).append(tl("gui.get-banner", showName)));
                     MainMenuGUI.show(player); // 動作完成後返回主選單
                     event.setCancelled(true);
                 }), 4, 5); // 修正為 (4, 5)
             } else {
-                btnGetBanner = new ItemBuilder(btnGetBanner).addLore(messageService.formatToString("&e[" + tl("gui.click.left") + "] &a" + tl("gui.get-banner-by-craft"))).build();
+                btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left")).append(Component.text("] ", NamedTextColor.YELLOW)).append(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.get-banner-by-craft")))).build();
                 if (BannerMaker.getInstance().econ != null) {
                     double price = EconUtil.getPrice(banner);
                     String priceStr = BannerMaker.getInstance().econ.format(price);
-                    btnGetBanner = new ItemBuilder(btnGetBanner).addLore(messageService.formatToString("&e[" + tl("gui.click.right") + "] &a" + tl("gui.buy-banner-in-price", priceStr))).build();
+                    btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.right")).append(Component.text("] ", NamedTextColor.YELLOW)).append(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.buy-banner-in-price", priceStr)))).build();
                 }
 
                 mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                     if (event.getClick().isLeftClick()) {
                         boolean success = BannerUtil.craft(player, banner);
                         if (success) {
-                            messageService.send(player, messageService.format("&a" + tl("gui.get-banner", showName))); // 使用 format 方法轉換為 Adventure Component
+                            messageService.send(player, Component.empty().color(NamedTextColor.GREEN).append(tl("gui.get-banner", showName)));
                         } else {
-                            messageService.send(player, messageService.format("&c" + tl("gui.materials.not-enough"))); // 使用 format 方法轉換為 Adventure Component
+                            messageService.send(player, Component.empty().color(NamedTextColor.RED).append(tl("gui.materials.not-enough")));
                         }
                     } else if (event.getClick().isRightClick() && BannerMaker.getInstance().econ != null) {
                         boolean success = BannerUtil.buy(player, banner);
                         if (success) {
-                            messageService.send(player, messageService.format("&a" + tl("gui.get-banner", showName))); // 使用 format 方法轉換為 Adventure Component
+                            messageService.send(player, Component.empty().color(NamedTextColor.GREEN).append(tl("gui.get-banner", showName)));
                         }
                     }
                     MainMenuGUI.show(player); // 動作完成後返回主選單
@@ -160,7 +164,7 @@ public class BannerInfoGUI {
         }
 
         // Slot 51 (6,5): 複製並編輯
-        ItemStack btnCloneAndEdit = new ItemBuilder(Material.WRITABLE_BOOK).name(messageService.formatToString("&9" + tl("gui.clone-and-edit"))).build();
+        ItemStack btnCloneAndEdit = new ItemBuilder(Material.WRITABLE_BOOK).name(Component.empty().color(NamedTextColor.BLUE).append(tl("gui.clone-and-edit"))).build();
         mainPane.addItem(new GuiItem(btnCloneAndEdit, event -> {
             playerData.setCurrentEditBanner(banner);
             CreateBannerGUI.show(player); // 開啟新版編輯介面
@@ -169,12 +173,12 @@ public class BannerInfoGUI {
 
         // Slot 52 (7,5): 展示旗幟
         if (player.hasPermission("BannerMaker.show.nearby") || player.hasPermission("BannerMaker.show.all")) {
-            ItemStack btnShow = new ItemBuilder(Material.BELL).name(messageService.formatToString("&9Show banner to players")).build();
+            ItemStack btnShow = new ItemBuilder(Material.BELL).name(Component.text("Show banner to players", NamedTextColor.BLUE)).build();
             if (player.hasPermission("BannerMaker.show.nearby")) {
-                btnShow = new ItemBuilder(btnShow).addLore(messageService.formatToString("&e[" + tl("gui.click.left") + "] &aShow to nearby players")).build();
+                btnShow = new ItemBuilder(btnShow).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left")).append(Component.text("] ", NamedTextColor.YELLOW)).append(Component.text("Show to nearby players", NamedTextColor.GREEN))).build();
             }
             if (player.hasPermission("BannerMaker.show.all")) {
-                btnShow = new ItemBuilder(btnShow).addLore(messageService.formatToString("&e[" + tl("gui.click.right") + "] &aShow to all players")).build();
+                btnShow = new ItemBuilder(btnShow).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.right")).append(Component.text("] ", NamedTextColor.YELLOW)).append(Component.text("Show to all players", NamedTextColor.GREEN))).build();
             }
             mainPane.addItem(new GuiItem(btnShow, event -> {
                 String bannerString = BannerUtil.serialize(banner);
@@ -219,7 +223,7 @@ public class BannerInfoGUI {
 
         // Slot 53 (8,5): 生成指令
         if (player.hasPermission("BannerMaker.view")) {
-            ItemStack btnGenerateCommand = new ItemBuilder(Material.COMMAND_BLOCK).name(messageService.formatToString("&9Get share command")).build();
+            ItemStack btnGenerateCommand = new ItemBuilder(Material.COMMAND_BLOCK).name(Component.text("Get share command", NamedTextColor.BLUE)).build();
             mainPane.addItem(new GuiItem(btnGenerateCommand, event -> {
                 String bannerString = BannerUtil.serialize(banner);
                 Component msg = Component.text("[Click here to copy command to clipboard]")
@@ -259,7 +263,7 @@ public class BannerInfoGUI {
 
         // Slot 22 (4,2): 上一頁按鈕
         if (currentRecipePage > 1) {
-            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(messageService.formatToString("&a" + tl("gui.prev-page"))).build();
+            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.prev-page"))).build();
             mainPane.addItem(new GuiItem(prevPage, event -> {
                 playerData.setCurrentRecipePage(currentRecipePage - 1);
                 updateCraftingRecipeSection(player, gui, mainPane, playerData, banner, messageService);
@@ -270,7 +274,7 @@ public class BannerInfoGUI {
 
         // Slot 26 (8,2): 下一頁按鈕
         if (currentRecipePage < totalPage) {
-            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(messageService.formatToString("&a" + tl("gui.next-page"))).build();
+            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.next-page"))).build();
             mainPane.addItem(new GuiItem(nextPage, event -> {
                 playerData.setCurrentRecipePage(currentRecipePage + 1);
                 updateCraftingRecipeSection(player, gui, mainPane, playerData, banner, messageService);
@@ -282,8 +286,8 @@ public class BannerInfoGUI {
         // Slot 6 (6,0): 合成表工作台/織布機圖示
         HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
         ItemStack workbench = new ItemBuilder(Material.CRAFTING_TABLE).amount(currentRecipePage)
-            .name(messageService.formatToString("&a" + tl("gui.craft-recipe")))
-            .lore(messageService.formatToString("&r(" + currentRecipePage + "/" + totalPage + ")")).build();
+            .name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.craft-recipe")))
+            .lore(Component.text("(" + currentRecipePage + "/" + totalPage + ")")).build();
         if (BannerUtil.isLoomRecipe(patternRecipe)) {
             workbench.setType(Material.LOOM);
         }

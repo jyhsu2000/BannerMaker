@@ -10,10 +10,12 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,9 @@ public class MainMenuGUI {
 
     public static void show(Player player) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
-        String title = messageService.formatToString(tl("gui.prefix") + tl("gui.main-menu"));
+        Component titleComponent = tl("gui.prefix").append(tl("gui.main-menu"));
+        // InventoryFramework 標題需要 Legacy String
+        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
 
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));
@@ -53,7 +57,7 @@ public class MainMenuGUI {
 
         // 製作旗幟按鈕
         ItemStack btnCreateBanner = new ItemBuilder(Material.LIME_WOOL)
-            .name(messageService.formatToString("&a" + tl("gui.create-banner")))
+            .name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.create-banner")))
             .build();
         navigationPane.addItem(new GuiItem(btnCreateBanner, event -> {
             CreateBannerGUI.show(player);
@@ -63,12 +67,9 @@ public class MainMenuGUI {
         // 製作字母按鈕 (若啟用)
         if (BannerMaker.getInstance().enableAlphabetAndNumber) {
             ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
-            ItemMeta meta = btnCreateAlphabet.getItemMeta();
-            if (meta != null) {
-                meta.setDisplayName(messageService.formatToString("&a" + tl("gui.alphabet-and-number")));
-                btnCreateAlphabet.setItemMeta(meta);
-            }
-            navigationPane.addItem(new GuiItem(btnCreateAlphabet, event -> {
+            ItemBuilder btnBuilder = new ItemBuilder(btnCreateAlphabet);
+            btnBuilder.name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.alphabet-and-number")));
+            navigationPane.addItem(new GuiItem(btnBuilder.build(), event -> {
                 ChooseAlphabetGUI.show(player);
                 event.setCancelled(true);
             }), 6, 0); // Slot 51 是最後一行的第 7 格 (索引 6)
@@ -87,7 +88,7 @@ public class MainMenuGUI {
         if (paginatedPane.getPage() > 0) {
             ItemStack prevPage = new ItemBuilder(Material.ARROW)
                 .amount(paginatedPane.getPage()) // 將當前頁碼設為物品數量 (視覺效果)
-                .name(messageService.formatToString("&a" + tl("gui.prev-page")))
+                .name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.prev-page")))
                 .build();
 
             navigationPane.addItem(new GuiItem(prevPage, event -> {
@@ -104,7 +105,7 @@ public class MainMenuGUI {
         if (paginatedPane.getPage() < paginatedPane.getPages() - 1) {
             ItemStack nextPage = new ItemBuilder(Material.ARROW)
                 .amount(paginatedPane.getPage() + 2) // 將下一頁碼設為物品數量 (視覺效果)
-                .name(messageService.formatToString("&a" + tl("gui.next-page")))
+                .name(Component.empty().color(NamedTextColor.GREEN).append(tl("gui.next-page")))
                 .build();
 
             navigationPane.addItem(new GuiItem(nextPage, event -> {

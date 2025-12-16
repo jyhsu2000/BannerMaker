@@ -91,6 +91,20 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder addLore(Component... lore) {
+        if (itemMeta != null) {
+            List<String> currentLore = itemMeta.getLore();
+            if (currentLore == null) {
+                currentLore = new ArrayList<>();
+            }
+            for (Component c : lore) {
+                currentLore.add(LegacyComponentSerializer.legacySection().serialize(c));
+            }
+            itemMeta.setLore(currentLore);
+        }
+        return this;
+    }
+
     public ItemBuilder amount(int amount) {
         itemStack.setAmount(amount);
         return this;
