@@ -60,7 +60,7 @@ XSeries)。
     - 恢復並修復 `BannerUtilTest`。
     - 為 `ItemBuilder` 撰寫測試。
     - 為新 GUI 邏輯撰寫測試 (如果可行)。
--   [ ] **Jar 檔案瘦身 (Optimization)**:
+-   [x] **Jar 檔案瘦身 (Optimization)**:
     - 目前 Jar 檔約 12MB，因為包含了所有依賴的完整內容。
     - **任務**: 在 `pom.xml` 的 `maven-shade-plugin` 設定中啟用 `<minimizeJar>true</minimizeJar>`，移除未使用的類別。
 
