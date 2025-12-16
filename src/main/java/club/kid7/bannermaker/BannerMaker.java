@@ -48,8 +48,10 @@ public class BannerMaker extends JavaPlugin {
         //Reload
         reload();
         //bStats
-        int pluginId = 383;
-        new Metrics(this, pluginId);
+        if (!"false".equals(System.getProperty("bstats.relocate.check"))) {
+            int pluginId = 383;
+            new Metrics(this, pluginId);
+        }
     }
 
     @Override

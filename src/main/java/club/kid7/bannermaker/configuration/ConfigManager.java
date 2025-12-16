@@ -52,6 +52,8 @@ public class ConfigManager {
                 plugin.saveResource(fileName, false);
             } catch (Exception e) {
                 // 忽略錯誤，可能是因為 jar 中沒有對應的資源檔（例如玩家資料）
+                // 但如果是語言檔或設定檔，這可能是一個問題，所以在 debug 模式下或是測試時這很有用
+                plugin.getLogger().warning("Could not save resource: " + fileName + " (" + e.getMessage() + ")");
             }
         }
         if (!isFileLoaded(fileName)) {
