@@ -49,7 +49,7 @@ class BannerUtilTest {
     void isBanner_ShouldReturnFalseForNonBanners() {
         assertFalse(BannerUtil.isBanner(new ItemStack(Material.STONE)));
         assertFalse(BannerUtil.isBanner(new ItemStack(Material.STICK)));
-        assertFalse(BannerUtil.isBanner(null));
+        assertFalse(BannerUtil.isBanner((ItemStack) null));
     }
 
     @Test

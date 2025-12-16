@@ -71,7 +71,7 @@ public class BannerMakerCommand extends BaseCommand {
     @Description("Show banner info of the banner you're looking at")
     public void onSee(Player player) {
         Block block = player.getTargetBlockExact(20);
-        if (block == null || !block.getType().name().endsWith("_BANNER")) {
+        if (block == null || !BannerUtil.isBanner(block.getType())) {
             plugin.getMessageService().send(player, tl(NamedTextColor.RED, "command.not-banner-see"));
             return;
         }

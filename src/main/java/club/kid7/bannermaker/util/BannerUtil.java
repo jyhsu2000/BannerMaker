@@ -2,6 +2,8 @@ package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
+import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XTag;
 import com.google.common.collect.Maps;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -33,13 +35,29 @@ import static club.kid7.bannermaker.configuration.Language.tl;
 
 public class BannerUtil {
     /**
-     * 檢查ItemStack是否為旗幟
+     * 檢查 ItemStack 是否為旗幟
      *
-     * @param itemStack 欲檢查的物品
-     * @return boolean
+     * @param itemStack 要檢查的物品
+     * @return 是否為旗幟
      */
     static public boolean isBanner(ItemStack itemStack) {
-        return itemStack != null && itemStack.getType().name().endsWith("_BANNER");
+        if (itemStack == null) {
+            return false;
+        }
+        return isBanner(itemStack.getType());
+    }
+
+    /**
+     * 檢查 Material 是否為旗幟
+     *
+     * @param material 要檢查的材質
+     * @return 是否為旗幟
+     */
+    static public boolean isBanner(Material material) {
+        if (material == null) {
+            return false;
+        }
+        return XTag.BANNERS.isTagged(XMaterial.matchXMaterial(material));
     }
 
     /**
