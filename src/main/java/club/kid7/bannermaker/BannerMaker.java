@@ -36,6 +36,7 @@ public class BannerMaker extends JavaPlugin {
 
         // 初始化 ACF Command Manager
         commandManager = new PaperCommandManager(this);
+        commandManager.enableUnstableAPI("help");
 
         //Commands
         registerCommands();

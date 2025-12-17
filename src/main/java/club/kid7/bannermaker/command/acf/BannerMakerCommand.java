@@ -7,10 +7,12 @@ import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
 import co.aikar.commands.BaseCommand;
+import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Description;
+import co.aikar.commands.annotation.HelpCommand;
 import co.aikar.commands.annotation.Subcommand;
 import co.aikar.commands.annotation.Syntax;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -25,7 +27,7 @@ import java.util.Objects;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
 
-@CommandAlias("bannermaker|bm")
+@CommandAlias("bm|bannermaker")
 public class BannerMakerCommand extends BaseCommand {
 
     private final BannerMaker plugin;
@@ -43,19 +45,10 @@ public class BannerMakerCommand extends BaseCommand {
         MainMenuGUI.show(player);
     }
 
-    @Subcommand("help")
+    @HelpCommand
     @Description("Show help message")
-    public void onHelp(CommandSender sender) {
-        // 顯示插件資訊
-        String pluginName = plugin.getName();
-        String pluginVersion = plugin.getDescription().getVersion();
-        plugin.getMessageService().send(sender, "&e" + pluginName + " - " + pluginVersion);
-
-        // 顯示指令列表 (手動列表，或後續整合 ACF Help)
-        plugin.getMessageService().send(sender, "&b/bm &7- Open main menu");
-        plugin.getMessageService().send(sender, "&b/bm help &7- Show command list");
-        plugin.getMessageService().send(sender, "&b/bm reload &7- Reload config");
-        // TODO: 補完其他指令的幫助訊息
+    public void onHelp(CommandHelp help) {
+        help.showHelp();
     }
 
     @Subcommand("reload")
