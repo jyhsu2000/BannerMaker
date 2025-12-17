@@ -10,6 +10,7 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，允許玩家透過 GUI 製
 - **Language**: Java 21
 - **Platform**: Spigot / Paper 1.21.4+
 - **Build System**: Maven (支援 `minimizeJar` 優化)
+- **Local Env**: `& "C:\Users\jyhsu\AppData\Local\Programs\IntelliJ IDEA Ultimate\plugins\maven\lib\maven3\bin\mvn.cmd"`
 - **Key Libraries**:
     - **Adventure**: `4.17.0` (Text) / `4.3.4` (Platform Bukkit) - 文字與訊息處理核心。
     - **ACF (Paper)**: `0.5.1-SNAPSHOT` - 指令管理系統。
