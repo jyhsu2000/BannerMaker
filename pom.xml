@@ -10,46 +10,46 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.4-R0.1-SNAPSHOT</version>
+            <version>${paper.api.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Bukkit API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.21.4-R0.1-SNAPSHOT</version>
+            <version>${spigot.api.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- VaultAPI -->
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>1.7</version>
+            <version>${vault.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- bstats -->
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>2.2.1</version>
+            <version>${bstats.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>19.0.0</version>
+            <version>${annotations.version}</version>
         </dependency>
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.10.2</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockbukkit.mockbukkit</groupId>
             <artifactId>mockbukkit-v1.21</artifactId>
-            <version>4.41.1</version>
+            <version>${mockbukkit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -58,36 +58,50 @@
         <dependency>
             <groupId>co.aikar</groupId>
             <artifactId>acf-paper</artifactId>
-            <version>0.5.1-SNAPSHOT</version>
+            <version>${acf.version}</version>
         </dependency>
         <!-- Adventure (Text UI) -->
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-platform-bukkit</artifactId>
-            <version>4.4.1</version>
+            <version>${adventure.platform.version}</version>
         </dependency>
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-minimessage</artifactId>
-            <version>4.17.0</version>
+            <version>${adventure.version}</version>
         </dependency>
         <!-- InventoryFramework (GUI) -->
         <dependency>
             <groupId>com.github.stefvanschie.inventoryframework</groupId>
             <artifactId>IF</artifactId>
-            <version>0.10.14</version>
+            <version>${inventory.framework.version}</version>
         </dependency>
         <!-- XSeries (Cross-version compatibility) -->
         <dependency>
             <groupId>com.github.cryptomorin</groupId>
             <artifactId>XSeries</artifactId>
-            <version>11.3.0</version>
+            <version>${xseries.version}</version>
         </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Dependency Versions -->
+        <paper.api.version>1.21.4-R0.1-SNAPSHOT</paper.api.version>
+        <spigot.api.version>1.21.4-R0.1-SNAPSHOT</spigot.api.version>
+        <vault.version>1.7</vault.version>
+        <bstats.version>2.2.1</bstats.version>
+        <annotations.version>19.0.0</annotations.version>
+        <junit.version>5.10.2</junit.version>
+        <mockbukkit.version>4.41.1</mockbukkit.version>
+        <acf.version>0.5.1-SNAPSHOT</acf.version>
+        <adventure.version>4.17.0</adventure.version>
+        <adventure.platform.version>4.4.1</adventure.platform.version>
+        <inventory.framework.version>0.10.14</inventory.framework.version>
+        <xseries.version>11.3.0</xseries.version>
     </properties>
 
     <!-- More Project Information -->
@@ -169,6 +183,24 @@
                     </relocations>
                     <filters>
                         <filter>
+                            <artifact>club.kid7:BannerMaker</artifact>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </filter>
+                        <filter>
+                            <artifact>co.aikar:acf-paper</artifact>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </filter>
+                        <filter>
+                            <artifact>com.github.cryptomorin:XSeries</artifact>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </filter>
+                        <filter>
                             <artifact>*:*</artifact>
                             <excludes>
                                 <exclude>META-INF/*.MF</exclude>
@@ -181,6 +213,14 @@
                     <transformers>
                         <transformer
                             implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                        <transformer
+                            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <manifestEntries>
+                                <Implementation-Title>${project.name}</Implementation-Title>
+                                <Implementation-Version>${project.version}</Implementation-Version>
+                                <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                            </manifestEntries>
+                        </transformer>
                     </transformers>
                 </configuration>
                 <executions>
