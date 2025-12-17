@@ -3,6 +3,7 @@ package club.kid7.bannermaker.configuration;
 import club.kid7.bannermaker.BannerMaker;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.apache.commons.lang.LocaleUtils;
 import org.bukkit.ChatColor;
@@ -88,7 +89,17 @@ public class Language {
             // 如果 Language 實例尚未初始化，返回一個空的 Component
             return Component.empty();
         }
-        return instance.get(path, args);
+        String raw = instance.get(path, args);
+
+        // 判斷是否包含 MiniMessage 標記 (簡單判斷 < 和 >)
+        boolean containsMiniMessageTags = raw.contains("<") && raw.contains(">");
+
+        if (containsMiniMessageTags) {
+            return MiniMessage.miniMessage().deserialize(raw);
+        } else {
+            // 如果沒有 MiniMessage 標記，則假定為 Legacy 格式
+            return LegacyComponentSerializer.legacyAmpersand().deserialize(raw);
+        }
     }
 
     /**
@@ -103,16 +114,15 @@ public class Language {
         return Component.empty().color(color).append(tl(path, args));
     }
 
-    private Component get(String path, Object... args) {
+    private String get(String path, Object... args) {
         FileConfiguration config = ConfigManager.get(getFileName(locale));
         if (!config.contains(path) || !config.isString(path)) {
             //若無法取得，則自該語言資源檔取得，但不儲存於語系檔 (避免執行時阻塞 I/O)
             config.set(path, getFromLanguageResource(path, args));
         }
         // 取得訊息字串並替換參數
-        String messageString = replaceArgument((String) config.get(path), args);
-        // 使用 LegacyComponentSerializer 將帶有 '&' 顏色代碼的字串轉換為 Component
-        return LegacyComponentSerializer.legacyAmpersand().deserialize(messageString);
+        // 返回原始字串，讓 tl() 判斷解析器
+        return replaceArgument((String) config.get(path), args);
     }
 
     private String getFromLanguageResource(String path, Object... args) {
