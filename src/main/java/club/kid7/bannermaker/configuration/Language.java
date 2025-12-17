@@ -4,6 +4,7 @@ import club.kid7.bannermaker.BannerMaker;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.apache.commons.lang.LocaleUtils;
 import org.bukkit.ChatColor;
@@ -80,8 +81,16 @@ public class Language {
         bm.getCommandManager().getLocales().setDefaultLocale(locale);
     }
 
-    private String getFileName(Locale locale) {
-        return "language" + File.separator + locale.toString() + ".yml";
+    public static Component tl(String path, TagResolver... tags) {
+        if (instance == null) {
+            return Component.empty();
+        }
+        String raw = instance.getRawString(path);
+        return MiniMessage.miniMessage().deserialize(raw, tags);
+    }
+
+    public static Component tl(NamedTextColor color, String path, Object... args) {
+        return Component.empty().color(color).append(tl(path, args));
     }
 
     public static Component tl(String path, Object... args) {
@@ -102,43 +111,51 @@ public class Language {
         }
     }
 
-    /**
-     * 取得帶有預設顏色的翻譯 Component。
-     *
-     * @param color 預設顏色
-     * @param path  語言檔路徑
-     * @param args  參數
-     * @return 帶有顏色的 Component
-     */
-    public static Component tl(NamedTextColor color, String path, Object... args) {
-        return Component.empty().color(color).append(tl(path, args));
+    private String getFileName(Locale locale) {
+        return "language" + File.separator + locale.toString() + ".yml";
+    }
+
+    private String getRawString(String path) {
+        FileConfiguration config = ConfigManager.get(getFileName(locale));
+        if (!config.contains(path) || !config.isString(path)) {
+            config.set(path, getFromLanguageResource(path)); // 這裡也不傳 args
+        }
+        String messageString = (String) config.get(path); // 取得原始 YAML 字串
+
+        // 判斷是否包含 MiniMessage 標記
+        if (messageString.contains("<") && messageString.contains(">")) {
+            return messageString;
+        }
+
+        // 如果是 Legacy 格式，轉換為 MiniMessage 格式
+        return MiniMessage.miniMessage().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(messageString));
     }
 
     private String get(String path, Object... args) {
         FileConfiguration config = ConfigManager.get(getFileName(locale));
         if (!config.contains(path) || !config.isString(path)) {
             //若無法取得，則自該語言資源檔取得，但不儲存於語系檔 (避免執行時阻塞 I/O)
-            config.set(path, getFromLanguageResource(path, args));
+            config.set(path, getFromLanguageResource(path));
         }
         // 取得訊息字串並替換參數
         // 返回原始字串，讓 tl() 判斷解析器
         return replaceArgument((String) config.get(path), args);
     }
 
-    private String getFromLanguageResource(String path, Object... args) {
+    private String getFromLanguageResource(String path) {
         if (!languageConfigResource.contains(path) || !languageConfigResource.isString(path)) {
             //若無法取得，則自預設語言資源檔取得
-            languageConfigResource.set(path, getFromDefaultLanguageResource(path, args));
+            languageConfigResource.set(path, getFromDefaultLanguageResource(path));
         }
-        return replaceArgument((String) languageConfigResource.get(path), args);
+        return (String) languageConfigResource.get(path);
     }
 
-    private String getFromDefaultLanguageResource(String path, Object... args) {
+    private String getFromDefaultLanguageResource(String path) {
         if (!defaultLanguageConfigResource.contains(path) || !defaultLanguageConfigResource.isString(path)) {
             //若無法取得，則給予[Missing Message]標記
             defaultLanguageConfigResource.set(path, "&c[Missing Message] &r" + path);
         }
-        return replaceArgument((String) defaultLanguageConfigResource.get(path), args);
+        return (String) defaultLanguageConfigResource.get(path);
     }
 
     private String replaceArgument(String message, Object... args) {
