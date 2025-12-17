@@ -233,8 +233,6 @@
                                 <exclude>org/jspecify/annotations/**</exclude>
                                 <exclude>com/google/auto/service/**</exclude>
                                 <exclude>com/google/errorprone/annotations/**</exclude>
-                                <!-- Exclude ACF localization properties -->
-                                <exclude>**/acf-*_*.properties</exclude>
                                 <!-- Exclude InventoryFramework font resources -->
                                 <exclude>fonts/*.csv</exclude>
                             </excludes>

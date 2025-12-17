@@ -75,6 +75,8 @@ public class Language {
         //檢查語言包
         checkConfig(locale);
         bm.getLogger().info("Language: " + locale);
+        // 設定 ACF 語言
+        bm.getCommandManager().getLocales().setDefaultLocale(locale);
     }
 
     private String getFileName(Locale locale) {
