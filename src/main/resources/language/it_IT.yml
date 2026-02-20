@@ -4,20 +4,17 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: Ricarica la configurazione
-  no-permission: Non hai i permessi
   no-money: Non hai abbastanza soldi
-  money-transaction: Usa {0} per ottenere uno stendardo. Ora hai {1}
+  money-transaction: Usa <amount> per ottenere uno stendardo. Ora hai <balance>
 io:
   save-failed: Salvataggio fallito.
   save-success: Salvataggio avvenuto con successo.
-  remove-banner: Rimuovi lo stendardo &r#{0}
+  remove-banner: Rimuovi lo stendardo &r#<key>
 command:
-  player-only: Questo comando può essere utilizzato solo dai giocatori
-  invalid-parameter: 'Parametri non validi, utilizzo corretto: {0}'
   not-banner-hand: L'oggetto nella mano non è uno stendardo.
   not-banner-see: Il blocco che stai guardando non è uno stendardo.
 config:
-  add-setting: Aggiungi {0} nuove impostazioni
+  add-setting: Aggiungi <count> nuove impostazioni
 gui:
   title:
     prefix: '&4[BM]&r '
@@ -41,11 +38,10 @@ gui:
   no-patterns: Nessun motivo
   craft-recipe: Crea la Ricetta
   get-this-banner: Ottieni questo stendardo
-  get-banner: Ottieni lo stendardo &r#{0}
+  get-banner: Ottieni lo stendardo &r#<name>
   get-banner-for-free: Ottieni lo stendardo gratuitamente
-  buy-banner-in-price: Compra in {0}
+  buy-banner-in-price: Compra in <price>
   get-banner-by-craft: Crea
-  price: 'Prezzo: {0}'
   clone-and-edit: 'Copia e Modifica'
   alphabet-and-number: 'Alfabeto e Numeri'
   toggle-border: Abilita/disabilita i bordi

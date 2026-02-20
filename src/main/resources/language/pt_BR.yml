@@ -4,20 +4,17 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: Config recarregada
-  no-permission: Sem permissao
   no-money: Voce nao tem dinheiro
-  money-transaction: Use {0} para obter banner. Agora você tem {1}
+  money-transaction: Use <amount> para obter banner. Agora você tem <balance>
 io:
   save-failed: Falha ao salvar.
   save-success: Savo com sucesso.
-  remove-banner: Remover banner &r#{0}
+  remove-banner: Remover banner &r#<key>
 command:
-  player-only: Este comando só pode ser usado por jogadores no jogo
-  invalid-parameter: 'Parâmetro(s) inválido(s), uso correto: {0}'
   not-banner-hand: O item na mão não é um banner.
   not-banner-see: O bloco que você está olhando não é um banner.
 config:
-  add-setting: Adicionado {0} novas configurações
+  add-setting: Adicionado <count> novas configurações
 gui:
   title:
     prefix: '&4[BM]&r '
@@ -41,8 +38,7 @@ gui:
   no-patterns: Sem padrões
   craft-recipe: Craft Recipe
   get-this-banner: Obtenha este banner
-  get-banner: Obter banner &r#{0}
-  price: 'Valor: {0}'
+  get-banner: Obter banner &r#<name>
   clone-and-edit: 'Clone & Editar'
   alphabet-and-number: 'Alfabeto e Número'
   toggle-border: Alternar borda

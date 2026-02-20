@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
+import static club.kid7.bannermaker.util.TagUtil.tag;
 
 public class BannerService {
 
@@ -75,8 +76,8 @@ public class BannerService {
         }
         InventoryUtil.give(player, banner);
         messageService.send(player, tl(NamedTextColor.GREEN, "general.money-transaction",
-                economyService.format(response.amount),
-                economyService.format(response.balance)));
+            tag("amount", economyService.format(response.amount)),
+            tag("balance", economyService.format(response.balance))));
         return true;
     }
 

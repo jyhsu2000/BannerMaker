@@ -4,20 +4,17 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: Перезагрузить конфиг
-  no-permission: Нет прав
   no-money: Недостаточно денег
-  money-transaction: Используй {0} для получения баннера. Сейчас вы имеете {1}
+  money-transaction: Используй <amount> для получения баннера. Сейчас вы имеете <balance>
 io:
   save-failed: Сохранение не удалось.
   save-success: Сохранение успешно.
-  remove-banner: Удалить баннер &r#{0}
+  remove-banner: Удалить баннер &r#<key>
 command:
-  player-only: Эта команда может быть использована только игроками
-  invalid-parameter: 'Недопустимый(е) параметр(ы), правильное использование: {0}'
   not-banner-hand: Предмет в руке, не баннер.
   not-banner-see: Блок, на который вы смотрите, не является баннером.
 config:
-  add-setting: Добавить {0} новые настройки
+  add-setting: Добавить <count> новые настройки
 gui:
   title:
     prefix: '&4[BM]&r '
@@ -41,8 +38,7 @@ gui:
   no-patterns: Нет узоров
   craft-recipe: Рецепт крафта
   get-this-banner: Получить этот баннер
-  get-banner: Получен баннер &r#{0}
-  price: 'Стоимость: {0}'
+  get-banner: Получен баннер &r#<name>
   clone-and-edit: Клонировать и изменить
   alphabet-and-number: Буквы и Цифры
   toggle-border: Включить обводку
@@ -50,7 +46,7 @@ gui:
     enough: Материалов достаточно
     not-enough: Материалов не достаточно
   get-banner-for-free: Получитm баннер бесплатно
-  buy-banner-in-price: Купить за {0}
+  buy-banner-in-price: Купить за <price>
   get-banner-by-craft: Скрафтить
   click:
     left: Левый Клик

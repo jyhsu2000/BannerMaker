@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
+import static club.kid7.bannermaker.util.TagUtil.tag;
 
 public class DefaultConfig {
     private final BannerMaker bm;
@@ -56,7 +57,7 @@ public class DefaultConfig {
             }
             if (newSettingCount > 0) {
                 ConfigManager.save(configFileName);
-                bm.getMessageService().send(bm.getServer().getConsoleSender(), tl("config.add-setting", newSettingCount));
+                bm.getMessageService().send(bm.getServer().getConsoleSender(), tl("config.add-setting", tag("count", newSettingCount)));
             }
         }
     }

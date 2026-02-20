@@ -4,20 +4,17 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: A konfig fájl frissítése
-  no-permission: Nincs jogosultságod a használatára
   no-money: Nincs elegendő egyenleged
-  money-transaction: Használd {0}, hogy bannert kapj, jelenleg van {1}
+  money-transaction: Használd <amount>, hogy bannert kapj, jelenleg van <balance>
 io:
   save-failed: A mentés sikertelen.
   save-success: A mentés sikeres.
-  remove-banner: A banner eltávolítása &r#{0}
+  remove-banner: A banner eltávolítása &r#<key>
 command:
-  player-only: Ezt a parancsot csak a játékban lévő játékosok használhatják
-  invalid-parameter: 'Érvénytelen paraméter(ek), helyes használat: {0}'
   not-banner-hand: A kezedben lévő elem nem egy banner.
   not-banner-see: A blokk, amelyet néz, nem egy banner.
 config:
-  add-setting: Hozzáad egy új beállítást {0}
+  add-setting: Hozzáad egy új beállítást <count>
 gui:
   title:
     prefix: '&4[BM]&r '
@@ -41,8 +38,7 @@ gui:
   no-patterns: Nincsenek minták
   craft-recipe: Barkács Recept
   get-this-banner: Szerezd meg ezt a bannert
-  get-banner: Banner megszerezve &r#{0}
-  price: 'Ára: {0}'
+  get-banner: Banner megszerezve &r#<name>
   clone-and-edit: 'Klón & szerkesztés'
   alphabet-and-number: 'Betűk és számok'
   toggle-border: Kapcsolni a határt

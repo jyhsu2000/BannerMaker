@@ -4,20 +4,17 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: 重新载入
-  no-permission: 权限不足
   no-money: 金钱不足
-  money-transaction: 使用 {0} 取得旗帜，现在你还有 {1}
+  money-transaction: 使用 <amount> 取得旗帜，现在你还有 <balance>
 io:
   save-failed: 储存失败
   save-success: 储存成功
-  remove-banner: 移除旗帜 &r#{0}
+  remove-banner: 移除旗帜 &r#<key>
 command:
-  player-only: 这个指令只能由游戏中的玩家使用
-  invalid-parameter: '参数无效，正确用法: {0}'
   not-banner-hand: 手上拿的物品不是旗帜
   not-banner-see: 看着的方块不是旗帜
 config:
-  add-setting: 新增 {0} 个新设定
+  add-setting: 新增 <count> 个新设定
 gui:
   title:
     prefix: '&4[BM]&r '
@@ -41,11 +38,10 @@ gui:
   no-patterns: 没有图形
   craft-recipe: 合成表
   get-this-banner: 取得这个旗帜
-  get-banner: 取得旗帜 &r#{0}
+  get-banner: 取得旗帜 &r#<name>
   get-banner-for-free: 免费取得
-  buy-banner-in-price: 使用 {0} 购买
+  buy-banner-in-price: 使用 <price> 购买
   get-banner-by-craft: 合成
-  price: '费用: {0}'
   clone-and-edit: 复制并编辑
   alphabet-and-number: 字母与数字
   toggle-border: 切换边框

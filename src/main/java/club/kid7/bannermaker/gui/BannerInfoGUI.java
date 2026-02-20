@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
+import static club.kid7.bannermaker.util.TagUtil.tag;
 
 public class BannerInfoGUI {
 
@@ -112,7 +113,7 @@ public class BannerInfoGUI {
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.delete")).build();
             mainPane.addItem(new GuiItem(btnDelete, event -> {
                 BannerMaker.getInstance().getBannerRepository().removeBanner(player, key);
-                messageService.send(player, tl(NamedTextColor.GREEN, "io.remove-banner", key));
+                messageService.send(player, tl(NamedTextColor.GREEN, "io.remove-banner", tag("key", key)));
                 MainMenuGUI.show(player);
                 event.setCancelled(true);
             }), 2, 5); // 修正為 (2, 5)
@@ -127,7 +128,7 @@ public class BannerInfoGUI {
                 btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left").append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.get-banner-for-free")))).build();
                 mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                     InventoryUtil.give(player, banner);
-                    messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", showName));
+                    messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
                     BannerInfoGUI.show(player); // 重新整理當前頁面
                     event.setCancelled(true);
                 }), 4, 5); // 修正為 (4, 5)
@@ -137,21 +138,21 @@ public class BannerInfoGUI {
                 if (economyService.isAvailable()) {
                     double price = economyService.getPrice(banner);
                     String priceStr = economyService.format(price);
-                    btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.right")).append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.buy-banner-in-price", priceStr))).build();
+                    btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.right")).append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.buy-banner-in-price", tag("price", priceStr)))).build();
                 }
 
                 mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                     if (event.getClick().isLeftClick()) {
                         boolean success = BannerMaker.getInstance().getBannerService().craft(player, banner);
                         if (success) {
-                            messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", showName));
+                            messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
                         } else {
                             messageService.send(player, tl(NamedTextColor.RED, "gui.materials.not-enough"));
                         }
                     } else if (event.getClick().isRightClick() && economyService.isAvailable()) {
                         boolean success = BannerMaker.getInstance().getBannerService().buy(player, banner);
                         if (success) {
-                            messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", showName));
+                            messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
                         }
                     }
                     BannerInfoGUI.show(player); // 重新整理當前頁面

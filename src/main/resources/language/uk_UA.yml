@@ -4,20 +4,17 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: Перезавантажити конфіг
-  no-permission: Немає дозволу
   no-money: Недостатньо коштів
-  money-transaction: Використовуйте {0}, щоб отримати стяг. Наразі у Вас є {1}
+  money-transaction: Використовуйте <amount>, щоб отримати стяг. Наразі у Вас є <balance>
 io:
   save-failed: Не вдалося зберегти.
   save-success: Збереження успішне.
-  remove-banner: Прибрати стяг &r#{0}
+  remove-banner: Прибрати стяг &r#<key>
 command:
-  player-only: Цю команду можуть використовувати лише гравці онлайн
-  invalid-parameter: 'Неправильний параметр(и), коректне використання: {0}'
   not-banner-hand: Предмет у руці не є стягом.
   not-banner-see: Блок, на який Ви дивитися, не є стягом.
 config:
-  add-setting: Доднано {0} налаштувань
+  add-setting: Доднано <count> налаштувань
 gui:
   title:
     prefix: '&4[BM]&r '
@@ -41,11 +38,10 @@ gui:
   no-patterns: Немає візерунків
   craft-recipe: Рецепт Крафту
   get-this-banner: Отримати стяг
-  get-banner: Отримати стяг &r#{0}
+  get-banner: Отримати стяг &r#<name>
   get-banner-for-free: Отримати безкоштовно
-  buy-banner-in-price: Придбати за {0}
+  buy-banner-in-price: Придбати за <price>
   get-banner-by-craft: Скрафтити
-  price: 'Ціна: {0}'
   clone-and-edit: 'Клонувати та Редагувати'
   alphabet-and-number: 'Цифри та Літери'
   toggle-border: Ввімкнути окантовку

@@ -4,17 +4,14 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: config wird neu geladen
-  no-permission: Keine Rechte
   no-money: Nicht genug Geld
-  money-transaction: Du brauchst {0} für das Banner. Du hast gerade {1}
+  money-transaction: Du brauchst <amount> für das Banner. Du hast gerade <balance>
 io:
   save-failed: Speichern fehlgeschlagen.
   save-success: Erfolgreich gespeichert.
-  remove-banner: Lösche Banner &r#{0}
-command:
-  player-only: Dieser Befehl kann nur von Spielern genutzt werden.
+  remove-banner: Lösche Banner &r#<key>
 config:
-  add-setting: Add {0} new settings
+  add-setting: Add <count> new settings
 gui:
   title:
     prefix: '&4[BM]&r '
@@ -38,8 +35,7 @@ gui:
   no-patterns: Keine Muster
   craft-recipe: Rezept
   get-this-banner: Banner bekommen
-  get-banner: Banner &r#{0} bekommen
-  price: 'Preis: {0}'
+  get-banner: Banner &r#<name> bekommen
   clone-and-edit: 'kopieren & bearbeiten'
   alphabet-and-number: 'Alphabet & Zahlen'
   toggle-border: Rand Ein-/Ausschalten

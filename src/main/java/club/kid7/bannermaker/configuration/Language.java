@@ -1,14 +1,13 @@
 package club.kid7.bannermaker.configuration;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.util.TagUtil;
 import co.aikar.locales.MessageKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.apache.commons.lang.LocaleUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -98,57 +97,37 @@ public class Language {
         return MiniMessage.miniMessage().deserialize(raw, tags);
     }
 
-    public static Component tl(NamedTextColor color, String path, Object... args) {
-        return Component.empty().color(color).append(tl(path, args));
-    }
-
-    public static Component tl(String path, Object... args) {
-        if (instance == null) {
-            // 如果 Language 實例尚未初始化，返回一個空的 Component
-            return Component.empty();
-        }
-        String raw = instance.get(path, args);
-
-        // 判斷是否包含 MiniMessage 標記 (簡單判斷 < 和 >)
-        boolean containsMiniMessageTags = raw.contains("<") && raw.contains(">");
-
-        if (containsMiniMessageTags) {
-            return MiniMessage.miniMessage().deserialize(raw);
-        } else {
-            // 如果沒有 MiniMessage 標記，則假定為 Legacy 格式
-            return LegacyComponentSerializer.legacyAmpersand().deserialize(raw);
-        }
+    public static Component tl(NamedTextColor color, String path, TagResolver... tags) {
+        return Component.empty().color(color).append(tl(path, tags));
     }
 
     private String getFileName(Locale locale) {
         return "language" + File.separator + locale.toString() + ".yml";
     }
 
-    private String getRawString(String path) {
-        FileConfiguration config = ConfigManager.get(getFileName(locale));
-        if (!config.contains(path) || !config.isString(path)) {
-            config.set(path, getFromLanguageResource(path)); // 這裡也不傳 args
+    /**
+     * 將 Legacy & 碼轉換為 MiniMessage 標籤。
+     * 例如 &c → <red>、&l → <bold>。
+     * 不影響已有的 MiniMessage 標籤和命名佔位符。
+     */
+    private static String convertLegacyToMiniMessage(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
         }
-        String messageString = (String) config.get(path); // 取得原始 YAML 字串
-
-        // 判斷是否包含 MiniMessage 標記
-        if (messageString.contains("<") && messageString.contains(">")) {
-            return messageString;
+        StringBuilder result = new StringBuilder(input.length());
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c == '&' && i + 1 < input.length()) {
+                String tag = legacyCodeToMiniMessageTag(Character.toLowerCase(input.charAt(i + 1)));
+                if (tag != null) {
+                    result.append(tag);
+                    i++;
+                    continue;
+                }
+            }
+            result.append(c);
         }
-
-        // 如果是 Legacy 格式，轉換為 MiniMessage 格式
-        return MiniMessage.miniMessage().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(messageString));
-    }
-
-    private String get(String path, Object... args) {
-        FileConfiguration config = ConfigManager.get(getFileName(locale));
-        if (!config.contains(path) || !config.isString(path)) {
-            //若無法取得，則自該語言資源檔取得，但不儲存於語系檔 (避免執行時阻塞 I/O)
-            config.set(path, getFromLanguageResource(path));
-        }
-        // 取得訊息字串並替換參數
-        // 返回原始字串，讓 tl() 判斷解析器
-        return replaceArgument((String) config.get(path), args);
+        return result.toString();
     }
 
     private String getFromLanguageResource(String path) {
@@ -167,18 +146,42 @@ public class Language {
         return (String) defaultLanguageConfigResource.get(path);
     }
 
-    private String replaceArgument(String message, Object... args) {
-        for (int i = 0; i < args.length; i++) {
-            message = message.replace("{" + i + "}", String.valueOf(args[i]));
-        }
-        return message;
+    private static String legacyCodeToMiniMessageTag(char code) {
+        return switch (code) {
+            case '0' -> "<black>";
+            case '1' -> "<dark_blue>";
+            case '2' -> "<dark_green>";
+            case '3' -> "<dark_aqua>";
+            case '4' -> "<dark_red>";
+            case '5' -> "<dark_purple>";
+            case '6' -> "<gold>";
+            case '7' -> "<gray>";
+            case '8' -> "<dark_gray>";
+            case '9' -> "<blue>";
+            case 'a' -> "<green>";
+            case 'b' -> "<aqua>";
+            case 'c' -> "<red>";
+            case 'd' -> "<light_purple>";
+            case 'e' -> "<yellow>";
+            case 'f' -> "<white>";
+            case 'k' -> "<obfuscated>";
+            case 'l' -> "<bold>";
+            case 'm' -> "<strikethrough>";
+            case 'n' -> "<underlined>";
+            case 'o' -> "<italic>";
+            case 'r' -> "<reset>";
+            default -> null;
+        };
     }
 
-    public String getIgnoreColors(String path, Object... args) {
-        Component translatedComponent = tl(path, args);
-        // 先轉為 Legacy String，再使用 ChatColor 移除顏色代碼
-        String legacyString = LegacyComponentSerializer.legacyAmpersand().serialize(translatedComponent);
-        return ChatColor.stripColor(legacyString);
+    private String getRawString(String path) {
+        FileConfiguration config = ConfigManager.get(getFileName(locale));
+        if (!config.contains(path) || !config.isString(path)) {
+            config.set(path, getFromLanguageResource(path));
+        }
+        String messageString = (String) config.get(path);
+        // 統一將 Legacy & 碼轉換為 MiniMessage 標籤，使兩種格式可共存
+        return convertLegacyToMiniMessage(messageString);
     }
 
     private void checkConfig(Locale checkLocale) {
@@ -207,7 +210,7 @@ public class Language {
         }
         if (newSettingCount > 0) {
             ConfigManager.save(getFileName(checkLocale));
-            bm.getMessageService().send(bm.getServer().getConsoleSender(), tl("config.add-setting", newSettingCount));
+            bm.getMessageService().send(bm.getServer().getConsoleSender(), tl("config.add-setting", TagUtil.tag("count", newSettingCount)));
         }
     }
 

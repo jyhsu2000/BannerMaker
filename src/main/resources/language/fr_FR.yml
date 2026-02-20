@@ -4,17 +4,14 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: Rechargement de la configuration
-  no-permission: Pas la permission
   no-money: Pas assez d'argent
-  money-transaction: Utilisez {0} pour obtenir la bannière. Maintenant, vous avez {1}
+  money-transaction: Utilisez <amount> pour obtenir la bannière. Maintenant, vous avez <balance>
 io:
   save-failed: Sauvegarde échouée.
   save-success: Sauvegarde effectuée avec succès.
-  remove-banner: Suppression de la bannière &r#{0}
-command:
-  player-only: Cette commande ne peut être utilisée que par les joueurs en jeu
+  remove-banner: Suppression de la bannière &r#<key>
 config:
-  add-setting: Ajout de {0} nouveaux paramètres
+  add-setting: Ajout de <count> nouveaux paramètres
 gui:
   title:
     prefix: '&4[BM]&r '
@@ -38,8 +35,7 @@ gui:
   no-patterns: Aucuns patterns
   craft-recipe: Recette de fabrication
   get-this-banner: Obtenir cette bannière
-  get-banner: Obtention de la bannière &r#{0}
-  price: 'Prix: {0}'
+  get-banner: Obtention de la bannière &r#<name>
   clone-and-edit: Cloner & Éditer
   alphabet-and-number: Alphabet & Nombres
   toggle-border: Afficher les bordures
