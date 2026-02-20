@@ -23,65 +23,48 @@ import java.util.regex.Pattern;
 
 public class Language {
     private static Language instance = null;
+    private static final Locale DEFAULT_LOCALE = Locale.of("en", "US");
     private final BannerMaker bm;
     private FileConfiguration defaultLanguageConfigResource;
     private FileConfiguration languageConfigResource;
-    private Locale locale = Locale.ENGLISH;
+    private Locale locale = DEFAULT_LOCALE;
 
     public Language(BannerMaker bm) {
         this.bm = bm;
         instance = this;
     }
 
-    public void loadLanguage() {
-        //從設定檔取得語言
-        String configFileName = "config.yml";
-        FileConfiguration config = ConfigManager.get(configFileName);
-        Locale defaultLocale = Locale.ENGLISH;
-        String language = "auto";
-        if (config != null && config.contains("Language")) {
-            language = (String) config.get("Language");
+    private static Locale parseLocale(String localeName) {
+        //自動
+        if (localeName == null || localeName.equalsIgnoreCase("auto") || localeName.isEmpty()) {
+            return Locale.getDefault();
         }
-        //轉換語言名稱
-        locale = parseLocale(language);
-
-        //載入預設語言包（但不儲存於資料夾）
+        //嘗試直接搜尋
         try {
-            Reader defaultLanguageInputStreamReader = new InputStreamReader(Objects.requireNonNull(bm.getResource(getFileName(defaultLocale).replace('\\', '/'))), StandardCharsets.UTF_8);
-            defaultLanguageConfigResource = YamlConfiguration.loadConfiguration(defaultLanguageInputStreamReader);
-        } catch (Exception ignored) {
+            return LocaleUtils.toLocale(localeName);
+        } catch (IllegalArgumentException ignored) {
         }
-        //嘗試當前語言資源檔（但不儲存於資料夾）
-        try {
-            Reader languageInputStreamReader = new InputStreamReader(Objects.requireNonNull(bm.getResource(getFileName(locale).replace('\\', '/'))), StandardCharsets.UTF_8);
-            languageConfigResource = YamlConfiguration.loadConfiguration(languageInputStreamReader);
-        } catch (Exception ignored) {
-        }
-        //嘗試載入語言包檔案
-        String fileName = getFileName(locale);
-        File file = new File(bm.getDataFolder(), fileName);
-        //檢查檔案是否存在
-        if (!file.exists()) {
+        //剖析重組後搜尋
+        Pattern pattern = Pattern.compile("^(.*?)(?:[-_](.*))?$");
+        Matcher matcher = pattern.matcher(localeName);
+        if (matcher.find()) {
+            String languageName = matcher.group(1).toLowerCase();
+            String countryName = matcher.group(2) != null ? matcher.group(2).toUpperCase() : null;
+            String fullLocaleName = languageName;
+            if (countryName != null) {
+                fullLocaleName += "_" + matcher.group(2).toUpperCase();
+            }
             try {
-                //若不存在，則嘗試尋找語言包
-                bm.saveResource(fileName, false);
-            } catch (Exception e) {
-                //若無該語言之語言包，則使用預設語言
-                locale = defaultLocale;
-//                assert config != null;
-//                config.set("Language", language);
-//                KConfigManager.save(configFileName);
+                return LocaleUtils.toLocale(fullLocaleName);
+            } catch (IllegalArgumentException ignored) {
+                try {
+                    return LocaleUtils.toLocale(languageName);
+                } catch (IllegalArgumentException ignored2) {
+                }
             }
         }
-        //載入語言包
-        ConfigManager.load(getFileName(locale));
-        //檢查語言包
-        checkConfig(locale);
-        bm.getLogger().info("Language: " + locale);
-        // 設定 ACF 語言
-        bm.getCommandManager().getLocales().setDefaultLocale(locale);
-        // 將指令描述注入到 ACF Locales
-        registerCommandDescriptions(locale);
+        //預設語言
+        return DEFAULT_LOCALE;
     }
 
     private void registerCommandDescriptions(Locale locale) {
@@ -220,36 +203,53 @@ public class Language {
         }
     }
 
-    private static Locale parseLocale(String localeName) {
-        //自動
-        if (localeName == null || localeName.equalsIgnoreCase("auto") || localeName.isEmpty()) {
-            return Locale.getDefault();
+    public void loadLanguage() {
+        //從設定檔取得語言
+        String configFileName = "config.yml";
+        FileConfiguration config = ConfigManager.get(configFileName);
+        String language = "auto";
+        if (config != null && config.contains("Language")) {
+            language = (String) config.get("Language");
         }
-        //嘗試直接搜尋
+        //轉換語言名稱
+        locale = parseLocale(language);
+
+        //載入預設語言包（但不儲存於資料夾）
         try {
-            return LocaleUtils.toLocale(localeName);
-        } catch (IllegalArgumentException ignored) {
+            Reader defaultLanguageInputStreamReader = new InputStreamReader(Objects.requireNonNull(bm.getResource(getFileName(DEFAULT_LOCALE).replace('\\', '/'))), StandardCharsets.UTF_8);
+            defaultLanguageConfigResource = YamlConfiguration.loadConfiguration(defaultLanguageInputStreamReader);
+        } catch (Exception ignored) {
         }
-        //剖析重組後搜尋
-        Pattern pattern = Pattern.compile("^(.*?)(?:[-_](.*))?$");
-        Matcher matcher = pattern.matcher(localeName);
-        if (matcher.find()) {
-            String languageName = matcher.group(1).toLowerCase();
-            String countryName = matcher.group(2) != null ? matcher.group(2).toUpperCase() : null;
-            String fullLocaleName = languageName;
-            if (countryName != null) {
-                fullLocaleName += "_" + matcher.group(2).toUpperCase();
-            }
+        //嘗試當前語言資源檔（但不儲存於資料夾）
+        try {
+            Reader languageInputStreamReader = new InputStreamReader(Objects.requireNonNull(bm.getResource(getFileName(locale).replace('\\', '/'))), StandardCharsets.UTF_8);
+            languageConfigResource = YamlConfiguration.loadConfiguration(languageInputStreamReader);
+        } catch (Exception ignored) {
+        }
+        //嘗試載入語言包檔案
+        String fileName = getFileName(locale);
+        File file = new File(bm.getDataFolder(), fileName);
+        //檢查檔案是否存在
+        if (!file.exists()) {
             try {
-                return LocaleUtils.toLocale(fullLocaleName);
-            } catch (IllegalArgumentException ignored) {
-                try {
-                    return LocaleUtils.toLocale(languageName);
-                } catch (IllegalArgumentException ignored2) {
-                }
+                //若不存在，則嘗試尋找語言包
+                bm.saveResource(fileName, false);
+            } catch (Exception e) {
+                //若無該語言之語言包，則使用預設語言
+                locale = DEFAULT_LOCALE;
+//                assert config != null;
+//                config.set("Language", language);
+//                KConfigManager.save(configFileName);
             }
         }
-        //預設語言
-        return Locale.ENGLISH;
+        //載入語言包
+        ConfigManager.load(getFileName(locale));
+        //檢查語言包
+        checkConfig(locale);
+        bm.getLogger().info("Language: " + locale);
+        // 設定 ACF 語言
+        bm.getCommandManager().getLocales().setDefaultLocale(locale);
+        // 將指令描述注入到 ACF Locales
+        registerCommandDescriptions(locale);
     }
 }
