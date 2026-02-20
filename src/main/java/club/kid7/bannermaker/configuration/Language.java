@@ -245,9 +245,6 @@ public class Language {
             } catch (Exception e) {
                 //若無該語言之語言包，則使用預設語言
                 locale = DEFAULT_LOCALE;
-//                assert config != null;
-//                config.set("Language", language);
-//                KConfigManager.save(configFileName);
             }
         }
         //載入語言包
