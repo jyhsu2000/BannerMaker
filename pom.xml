@@ -208,18 +208,7 @@
                                 <include>**</include>
                             </includes>
                         </filter>
-                        <filter>
-                            <artifact>co.aikar:acf-paper</artifact>
-                            <includes>
-                                <include>**</include>
-                            </includes>
-                        </filter>
-                        <filter>
-                            <artifact>com.github.cryptomorin:XSeries</artifact>
-                            <includes>
-                                <include>**</include>
-                            </includes>
-                        </filter>
+                        <!-- ACF、XSeries 不再覆蓋 minimizeJar，由其自動裁減未使用的類別 -->
                         <filter>
                             <artifact>*:*</artifact>
                             <excludes>
