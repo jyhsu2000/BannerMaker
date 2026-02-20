@@ -3,9 +3,13 @@ package club.kid7.bannermaker.service;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MessageService {
@@ -40,11 +44,26 @@ public class MessageService {
 
     /**
      * 將 Adventure Component 發送給 CommandSender。
+     * 對 Player 使用 JSON 序列化 + Spigot API，確保 ClickEvent / HoverEvent 正確保留。
+     * Workaround: adventure-platform-bukkit 4.4.1 僅支援至 MC 1.21.6，
+     * 在 Paper 1.21.7+ 上透過 BukkitAudiences 發送時會遺失互動事件。
      *
      * @param sender  訊息接收者。
      * @param message 訊息 Component。
      */
     public void send(CommandSender sender, Component message) {
+        // Workaround: adventure-platform-bukkit 4.4.1 在 Paper 1.21.7+ 會遺失 ClickEvent / HoverEvent，
+        // 改用 JSON 中介 + Spigot API 繞過此問題
+        if (sender instanceof Player player) {
+            try {
+                String json = GsonComponentSerializer.gson().serialize(message);
+                BaseComponent[] components = ComponentSerializer.parse(json);
+                player.spigot().sendMessage(components);
+                return;
+            } catch (Exception ignored) {
+                // JSON 序列化失敗時回退至 BukkitAudiences
+            }
+        }
         if (audiences == null) {
             sender.sendMessage(legacySerializer.serialize(message));
             return;
