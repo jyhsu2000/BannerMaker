@@ -132,7 +132,7 @@ public class BannerInfoGUI {
                 mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                     InventoryUtil.give(player, banner);
                     messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", showName));
-                    MainMenuGUI.show(player); // 動作完成後返回主選單
+                    BannerInfoGUI.show(player); // 重新整理當前頁面
                     event.setCancelled(true);
                 }), 4, 5); // 修正為 (4, 5)
             } else {
@@ -157,7 +157,7 @@ public class BannerInfoGUI {
                             messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", showName));
                         }
                     }
-                    MainMenuGUI.show(player); // 動作完成後返回主選單
+                    BannerInfoGUI.show(player); // 重新整理當前頁面
                     event.setCancelled(true);
                 }), 4, 5); // 修正為 (4, 5)
             }
