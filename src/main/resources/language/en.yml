@@ -16,6 +16,13 @@ command:
   invalid-parameter: 'Invalid parameter(s), correct usage: {0}'
   not-banner-hand: Item in hand is not a banner.
   not-banner-see: Block you're looking at is not a banner.
+  description:
+    default: Show menu of BannerMaker
+    help: Show help message
+    reload: Reload all config
+    see: Show banner info of the banner you're looking at
+    hand: Show banner info of the banner in hand
+    view: View banner info of the banner string
 config:
   add-setting: Add {0} new settings
 gui:

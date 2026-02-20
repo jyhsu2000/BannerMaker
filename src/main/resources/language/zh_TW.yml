@@ -16,6 +16,13 @@ command:
   invalid-parameter: '參數無效，正確用法: {0}'
   not-banner-hand: 手上拿的物品不是旗幟
   not-banner-see: 看著的方塊不是旗幟
+  description:
+    default: 顯示 BannerMaker 選單
+    help: 顯示指令幫助
+    reload: 重新載入所有設定
+    see: 顯示你正在看的旗幟資訊
+    hand: 顯示手上旗幟的資訊
+    view: 透過旗幟字串查看旗幟資訊
 config:
   add-setting: 新增 {0} 個新設定
 gui:

@@ -37,7 +37,7 @@ public class BannerMakerCommand extends BaseCommand {
     }
 
     @Default
-    @Description("Show menu of BannerMaker")
+    @Description("{@@command.description.default}")
     @CommandPermission("BannerMaker.use")
     public void onDefault(Player player) {
         // 開啟選單
@@ -46,14 +46,14 @@ public class BannerMakerCommand extends BaseCommand {
     }
 
     @HelpCommand
-    @Description("Show help message")
+    @Description("{@@command.description.help}")
     public void onHelp(CommandHelp help) {
         help.showHelp();
     }
 
     @Subcommand("reload")
     @CommandPermission("BannerMaker.reload")
-    @Description("Reload all config")
+    @Description("{@@command.description.reload}")
     public void onReload(CommandSender sender) {
         plugin.reload();
         plugin.getMessageService().send(sender, tl(NamedTextColor.GREEN, "general.reload"));
@@ -61,7 +61,7 @@ public class BannerMakerCommand extends BaseCommand {
 
     @Subcommand("see")
     @CommandPermission("BannerMaker.see")
-    @Description("Show banner info of the banner you're looking at")
+    @Description("{@@command.description.see}")
     public void onSee(Player player) {
         Block block = player.getTargetBlockExact(20);
         if (block == null || !BannerUtil.isBanner(block.getType())) {
@@ -78,7 +78,7 @@ public class BannerMakerCommand extends BaseCommand {
 
     @Subcommand("hand")
     @CommandPermission("BannerMaker.hand")
-    @Description("Show banner info of the banner in hand")
+    @Description("{@@command.description.hand}")
     public void onHand(Player player) {
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         if (!BannerUtil.isBanner(itemStack)) {
@@ -95,7 +95,7 @@ public class BannerMakerCommand extends BaseCommand {
 
     @Subcommand("view")
     @CommandPermission("BannerMaker.view")
-    @Description("View banner info of the banner string")
+    @Description("{@@command.description.view}")
     @Syntax("<bannerString>")
     public void onView(Player player, String bannerString) {
         try {

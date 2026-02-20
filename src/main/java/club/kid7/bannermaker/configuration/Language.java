@@ -1,6 +1,7 @@
 package club.kid7.bannermaker.configuration;
 
 import club.kid7.bannermaker.BannerMaker;
+import co.aikar.locales.MessageKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -79,6 +80,23 @@ public class Language {
         bm.getLogger().info("Language: " + locale);
         // 設定 ACF 語言
         bm.getCommandManager().getLocales().setDefaultLocale(locale);
+        // 將指令描述注入到 ACF Locales
+        registerCommandDescriptions(locale);
+    }
+
+    private void registerCommandDescriptions(Locale locale) {
+        FileConfiguration config = ConfigManager.get(getFileName(locale));
+        String[] descKeys = {"default", "help", "reload", "see", "hand", "view"};
+        for (String key : descKeys) {
+            String path = "command.description." + key;
+            if (config.isString(path)) {
+                bm.getCommandManager().getLocales().addMessage(
+                    locale,
+                    MessageKey.of("command.description." + key),
+                    config.getString(path)
+                );
+            }
+        }
     }
 
     public static Component tl(String path, TagResolver... tags) {
