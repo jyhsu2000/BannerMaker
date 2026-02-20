@@ -192,7 +192,7 @@ public class BannerInfoGUI {
                         if (!p.hasPermission("BannerMaker.show.receive") && !p.equals(player)) {
                             continue;
                         }
-                        if (p.getWorld() != player.getWorld()) {
+                        if (!p.getWorld().equals(player.getWorld())) {
                             continue;
                         }
                         if (p.getLocation().distanceSquared(player.getLocation()) > maxDistance * maxDistance) {
