@@ -36,6 +36,8 @@ You don't need to know how to craft. All you need to know is how it will look li
 - Look up recipe of banners
 - Multi-language support (Setting in `config.yml`)
     - [All available languages](https://github.com/jyhsu2000/BannerMaker/tree/master/src/main/resources/language)
+  - Language files support [MiniMessage](https://docs.advntr.dev/minimessage/format.html) format and legacy `&` color
+    codes
     - Welcome to contribute your translation [here](https://crowdin.com/project/bannermaker)
 - Economic support (require Vault installed)
 - Material estimates

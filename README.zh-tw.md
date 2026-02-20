@@ -36,6 +36,7 @@
 - 查詢旗幟合成表
 - 多國語言（在 `config.yml` 設定）
     - [所有可用語言](https://github.com/jyhsu2000/BannerMaker/tree/master/src/main/resources/language)
+  - 語言檔支援 [MiniMessage](https://docs.advntr.dev/minimessage/format.html) 格式及傳統 `&` 色碼
     - 歡迎在[這裡](https://crowdin.com/project/bannermaker)貢獻您的翻譯
 - 支援經濟功能（需安裝 Vault）
 - 材料估算
