@@ -1,7 +1,9 @@
-package club.kid7.bannermaker.util;
+package club.kid7.bannermaker.service;
 
 import club.kid7.bannermaker.configuration.ConfigManager;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
+import club.kid7.bannermaker.util.BannerUtil;
+import club.kid7.bannermaker.util.PersistentDataUtil;
 import org.bukkit.DyeColor;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
@@ -16,10 +18,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class IOUtil {
+public class BannerRepository {
 
     //儲存旗幟
-    static public boolean saveBanner(Player player, ItemStack banner) {
+    public boolean saveBanner(Player player, ItemStack banner) {
         //只處理旗幟
         if (!BannerUtil.isBanner(banner)) {
             return false;
@@ -45,11 +47,11 @@ public class IOUtil {
     }
 
     //讀取旗幟清單
-    static public List<ItemStack> loadBannerList(Player player) {
+    public List<ItemStack> loadBannerList(Player player) {
         return loadBannerList(player, 0);
     }
 
-    static public List<ItemStack> loadBannerList(Player player, int page) {
+    public List<ItemStack> loadBannerList(Player player, int page) {
         List<ItemStack> bannerList = new ArrayList<>();
         //設定檔
         String fileName = getFileName(player);
@@ -76,7 +78,7 @@ public class IOUtil {
     }
 
     //讀取旗幟
-    private static ItemStack loadBanner(Player player, String key) {
+    private ItemStack loadBanner(Player player, String key) {
         //設定檔
         String fileName = getFileName(player);
         FileConfiguration config = ConfigManager.get(fileName);
@@ -117,7 +119,7 @@ public class IOUtil {
     }
 
     //刪除旗幟
-    static public boolean removeBanner(Player player, String key) {
+    public boolean removeBanner(Player player, String key) {
         //設定檔
         String fileName = getFileName(player);
         FileConfiguration config = ConfigManager.get(fileName);
@@ -129,17 +131,17 @@ public class IOUtil {
     }
 
     //取得旗幟總數
-    static public int getBannerCount(Player player) {
+    public int getBannerCount(Player player) {
         List<ItemStack> bannerList = loadBannerList(player);
         return bannerList.size();
     }
 
     //旗幟檔案路徑
-    private static String getFileName(Player player) {
+    private String getFileName(Player player) {
         return getFileName(player.getUniqueId().toString());
     }
 
-    private static String getFileName(String configFileName) {
+    private String getFileName(String configFileName) {
         return "banner" + File.separator + configFileName + ".yml";
     }
 }

@@ -4,7 +4,6 @@ import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.configuration.ConfigManager;
 import club.kid7.bannermaker.configuration.Language;
 import club.kid7.bannermaker.service.MessageService;
-import club.kid7.bannermaker.util.IOUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,8 +14,6 @@ import org.mockbukkit.mockbukkit.MockBukkit;
 import org.mockbukkit.mockbukkit.ServerMock;
 import org.mockbukkit.mockbukkit.entity.PlayerMock;
 import org.mockito.MockedStatic;
-
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -52,15 +49,11 @@ class MainMenuGUITest {
     void testShowMainMenuGUI() {
         // Mock JavaPlugin.getProvidingPlugin to return our mock plugin instance
         // This is necessary because InventoryFramework uses getProvidingPlugin which fails in test environment
-        // Also Mock IOUtil to avoid file I/O errors
-        try (MockedStatic<JavaPlugin> mockedJavaPlugin = mockStatic(JavaPlugin.class);
-             MockedStatic<IOUtil> mockedIOUtil = mockStatic(IOUtil.class)) {
+        // BannerRepository is now an instance (non-static), no need to mock it
+        try (MockedStatic<JavaPlugin> mockedJavaPlugin = mockStatic(JavaPlugin.class)) {
 
             mockedJavaPlugin.when(() -> JavaPlugin.getProvidingPlugin(any(Class.class)))
                 .thenReturn(plugin);
-
-            mockedIOUtil.when(() -> IOUtil.loadBannerList(player))
-                .thenReturn(Collections.emptyList());
 
             // Given
             MessageService messageService = BannerMaker.getInstance().getMessageService();

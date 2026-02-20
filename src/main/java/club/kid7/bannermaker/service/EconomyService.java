@@ -1,27 +1,41 @@
-package club.kid7.bannermaker.util;
+package club.kid7.bannermaker.service;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.configuration.ConfigManager;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
+import club.kid7.bannermaker.util.BannerUtil;
+import club.kid7.bannermaker.util.MaterialUtil;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class EconUtil {
+public class EconomyService {
+
+    /**
+     * 檢查經濟系統是否可用
+     *
+     * @return 是否可用
+     */
+    public boolean isAvailable() {
+        return BannerMaker.getInstance().getEconomy() != null;
+    }
+
     /**
      * 取得旗幟的價格
      *
      * @param banner 旗幟
      * @return 價格
      */
-    public static double getPrice(ItemStack banner) {
+    public double getPrice(ItemStack banner) {
         if (!BannerUtil.isBanner(banner)) {
             return 0;
         }
-        if (BannerMaker.getInstance().getEconomy() == null) {
+        if (!isAvailable()) {
             return 0;
         }
         FileConfiguration config = ConfigManager.get("config");
@@ -38,7 +52,39 @@ public class EconUtil {
         return price;
     }
 
-    private static double getMaterialPrice(ItemStack itemStack) {
+    /**
+     * 格式化金額
+     *
+     * @param amount 金額
+     * @return 格式化後的字串
+     */
+    public String format(double amount) {
+        return BannerMaker.getInstance().getEconomy().format(amount);
+    }
+
+    /**
+     * 檢查玩家是否有足夠的錢
+     *
+     * @param player 玩家
+     * @param amount 金額
+     * @return 是否足夠
+     */
+    public boolean has(Player player, double amount) {
+        return BannerMaker.getInstance().getEconomy().has(player, amount);
+    }
+
+    /**
+     * 從玩家扣款
+     *
+     * @param player 玩家
+     * @param amount 金額
+     * @return 交易回應
+     */
+    public EconomyResponse withdraw(Player player, double amount) {
+        return BannerMaker.getInstance().getEconomy().withdrawPlayer(player, amount);
+    }
+
+    private double getMaterialPrice(ItemStack itemStack) {
         String priceConfigFileName = "price";
         FileConfiguration priceConfig = ConfigManager.get(priceConfigFileName);
         if (priceConfig == null) {

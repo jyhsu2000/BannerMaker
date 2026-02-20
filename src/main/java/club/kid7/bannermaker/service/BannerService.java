@@ -2,7 +2,6 @@ package club.kid7.bannermaker.service;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.util.BannerUtil;
-import club.kid7.bannermaker.util.EconUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -47,22 +46,23 @@ public class BannerService {
      */
     public boolean buy(Player player, ItemStack banner) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
+        EconomyService economyService = BannerMaker.getInstance().getEconomyService();
         //檢查是否啟用經濟
-        if (BannerMaker.getInstance().getEconomy() == null) {
+        if (!economyService.isAvailable()) {
             //未啟用經濟，強制失敗
             messageService.send(player, Component.text("Error: Economy not supported", NamedTextColor.RED));
             return false;
         }
         //價格
-        double price = EconUtil.getPrice(banner);
+        double price = economyService.getPrice(banner);
         //檢查財產是否足夠
-        if (!BannerMaker.getInstance().getEconomy().has(player, price)) {
+        if (!economyService.has(player, price)) {
             //財產不足
             messageService.send(player, tl(NamedTextColor.RED, "general.no-money"));
             return false;
         }
         //扣款
-        EconomyResponse response = BannerMaker.getInstance().getEconomy().withdrawPlayer(player, price);
+        EconomyResponse response = economyService.withdraw(player, price);
         //檢查交易是否成功
         if (!response.transactionSuccess()) {
             //交易失敗
@@ -71,8 +71,8 @@ public class BannerService {
         }
         InventoryUtil.give(player, banner);
         messageService.send(player, tl(NamedTextColor.GREEN, "general.money-transaction",
-            BannerMaker.getInstance().getEconomy().format(response.amount),
-            BannerMaker.getInstance().getEconomy().format(response.balance)));
+                economyService.format(response.amount),
+                economyService.format(response.balance)));
         return true;
     }
 

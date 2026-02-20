@@ -3,10 +3,9 @@ package club.kid7.bannermaker.gui;
 import club.kid7.bannermaker.AlphabetBanner;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
+import club.kid7.bannermaker.service.EconomyService;
 import club.kid7.bannermaker.service.MessageService;
 import club.kid7.bannermaker.util.BannerUtil;
-import club.kid7.bannermaker.util.EconUtil;
-import club.kid7.bannermaker.util.IOUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
 import club.kid7.bannermaker.util.MessageComponentUtil;
@@ -116,7 +115,7 @@ public class BannerInfoGUI {
         if (key != null) {
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.delete")).build();
             mainPane.addItem(new GuiItem(btnDelete, event -> {
-                IOUtil.removeBanner(player, key);
+                BannerMaker.getInstance().getBannerRepository().removeBanner(player, key);
                 messageService.send(player, tl(NamedTextColor.GREEN, "io.remove-banner", key));
                 MainMenuGUI.show(player);
                 event.setCancelled(true);
@@ -138,9 +137,10 @@ public class BannerInfoGUI {
                 }), 4, 5); // 修正為 (4, 5)
             } else {
                 btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left").append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.get-banner-by-craft")))).build();
-                if (BannerMaker.getInstance().getEconomy() != null) {
-                    double price = EconUtil.getPrice(banner);
-                    String priceStr = BannerMaker.getInstance().getEconomy().format(price);
+                EconomyService economyService = BannerMaker.getInstance().getEconomyService();
+                if (economyService.isAvailable()) {
+                    double price = economyService.getPrice(banner);
+                    String priceStr = economyService.format(price);
                     btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.right")).append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.buy-banner-in-price", priceStr))).build();
                 }
 
@@ -152,7 +152,7 @@ public class BannerInfoGUI {
                         } else {
                             messageService.send(player, tl(NamedTextColor.RED, "gui.materials.not-enough"));
                         }
-                    } else if (event.getClick().isRightClick() && BannerMaker.getInstance().getEconomy() != null) {
+                    } else if (event.getClick().isRightClick() && economyService.isAvailable()) {
                         boolean success = BannerMaker.getInstance().getBannerService().buy(player, banner);
                         if (success) {
                             messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", showName));

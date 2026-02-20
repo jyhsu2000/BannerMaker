@@ -2,6 +2,7 @@ package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.configuration.ConfigManager;
+import club.kid7.bannermaker.service.BannerRepository;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -27,12 +28,14 @@ class IOUtilTest {
     private ServerMock server;
     private BannerMaker plugin;
     private PlayerMock player;
+    private BannerRepository bannerRepository;
 
     @BeforeEach
     void setUp() {
         server = MockBukkit.mock();
         plugin = MockBukkit.load(BannerMaker.class);
         player = server.addPlayer("IOTestPlayer");
+        bannerRepository = plugin.getBannerRepository();
     }
 
     @AfterEach
@@ -54,7 +57,7 @@ class IOUtilTest {
     void saveBanner_ShouldReturnTrue_ForValidBanner() {
         ItemStack banner = createTestBanner();
 
-        boolean result = IOUtil.saveBanner(player, banner);
+        boolean result = bannerRepository.saveBanner(player, banner);
 
         assertTrue(result, "儲存有效旗幟應成功");
     }
@@ -63,7 +66,7 @@ class IOUtilTest {
     void saveBanner_ShouldReturnFalse_ForNonBanner() {
         ItemStack stone = new ItemStack(Material.STONE);
 
-        boolean result = IOUtil.saveBanner(player, stone);
+        boolean result = bannerRepository.saveBanner(player, stone);
 
         assertFalse(result, "儲存非旗幟物品應失敗");
     }
@@ -71,9 +74,9 @@ class IOUtilTest {
     @Test
     void loadBannerList_ShouldReturnSavedBanners() {
         ItemStack banner = createTestBanner();
-        IOUtil.saveBanner(player, banner);
+        bannerRepository.saveBanner(player, banner);
 
-        List<ItemStack> bannerList = IOUtil.loadBannerList(player);
+        List<ItemStack> bannerList = bannerRepository.loadBannerList(player);
 
         assertFalse(bannerList.isEmpty(), "讀取清單不應為空");
         assertEquals(1, bannerList.size(), "應只有一面旗幟");
@@ -94,38 +97,38 @@ class IOUtilTest {
     @Test
     void removeBanner_ShouldRemoveFromStorage() {
         ItemStack banner = createTestBanner();
-        IOUtil.saveBanner(player, banner);
+        bannerRepository.saveBanner(player, banner);
 
         // 讀取已存的旗幟以取得 key
-        List<ItemStack> bannerList = IOUtil.loadBannerList(player);
+        List<ItemStack> bannerList = bannerRepository.loadBannerList(player);
         assertEquals(1, bannerList.size());
         String key = BannerUtil.getKey(bannerList.get(0));
         assertNotNull(key, "旗幟應有 key");
 
         // 刪除
-        boolean removed = IOUtil.removeBanner(player, key);
+        boolean removed = bannerRepository.removeBanner(player, key);
         assertTrue(removed, "刪除應成功");
 
         // 再次讀取，應為空
-        List<ItemStack> afterRemoval = IOUtil.loadBannerList(player);
+        List<ItemStack> afterRemoval = bannerRepository.loadBannerList(player);
         assertTrue(afterRemoval.isEmpty(), "刪除後清單應為空");
     }
 
     @Test
     void getBannerCount_ShouldReturnCorrectCount() throws InterruptedException {
-        assertEquals(0, IOUtil.getBannerCount(player), "初始應為 0");
+        assertEquals(0, bannerRepository.getBannerCount(player), "初始應為 0");
 
-        IOUtil.saveBanner(player, createTestBanner());
+        bannerRepository.saveBanner(player, createTestBanner());
         // 等待 1ms 確保時間戳不同
         Thread.sleep(1);
-        IOUtil.saveBanner(player, new ItemStack(Material.WHITE_BANNER));
+        bannerRepository.saveBanner(player, new ItemStack(Material.WHITE_BANNER));
 
-        assertEquals(2, IOUtil.getBannerCount(player), "儲存兩面旗幟後應為 2");
+        assertEquals(2, bannerRepository.getBannerCount(player), "儲存兩面旗幟後應為 2");
     }
 
     @Test
     void loadBannerList_ShouldReturnEmpty_WhenNoSavedBanners() {
-        List<ItemStack> bannerList = IOUtil.loadBannerList(player);
+        List<ItemStack> bannerList = bannerRepository.loadBannerList(player);
 
         assertTrue(bannerList.isEmpty(), "無已儲存旗幟時應回傳空清單");
     }
@@ -134,9 +137,9 @@ class IOUtilTest {
     void saveBanner_ShouldPreserveBaseColor() {
         // 測試不同底色的旗幟
         ItemStack blueBanner = new ItemStack(Material.BLUE_BANNER);
-        IOUtil.saveBanner(player, blueBanner);
+        bannerRepository.saveBanner(player, blueBanner);
 
-        List<ItemStack> bannerList = IOUtil.loadBannerList(player);
+        List<ItemStack> bannerList = bannerRepository.loadBannerList(player);
         assertEquals(1, bannerList.size());
         assertEquals(Material.BLUE_BANNER, bannerList.get(0).getType(), "底色應保持為藍色");
     }

@@ -3,9 +3,9 @@ package club.kid7.bannermaker.gui;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
+import club.kid7.bannermaker.service.BannerRepository;
 import club.kid7.bannermaker.service.MessageService;
 import club.kid7.bannermaker.util.BannerUtil;
-import club.kid7.bannermaker.util.IOUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
@@ -153,7 +153,8 @@ public class CreateBannerGUI {
         // Slot 53 (8,5): 建立/儲存旗幟
         ItemStack btnCreate = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.create")).build();
         mainPane.addItem(new GuiItem(btnCreate, event -> {
-            boolean saved = IOUtil.saveBanner(player, currentBanner);
+            BannerRepository bannerRepository = BannerMaker.getInstance().getBannerRepository();
+            boolean saved = bannerRepository.saveBanner(player, currentBanner);
             if (saved) {
                 messageService.send(player, tl(NamedTextColor.GREEN, "io.save-success"));
             } else {

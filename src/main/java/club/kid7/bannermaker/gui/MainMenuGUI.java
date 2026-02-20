@@ -3,7 +3,6 @@ package club.kid7.bannermaker.gui;
 import club.kid7.bannermaker.AlphabetBanner;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.service.MessageService;
-import club.kid7.bannermaker.util.IOUtil;
 import club.kid7.bannermaker.util.InventoryMenuUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
@@ -35,7 +34,7 @@ public class MainMenuGUI {
 
         // 1. 旗幟列表分頁面 (Paginated Pane)
         PaginatedPane paginatedPane = new PaginatedPane(0, 0, 9, 5);
-        List<ItemStack> banners = IOUtil.loadBannerList(player);
+        List<ItemStack> banners = BannerMaker.getInstance().getBannerRepository().loadBannerList(player);
         List<GuiItem> bannerItems = new ArrayList<>();
 
         for (ItemStack banner : banners) {

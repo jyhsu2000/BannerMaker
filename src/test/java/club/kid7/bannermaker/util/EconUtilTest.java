@@ -2,6 +2,7 @@ package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.configuration.ConfigManager;
+import club.kid7.bannermaker.service.EconomyService;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -23,11 +24,13 @@ class EconUtilTest {
 
     private ServerMock server;
     private BannerMaker plugin;
+    private EconomyService economyService;
 
     @BeforeEach
     void setUp() {
         server = MockBukkit.mock();
         plugin = MockBukkit.load(BannerMaker.class);
+        economyService = plugin.getEconomyService();
     }
 
     @AfterEach
@@ -41,18 +44,17 @@ class EconUtilTest {
         plugin.setEconomy(mock(Economy.class));
         ItemStack stone = new ItemStack(Material.STONE);
 
-        double price = EconUtil.getPrice(stone);
+        double price = economyService.getPrice(stone);
 
         assertEquals(0, price, "非旗幟物品的價格應為 0");
     }
 
     @Test
     void getPrice_ShouldReturnZero_WhenEconomyDisabled() {
-        // econ 為 null（未啟用經濟）
         plugin.setEconomy(null);
         ItemStack banner = new ItemStack(Material.WHITE_BANNER);
 
-        double price = EconUtil.getPrice(banner);
+        double price = economyService.getPrice(banner);
 
         assertEquals(0, price, "經濟未啟用時價格應為 0");
     }
@@ -61,15 +63,13 @@ class EconUtilTest {
     void getPrice_ShouldReturnBasePrice_WhenMaterialPricesAreZero() {
         plugin.setEconomy(mock(Economy.class));
 
-        // 設定基礎價格
         FileConfiguration config = ConfigManager.get("config");
         config.set("Economy.Price", 100.0);
 
         ItemStack banner = new ItemStack(Material.WHITE_BANNER);
 
-        double price = EconUtil.getPrice(banner);
+        double price = economyService.getPrice(banner);
 
-        // 基礎價格 100 + 所有材料價格 0 = 100
         assertEquals(100.0, price, 0.01, "應回傳基礎價格 100");
     }
 
@@ -77,11 +77,9 @@ class EconUtilTest {
     void getPrice_ShouldIncludeMaterialPrices() {
         plugin.setEconomy(mock(Economy.class));
 
-        // 設定基礎價格
         FileConfiguration config = ConfigManager.get("config");
         config.set("Economy.Price", 50.0);
 
-        // 設定材料價格
         FileConfiguration priceConfig = ConfigManager.get("price");
         priceConfig.set("STICK", 1.0);
         priceConfig.set("WOOL.WHITE", 2.0);
@@ -93,7 +91,7 @@ class EconUtilTest {
         meta.addPattern(new Pattern(DyeColor.RED, PatternType.CIRCLE));
         banner.setItemMeta(meta);
 
-        double price = EconUtil.getPrice(banner);
+        double price = economyService.getPrice(banner);
 
         // 基礎價格 50 + 木棒 1*1 + 白色羊毛 2*6 + 紅色染料 5*1 = 50 + 1 + 12 + 5 = 68
         assertEquals(68.0, price, 0.01, "價格應包含基礎價格與材料價格");
@@ -119,7 +117,7 @@ class EconUtilTest {
         meta.addPattern(new Pattern(DyeColor.BLUE, PatternType.STRIPE_BOTTOM));
         banner.setItemMeta(meta);
 
-        double price = EconUtil.getPrice(banner);
+        double price = economyService.getPrice(banner);
 
         // 紅色染料 10*1 + 藍色染料 20*3 = 10 + 60 = 70
         assertEquals(70.0, price, 0.01, "價格應正確累加多個 pattern 的材料價格");
