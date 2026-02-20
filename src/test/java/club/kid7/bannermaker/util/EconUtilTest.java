@@ -38,7 +38,7 @@ class EconUtilTest {
 
     @Test
     void getPrice_ShouldReturnZero_ForNonBanner() {
-        plugin.econ = mock(Economy.class);
+        plugin.setEconomy(mock(Economy.class));
         ItemStack stone = new ItemStack(Material.STONE);
 
         double price = EconUtil.getPrice(stone);
@@ -49,7 +49,7 @@ class EconUtilTest {
     @Test
     void getPrice_ShouldReturnZero_WhenEconomyDisabled() {
         // econ 為 null（未啟用經濟）
-        plugin.econ = null;
+        plugin.setEconomy(null);
         ItemStack banner = new ItemStack(Material.WHITE_BANNER);
 
         double price = EconUtil.getPrice(banner);
@@ -59,7 +59,7 @@ class EconUtilTest {
 
     @Test
     void getPrice_ShouldReturnBasePrice_WhenMaterialPricesAreZero() {
-        plugin.econ = mock(Economy.class);
+        plugin.setEconomy(mock(Economy.class));
 
         // 設定基礎價格
         FileConfiguration config = ConfigManager.get("config");
@@ -75,7 +75,7 @@ class EconUtilTest {
 
     @Test
     void getPrice_ShouldIncludeMaterialPrices() {
-        plugin.econ = mock(Economy.class);
+        plugin.setEconomy(mock(Economy.class));
 
         // 設定基礎價格
         FileConfiguration config = ConfigManager.get("config");
@@ -101,7 +101,7 @@ class EconUtilTest {
 
     @Test
     void getPrice_ShouldHandleMultiplePatterns() {
-        plugin.econ = mock(Economy.class);
+        plugin.setEconomy(mock(Economy.class));
 
         FileConfiguration config = ConfigManager.get("config");
         config.set("Economy.Price", 0.0);

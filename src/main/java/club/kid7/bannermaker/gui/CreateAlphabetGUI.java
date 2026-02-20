@@ -25,7 +25,7 @@ public class CreateAlphabetGUI {
 
     public static void show(Player player) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
-        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
         Component titleComponent = tl("gui.prefix").append(tl("gui.alphabet-and-number"));
         String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
@@ -50,7 +50,7 @@ public class CreateAlphabetGUI {
             final ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(i)).build();
             int slot = i + 1 + (i / 8);
             mainPane.addItem(new GuiItem(banner, event -> {
-                currentAlphabetBanner.baseColor = DyeColorRegistry.getDyeColor(banner.getType());
+                currentAlphabetBanner.setBaseColor(DyeColorRegistry.getDyeColor(banner.getType()));
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CreateAlphabetGUI.show(player);
                 event.setCancelled(true);
@@ -63,7 +63,7 @@ public class CreateAlphabetGUI {
             final ItemStack dye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(i)).build();
             int slot = 18 + i + 1 + (i / 8);
             mainPane.addItem(new GuiItem(dye, event -> {
-                currentAlphabetBanner.dyeColor = DyeColorRegistry.getDyeColor(dye.getType());
+                currentAlphabetBanner.setDyeColor(DyeColorRegistry.getDyeColor(dye.getType()));
                 playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CreateAlphabetGUI.show(player);
                 event.setCancelled(true);
@@ -75,7 +75,7 @@ public class CreateAlphabetGUI {
             .name(tl(NamedTextColor.GREEN, "gui.toggle-border"))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER)).build();
         mainPane.addItem(new GuiItem(btnBorderedBanner, event -> {
-            currentAlphabetBanner.bordered = !currentAlphabetBanner.bordered;
+            currentAlphabetBanner.setBordered(!currentAlphabetBanner.isBordered());
             playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
             CreateAlphabetGUI.show(player);
             event.setCancelled(true);

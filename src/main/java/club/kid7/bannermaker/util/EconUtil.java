@@ -21,7 +21,7 @@ public class EconUtil {
         if (!BannerUtil.isBanner(banner)) {
             return 0;
         }
-        if (BannerMaker.getInstance().econ == null) {
+        if (BannerMaker.getInstance().getEconomy() == null) {
             return 0;
         }
         FileConfiguration config = ConfigManager.get("config");

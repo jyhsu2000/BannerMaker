@@ -16,11 +16,11 @@ import java.util.List;
 
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
-    public Economy econ = null;
-    public boolean enableAlphabetAndNumber = true;
-    public boolean enableComplexBannerCraft = false;
-    public PlayerDataMap playerDataMap = null;
-    private MessageService messageService; // 新增 MessageService 實例
+    private Economy econ = null;
+    private boolean enableAlphabetAndNumber = true;
+    private boolean enableComplexBannerCraft = false;
+    private PlayerDataMap playerDataMap = null;
+    private MessageService messageService;
     private PaperCommandManager commandManager;
 
     public static BannerMaker getInstance() {
@@ -79,6 +79,26 @@ public class BannerMaker extends JavaPlugin {
 
     public PaperCommandManager getCommandManager() {
         return commandManager;
+    }
+
+    public Economy getEconomy() {
+        return econ;
+    }
+
+    public void setEconomy(Economy econ) {
+        this.econ = econ;
+    }
+
+    public boolean isEnableAlphabetAndNumber() {
+        return enableAlphabetAndNumber;
+    }
+
+    public boolean isEnableComplexBannerCraft() {
+        return enableComplexBannerCraft;
+    }
+
+    public PlayerDataMap getPlayerDataMap() {
+        return playerDataMap;
     }
 
     public void reload() {

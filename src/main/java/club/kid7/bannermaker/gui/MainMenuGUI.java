@@ -65,7 +65,7 @@ public class MainMenuGUI {
         }), 4, 0);
 
         // 製作字母按鈕 (若啟用)
-        if (BannerMaker.getInstance().enableAlphabetAndNumber) {
+        if (BannerMaker.getInstance().isEnableAlphabetAndNumber()) {
             ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
             ItemBuilder btnBuilder = new ItemBuilder(btnCreateAlphabet);
             btnBuilder.name(tl(NamedTextColor.GREEN, "gui.alphabet-and-number"));

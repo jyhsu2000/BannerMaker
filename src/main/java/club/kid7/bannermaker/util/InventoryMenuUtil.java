@@ -12,7 +12,7 @@ public class InventoryMenuUtil {
         if (!BannerUtil.isBanner(banner)) {
             return;
         }
-        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
         //設定查看旗幟
         playerData.setViewInfoBanner(banner);
         //重置頁數

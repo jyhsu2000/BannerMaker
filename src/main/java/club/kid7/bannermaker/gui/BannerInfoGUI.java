@@ -35,7 +35,7 @@ public class BannerInfoGUI {
 
     public static void show(Player player) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
-        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
         final ItemStack banner = playerData.getViewInfoBanner();
 
@@ -137,9 +137,9 @@ public class BannerInfoGUI {
                 }), 4, 5); // 修正為 (4, 5)
             } else {
                 btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left").append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.get-banner-by-craft")))).build();
-                if (BannerMaker.getInstance().econ != null) {
+                if (BannerMaker.getInstance().getEconomy() != null) {
                     double price = EconUtil.getPrice(banner);
-                    String priceStr = BannerMaker.getInstance().econ.format(price);
+                    String priceStr = BannerMaker.getInstance().getEconomy().format(price);
                     btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.right")).append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.buy-banner-in-price", priceStr))).build();
                 }
 
@@ -151,7 +151,7 @@ public class BannerInfoGUI {
                         } else {
                             messageService.send(player, tl(NamedTextColor.RED, "gui.materials.not-enough"));
                         }
-                    } else if (event.getClick().isRightClick() && BannerMaker.getInstance().econ != null) {
+                    } else if (event.getClick().isRightClick() && BannerMaker.getInstance().getEconomy() != null) {
                         boolean success = BannerUtil.buy(player, banner);
                         if (success) {
                             messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", showName));

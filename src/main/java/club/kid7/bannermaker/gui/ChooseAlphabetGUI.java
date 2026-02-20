@@ -24,7 +24,7 @@ public class ChooseAlphabetGUI {
 
     public static void show(Player player) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
-        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
         Component titleComponent = tl("gui.prefix").append(tl("gui.alphabet-and-number"));
         String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);

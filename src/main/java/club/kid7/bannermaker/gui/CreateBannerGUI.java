@@ -29,7 +29,7 @@ public class CreateBannerGUI {
 
     public static void show(Player player) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
-        PlayerData playerData = BannerMaker.getInstance().playerDataMap.get(player);
+        PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
         Component titleComponent = tl("gui.prefix").append(tl("gui.create-banner"));
         String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);

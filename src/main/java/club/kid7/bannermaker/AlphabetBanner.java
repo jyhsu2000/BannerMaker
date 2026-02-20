@@ -24,9 +24,9 @@ import java.util.Objects;
 public class AlphabetBanner {
 
     private final String alphabet;
-    public DyeColor baseColor;
-    public DyeColor dyeColor;
-    public boolean bordered;
+    private DyeColor baseColor;
+    private DyeColor dyeColor;
+    private boolean bordered;
 
     /*
      * 建構子
@@ -35,6 +35,30 @@ public class AlphabetBanner {
         this.alphabet = ChatColor.stripColor(alphabet.toUpperCase()).substring(0, 1);
         this.baseColor = baseColor;
         this.dyeColor = dyeColor;
+        this.bordered = bordered;
+    }
+
+    public DyeColor getBaseColor() {
+        return baseColor;
+    }
+
+    public void setBaseColor(DyeColor baseColor) {
+        this.baseColor = baseColor;
+    }
+
+    public DyeColor getDyeColor() {
+        return dyeColor;
+    }
+
+    public void setDyeColor(DyeColor dyeColor) {
+        this.dyeColor = dyeColor;
+    }
+
+    public boolean isBordered() {
+        return bordered;
+    }
+
+    public void setBordered(boolean bordered) {
         this.bordered = bordered;
     }
 

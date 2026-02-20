@@ -278,7 +278,7 @@ public class BannerUtil {
             return false;
         }
         // 若啟用複雜合成功能，則額外檢查玩家是否擁有對應權限
-        if (BannerMaker.getInstance().enableComplexBannerCraft) {
+        if (BannerMaker.getInstance().isEnableComplexBannerCraft()) {
             if (player.hasPermission("BannerMaker.getBanner.complex-craft")) {
                 return true;
             }
@@ -322,7 +322,7 @@ public class BannerUtil {
      */
     public static boolean buy(Player player, ItemStack banner) {
         //檢查是否啟用經濟
-        if (BannerMaker.getInstance().econ == null) {
+        if (BannerMaker.getInstance().getEconomy() == null) {
             //未啟用經濟，強制失敗
             BannerMaker.getInstance().getMessageService().send(player, Component.text("Error: Economy not supported", NamedTextColor.RED));
             return false;
@@ -330,13 +330,13 @@ public class BannerUtil {
         //價格
         double price = EconUtil.getPrice(banner);
         //檢查財產是否足夠
-        if (!BannerMaker.getInstance().econ.has(player, price)) {
+        if (!BannerMaker.getInstance().getEconomy().has(player, price)) {
             //財產不足
             BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.RED, "general.no-money"));
             return false;
         }
         //扣款
-        EconomyResponse response = BannerMaker.getInstance().econ.withdrawPlayer(player, price);
+        EconomyResponse response = BannerMaker.getInstance().getEconomy().withdrawPlayer(player, price);
         //檢查交易是否成功
         if (!response.transactionSuccess()) {
             //交易失敗
@@ -344,7 +344,7 @@ public class BannerUtil {
             return false;
         }
         InventoryUtil.give(player, banner);
-        BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.GREEN, "general.money-transaction", BannerMaker.getInstance().econ.format(response.amount), BannerMaker.getInstance().econ.format(response.balance)));
+        BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.GREEN, "general.money-transaction", BannerMaker.getInstance().getEconomy().format(response.amount), BannerMaker.getInstance().getEconomy().format(response.balance)));
         return true;
     }
 
