@@ -3,9 +3,13 @@ package club.kid7.bannermaker.service;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
+import club.kid7.bannermaker.util.MessageComponentUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -74,6 +78,84 @@ public class BannerService {
                 economyService.format(response.amount),
                 economyService.format(response.balance)));
         return true;
+    }
+
+    /**
+     * 展示旗幟給附近玩家
+     *
+     * @param sender 發送者
+     * @param banner 要展示的旗幟
+     * @param maxDistance 最大距離
+     */
+    public void showToNearby(Player sender, ItemStack banner, double maxDistance) {
+        MessageService messageService = BannerMaker.getInstance().getMessageService();
+        Component msgBannerName = buildBannerMessageComponent(banner);
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (!p.hasPermission("BannerMaker.show.receive") && !p.equals(sender)) {
+                continue;
+            }
+            if (!p.getWorld().equals(sender.getWorld())) {
+                continue;
+            }
+            if (p.getLocation().distanceSquared(sender.getLocation()) > maxDistance * maxDistance) {
+                continue;
+            }
+            messageService.send(p, buildShowMessage(sender, msgBannerName));
+        }
+    }
+
+    /**
+     * 展示旗幟給所有玩家
+     *
+     * @param sender 發送者
+     * @param banner 要展示的旗幟
+     */
+    public void showToAll(Player sender, ItemStack banner) {
+        MessageService messageService = BannerMaker.getInstance().getMessageService();
+        Component msgBannerName = buildBannerMessageComponent(banner);
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (!p.hasPermission("BannerMaker.show.receive") && !p.equals(sender)) {
+                continue;
+            }
+            messageService.send(p, buildShowMessage(sender, msgBannerName));
+        }
+    }
+
+    /**
+     * 建立旗幟展示訊息組件（含懸停與點擊事件）
+     */
+    private Component buildBannerMessageComponent(ItemStack banner) {
+        String bannerString = BannerUtil.serialize(banner);
+        return MessageComponentUtil.getTranslatableComponent(banner)
+            .hoverEvent(MessageComponentUtil.getHoverEventItem(banner))
+            .clickEvent(ClickEvent.runCommand("/bm view " + bannerString));
+    }
+
+    /**
+     * 建立展示訊息的完整文字
+     */
+    private Component buildShowMessage(Player sender, Component bannerName) {
+        return Component.text(sender.getDisplayName()).color(NamedTextColor.YELLOW)
+            .append(Component.text(" shows you the banner ").color(NamedTextColor.GRAY))
+            .append(bannerName)
+            .append(Component.text(" (Click to view)").color(NamedTextColor.DARK_GRAY));
+    }
+
+    /**
+     * 發送旗幟分享指令給玩家
+     *
+     * @param player 玩家
+     * @param banner 要分享的旗幟
+     */
+    public void sendShareCommand(Player player, ItemStack banner) {
+        MessageService messageService = BannerMaker.getInstance().getMessageService();
+        String bannerString = BannerUtil.serialize(banner);
+        Component msg = Component.text("[Click here to copy command to clipboard]")
+            .hoverEvent(HoverEvent.showText(Component.text("Copy command to clipboard")))
+            .clickEvent(ClickEvent.copyToClipboard("/bm view " + bannerString));
+        messageService.send(player, msg);
     }
 
     /**

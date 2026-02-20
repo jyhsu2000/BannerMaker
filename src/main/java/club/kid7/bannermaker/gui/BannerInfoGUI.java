@@ -8,16 +8,12 @@ import club.kid7.bannermaker.service.MessageService;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
-import club.kid7.bannermaker.util.MessageComponentUtil;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -182,40 +178,10 @@ public class BannerInfoGUI {
                 btnShow = new ItemBuilder(btnShow).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.right")).append(Component.text("] ", NamedTextColor.YELLOW)).append(Component.text("Show to all players", NamedTextColor.GREEN))).build();
             }
             mainPane.addItem(new GuiItem(btnShow, event -> {
-                String bannerString = BannerUtil.serialize(banner);
-                Component msgBannerName = MessageComponentUtil.getTranslatableComponent(banner)
-                    .hoverEvent(MessageComponentUtil.getHoverEventItem(banner)) // 直接使用 MessageComponentUtil 返回的 Adventure HoverEvent
-                    .clickEvent(ClickEvent.runCommand("/bm view " + bannerString));
-
                 if (event.getClick().isLeftClick() && player.hasPermission("BannerMaker.show.nearby")) {
-                    double maxDistance = 16;
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (!p.hasPermission("BannerMaker.show.receive") && !p.equals(player)) {
-                            continue;
-                        }
-                        if (!p.getWorld().equals(player.getWorld())) {
-                            continue;
-                        }
-                        if (p.getLocation().distanceSquared(player.getLocation()) > maxDistance * maxDistance) {
-                            continue;
-                        }
-                        // 修正：使用 messageService.send
-                        messageService.send(p, Component.text(player.getDisplayName()).color(NamedTextColor.YELLOW)
-                            .append(Component.text(" shows you the banner ").color(NamedTextColor.GRAY))
-                            .append(msgBannerName)
-                            .append(Component.text(" (Click to view)").color(NamedTextColor.DARK_GRAY)));
-                    }
+                    BannerMaker.getInstance().getBannerService().showToNearby(player, banner, 16);
                 } else if (event.getClick().isRightClick() && player.hasPermission("BannerMaker.show.all")) {
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (!p.hasPermission("BannerMaker.show.receive") && !p.equals(player)) {
-                            continue;
-                        }
-                        // 修正：使用 messageService.send
-                        messageService.send(p, Component.text(player.getDisplayName()).color(NamedTextColor.YELLOW)
-                            .append(Component.text(" shows you the banner ").color(NamedTextColor.GRAY))
-                            .append(msgBannerName)
-                            .append(Component.text(" (Click to view)").color(NamedTextColor.DARK_GRAY)));
-                    }
+                    BannerMaker.getInstance().getBannerService().showToAll(player, banner);
                 }
                 player.closeInventory();
                 event.setCancelled(true);
@@ -226,12 +192,7 @@ public class BannerInfoGUI {
         if (player.hasPermission("BannerMaker.view")) {
             ItemStack btnGenerateCommand = new ItemBuilder(Material.COMMAND_BLOCK).name(Component.text("Get share command", NamedTextColor.BLUE)).build();
             mainPane.addItem(new GuiItem(btnGenerateCommand, event -> {
-                String bannerString = BannerUtil.serialize(banner);
-                Component msg = Component.text("[Click here to copy command to clipboard]")
-                    .hoverEvent(HoverEvent.showText(Component.text("Copy command to clipboard")))
-                    .clickEvent(ClickEvent.copyToClipboard("/bm view " + bannerString));
-                // 修正：使用 messageService.send
-                messageService.send(player, msg);
+                BannerMaker.getInstance().getBannerService().sendShareCommand(player, banner);
                 player.closeInventory();
                 event.setCancelled(true);
             }), 8, 5); // 修正為 (8, 5)
