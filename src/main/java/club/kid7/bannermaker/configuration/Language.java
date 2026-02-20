@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class Language {
     private static Language instance = null;
-    private static final Locale DEFAULT_LOCALE = Locale.of("en", "US");
+    private static final Locale DEFAULT_LOCALE = Locale.US; // en_US
     private final BannerMaker bm;
     private FileConfiguration defaultLanguageConfigResource;
     private FileConfiguration languageConfigResource;
@@ -70,7 +70,7 @@ public class Language {
     private static Locale normalizeLocale(Locale locale) {
         // en（無國家碼）→ en_US（僅對英語進行特殊處理，因為有部分環境會將其解析為 en，而實際上應使用 en_US 作為預設英語）
         if (locale.getLanguage().equals("en") && locale.getCountry().isEmpty()) {
-            return Locale.of("en", "US");
+            return Locale.US; // en_US
         }
         return locale;
     }
