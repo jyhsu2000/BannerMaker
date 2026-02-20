@@ -56,7 +56,7 @@ public class BannerMakerCommand extends BaseCommand {
     @Description("Reload all config")
     public void onReload(CommandSender sender) {
         plugin.reload();
-        plugin.getMessageService().send(sender, "&aConfiguration reloaded.");
+        plugin.getMessageService().send(sender, tl(NamedTextColor.GREEN, "general.reload"));
     }
 
     @Subcommand("see")
