@@ -35,36 +35,44 @@ public class Language {
     }
 
     private static Locale parseLocale(String localeName) {
-        //自動
+        Locale locale;
+
+        // auto / null / empty → 使用系統 locale
         if (localeName == null || localeName.equalsIgnoreCase("auto") || localeName.isEmpty()) {
-            return Locale.getDefault();
+            locale = Locale.getDefault();
+            return normalizeLocale(locale);
         }
-        //嘗試直接搜尋
+
+        // 正規化：- 轉 _
+        String normalized = localeName.trim().replace('-', '_');
+
+        // 嘗試直接解析
         try {
-            return LocaleUtils.toLocale(localeName);
+            locale = LocaleUtils.toLocale(normalized);
+            return normalizeLocale(locale);
         } catch (IllegalArgumentException ignored) {
         }
-        //剖析重組後搜尋
-        Pattern pattern = Pattern.compile("^(.*?)(?:[-_](.*))?$");
-        Matcher matcher = pattern.matcher(localeName);
-        if (matcher.find()) {
-            String languageName = matcher.group(1).toLowerCase();
-            String countryName = matcher.group(2) != null ? matcher.group(2).toUpperCase() : null;
-            String fullLocaleName = languageName;
-            if (countryName != null) {
-                fullLocaleName += "_" + matcher.group(2).toUpperCase();
-            }
+
+        // 嘗試大小寫修正（語言小寫、國家大寫）
+        Matcher matcher = Pattern.compile("^([a-zA-Z]{2,3})_([a-zA-Z]{2})$").matcher(normalized);
+        if (matcher.matches()) {
+            String corrected = matcher.group(1).toLowerCase() + "_" + matcher.group(2).toUpperCase();
             try {
-                return LocaleUtils.toLocale(fullLocaleName);
+                return LocaleUtils.toLocale(corrected);
             } catch (IllegalArgumentException ignored) {
-                try {
-                    return LocaleUtils.toLocale(languageName);
-                } catch (IllegalArgumentException ignored2) {
-                }
             }
         }
-        //預設語言
+
+        // 所有嘗試失敗，使用預設語言
         return DEFAULT_LOCALE;
+    }
+
+    private static Locale normalizeLocale(Locale locale) {
+        // en（無國家碼）→ en_US（僅對英語進行特殊處理，因為有部分環境會將其解析為 en，而實際上應使用 en_US 作為預設英語）
+        if (locale.getLanguage().equals("en") && locale.getCountry().isEmpty()) {
+            return Locale.of("en", "US");
+        }
+        return locale;
     }
 
     private void registerCommandDescriptions(Locale locale) {
