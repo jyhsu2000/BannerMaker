@@ -5,9 +5,6 @@ import club.kid7.bannermaker.registry.DyeColorRegistry;
 import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XTag;
 import com.google.common.collect.Maps;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -31,7 +28,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static club.kid7.bannermaker.configuration.Language.tl;
 
 public class BannerUtil {
     /**
@@ -284,88 +280,6 @@ public class BannerUtil {
             }
         }
         return isCraftableInSurvival(banner);
-    }
-
-    /**
-     * 從物品欄移除材料
-     *
-     * @param inventory 指定物品欄
-     * @param banner    旗幟
-     * @return 是否順利移除材料
-     */
-    static private boolean removeMaterials(Inventory inventory, ItemStack banner) {
-        //只檢查旗幟
-        if (!isBanner(banner)) {
-            return false;
-        }
-        //材料必須足夠
-        if (!hasEnoughMaterials(inventory, banner)) {
-            return false;
-        }
-        //材料清單
-        List<ItemStack> materials = getMaterials(banner);
-        //過濾材料，不須消耗旗幟圖形
-        materials.removeIf(BannerUtil::isBannerPatternItemStack);
-        HashMap<Integer, ItemStack> itemCannotRemoved = inventory.removeItem(materials.toArray(new ItemStack[0]));
-        if (!itemCannotRemoved.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 給予玩家單一旗幟
-     *
-     * @param player 要給予物品的玩家
-     * @param banner 要給予的旗幟
-     * @return 是否成功給予
-     */
-    public static boolean buy(Player player, ItemStack banner) {
-        //檢查是否啟用經濟
-        if (BannerMaker.getInstance().getEconomy() == null) {
-            //未啟用經濟，強制失敗
-            BannerMaker.getInstance().getMessageService().send(player, Component.text("Error: Economy not supported", NamedTextColor.RED));
-            return false;
-        }
-        //價格
-        double price = EconUtil.getPrice(banner);
-        //檢查財產是否足夠
-        if (!BannerMaker.getInstance().getEconomy().has(player, price)) {
-            //財產不足
-            BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.RED, "general.no-money"));
-            return false;
-        }
-        //扣款
-        EconomyResponse response = BannerMaker.getInstance().getEconomy().withdrawPlayer(player, price);
-        //檢查交易是否成功
-        if (!response.transactionSuccess()) {
-            //交易失敗
-            BannerMaker.getInstance().getMessageService().send(player, Component.text("Error: " + response.errorMessage, NamedTextColor.RED));
-            return false;
-        }
-        InventoryUtil.give(player, banner);
-        BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.GREEN, "general.money-transaction", BannerMaker.getInstance().getEconomy().format(response.amount), BannerMaker.getInstance().getEconomy().format(response.balance)));
-        return true;
-    }
-
-    /**
-     * 使用材料合成旗幟
-     * FIXME: 即使pattern過多，也仍然能合成，可能需要權限限制
-     *
-     * @param player 要給予物品的玩家
-     * @param banner 要給予的旗幟
-     * @return 是否成功給予
-     */
-    public static boolean craft(Player player, ItemStack banner) {
-        //檢查材料
-        if (!hasEnoughMaterials(player.getInventory(), banner)) {
-            return false;
-        }
-        //移除材料
-        removeMaterials(player.getInventory(), banner);
-
-        InventoryUtil.give(player, banner);
-        return true;
     }
 
     /**

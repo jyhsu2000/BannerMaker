@@ -2,6 +2,7 @@ package club.kid7.bannermaker.util;
 
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.configuration.ConfigManager;
+import club.kid7.bannermaker.service.BannerService;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -177,7 +178,8 @@ class BannerUtilTest {
         inv.addItem(new ItemStack(Material.WHITE_WOOL, 6));
         inv.addItem(new ItemStack(Material.RED_DYE, 1));
 
-        boolean result = BannerUtil.craft(player, banner);
+        BannerService bannerService = plugin.getBannerService();
+        boolean result = bannerService.craft(player, banner);
 
         assertTrue(result, "合成應該成功");
         // 材料應被消耗（木棒和染料被移除，羊毛被移除）
@@ -198,7 +200,8 @@ class BannerUtilTest {
         // 材料不足
         PlayerMock player = server.addPlayer("NoCraftPlayer");
 
-        boolean result = BannerUtil.craft(player, banner);
+        BannerService bannerService = plugin.getBannerService();
+        boolean result = bannerService.craft(player, banner);
 
         assertFalse(result, "材料不足時合成應該失敗");
         // 玩家不應獲得旗幟

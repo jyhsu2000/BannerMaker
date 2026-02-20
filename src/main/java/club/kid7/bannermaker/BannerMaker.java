@@ -3,6 +3,7 @@ package club.kid7.bannermaker;
 import club.kid7.bannermaker.configuration.ConfigManager;
 import club.kid7.bannermaker.configuration.DefaultConfig;
 import club.kid7.bannermaker.configuration.Language;
+import club.kid7.bannermaker.service.BannerService;
 import club.kid7.bannermaker.service.MessageService;
 import co.aikar.commands.PaperCommandManager;
 import net.milkbowl.vault.economy.Economy;
@@ -21,6 +22,7 @@ public class BannerMaker extends JavaPlugin {
     private boolean enableComplexBannerCraft = false;
     private PlayerDataMap playerDataMap = null;
     private MessageService messageService;
+    private BannerService bannerService;
     private PaperCommandManager commandManager;
 
     public static BannerMaker getInstance() {
@@ -31,8 +33,9 @@ public class BannerMaker extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        // 初始化 MessageService
+        // 初始化服務
         messageService = new MessageService(this);
+        bannerService = new BannerService();
 
         // 初始化 ACF Command Manager
         commandManager = new PaperCommandManager(this);
@@ -79,6 +82,10 @@ public class BannerMaker extends JavaPlugin {
 
     public PaperCommandManager getCommandManager() {
         return commandManager;
+    }
+
+    public BannerService getBannerService() {
+        return bannerService;
     }
 
     public Economy getEconomy() {

@@ -117,6 +117,7 @@ public class BannerInfoGUI {
             ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.delete")).build();
             mainPane.addItem(new GuiItem(btnDelete, event -> {
                 IOUtil.removeBanner(player, key);
+                messageService.send(player, tl(NamedTextColor.GREEN, "io.remove-banner", key));
                 MainMenuGUI.show(player);
                 event.setCancelled(true);
             }), 2, 5); // 修正為 (2, 5)
@@ -145,14 +146,14 @@ public class BannerInfoGUI {
 
                 mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                     if (event.getClick().isLeftClick()) {
-                        boolean success = BannerUtil.craft(player, banner);
+                        boolean success = BannerMaker.getInstance().getBannerService().craft(player, banner);
                         if (success) {
                             messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", showName));
                         } else {
                             messageService.send(player, tl(NamedTextColor.RED, "gui.materials.not-enough"));
                         }
                     } else if (event.getClick().isRightClick() && BannerMaker.getInstance().getEconomy() != null) {
-                        boolean success = BannerUtil.buy(player, banner);
+                        boolean success = BannerMaker.getInstance().getBannerService().buy(player, banner);
                         if (success) {
                             messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", showName));
                         }

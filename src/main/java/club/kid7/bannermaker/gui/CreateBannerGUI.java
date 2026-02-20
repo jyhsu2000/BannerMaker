@@ -153,7 +153,12 @@ public class CreateBannerGUI {
         // Slot 53 (8,5): 建立/儲存旗幟
         ItemStack btnCreate = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.create")).build();
         mainPane.addItem(new GuiItem(btnCreate, event -> {
-            IOUtil.saveBanner(player, currentBanner);
+            boolean saved = IOUtil.saveBanner(player, currentBanner);
+            if (saved) {
+                messageService.send(player, tl(NamedTextColor.GREEN, "io.save-success"));
+            } else {
+                messageService.send(player, tl(NamedTextColor.RED, "io.save-failed"));
+            }
             playerData.setCurrentEditBanner(null);
             MainMenuGUI.show(player); // 返回主選單
             event.setCancelled(true);

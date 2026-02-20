@@ -1,9 +1,7 @@
 package club.kid7.bannermaker.util;
 
-import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.configuration.ConfigManager;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.DyeColor;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
@@ -18,15 +16,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import static club.kid7.bannermaker.configuration.Language.tl;
-
 public class IOUtil {
 
     //儲存旗幟
     static public boolean saveBanner(Player player, ItemStack banner) {
         //只處理旗幟
         if (!BannerUtil.isBanner(banner)) {
-            BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.RED, "io.save-failed"));
             return false;
         }
         //設定檔
@@ -46,8 +41,6 @@ public class IOUtil {
             config.set(key + ".patterns", patternList);
         }
         ConfigManager.save(fileName);
-        //儲存成功
-        BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.GREEN, "io.save-success"));
         return true;
     }
 
@@ -132,8 +125,6 @@ public class IOUtil {
         config.set(key, null);
         //儲存
         ConfigManager.save(fileName);
-        //顯示訊息
-        BannerMaker.getInstance().getMessageService().send(player, tl(NamedTextColor.GREEN, "io.remove-banner", key));
         return true;
     }
 
