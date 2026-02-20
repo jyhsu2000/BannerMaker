@@ -112,7 +112,6 @@ public class IOUtil {
                     Pattern pattern = new Pattern(DyeColor.valueOf(strColor), Objects.requireNonNull(PatternType.getByIdentifier(strPattern)));
                     Objects.requireNonNull(bm).addPattern(pattern);
                 }
-                banner.setItemMeta(bm);
             }
             //將 key 藏於 PersistentData
             PersistentDataUtil.set(bm, "banner-key", key);
