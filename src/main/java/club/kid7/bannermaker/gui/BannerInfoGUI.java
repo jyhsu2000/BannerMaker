@@ -39,7 +39,7 @@ public class BannerInfoGUI {
             return;
         }
 
-        Component titleComponent = tl("gui.prefix").append(tl("gui.banner-info"));
+        Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.banner-info"));
         String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));

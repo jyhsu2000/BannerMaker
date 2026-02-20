@@ -27,7 +27,7 @@ public class CreateAlphabetGUI {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
-        Component titleComponent = tl("gui.prefix").append(tl("gui.alphabet-and-number"));
+        Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.alphabet-and-number"));
         String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));

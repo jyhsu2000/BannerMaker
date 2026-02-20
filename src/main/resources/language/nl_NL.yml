@@ -19,8 +19,12 @@ command:
 config:
   add-setting: Add {0} new settings
 gui:
-  prefix: '&4[BM]&r '
-  main-menu: Hoofd menu
+  title:
+    prefix: '&4[BM]&r '
+    main-menu: Hoofd menu
+    create-banner: Maak Banner
+    alphabet-and-number: 'Alphabet & Nummer'
+    banner-info: Banner info
   prev-page: Prev Page
   next-page: Next Page
   create-banner: Maak Banner

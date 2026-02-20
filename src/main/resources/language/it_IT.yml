@@ -19,8 +19,12 @@ command:
 config:
   add-setting: Aggiungi {0} nuove impostazioni
 gui:
-  prefix: '&4[BM]&r '
-  main-menu: Menu principale
+  title:
+    prefix: '&4[BM]&r '
+    main-menu: Menu principale
+    create-banner: Crea uno stendardo
+    alphabet-and-number: 'Alfabeto e Numeri'
+    banner-info: Informazioni stendardo
   prev-page: Pagina precedente
   next-page: Pagina successiva
   create-banner: Crea uno stendardo

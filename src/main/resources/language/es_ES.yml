@@ -19,7 +19,12 @@ command:
 config:
   add-setting: Añadir {0} a la configuración
 gui:
-  prefix: '&4[BM]&r '
+  title:
+    prefix: '&4[BM]&r '
+    main-menu: Estandartes
+    create-banner: Crear Estandarte
+    alphabet-and-number: Números y Letras
+    banner-info: Fabricación
   prev-page: Volver
   next-page: Continuar
   create-banner: Crear Estandarte
@@ -50,4 +55,3 @@ gui:
   click:
     left: Clic Izquierdo
     right: Clic Derecho
-  main-menu: Estandartes

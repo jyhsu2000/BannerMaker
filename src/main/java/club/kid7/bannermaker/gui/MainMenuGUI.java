@@ -25,7 +25,7 @@ public class MainMenuGUI {
 
     public static void show(Player player) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
-        Component titleComponent = tl("gui.prefix").append(tl("gui.main-menu"));
+        Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.main-menu"));
         // InventoryFramework 標題需要 Legacy String
         String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
 

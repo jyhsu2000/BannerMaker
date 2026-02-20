@@ -19,8 +19,12 @@ command:
 config:
   add-setting: Dodaj {0} nowe ustawienia
 gui:
-  prefix: '&4[BM]&r '
-  main-menu: Menu główne
+  title:
+    prefix: '&4[BM]&r '
+    main-menu: Menu główne
+    create-banner: Stwórz banner
+    alphabet-and-number: 'Alfabet i Numery'
+    banner-info: informacje o banerze
   prev-page: Poprzednia strona
   next-page: Następna strona
   create-banner: Stwórz banner

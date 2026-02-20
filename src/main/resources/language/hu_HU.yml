@@ -19,8 +19,12 @@ command:
 config:
   add-setting: Hozzáad egy új beállítást {0}
 gui:
-  prefix: '&4[BM]&r '
-  main-menu: Fő menü
+  title:
+    prefix: '&4[BM]&r '
+    main-menu: Fő menü
+    create-banner: Banner létrehozása
+    alphabet-and-number: 'Betűk és számok'
+    banner-info: Banner információ
   prev-page: Előző oldal
   next-page: Következő oldal
   create-banner: Banner létrehozása

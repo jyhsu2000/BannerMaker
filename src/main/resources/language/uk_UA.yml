@@ -19,8 +19,12 @@ command:
 config:
   add-setting: Доднано {0} налаштувань
 gui:
-  prefix: '&4[BM]&r '
-  main-menu: Головне меню
+  title:
+    prefix: '&4[BM]&r '
+    main-menu: Головне меню
+    create-banner: Створити стяг
+    alphabet-and-number: 'Цифри та Літери'
+    banner-info: Інформація про стяг
   prev-page: Попередня сторінка
   next-page: Наступна сторінка
   create-banner: Створити стяг

@@ -26,8 +26,12 @@ command:
 config:
   add-setting: Add {0} new settings
 gui:
-  prefix: '&4[BM]&r '
-  main-menu: Main menu
+  title:
+    prefix: '&4[BM]&r '
+    main-menu: Main menu
+    create-banner: Create Banner
+    alphabet-and-number: 'Alphabet & Number'
+    banner-info: Banner info
   prev-page: Prev Page
   next-page: Next Page
   create-banner: Create Banner

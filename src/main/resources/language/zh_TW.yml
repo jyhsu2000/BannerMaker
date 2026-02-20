@@ -26,8 +26,12 @@ command:
 config:
   add-setting: 新增 {0} 個新設定
 gui:
-  prefix: '&4[BM]&r '
-  main-menu: 主選單
+  title:
+    prefix: '&4[BM]&r '
+    main-menu: 主選單
+    create-banner: 建立旗幟
+    alphabet-and-number: 字母與數字
+    banner-info: 旗幟資訊
   prev-page: 上一頁
   next-page: 下一頁
   create-banner: 建立旗幟

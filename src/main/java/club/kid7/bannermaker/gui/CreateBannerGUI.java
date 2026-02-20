@@ -31,7 +31,7 @@ public class CreateBannerGUI {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
-        Component titleComponent = tl("gui.prefix").append(tl("gui.create-banner"));
+        Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.create-banner"));
         String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));

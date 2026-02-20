@@ -57,7 +57,7 @@ class MainMenuGUITest {
 
             // Given
             MessageService messageService = BannerMaker.getInstance().getMessageService();
-            Component expectedTitleComponent = Language.tl("gui.prefix").append(Language.tl("gui.main-menu"));
+            Component expectedTitleComponent = Language.tl("gui.title.prefix").append(Language.tl("gui.title.main-menu"));
             String expectedTitle = LegacyComponentSerializer.legacySection().serialize(expectedTitleComponent);
 
             // When
