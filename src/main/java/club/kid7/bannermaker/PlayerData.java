@@ -8,7 +8,6 @@ public class PlayerData {
      * 選單狀態
      */
 
-    private Integer currentPage = 1;
     private ItemStack viewInfoBanner = null;
     private Integer currentRecipePage = 1;
     private AlphabetBanner currentAlphabetBanner = null;
@@ -17,14 +16,6 @@ public class PlayerData {
     private boolean showMorePatterns = false;
     private DyeColor selectedColor = DyeColor.BLACK;
     private boolean inSimplePreviewMode = false;
-
-    public Integer getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(Integer currentPage) {
-        this.currentPage = currentPage;
-    }
 
     public ItemStack getViewInfoBanner() {
         return viewInfoBanner;
