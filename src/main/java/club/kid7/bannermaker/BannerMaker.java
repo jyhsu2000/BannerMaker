@@ -90,9 +90,9 @@ public class BannerMaker extends JavaPlugin {
         new DefaultConfig(this).checkConfig();
         //經濟
         if (setupEconomy()) {
-            messageService.send(getServer().getConsoleSender(), "&a[BannerMaker] Vault dependency found! Enable economy supported");
+            messageService.send(getServer().getConsoleSender(), "&aVault dependency found! Enable economy supported");
         } else {
-            messageService.send(getServer().getConsoleSender(), "&c[BannerMaker] Disable economy supported");
+            messageService.send(getServer().getConsoleSender(), "&cDisable economy supported");
         }
         //設定檔
         FileConfiguration config = ConfigManager.get("config");

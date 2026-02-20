@@ -2,8 +2,6 @@ package club.kid7.bannermaker.configuration;
 
 import club.kid7.bannermaker.BannerMaker;
 import com.google.common.collect.Maps;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -58,7 +56,7 @@ public class DefaultConfig {
             }
             if (newSettingCount > 0) {
                 ConfigManager.save(configFileName);
-                bm.getMessageService().send(bm.getServer().getConsoleSender(), bm.getMessageService().formatWithPrefix(Component.text("[BannerMaker] ", NamedTextColor.AQUA), tl("config.add-setting", newSettingCount)));
+                bm.getMessageService().send(bm.getServer().getConsoleSender(), tl("config.add-setting", newSettingCount));
             }
         }
     }
