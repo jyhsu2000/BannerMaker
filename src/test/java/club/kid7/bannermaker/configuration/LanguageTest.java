@@ -28,7 +28,7 @@ class LanguageTest {
         plugin = MockBukkit.load(BannerMaker.class);
 
         // 強制設定使用英文，避免 Locale.getDefault() 導致測試環境不一致
-        ConfigManager.get("config.yml").set("Language", "en");
+        ConfigManager.get("config.yml").set("Language", "en_US");
 
         // 初始化語言系統 (這會讀取 config.yml)
         new Language(plugin).loadLanguage();
@@ -45,8 +45,8 @@ class LanguageTest {
      */
     private void setLanguageKey(String key, String value) {
         // 直接操作 ConfigManager 管理的當前語言設定檔
-        // 預設是英文，所以是 language/en.yml
-        FileConfiguration config = ConfigManager.get("language" + File.separator + "en.yml");
+        // 預設是英文，所以是 language/en_US.yml
+        FileConfiguration config = ConfigManager.get("language" + File.separator + "en_US.yml");
         config.set(key, value);
     }
 
