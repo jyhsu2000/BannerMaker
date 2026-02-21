@@ -55,7 +55,7 @@ public class BannerService {
         //檢查是否啟用經濟
         if (!economyService.isAvailable()) {
             //未啟用經濟，強制失敗
-            messageService.send(player, Component.text("Error: Economy not supported", NamedTextColor.RED));
+            messageService.send(player, tl(NamedTextColor.RED, "general.economy-not-supported"));
             return false;
         }
         //價格
@@ -71,7 +71,7 @@ public class BannerService {
         //檢查交易是否成功
         if (!response.transactionSuccess()) {
             //交易失敗
-            messageService.send(player, Component.text("Error: " + response.errorMessage, NamedTextColor.RED));
+            messageService.send(player, tl(NamedTextColor.RED, "general.economy-transaction-error", tag("message", response.errorMessage)));
             return false;
         }
         InventoryUtil.give(player, banner);
@@ -138,10 +138,9 @@ public class BannerService {
      * 建立展示訊息的完整文字
      */
     private Component buildShowMessage(Player sender, Component bannerName) {
-        return Component.text(sender.getDisplayName()).color(NamedTextColor.YELLOW)
-            .append(Component.text(" shows you the banner ").color(NamedTextColor.GRAY))
-            .append(bannerName)
-            .append(Component.text(" (Click to view)").color(NamedTextColor.DARK_GRAY));
+        return tl("general.show-banner-message",
+            tag("sender", sender.getDisplayName()),
+            tag("banner", bannerName));
     }
 
     /**
@@ -153,8 +152,8 @@ public class BannerService {
     public void sendShareCommand(Player player, ItemStack banner) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         String bannerString = BannerUtil.serialize(banner);
-        Component msg = Component.text("[Click here to copy command to clipboard]")
-            .hoverEvent(HoverEvent.showText(Component.text("Copy command to clipboard")))
+        Component msg = tl("general.share-click-text")
+            .hoverEvent(HoverEvent.showText(tl("general.share-hover-text")))
             .clickEvent(ClickEvent.copyToClipboard("/bm view " + bannerString));
         messageService.send(player, msg);
     }

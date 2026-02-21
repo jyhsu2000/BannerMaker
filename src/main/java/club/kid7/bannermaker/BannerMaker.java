@@ -17,6 +17,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Arrays;
 import java.util.List;
 
+import static club.kid7.bannermaker.configuration.Language.tl;
+
 public class BannerMaker extends JavaPlugin {
     private static BannerMaker instance = null;
     private Economy econ = null;
@@ -131,9 +133,9 @@ public class BannerMaker extends JavaPlugin {
         new DefaultConfig(this).checkConfig();
         //經濟
         if (setupEconomy()) {
-            messageService.send(getServer().getConsoleSender(), "&aVault dependency found! Enable economy supported");
+            messageService.send(getServer().getConsoleSender(), tl("general.economy-enabled"));
         } else {
-            messageService.send(getServer().getConsoleSender(), "&cDisable economy supported");
+            messageService.send(getServer().getConsoleSender(), tl("general.economy-disabled"));
         }
         //設定檔
         FileConfiguration config = ConfigManager.get("config");

@@ -6,6 +6,13 @@ general:
   reload: 重新載入
   no-money: 金錢不足
   money-transaction: 使用 <amount> 取得旗幟，現在你還有 <balance>
+  economy-not-supported: '錯誤：不支援經濟系統'
+  economy-transaction-error: '錯誤：<message>'
+  economy-enabled: '&a找到 Vault！已啟用經濟系統支援'
+  economy-disabled: '&c已停用經濟系統支援'
+  show-banner-message: '&e<sender>&7 向你展示了旗幟 &f<banner>&8（點擊檢視）'
+  share-click-text: '[點擊這裡複製指令到剪貼簿]'
+  share-hover-text: 複製指令到剪貼簿
 io:
   save-failed: 儲存失敗
   save-success: 儲存成功
@@ -13,6 +20,7 @@ io:
 command:
   not-banner-hand: 手上拿的物品不是旗幟
   not-banner-see: 看著的方塊不是旗幟
+  invalid-banner-string: '&c無效的旗幟字串'
   description:
     default: 顯示 BannerMaker 選單
     help: 顯示指令幫助
@@ -60,3 +68,8 @@ gui:
     right: 右鍵
   selected-pattern-color: 已選擇圖形顏色
   toggle-preview-mode: 切換預覽模式
+  show-banner: 向玩家展示旗幟
+  show-to-nearby: 向附近玩家展示
+  show-to-all: 向所有玩家展示
+  get-share-command: 取得分享指令
+  recipe-page: '(<page>/<total>)'

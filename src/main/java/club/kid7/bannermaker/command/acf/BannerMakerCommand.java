@@ -103,7 +103,7 @@ public class BannerMakerCommand extends BaseCommand {
             //顯示旗幟
             InventoryMenuUtil.openBannerInfo(player, banner);
         } catch (Exception e) {
-            plugin.getMessageService().send(player, "&cInvalid banner string");
+            plugin.getMessageService().send(player, tl("command.invalid-banner-string"));
         }
     }
 }

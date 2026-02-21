@@ -171,12 +171,12 @@ public class BannerInfoGUI {
 
         // Slot 52 (7,5): 展示旗幟
         if (player.hasPermission("BannerMaker.show.nearby") || player.hasPermission("BannerMaker.show.all")) {
-            ItemStack btnShow = new ItemBuilder(Material.BELL).name(Component.text("Show banner to players", NamedTextColor.BLUE)).build();
+            ItemStack btnShow = new ItemBuilder(Material.BELL).name(tl(NamedTextColor.BLUE, "gui.show-banner")).build();
             if (player.hasPermission("BannerMaker.show.nearby")) {
-                btnShow = new ItemBuilder(btnShow).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left")).append(Component.text("] ", NamedTextColor.YELLOW)).append(Component.text("Show to nearby players", NamedTextColor.GREEN))).build();
+                btnShow = new ItemBuilder(btnShow).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left")).append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.show-to-nearby"))).build();
             }
             if (player.hasPermission("BannerMaker.show.all")) {
-                btnShow = new ItemBuilder(btnShow).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.right")).append(Component.text("] ", NamedTextColor.YELLOW)).append(Component.text("Show to all players", NamedTextColor.GREEN))).build();
+                btnShow = new ItemBuilder(btnShow).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.right")).append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.show-to-all"))).build();
             }
             mainPane.addItem(new GuiItem(btnShow, event -> {
                 if (event.getClick().isLeftClick() && player.hasPermission("BannerMaker.show.nearby")) {
@@ -191,7 +191,7 @@ public class BannerInfoGUI {
 
         // Slot 53 (8,5): 生成指令
         if (player.hasPermission("BannerMaker.view")) {
-            ItemStack btnGenerateCommand = new ItemBuilder(Material.COMMAND_BLOCK).name(Component.text("Get share command", NamedTextColor.BLUE)).build();
+            ItemStack btnGenerateCommand = new ItemBuilder(Material.COMMAND_BLOCK).name(tl(NamedTextColor.BLUE, "gui.get-share-command")).build();
             mainPane.addItem(new GuiItem(btnGenerateCommand, event -> {
                 BannerMaker.getInstance().getBannerService().sendShareCommand(player, banner);
                 player.closeInventory();
@@ -250,7 +250,7 @@ public class BannerInfoGUI {
         HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
         ItemStack workbench = new ItemBuilder(Material.CRAFTING_TABLE).amount(currentRecipePage)
             .name(tl(NamedTextColor.GREEN, "gui.craft-recipe"))
-            .lore(Component.text("(" + currentRecipePage + "/" + totalPage + ")")).build();
+            .lore(tl("gui.recipe-page", tag("page", currentRecipePage), tag("total", totalPage))).build();
         if (BannerUtil.isLoomRecipe(patternRecipe)) {
             workbench.setType(Material.LOOM);
         }

@@ -6,6 +6,13 @@ general:
   reload: Reload config
   no-money: Not enough money
   money-transaction: Use <amount> to get banner. Now you have <balance>
+  economy-not-supported: 'Error: Economy not supported'
+  economy-transaction-error: 'Error: <message>'
+  economy-enabled: '&aVault dependency found! Enable economy supported'
+  economy-disabled: '&cDisable economy supported'
+  show-banner-message: '&e<sender>&7 shows you the banner &f<banner>&8 (Click to view)'
+  share-click-text: '[Click here to copy command to clipboard]'
+  share-hover-text: Copy command to clipboard
 io:
   save-failed: Save failed.
   save-success: Save success.
@@ -13,6 +20,7 @@ io:
 command:
   not-banner-hand: Item in hand is not a banner.
   not-banner-see: Block you're looking at is not a banner.
+  invalid-banner-string: '&cInvalid banner string'
   description:
     default: Show menu of BannerMaker
     help: Show help message
@@ -60,3 +68,8 @@ gui:
     right: Right Click
   selected-pattern-color: Selected pattern color
   toggle-preview-mode: Toggle preview mode
+  show-banner: Show banner to players
+  show-to-nearby: Show to nearby players
+  show-to-all: Show to all players
+  get-share-command: Get share command
+  recipe-page: '(<page>/<total>)'
