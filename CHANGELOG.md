@@ -2,7 +2,11 @@
 
 ## Unreleased Version
 
-- None
+- Update language system
+    - Language files now support MiniMessage format alongside legacy `&` formatting codes
+    - Most messages are now translatable
+- Fix minor issues
+- Optimize code
 
 ## v2.5.1 (for v1.21.x)
 
