@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "Dev tooling wrappers for BannerMaker (Crowdin sync etc.).",
-  "packageManager": "pnpm@10.0.0",
+  "packageManager": "pnpm@11.1.2",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "crowdin:upload-sources": "dotenv -- crowdin upload sources",
