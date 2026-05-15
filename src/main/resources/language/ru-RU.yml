@@ -1,15 +1,11 @@
-# Russian(ru)
-# For BannerMaker v2.3.2
-# Contributor(s): sdir01, maz1lovo
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
   reload: Перезагрузить конфиг
   no-money: Недостаточно денег
   money-transaction: Используй <amount> для получения баннера. Сейчас вы имеете <balance>
 io:
   save-failed: Сохранение не удалось.
   save-success: Сохранение успешно.
-  remove-banner: Удалить баннер &r#<key>
+  remove-banner: 'Удалить баннер &r#<key>'
 command:
   not-banner-hand: Предмет в руке, не баннер.
   not-banner-see: Блок, на который вы смотрите, не является баннером.
@@ -17,10 +13,9 @@ config:
   add-setting: Добавить <count> новые настройки
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Главное меню
     create-banner: Создать баннер
-    alphabet-and-number: Буквы и Цифры
+    alphabet-and-number: 'Буквы и Цифры'
     banner-info: Информация о баннере
   prev-page: Следующая страница
   next-page: Предыдущая страница
@@ -38,16 +33,16 @@ gui:
   no-patterns: Нет узоров
   craft-recipe: Рецепт крафта
   get-this-banner: Получить этот баннер
-  get-banner: Получен баннер &r#<name>
-  clone-and-edit: Клонировать и изменить
-  alphabet-and-number: Буквы и Цифры
+  get-banner: 'Получен баннер &r#<name>'
+  get-banner-for-free: Получитm баннер бесплатно
+  buy-banner-in-price: Купить за <price>
+  get-banner-by-craft: Скрафтить
+  clone-and-edit: 'Клонировать и изменить'
+  alphabet-and-number: 'Буквы и Цифры'
   toggle-border: Включить обводку
   materials:
     enough: Материалов достаточно
     not-enough: Материалов не достаточно
-  get-banner-for-free: Получитm баннер бесплатно
-  buy-banner-in-price: Купить за <price>
-  get-banner-by-craft: Скрафтить
   click:
     left: Левый Клик
     right: Правый Клик

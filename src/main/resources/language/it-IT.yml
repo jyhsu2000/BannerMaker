@@ -1,15 +1,11 @@
-# Italian(it)
-# For BannerMaker v2.2.1
-# Contributor(s): Leomixer17
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
   reload: Ricarica la configurazione
   no-money: Non hai abbastanza soldi
   money-transaction: Usa <amount> per ottenere uno stendardo. Ora hai <balance>
 io:
   save-failed: Salvataggio fallito.
   save-success: Salvataggio avvenuto con successo.
-  remove-banner: Rimuovi lo stendardo &r#<key>
+  remove-banner: 'Rimuovi lo stendardo &r#<key>'
 command:
   not-banner-hand: L'oggetto nella mano non è uno stendardo.
   not-banner-see: Il blocco che stai guardando non è uno stendardo.
@@ -17,7 +13,6 @@ config:
   add-setting: Aggiungi <count> nuove impostazioni
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Menu principale
     create-banner: Crea uno stendardo
     alphabet-and-number: 'Alfabeto e Numeri'
@@ -38,7 +33,7 @@ gui:
   no-patterns: Nessun motivo
   craft-recipe: Crea la Ricetta
   get-this-banner: Ottieni questo stendardo
-  get-banner: Ottieni lo stendardo &r#<name>
+  get-banner: 'Ottieni lo stendardo &r#<name>'
   get-banner-for-free: Ottieni lo stendardo gratuitamente
   buy-banner-in-price: Compra in <price>
   get-banner-by-craft: Crea

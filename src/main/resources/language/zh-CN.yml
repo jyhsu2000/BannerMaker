@@ -1,55 +1,59 @@
-# Simplified Chinese(zh-CN)
-# For BannerMaker v2.1.0
-# Contributor(s): KID
 general:
   prefix: '&6[&aBannerMaker&6]&r '
-  reload: 重新载入
-  no-money: 金钱不足
-  money-transaction: 使用 <amount> 取得旗帜，现在你还有 <balance>
+  reload: 重载配置
+  no-money: 余额不足
+  money-transaction: 花费 <amount> 获取该旗帜，当前余额：<balance>
 io:
-  save-failed: 储存失败
-  save-success: 储存成功
-  remove-banner: 移除旗帜 &r#<key>
+  save-failed: 保存失败
+  save-success: 保存成功
+  remove-banner: '移除旗帜 &r#<key>'
 command:
-  not-banner-hand: 手上拿的物品不是旗帜
-  not-banner-see: 看着的方块不是旗帜
+  not-banner-hand: 您所手持物品不是旗帜
+  not-banner-see: 您所看着的方块不是旗帜
+  description:
+    default: 显示 BannerMaker 菜单
+    help: 显示帮助信息
+    reload: 重载所有配置
+    see: 显示玩家所看着的旗帜的信息
+    hand: 显示玩家所手持旗帜的信息
+    view: 查看所输入旗帜代码的旗帜信息
 config:
-  add-setting: 新增 <count> 个新设定
+  add-setting: 新增 <count> 项设置
 gui:
   title:
     prefix: '&4[BM]&r '
-    main-menu: 主选单
-    create-banner: 建立旗帜
-    alphabet-and-number: 字母与数字
-    banner-info: 旗帜资讯
+    main-menu: 主菜单
+    create-banner: 创建旗帜
+    alphabet-and-number: '字母和数字'
+    banner-info: 旗帜信息
   prev-page: 上一页
   next-page: 下一页
-  create-banner: 建立旗帜
+  create-banner: 创建旗帜
   uncraftable-warning: 无法合成警告
   uncraftable: 无法合成
-  more-than-6-patterns: 超过6个图形
-  more-patterns: 更多图形
+  more-than-6-patterns: 超过 6 个图案
+  more-patterns: 更多图案
   back: 返回
-  create: 建立
+  create: 创建
   delete: 删除
-  remove-last-pattern: 移除最后一个图形
-  banner-info: 旗帜资讯
-  pattern-s: 个图形
-  no-patterns: 没有图形
-  craft-recipe: 合成表
-  get-this-banner: 取得这个旗帜
-  get-banner: 取得旗帜 &r#<name>
-  get-banner-for-free: 免费取得
-  buy-banner-in-price: 使用 <price> 购买
+  remove-last-pattern: 移除最后一个图案
+  banner-info: 旗帜信息
+  pattern-s: 个图案
+  no-patterns: 无图案
+  craft-recipe: 合成配方
+  get-this-banner: 获取该旗帜
+  get-banner: '获取旗帜 &r#<name>'
+  get-banner-for-free: 免费获取
+  buy-banner-in-price: 以 <price> 购买
   get-banner-by-craft: 合成
-  clone-and-edit: 复制并编辑
-  alphabet-and-number: 字母与数字
-  toggle-border: 切换边框
+  clone-and-edit: '复制并编辑'
+  alphabet-and-number: '字母和数字'
+  toggle-border: 开关边框
   materials:
-    enough: 材料足够
+    enough: 材料充足
     not-enough: 材料不足
   click:
-    left: 左键
-    right: 右键
-  selected-pattern-color: 已选择图形颜色
+    left: 左键点击
+    right: 右键点击
+  selected-pattern-color: 已选图案颜色
   toggle-preview-mode: 切换预览模式

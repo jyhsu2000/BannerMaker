@@ -1,33 +1,31 @@
-# German(de)
-# For BannerMaker v1.4.2
-# Contributor(s): Marrarus
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
-  reload: config wird neu geladen
+  reload: Konfiguration wird neu geladen
   no-money: Nicht genug Geld
   money-transaction: Du brauchst <amount> für das Banner. Du hast gerade <balance>
 io:
   save-failed: Speichern fehlgeschlagen.
   save-success: Erfolgreich gespeichert.
-  remove-banner: Lösche Banner &r#<key>
+  remove-banner: 'Lösche Banner &r#<key>'
+command:
+  not-banner-hand: Gegenstand in der Hand ist kein Banner.
+  not-banner-see: Anvisierter Block ist kein Banner.
 config:
-  add-setting: Add <count> new settings
+  add-setting: '{0} neue Einstellungen'
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Hauptmenü
     create-banner: Banner erstellen
     alphabet-and-number: 'Alphabet & Zahlen'
     banner-info: Banner Info
-  prev-page: Letzte Seite
+  prev-page: Vorherige Seite
   next-page: Nächste Seite
   create-banner: Banner erstellen
-  uncraftable-warning: Warnung! Nicht Craftbar
-  uncraftable: Nicht Craftbar
+  uncraftable-warning: 'Achtung: Nicht herstellbar!'
+  uncraftable: Nicht herstellbar
   more-than-6-patterns: Mehr als 6 Muster.
   more-patterns: Mehr Muster
   back: Zurück
-  create: erstellen
+  create: Erstellen
   delete: LÖSCHEN
   remove-last-pattern: Letztes Muster entfernen
   banner-info: Banner Info
@@ -35,7 +33,18 @@ gui:
   no-patterns: Keine Muster
   craft-recipe: Rezept
   get-this-banner: Banner bekommen
-  get-banner: Banner &r#<name> bekommen
+  get-banner: 'Banner &r#<name> bekommen'
+  get-banner-for-free: Banner kostenlos erhalten
+  buy-banner-in-price: Kaufen für {0}
+  get-banner-by-craft: Herstellen
   clone-and-edit: 'kopieren & bearbeiten'
   alphabet-and-number: 'Alphabet & Zahlen'
   toggle-border: Rand Ein-/Ausschalten
+  materials:
+    enough: genug Materialien
+    not-enough: Materialien nicht ausreichend
+  click:
+    left: Linksklick
+    right: Rechtsklick
+  selected-pattern-color: Ausgewählte Musterfarbe
+  toggle-preview-mode: Vorschaumodus umschalten

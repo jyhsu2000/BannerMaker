@@ -1,15 +1,11 @@
-# Hungarian(hu)
-# For BannerMaker v1.7.2
-# Contributor(s): montlikadani
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
   reload: A konfig fájl frissítése
   no-money: Nincs elegendő egyenleged
   money-transaction: Használd <amount>, hogy bannert kapj, jelenleg van <balance>
 io:
   save-failed: A mentés sikertelen.
   save-success: A mentés sikeres.
-  remove-banner: A banner eltávolítása &r#<key>
+  remove-banner: 'A banner eltávolítása &r#<key>'
 command:
   not-banner-hand: A kezedben lévő elem nem egy banner.
   not-banner-see: A blokk, amelyet néz, nem egy banner.
@@ -17,7 +13,6 @@ config:
   add-setting: Hozzáad egy új beállítást <count>
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Fő menü
     create-banner: Banner létrehozása
     alphabet-and-number: 'Betűk és számok'
@@ -26,7 +21,7 @@ gui:
   next-page: Következő oldal
   create-banner: Banner létrehozása
   uncraftable-warning: Nem olvasható figyelmeztetés
-  uncraftable: Uncraftable
+  uncraftable: Megmunkálatlan
   more-than-6-patterns: Több, mint 6 minta.
   more-patterns: További minták
   back: Vissza
@@ -38,10 +33,18 @@ gui:
   no-patterns: Nincsenek minták
   craft-recipe: Barkács Recept
   get-this-banner: Szerezd meg ezt a bannert
-  get-banner: Banner megszerezve &r#<name>
+  get-banner: 'Banner megszerezve &r#<name>'
+  get-banner-for-free: Banner megszerzése ingyen
+  buy-banner-in-price: Vásárlás {0}-ért
+  get-banner-by-craft: Barkácsolás
   clone-and-edit: 'Klón & szerkesztés'
   alphabet-and-number: 'Betűk és számok'
   toggle-border: Kapcsolni a határt
   materials:
     enough: Az anyagok elegendőek
     not-enough: Nincs elég anyag
+  click:
+    left: Bal Klikk
+    right: Jobb Klikk
+  selected-pattern-color: Kiválasztott minta színe
+  toggle-preview-mode: Váltás az előnézeti módra

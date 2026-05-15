@@ -20,3 +20,4 @@ on [GitHub Contributors](https://github.com/jyhsu2000/BannerMaker/graphs/contrib
 - [montlikadani](https://www.spigotmc.org/members/toldi.251100/) (Hungarian)
 - [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/) (Polish)
 - [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/) (Italian)
+- [lolmaojustmeme](https://crowdin.com/profile/lolmaojustmeme) (Ukrainian)

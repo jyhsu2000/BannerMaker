@@ -1,15 +1,11 @@
-# Ukrainian(uk)
-# For BannerMaker v2.1.0
-# Contributor(s): lolmaojustmeme
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
   reload: Перезавантажити конфіг
   no-money: Недостатньо коштів
   money-transaction: Використовуйте <amount>, щоб отримати стяг. Наразі у Вас є <balance>
 io:
   save-failed: Не вдалося зберегти.
   save-success: Збереження успішне.
-  remove-banner: Прибрати стяг &r#<key>
+  remove-banner: 'Прибрати стяг &r#<key>'
 command:
   not-banner-hand: Предмет у руці не є стягом.
   not-banner-see: Блок, на який Ви дивитися, не є стягом.
@@ -17,7 +13,6 @@ config:
   add-setting: Доднано <count> налаштувань
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Головне меню
     create-banner: Створити стяг
     alphabet-and-number: 'Цифри та Літери'
@@ -38,7 +33,7 @@ gui:
   no-patterns: Немає візерунків
   craft-recipe: Рецепт Крафту
   get-this-banner: Отримати стяг
-  get-banner: Отримати стяг &r#<name>
+  get-banner: 'Отримати стяг &r#<name>'
   get-banner-for-free: Отримати безкоштовно
   buy-banner-in-price: Придбати за <price>
   get-banner-by-craft: Скрафтити

@@ -1,15 +1,11 @@
-# Polish(pl)
-# For BannerMaker v2.1.0
-# Contributor(s): ziemniok99
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
   reload: Przeładuj konfiguracje
   no-money: Nie wystarczająca ilość środków na koncie
   money-transaction: Użyto <amount> aby dostać banner. Masz teraz <balance>
 io:
   save-failed: Zapis nieudany.
   save-success: Zapis udany.
-  remove-banner: Usuń banner &r#<key>
+  remove-banner: 'Usuń banner &r#<key>'
 command:
   not-banner-hand: Przedmiot w ręce nie jest bannerem.
   not-banner-see: Blok na który się patrzysz nie jest bannerem.
@@ -17,7 +13,6 @@ config:
   add-setting: Dodaj <count> nowe ustawienia
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Menu główne
     create-banner: Stwórz banner
     alphabet-and-number: 'Alfabet i Numery'
@@ -38,7 +33,7 @@ gui:
   no-patterns: Brak wzorów
   craft-recipe: Przepis craftingu
   get-this-banner: Otrzymaj ten banner
-  get-banner: Otrzymaj banner &r#<name>
+  get-banner: 'Otrzymaj banner &r#<name>'
   get-banner-for-free: Dostań banner za darmo
   buy-banner-in-price: Kup w <price>
   get-banner-by-craft: Scraftuj

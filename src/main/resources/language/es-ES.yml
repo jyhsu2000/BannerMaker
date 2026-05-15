@@ -1,15 +1,11 @@
-# Spanish(es)
-# Para BannerMaker v1.8.0
-# Traducido por: stevejone1997 | Actualizado por: C4BR3R4
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
   reload: Se ha recargado la configuración de BannerMaker
   no-money: No tienes dinero
   money-transaction: Usa <amount> para obtener el Estandarte. Tienes <balance>
 io:
   save-failed: Guardado fallido.
   save-success: Guardado correcto.
-  remove-banner: Eliminar Estandarte &r#<key>
+  remove-banner: 'Eliminar Estandarte &r#<key>'
 command:
   not-banner-hand: El objeto de tu mano no es un estandarte.
   not-banner-see: El objeto que estás mirando no es un estandarte.
@@ -17,10 +13,9 @@ config:
   add-setting: Añadir <count> a la configuración
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Estandartes
     create-banner: Crear Estandarte
-    alphabet-and-number: Números y Letras
+    alphabet-and-number: 'Números y Letras'
     banner-info: Fabricación
   prev-page: Volver
   next-page: Continuar
@@ -38,12 +33,12 @@ gui:
   no-patterns: no hay Estandartes
   craft-recipe: Receta de Fabricación
   get-this-banner: Obtener este Estandarte
-  get-banner: Obtener Estandarte &r#<name>
+  get-banner: 'Obtener Estandarte &r#<name>'
   get-banner-for-free: Conseguir gratis
   buy-banner-in-price: Comprar por <price>
   get-banner-by-craft: Fabricar
-  clone-and-edit: Editar y Duplicar
-  alphabet-and-number: Números y Letras
+  clone-and-edit: 'Editar y Duplicar'
+  alphabet-and-number: 'Números y Letras'
   toggle-border: Cambiar borde
   materials:
     enough: Suficientes materiales

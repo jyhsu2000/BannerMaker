@@ -1,15 +1,11 @@
-# Portuguese(pt_BR)
-# For BannerMaker v1.6.0
-# Contributor(s): Rhander
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
   reload: Config recarregada
   no-money: Voce nao tem dinheiro
   money-transaction: Use <amount> para obter banner. Agora você tem <balance>
 io:
   save-failed: Falha ao salvar.
   save-success: Savo com sucesso.
-  remove-banner: Remover banner &r#<key>
+  remove-banner: 'Remover banner &r#<key>'
 command:
   not-banner-hand: O item na mão não é um banner.
   not-banner-see: O bloco que você está olhando não é um banner.
@@ -17,31 +13,37 @@ config:
   add-setting: Adicionado <count> novas configurações
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Menu principal
     create-banner: Criar Banner
     alphabet-and-number: 'Alfabeto e Número'
-    banner-info: Banner info
   prev-page: Pagina Anterior
   next-page: Proxima Pagina
   create-banner: Criar Banner
   uncraftable-warning: Aviso de Uncraftable
-  uncraftable: Uncraftable
+  uncraftable: Não fabricavel
   more-than-6-patterns: Mais de 6 padrões.
   more-patterns: Mais padrões
   back: Voltar
   create: Criar
   delete: DELETAR
   remove-last-pattern: Remover o último padrão
-  banner-info: Banner info
+  banner-info: Informações do banner
   pattern-s: padronizar
   no-patterns: Sem padrões
-  craft-recipe: Craft Recipe
+  craft-recipe: Fabricar receita
   get-this-banner: Obtenha este banner
-  get-banner: Obter banner &r#<name>
+  get-banner: 'Obter banner &r#<name>'
+  get-banner-for-free: Obter banner de graça
+  buy-banner-in-price: Comprar banner por ${0}
+  get-banner-by-craft: Fabricar
   clone-and-edit: 'Clone & Editar'
   alphabet-and-number: 'Alfabeto e Número'
   toggle-border: Alternar borda
   materials:
     enough: Materiais suficientes
-    not-enough: Materiais não suficientes
+    not-enough: Materiais insuficientes
+  click:
+    left: Clique esquerdo
+    right: Clique direito
+  selected-pattern-color: Cor do padrão selecionada
+  toggle-preview-mode: Alternar para modo de pré-visualização

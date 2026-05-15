@@ -1,29 +1,19 @@
-# Dutch(nl)
-# For BannerMaker v1.6.0
-# Contributor(s): DeTrollers
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
   reload: Herlaad Config
   no-money: Niet genoeg Geld
   money-transaction: Gebruik <amount> om de banner te krijgen. Nu heb je <balance>
 io:
   save-failed: Niet Success bewaard.
   save-success: Success Bewaard.
-  remove-banner: Verwijder banner &r#<key>
+  remove-banner: 'Verwijder banner &r#<key>'
 command:
   not-banner-hand: Item in je hand is geen banner.
   not-banner-see: Het blok waar je naar kijkt is geen Banner.
-config:
-  add-setting: Add <count> new settings
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Hoofd menu
     create-banner: Maak Banner
     alphabet-and-number: 'Alphabet & Nummer'
-    banner-info: Banner info
-  prev-page: Prev Page
-  next-page: Next Page
   create-banner: Maak Banner
   uncraftable-warning: ONMAAKBARE Waarschuwing
   uncraftable: Onmaakbaar
@@ -33,15 +23,11 @@ gui:
   create: Maak
   delete: Verwijder
   remove-last-pattern: Verwijder De laaste pattern
-  banner-info: Banner info
-  pattern-s: pattern(s)
   no-patterns: Geen patterns
-  craft-recipe: Craft Recipe
   get-this-banner: Krijg deze banner
-  get-banner: Geef Banner &r#<name>
-  clone-and-edit: Kopier & Verander'
+  get-banner: 'Geef Banner &r#<name>'
+  clone-and-edit: 'Kopier & Verander'''
   alphabet-and-number: 'Alphabet & Nummer'
-  toggle-border: Toggle border
   materials:
     enough: Materialen Genoeg
     not-enough: Materialen niet Genoeg

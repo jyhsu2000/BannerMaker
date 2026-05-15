@@ -1,23 +1,18 @@
-# French(fr)
-# For BannerMaker v1.4.3
-# Contributor(s): RedNesto
 general:
-  prefix: '&6[&aBannerMaker&6]&r '
   reload: Rechargement de la configuration
   no-money: Pas assez d'argent
   money-transaction: Utilisez <amount> pour obtenir la bannière. Maintenant, vous avez <balance>
 io:
   save-failed: Sauvegarde échouée.
   save-success: Sauvegarde effectuée avec succès.
-  remove-banner: Suppression de la bannière &r#<key>
+  remove-banner: 'Suppression de la bannière &r#<key>'
 config:
   add-setting: Ajout de <count> nouveaux paramètres
 gui:
   title:
-    prefix: '&4[BM]&r '
     main-menu: Menu principal
     create-banner: Créer une bannière
-    alphabet-and-number: Alphabet & Nombres
+    alphabet-and-number: 'Alphabet & Nombres'
     banner-info: Info de la bannière
   prev-page: Page précédente
   next-page: Page suivante
@@ -31,11 +26,10 @@ gui:
   delete: SUPPRIMER
   remove-last-pattern: Supprimer le dernier pattern
   banner-info: Info de la bannière
-  pattern-s: pattern(s)
   no-patterns: Aucuns patterns
   craft-recipe: Recette de fabrication
   get-this-banner: Obtenir cette bannière
-  get-banner: Obtention de la bannière &r#<name>
-  clone-and-edit: Cloner & Éditer
-  alphabet-and-number: Alphabet & Nombres
+  get-banner: 'Obtention de la bannière &r#<name>'
+  clone-and-edit: 'Cloner & Éditer'
+  alphabet-and-number: 'Alphabet & Nombres'
   toggle-border: Afficher les bordures

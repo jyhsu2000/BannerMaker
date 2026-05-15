@@ -9,7 +9,7 @@
     "crowdin:upload-sources": "dotenv -- crowdin upload sources",
     "crowdin:upload-zhtw": "dotenv -- crowdin upload translations --language zh-TW --auto-approve-imported --import-eq-suggestions",
     "crowdin:upload-all": "pnpm run crowdin:upload-sources && pnpm run crowdin:upload-zhtw",
-    "crowdin:download": "dotenv -- crowdin download translations",
+    "crowdin:download": "dotenv -- crowdin download translations --exclude-language zh-TW --skip-untranslated-strings",
     "crowdin:status": "dotenv -- crowdin status"
   },
   "devDependencies": {
