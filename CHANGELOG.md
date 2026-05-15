@@ -5,6 +5,9 @@
 - Update language system
     - Language files now support MiniMessage format alongside legacy `&` formatting codes
     - Most messages are now translatable
+    - **BREAKING**: Language file naming switched from underscore to IETF BCP 47 format
+      (e.g. `zh_TW.yml` → `zh-TW.yml`). Existing user-customized files are auto-migrated
+      on plugin startup; `config.yml`'s `Language` value still accepts both formats.
 - Fix minor issues
 - Optimize code
 

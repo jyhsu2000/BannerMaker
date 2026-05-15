@@ -102,7 +102,36 @@ public class Language {
     }
 
     private String getFileName(Locale locale) {
-        return "language" + File.separator + locale.toString() + ".yml";
+        return "language" + File.separator + locale.toLanguageTag() + ".yml";
+    }
+
+    /**
+     * 遷移舊版語系檔名（底線格式 `xx_YY.yml`）至 IETF BCP 47 格式（短橫線 `xx-YY.yml`）。
+     * 僅針對使用者資料夾下既有的自訂語系檔，避免升級後遺失自訂翻譯。
+     */
+    private void migrateLegacyLanguageFiles() {
+        File languageDir = new File(bm.getDataFolder(), "language");
+        if (!languageDir.isDirectory()) {
+            return;
+        }
+        File[] legacyFiles = languageDir.listFiles((dir, name) ->
+            name.matches("[a-zA-Z]{2,3}_[a-zA-Z]{2}\\.yml")
+        );
+        if (legacyFiles == null) {
+            return;
+        }
+        for (File file : legacyFiles) {
+            String newName = file.getName().replace('_', '-');
+            File target = new File(languageDir, newName);
+            if (target.exists()) {
+                continue;
+            }
+            if (file.renameTo(target)) {
+                bm.getLogger().info("Migrated language file: " + file.getName() + " -> " + newName);
+            } else {
+                bm.getLogger().warning("Failed to migrate language file: " + file.getName());
+            }
+        }
     }
 
     /**
@@ -215,6 +244,8 @@ public class Language {
     }
 
     public void loadLanguage() {
+        //遷移舊版底線格式檔名至 IETF BCP 47
+        migrateLegacyLanguageFiles();
         //從設定檔取得語言
         String configFileName = "config.yml";
         FileConfiguration config = ConfigManager.get(configFileName);
@@ -254,7 +285,7 @@ public class Language {
         ConfigManager.load(getFileName(locale));
         //檢查語言包
         checkConfig(locale);
-        bm.getLogger().info("Language: " + locale);
+        bm.getLogger().info("Language: " + locale.toLanguageTag());
         // 設定 ACF 語言
         bm.getCommandManager().getLocales().setDefaultLocale(locale);
         // 將指令描述注入到 ACF Locales
