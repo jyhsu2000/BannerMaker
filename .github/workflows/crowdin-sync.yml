@@ -31,11 +31,11 @@ jobs:
           localization_branch_name: chore/crowdin-sync
           pull_request_title: '🌐 Sync translations from Crowdin'
           pull_request_body: |
-            自動週同步：將 Crowdin 上的最新翻譯拉回 repo。
+            每週自動同步：從 Crowdin 拉取最新翻譯回專案。
 
-            - `zh-TW` 由維護者本機掌握，**不**在此同步範圍
-            - 未翻譯的 key 在檔案中省略；執行期由 `Language.checkConfig` 從 `en-US.yml` 補回
-            - 合併前請逐語系檢視翻譯品質
+            - `zh-TW` 由維護者於本機維護，**不**在此同步範圍內
+            - 未翻譯的字串於檔案中省略，執行階段由 `Language.checkConfig` 從 `en-US.yml` 補回
+            - 合併前請逐一檢視各語系的翻譯品質
           pull_request_base_branch_name: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
