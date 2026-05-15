@@ -1,0 +1,43 @@
+name: Crowdin Translation Sync
+
+on:
+  schedule:
+    # 每週一 00:00 UTC（台北時間 08:00）自動拉取翻譯
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  download:
+    name: Download translations from Crowdin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Sync with Crowdin
+        uses: crowdin/github-action@v2
+        with:
+          config: crowdin.yml
+          upload_sources: false
+          upload_translations: false
+          download_translations: true
+          skip_untranslated_strings: true
+          download_translations_args: '--exclude-language zh-TW'
+          create_pull_request: true
+          localization_branch_name: chore/crowdin-sync
+          pull_request_title: '🌐 Sync translations from Crowdin'
+          pull_request_body: |
+            自動週同步：將 Crowdin 上的最新翻譯拉回 repo。
+
+            - `zh-TW` 由維護者本機掌握，**不**在此同步範圍
+            - 未翻譯的 key 在檔案中省略；執行期由 `Language.checkConfig` 從 `en-US.yml` 補回
+            - 合併前請逐語系檢視翻譯品質
+          pull_request_base_branch_name: master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
