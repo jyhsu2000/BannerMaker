@@ -1,0 +1,35 @@
+# Crowdin 連線設定
+# 連線憑證由環境變數提供（搭配 .env + dotenv-cli，或 GitHub Actions secrets）
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_PERSONAL_TOKEN
+
+base_path: .
+base_url: https://api.crowdin.com
+preserve_hierarchy: true
+
+# 來源與翻譯產出檔名規則
+#
+# 本專案語系檔名採用 IETF BCP 47 格式（如 de-DE.yml、zh-TW.yml），
+# 與 Crowdin 內建 locale code 一致，故 %locale% 直接對應檔名。
+#
+# languages_mapping 同時擔任「下載白名單」── 只有列在這裡的語言才會被處理。
+# 故意不列 zh-TW，使其完全由維護者於本機維護，不被 Crowdin 下載覆蓋。
+#
+# 前提：請在 Crowdin 專案中把以下 11 個語言都設為「國別碼變體」
+# （例如選 "German (Germany)" 而非 "German"），如此 mapping 兩側才會完全一致。
+files:
+  - source: /src/main/resources/language/en-US.yml
+    translation: /src/main/resources/language/%locale%.yml
+    languages_mapping:
+      locale:
+        de-DE: de-DE
+        es-ES: es-ES
+        fr-FR: fr-FR
+        hu-HU: hu-HU
+        it-IT: it-IT
+        nl-NL: nl-NL
+        pl-PL: pl-PL
+        pt-BR: pt-BR
+        ru-RU: ru-RU
+        uk-UA: uk-UA
+        zh-CN: zh-CN

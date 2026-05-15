@@ -207,3 +207,11 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/osx,java,linux,maven,windows,jetbrains+all
 
 /.claude/settings.local.json
+
+### Crowdin / pnpm tooling ###
+.env
+node_modules/
+# 阻擋其他套件管理器產生的鎖檔（本專案強制 pnpm；pnpm-lock.yaml 仍應 commit）
+package-lock.json
+yarn.lock
+*-debug.log*

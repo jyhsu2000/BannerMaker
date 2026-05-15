@@ -1,0 +1,19 @@
+{
+  "name": "bannermaker-tooling",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dev tooling wrappers for BannerMaker (Crowdin sync etc.).",
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "crowdin:upload-sources": "dotenv -- crowdin upload sources",
+    "crowdin:upload-zhtw": "dotenv -- crowdin upload translations --language zh-TW --auto-approve-imported",
+    "crowdin:upload-all": "pnpm run crowdin:upload-sources && pnpm run crowdin:upload-zhtw",
+    "crowdin:download": "dotenv -- crowdin download translations",
+    "crowdin:status": "dotenv -- crowdin status"
+  },
+  "devDependencies": {
+    "@crowdin/cli": "^4.0.0",
+    "dotenv-cli": "^7.4.2"
+  }
+}
