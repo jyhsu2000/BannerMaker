@@ -4,11 +4,28 @@
 
 - 更新語言系統
     - 語系檔現在同時支援 MiniMessage 格式與舊版 `&` 文字格式代碼
-    - 大部分訊息現在可翻譯
-    - **破壞性變更**：語系檔名由底線改為 IETF BCP 47 格式（例如 `zh_TW.yml` → `zh-TW.yml`）。
-      使用者自訂的舊檔在插件啟動時會自動遷移；`config.yml` 中的 `Language` 設定值仍可接受兩種格式。
-- 修正細節問題
-- 改善程式碼
+    - 大部分訊息現在可翻譯；佔位符採用 Adventure TagResolver 的 `<name>` 標籤格式
+      （取代舊有的 `{0}` 形式）
+    - **破壞性變更**：語系檔名由底線改為 IETF BCP 47 格式（例如 `zh_TW.yml` → `zh-TW.yml`），
+      使用者自訂的舊檔在插件啟動時會自動遷移；`config.yml` 中的 `Language` 設定值仍可接受兩種格式
+    - 移除過時的檔內標頭註解；譯者署名統一管理於 `CONTRIBUTORS.md`
+- 翻譯現在每週透過 GitHub Actions 自動從 Crowdin 同步；`zh-TW` 與 `en-US` 維持本機掌控
+- `/bm help` 改用 ACF 內建幫助系統，支援權限過濾與多語系指令描述
+- 現代化內部實作：遷移至 Adventure（Component / MiniMessage）、ACF
+  （Aikar's Command Framework，Paper 版本）、InventoryFramework、XSeries
+- 重構架構：引入 service 層（`BannerService`、`EconomyService`、`BannerRepository`、
+  `MessageService`），取代舊有的 `EconUtil` / `IOUtil` / `MessageUtil` 工具類；
+  引入 `ConfigManager` 作為 YAML 存取的唯一入口；引入 `ItemBuilder`（XMaterial-aware）
+  取代手動 `new ItemStack(...)`；以 `gui` 套件取代 `customMenu`
+- 引入 MockBukkit 單元測試套件（45 個測試，涵蓋 Language、BannerUtil、EconUtil、
+  IOUtil、ItemBuilder、MainMenuGUI）
+- 新增 pnpm-based Crowdin 同步工具鏈（`pnpm run crowdin:*` scripts，內部包裝
+  `dotenv-cli` 與 `@crowdin/cli`）
+- 修正 `BannerInfoGUI` 中錯誤的世界比較（`!=` → `.equals`）
+- 增加 Paper 1.21.7+ 上 Adventure `BukkitAudiences` ClickEvent / HoverEvent 遺失的繞道
+  （對玩家發送的訊息改走 Spigot Chat API）
+- 升 JUnit 至 5.11.4（修正 CVE-2025-53103 安全漏洞）
+- 優化程式碼、移除死碼
 
 ## v2.5.1 (for v1.21.x)
 

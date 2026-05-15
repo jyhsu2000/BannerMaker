@@ -4,12 +4,32 @@
 
 - Update language system
     - Language files now support MiniMessage format alongside legacy `&` formatting codes
-    - Most messages are now translatable
+    - Most messages are now translatable; placeholders use `<name>` style tags via
+      Adventure TagResolver (replacing the legacy `{0}` style)
     - **BREAKING**: Language file naming switched from underscore to IETF BCP 47 format
       (e.g. `zh_TW.yml` → `zh-TW.yml`). Existing user-customized files are auto-migrated
       on plugin startup; `config.yml`'s `Language` value still accepts both formats.
-- Fix minor issues
-- Optimize code
+    - Drop the stale per-file header comments; translator credits live in `CONTRIBUTORS.md`
+- Translations now sync automatically from Crowdin every week via GitHub Actions;
+  `zh-TW` and `en-US` remain locally maintained
+- `/bm help` now uses ACF's built-in help system with permission-aware filtering
+  and per-locale command descriptions
+- Modernize internals: migrate to Adventure (Component / MiniMessage), ACF
+  (Aikar's Command Framework, Paper variant), InventoryFramework, and XSeries
+- Refactor architecture: introduce service layer (`BannerService`, `EconomyService`,
+  `BannerRepository`, `MessageService`) replacing the legacy `EconUtil` / `IOUtil` /
+  `MessageUtil` utilities; introduce `ConfigManager` as the sole gateway for YAML
+  access; introduce `ItemBuilder` (XMaterial-aware) replacing manual
+  `new ItemStack(...)` patterns; replace `customMenu` package with `gui`
+- Introduce MockBukkit-based unit test suite (45 tests across Language, BannerUtil,
+  EconUtil, IOUtil, ItemBuilder, and MainMenuGUI)
+- Add pnpm-based Crowdin sync tooling (`pnpm run crowdin:*` scripts wrapping
+  `dotenv-cli` + `@crowdin/cli`)
+- Fix incorrect world comparison in `BannerInfoGUI` (`!=` → `.equals`)
+- Add workaround for Adventure `BukkitAudiences` ClickEvent / HoverEvent loss on
+  Paper 1.21.7+ (route player-bound messages through Spigot Chat API as fallback)
+- Bump JUnit to 5.11.4 (security fix, CVE-2025-53103)
+- Optimize code; remove dead code
 
 ## v2.5.1 (for v1.21.x)
 
