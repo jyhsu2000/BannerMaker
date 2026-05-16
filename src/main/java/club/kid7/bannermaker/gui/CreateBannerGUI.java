@@ -5,7 +5,7 @@ import club.kid7.bannermaker.PlayerData;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.service.BannerRepository;
 import club.kid7.bannermaker.service.MessageService;
-import club.kid7.bannermaker.util.BannerUtil;
+import club.kid7.bannermaker.util.BannerPatternLayout;
 import club.kid7.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
@@ -121,10 +121,10 @@ public class CreateBannerGUI {
             if (playerData.isShowMorePatterns()) {
                 patternIndex += 24;
             }
-            if (patternIndex >= BannerUtil.getPatternTypeList().size()) {
+            if (patternIndex >= BannerPatternLayout.getPatternTypeList().size()) {
                 break;
             }
-            PatternType patternType = BannerUtil.getPatternTypeList().get(patternIndex);
+            PatternType patternType = BannerPatternLayout.getPatternTypeList().get(patternIndex);
             ItemStack patternItem = new ItemBuilder(baseBannerForPreview.clone())
                 .pattern(new Pattern(selectedColorForPreview, patternType)).build();
 

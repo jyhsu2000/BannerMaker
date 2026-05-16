@@ -6,6 +6,7 @@ import club.kid7.bannermaker.PlayerData;
 import club.kid7.bannermaker.service.EconomyService;
 import club.kid7.bannermaker.service.MessageService;
 import club.kid7.bannermaker.util.BannerCost;
+import club.kid7.bannermaker.util.BannerPatternLayout;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
@@ -269,11 +270,11 @@ public class BannerInfoGUI {
         }
 
         // Slot 6 (6,0): 合成表工作台/織布機圖示
-        HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
+        HashMap<Integer, ItemStack> patternRecipe = BannerPatternLayout.getPatternRecipe(banner, currentRecipePage);
         ItemStack workbench = new ItemBuilder(Material.CRAFTING_TABLE).amount(currentRecipePage)
             .name(tl(NamedTextColor.GREEN, "gui.pattern-layout"))
             .lore(tl("gui.recipe-page", tag("page", currentRecipePage), tag("total", totalPage))).build();
-        if (BannerUtil.isLoomRecipe(patternRecipe)) {
+        if (BannerPatternLayout.isLoomRecipe(patternRecipe)) {
             workbench.setType(Material.LOOM);
         }
         mainPane.addItem(new GuiItem(workbench), 6, 0);
