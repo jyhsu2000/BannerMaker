@@ -9,15 +9,41 @@ on [GitHub Contributors](https://github.com/jyhsu2000/BannerMaker/graphs/contrib
 
 ## Translators
 
-- [Marrarus](https://github.com/Marrarus) (German)
-- [RedNesto](https://github.com/RedNesto) (French)
-- [sdir01](https://www.spigotmc.org/members/sdir01.238854/) (Russian)
-- [maz1lovo](https://github.com/authorless) (Russian)
-- [Rhander](https://www.spigotmc.org/members/rhander.103119/) (Portuguese)
-- [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/) (Dutch)
-- [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/) (Spanish)
-- [C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/) (Spanish)
-- [montlikadani](https://www.spigotmc.org/members/toldi.251100/) (Hungarian)
-- [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/) (Polish)
-- [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/) (Italian)
-- [lolmaojustmeme](https://crowdin.com/profile/lolmaojustmeme) (Ukrainian)
+### Chinese Simplified
+- [Xixi (dearxixi)](https://crowdin.com/profile/dearxixi)
+
+### Dutch
+- [DeTrollers](https://www.spigotmc.org/members/detrollers.174265/)
+
+### French
+- [RedNesto](https://github.com/RedNesto)
+
+### German
+- [Marrarus](https://github.com/Marrarus)
+- [Daniel Ortlieb (BroOtti)](https://crowdin.com/profile/BroOtti)
+
+### Hungarian
+- [montlikadani](https://www.spigotmc.org/members/toldi.251100/)
+- [László Remecz (remecz.laszlo97)](https://crowdin.com/profile/remecz.laszlo97)
+
+### Italian
+- [Leomixer17](https://www.spigotmc.org/members/leomixer17.140367/)
+
+### Polish
+- [ziemniok99](https://www.spigotmc.org/members/ziemniok99.596334/)
+
+### Portuguese (Brazilian)
+- [Rhander](https://www.spigotmc.org/members/rhander.103119/)
+- [viniaj](https://crowdin.com/profile/viniaj)
+
+### Russian
+- [sdir01](https://www.spigotmc.org/members/sdir01.238854/)
+- [maz1lovo](https://github.com/authorless)
+- [versaria](https://crowdin.com/profile/versaria)
+
+### Spanish
+- [stevejone1997](https://www.spigotmc.org/members/stevejone1997.432373/)
+- [C4BR3R4](https://www.spigotmc.org/members/c4br3r4.26779/)
+
+### Ukrainian
+- [Bohdan Rudyk (lolmaojustmeme)](https://crowdin.com/profile/lolmaojustmeme)
