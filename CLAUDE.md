@@ -71,10 +71,12 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 
 ### 物品建構
 
-- **必須**使用 `club.kid7.bannermaker.util.ItemBuilder` 建立 `ItemStack`。
+規則拆分為「跨版本相容」與「複雜建構」兩個獨立關注點：
+
+- **跨版本相容**：對於**可能在最低支援版本（1.21.0）不存在的材料**（典型：1.21.2+ 才加入的 `FIELD_MASONED_BANNER_PATTERN`、`BORDURE_INDENTED_BANNER_PATTERN`），**必須**使用 `Material.matchMaterial("NAME")`（檢查 null）或 `XMaterial.X.isSupported()` + `parseItem()` 動態探測。**禁止**寫死 `Material.NEWER_THING` 而不做 null 處理。
+- **複雜建構**：當 ItemStack 需要設置 name、lore、enchantments 等 metadata 時，使用 `club.kid7.bannermaker.util.ItemBuilder` 保持鏈式 API 一致。
+- **基礎穩定材料**（如 `STICK`、`BRICK`、`VINE`、`CREEPER_HEAD`、`OXEYE_DAISY`、各色 dye/wool 等自 1.13 以前已穩定者，含 1.21.0 已存在的 `PIGLIN_BANNER_PATTERN`、`FLOW_BANNER_PATTERN` 等）：直接 `new ItemStack(Material.X)` **允許**，不需強制走 `ItemBuilder`。
 - `ItemBuilder` 支援 `name(Component)`、`lore(Component...)`、`addLore(Component...)`。
-- **禁止**直接使用 `new ItemStack()`，以確保 XMaterial 的跨小版本支援。
-- ⚠️ `AlphabetBanner.java`、`BannerUtil.java` 內仍有殘留 15+ 處直接 `new ItemStack(...)`，動到該處時應一併改為 `ItemBuilder` 或 `XMaterial.parseItem()`。
 
 ### 工具類
 
@@ -153,6 +155,6 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
 - `BannerUtil.java`（563 行）序列化、材料檢查、配方驗證混雜，可拆出 `BannerSerializer` 至 service 層。內含 4 處 `// TODO: 應該移到後面整個一起處理` 為長期技術債訊號。
 - `util/InventoryMenuUtil.java` 反向 import `gui.BannerInfoGUI`，違反 util 應為底層的原則。
 - `ConfigManager` 數處從 `BannerMaker.getInstance()` 取資料時未檢查 null，理論上插件未啟用時呼叫會 NPE。
-- 對既有的 `new ItemStack(...)` 殘留違規（見「物品建構」），動到該處時順手改用 `ItemBuilder`。
+- `BannerRepository` 兩處 `new ItemStack(...)` 帶 `FIXME: 維持舊版相容性` 註解：用於解碼舊格式 banner 序列化資料，材料皆穩定，可視為設計性而非債務，但長期可考慮抽出為獨立 deserializer。
 - 三個新 service（`BannerService`、`EconomyService`、`BannerRepository`）目前無單元測試。
 - `BannerUtil.getPatternRecipe()` 產出的 3x3 合成格圖示對應 1.14 之前的 vanilla 合成 recipe；自 1.14 起 vanilla 已移除 banner pattern 的 3x3 合成（只能用 loom）。BannerMaker GUI 仍展示這個 grid 作為視覺參考（玩家實際取得 banner 走外掛內部的 buy / craft 路徑，不依賴 vanilla 合成）。長期可考慮改成 loom 樣式或加註說明。
