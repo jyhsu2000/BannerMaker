@@ -25,6 +25,6 @@ public class MessageComponentUtil {
         int amount = itemStack.getAmount();
 
         // 返回 HoverEvent 物件
-        return HoverEvent.showItem(HoverEvent.ShowItem.of(key, amount));
+        return HoverEvent.showItem(HoverEvent.ShowItem.showItem(key, amount));
     }
 }
