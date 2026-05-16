@@ -5,6 +5,8 @@ package club.kid7.bannermaker.util;
  * v1：數字色碼超出 0-15 範圍）。
  */
 public class UnknownBannerColorException extends BannerDeserializationException {
+    private static final long serialVersionUID = 1L;
+
     public UnknownBannerColorException(String message) {
         super(message);
     }

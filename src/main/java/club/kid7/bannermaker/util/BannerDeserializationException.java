@@ -8,6 +8,8 @@ package club.kid7.bannermaker.util;
  * 訊息，因為刻意不向使用者揭露 wire format 細節。
  */
 public class BannerDeserializationException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+
     public BannerDeserializationException(String message) {
         super(message);
     }
