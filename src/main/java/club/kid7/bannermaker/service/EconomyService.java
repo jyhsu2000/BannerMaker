@@ -3,6 +3,7 @@ package club.kid7.bannermaker.service;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.configuration.ConfigManager;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
+import club.kid7.bannermaker.util.BannerCost;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.MaterialUtil;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -44,7 +45,7 @@ public class EconomyService {
         }
         double price = config.getDouble("Economy.Price", 0);
 
-        List<ItemStack> materials = BannerUtil.getMaterials(banner);
+        List<ItemStack> materials = BannerCost.getMaterials(banner);
         for (ItemStack material : materials) {
             price += getMaterialPrice(material) * material.getAmount();
         }

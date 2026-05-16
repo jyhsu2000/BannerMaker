@@ -1,6 +1,7 @@
 package club.kid7.bannermaker.service;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.util.BannerCost;
 import club.kid7.bannermaker.util.BannerSerializer;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
@@ -31,7 +32,7 @@ public class BannerService {
      */
     public boolean craft(Player player, ItemStack banner) {
         //檢查材料
-        if (!BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
+        if (!BannerCost.hasEnoughMaterials(player.getInventory(), banner)) {
             return false;
         }
         //移除材料
@@ -166,10 +167,10 @@ public class BannerService {
         if (!BannerUtil.isBanner(banner)) {
             return false;
         }
-        if (!BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
+        if (!BannerCost.hasEnoughMaterials(player.getInventory(), banner)) {
             return false;
         }
-        List<ItemStack> materials = BannerUtil.getMaterials(banner);
+        List<ItemStack> materials = BannerCost.getMaterials(banner);
         //過濾材料，不須消耗旗幟圖形
         materials.removeIf(BannerUtil::isBannerPatternItemStack);
         HashMap<Integer, ItemStack> itemCannotRemoved = player.getInventory().removeItem(materials.toArray(new ItemStack[0]));

@@ -5,6 +5,7 @@ import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.PlayerData;
 import club.kid7.bannermaker.service.EconomyService;
 import club.kid7.bannermaker.service.MessageService;
+import club.kid7.bannermaker.util.BannerCost;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
@@ -94,7 +95,7 @@ public class BannerInfoGUI {
         // Slot 2 (2,0): 材料是否充足 (若可合成)
         if (BannerUtil.isCraftable(player, banner)) {
             ItemStack enoughMaterials;
-            if (BannerUtil.hasEnoughMaterials(player.getInventory(), banner)) {
+            if (BannerCost.hasEnoughMaterials(player.getInventory(), banner)) {
                 enoughMaterials = new ItemBuilder(Material.OAK_SIGN).name(tl(NamedTextColor.GREEN, "gui.materials.enough")).build();
             } else {
                 enoughMaterials = new ItemBuilder(Material.OAK_SIGN).name(tl(NamedTextColor.RED, "gui.materials.not-enough")).build();
@@ -103,7 +104,7 @@ public class BannerInfoGUI {
 
             // 材料清單 (Slots 9, 10, 11, 12, 18, 19, 20, 21, 27, 28, 29, 30, 36, 37, 38, 39)
             List<Integer> materialPositions = Arrays.asList(9, 10, 11, 12, 18, 19, 20, 21, 27, 28, 29, 30, 36, 37, 38, 39);
-            List<ItemStack> materialList = BannerUtil.getMaterials(banner);
+            List<ItemStack> materialList = BannerCost.getMaterials(banner);
             for (int i = 0; i < materialList.size() && i < materialPositions.size(); i++) {
                 // x = slot % 9, y = slot / 9
                 mainPane.addItem(new GuiItem(materialList.get(i)), materialPositions.get(i) % 9, materialPositions.get(i) / 9);
