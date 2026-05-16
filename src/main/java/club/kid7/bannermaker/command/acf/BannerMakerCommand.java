@@ -4,6 +4,7 @@ import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.gui.BannerInfoGUI;
 import club.kid7.bannermaker.gui.MainMenuGUI;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
+import club.kid7.bannermaker.util.BannerDeserializationException;
 import club.kid7.bannermaker.util.BannerSerializer;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
@@ -103,7 +104,8 @@ public class BannerMakerCommand extends BaseCommand {
             ItemStack banner = BannerSerializer.deserialize(bannerString);
             //顯示旗幟
             BannerInfoGUI.open(player, banner);
-        } catch (Exception e) {
+        } catch (BannerDeserializationException e) {
+            // 對玩家刻意維持通用訊息，不揭露 wire format 細節
             plugin.getMessageService().send(player, tl("command.invalid-banner-string"));
         }
     }

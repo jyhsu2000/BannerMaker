@@ -83,6 +83,13 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 
 - `BannerUtil.isBanner()` 使用 `XTag.BANNERS` 判斷 `ItemStack` 或 `Material` 是否為旗幟。
 
+### 旗幟 wire format（`/bm view` 字串）
+
+- 詳細規格參見 [`docs/wire-format.md`](docs/wire-format.md)。
+- 現行格式為 **v2**：base64 字串以 `Qk0` 開頭（內嵌 `BM\x02` magic + UTF-8 payload）。
+- **v1 backward compat**：舊字串（以 `rO0` 開頭，內含 `BukkitObjectOutputStream` 包裝）永遠可解，但 `serialize()` 不再產出 v1。
+- `BannerSerializer.deserialize` 失敗時拋 `BannerDeserializationException` 子類（`InvalidBannerFormatException` / `UnknownBannerPatternException` / `UnknownBannerColorException`）；對玩家可見的 `/bm view` 訊息**故意**維持通用「無效旗幟字串」，不依例外型別切換，避免揭露 wire format 細節。
+
 ### 套件層級規約
 
 `util/`、`registry/`、`configuration/` 套件**禁止**反向 import `gui/`、`command/`、`service/`。整體層級為：
