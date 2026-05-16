@@ -23,57 +23,94 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
 public class BannerUtil {
 
     /**
-     * Pattern 對材料貢獻策略：給定一個材料累積 inventory 與該 pattern 的染色，
-     * 把這個 pattern 應消耗的所有 ItemStack 加入累積容器。
+     * 累積各 Pattern 對材料的貢獻：以 Material 為 key 計數，並對 loom 旗幟圖形物品只計入一次。
+     * 取代原本以 54 格 {@link Inventory} 作為累加器的寫法，意圖更明確、無 Bukkit Inventory 副作用。
+     */
+    private static final class MaterialAccumulator {
+        private final Map<Material, Integer> counts = new LinkedHashMap<>();
+        private final Set<Material> loomItemsAdded = new HashSet<>();
+
+        void add(ItemStack stack) {
+            if (stack == null || stack.getType().isAir()) {
+                return;
+            }
+            counts.merge(stack.getType(), stack.getAmount(), Integer::sum);
+        }
+
+        /** Loom 旗幟圖形物品：整個合成流程中只計入一次（後續貢獻者再呼叫不會重複加）。 */
+        void addLoomItemOnce(Material type) {
+            if (loomItemsAdded.add(type)) {
+                counts.merge(type, 1, Integer::sum);
+            }
+        }
+
+        /** 攤平為 ItemStack 清單，自動依各 Material 的 maxStackSize 切分。 */
+        List<ItemStack> toItemStacks() {
+            List<ItemStack> result = new ArrayList<>();
+            counts.forEach((mat, count) -> {
+                int remaining = count;
+                int stackSize = Math.max(1, mat.getMaxStackSize());
+                while (remaining > 0) {
+                    int take = Math.min(remaining, stackSize);
+                    result.add(new ItemStack(mat, take));
+                    remaining -= take;
+                }
+            });
+            return result;
+        }
+    }
+
+    /**
+     * Pattern 對材料貢獻策略：給定累積器與該 pattern 的染色，
+     * 把這個 pattern 應消耗的所有 ItemStack 加入累積器。
      */
     @FunctionalInterface
     private interface PatternMaterialContributor {
-        void contribute(Inventory inv, DyeColor color);
+        void contribute(MaterialAccumulator acc, DyeColor color);
     }
 
     /** N 個對應色染料的 contributor。 */
     private static PatternMaterialContributor dyeOnly(int count) {
-        return (inv, color) -> inv.addItem(DyeColorRegistry.getDyeItemStack(color, count));
+        return (acc, color) -> acc.add(DyeColorRegistry.getDyeItemStack(color, count));
     }
 
     /** 一個特殊物品 + 1 個對應色染料（黑色為 base，不額外加色）。 */
     private static PatternMaterialContributor specialWithOptionalDye(Material special) {
-        return (inv, color) -> {
-            inv.addItem(new ItemStack(special));
+        return (acc, color) -> {
+            acc.add(new ItemStack(special));
             if (!color.equals(DyeColor.BLACK)) {
-                inv.addItem(DyeColorRegistry.getDyeItemStack(color, 1));
+                acc.add(DyeColorRegistry.getDyeItemStack(color, 1));
             }
         };
     }
 
     /** Loom 用的旗幟圖形物品：累積過程中只需要 1 個（可重複使用），每次 pattern 仍消耗 1 染料。 */
     private static PatternMaterialContributor patternItem(Material item) {
-        return (inv, color) -> {
-            if (!inv.contains(item)) {
-                inv.addItem(new ItemStack(item));
-            }
-            inv.addItem(DyeColorRegistry.getDyeItemStack(color, 1));
+        return (acc, color) -> {
+            acc.addLoomItemOnce(item);
+            acc.add(DyeColorRegistry.getDyeItemStack(color, 1));
         };
     }
 
     /** BRICKS 的版本敏感 contributor：1.21.2+ 用 FIELD_MASONED_BANNER_PATTERN，否則 fallback BRICK。 */
     private static PatternMaterialContributor bricksContributor() {
-        return (inv, color) -> {
+        return (acc, color) -> {
             Material fieldMasoned = Material.matchMaterial("FIELD_MASONED_BANNER_PATTERN");
-            inv.addItem(fieldMasoned != null
-                ? new ItemStack(fieldMasoned)
-                : new ItemStack(Material.BRICK));
+            acc.add(new ItemStack(fieldMasoned != null ? fieldMasoned : Material.BRICK));
             if (!color.equals(DyeColor.BLACK)) {
-                inv.addItem(DyeColorRegistry.getDyeItemStack(color, 1));
+                acc.add(DyeColorRegistry.getDyeItemStack(color, 1));
             }
         };
     }
@@ -210,8 +247,8 @@ public class BannerUtil {
         //羊毛
         ItemStack wool = new ItemStack(DyeColorRegistry.getWoolMaterial(baseColor), 6);
         materialList.add(wool);
-        //Pattern材料
-        Inventory materialInventory = Bukkit.createInventory(null, 54);
+        //Pattern 材料：用 MaterialAccumulator 累積，避免建立 54 格 Bukkit Inventory 作為暫存容器
+        MaterialAccumulator accumulator = new MaterialAccumulator();
         BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
         //逐 Pattern 累積材料：實際對應規則於 MATERIAL_CONTRIBUTORS 查表，
         //patternType 宣告為 Object 是為了避開 PatternType class ↔ interface 二進位相容問題（詳 CLAUDE.md）。
@@ -219,19 +256,11 @@ public class BannerUtil {
             Object patternType = pattern.getPattern();
             PatternMaterialContributor contributor = MATERIAL_CONTRIBUTORS.get(patternType);
             if (contributor != null) {
-                contributor.contribute(materialInventory, pattern.getColor());
+                contributor.contribute(accumulator, pattern.getColor());
             }
         }
-        //加到暫存清單
-        List<ItemStack> patternMaterials = new ArrayList<>();
-        for (ItemStack item : materialInventory.getContents()) {
-            if (item != null && !item.getType().isAir()) {
-                patternMaterials.add(item);
-            }
-        }
-        //重新排序
+        List<ItemStack> patternMaterials = accumulator.toItemStacks();
         InventoryUtil.sort(patternMaterials);
-        //將材料加到清單中
         materialList.addAll(patternMaterials);
 
         return materialList;

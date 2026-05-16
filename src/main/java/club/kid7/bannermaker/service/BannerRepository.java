@@ -5,6 +5,7 @@ import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.PersistentDataUtil;
 import org.bukkit.DyeColor;
+import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -88,12 +89,11 @@ public class BannerRepository {
             return null;
         }
         ItemStack banner;
-        //嘗試以新格式讀取
+        //嘗試以新格式讀取（舊版整數 color 格式委派至 LegacyBannerDeserializer）
         try {
-            //建立旗幟
-            if (config.isInt(key + ".color")) {
-                // FIXME: 維持舊版相容性
-                banner = new ItemStack(DyeColorRegistry.getBannerMaterial(config.getInt(key + ".color")));
+            Material legacyMaterial = LegacyBannerDeserializer.tryReadBannerMaterial(config, key);
+            if (legacyMaterial != null) {
+                banner = new ItemStack(legacyMaterial);
             } else {
                 banner = new ItemStack(DyeColorRegistry.getBannerMaterial(DyeColor.valueOf(config.getString(key + ".color"))));
             }
