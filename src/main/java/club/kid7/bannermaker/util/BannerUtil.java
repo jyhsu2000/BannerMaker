@@ -467,7 +467,11 @@ public class BannerUtil {
                 bannerPosition = 7;
                 dyePosition = Arrays.asList(1, 4, 6, 8);
             } else if (patternType.equals(PatternType.BRICKS)) {
-                recipe.put(1, new ItemStack(Material.BRICK));
+                // 1.21.2 起 loom 不再接受 brick；改為由 FIELD_MASONED_BANNER_PATTERN 物品產生 bricks pattern
+                Material fieldMasoned = Material.matchMaterial("FIELD_MASONED_BANNER_PATTERN");
+                recipe.put(1, fieldMasoned != null
+                    ? new ItemStack(fieldMasoned)
+                    : new ItemStack(Material.BRICK));
                 if (!pattern.getColor().equals(DyeColor.BLACK)) {
                     dyePosition = Collections.singletonList(7);
                 }
