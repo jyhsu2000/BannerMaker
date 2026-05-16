@@ -13,7 +13,7 @@
 ```powershell
 git clone https://github.com/jyhsu2000/BannerMaker.git
 cd BannerMaker
-mvn test   # 驗證環境，預期 45 個測試全綠
+mvn test   # 驗證環境，預期測試全綠
 ```
 
 Windows + IntelliJ IDEA 使用者若 `mvn` 不在 PATH 上：
