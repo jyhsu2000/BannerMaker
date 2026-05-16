@@ -24,6 +24,19 @@ public class ConfigManager {
     }
 
     /**
+     * 取得 plugin 實例，若不在生命週期內（onEnable 之前或 onDisable 之後）即 fail-fast。
+     * 用於需要存取 plugin 資料夾、logger、saveResource() 等的方法，將模糊的 NPE 轉為帶上下文的例外。
+     */
+    private static BannerMaker requirePlugin(String operation) {
+        BannerMaker plugin = BannerMaker.getInstance();
+        if (plugin == null) {
+            throw new IllegalStateException(
+                "ConfigManager." + operation + " called outside BannerMaker plugin lifecycle");
+        }
+        return plugin;
+    }
+
+    /**
      * 取得帶有 ".yml" 副檔名的檔案名稱
      * 並統一將路徑分隔符號轉換為 "/"
      *
@@ -56,7 +69,7 @@ public class ConfigManager {
      */
     public static void load(String fileName) {
         fileName = getFileName(fileName);
-        BannerMaker plugin = BannerMaker.getInstance();
+        BannerMaker plugin = requirePlugin("load");
         File file = new File(plugin.getDataFolder(), fileName);
         if (!file.exists()) {
             try {
@@ -144,7 +157,7 @@ public class ConfigManager {
             warnConfigNotLoaded(fileName);
             return;
         }
-        BannerMaker plugin = BannerMaker.getInstance();
+        BannerMaker plugin = requirePlugin("reload");
         File file = new File(plugin.getDataFolder(), fileName);
         try {
             configs.get(fileName).load(file);
@@ -164,7 +177,7 @@ public class ConfigManager {
             warnConfigNotLoaded(fileName);
             return;
         }
-        BannerMaker plugin = BannerMaker.getInstance();
+        BannerMaker plugin = requirePlugin("save");
         File file = new File(plugin.getDataFolder(), fileName);
         try {
             configs.get(fileName).save(file);
