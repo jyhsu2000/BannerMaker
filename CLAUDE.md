@@ -155,3 +155,4 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
 - `ConfigManager` 數處從 `BannerMaker.getInstance()` 取資料時未檢查 null，理論上插件未啟用時呼叫會 NPE。
 - 對既有的 `new ItemStack(...)` 殘留違規（見「物品建構」），動到該處時順手改用 `ItemBuilder`。
 - 三個新 service（`BannerService`、`EconomyService`、`BannerRepository`）目前無單元測試。
+- `BannerUtil.getPatternRecipe()` 產出的 3x3 合成格圖示對應 1.14 之前的 vanilla 合成 recipe；自 1.14 起 vanilla 已移除 banner pattern 的 3x3 合成（只能用 loom）。BannerMaker GUI 仍展示這個 grid 作為視覺參考（玩家實際取得 banner 走外掛內部的 buy / craft 路徑，不依賴 vanilla 合成）。長期可考慮改成 loom 樣式或加註說明。
