@@ -82,6 +82,14 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 
 - `BannerUtil.isBanner()` 使用 `XTag.BANNERS` 判斷 `ItemStack` 或 `Material` 是否為旗幟。
 
+### 跨版本相容性陷阱
+
+Bukkit API 在 1.21.x 期間有數次 binary-incompatible 變化，撰寫或修改相關邏輯時須注意：
+
+- **interface ↔ class 演化**：當變數型別涉及曾為 enum 後改 interface 的 Bukkit 類別（如 `org.bukkit.block.banner.PatternType`、`org.bukkit.block.Biome`），對該變數呼叫實例方法（特別是 `.equals()`）時，把變數宣告為 `Object`，使 bytecode 走 `invokevirtual Object.equals` 而非 `invokeinterface`。靜態欄位存取（`PatternType.BRICKS`）不受影響，可直接寫。
+- **新材料動態探測**：對於可能不存在於最低支援版本（1.21.0）的 `Material`（如 1.21.2+ 才有的 `FIELD_MASONED_BANNER_PATTERN`、`BORDURE_INDENTED_BANNER_PATTERN`），用 `Material.matchMaterial("NAME")` + null 檢查 或 `XMaterial.X.isSupported()` + `parseItem()`。**禁止**寫死 `Material.NEWER_THING` 而不處理 null。
+- **PR 規範**：涉及 Pattern / Material / Registry 相關邏輯時，CHANGELOG 與 commit message 應明示已驗證的 MC 版本（理想含 1.21.0、1.21.2、最新版三點）。
+
 ## 語系檔慣例
 
 - **檔名採用 IETF BCP 47 短橫線格式**（`zh-TW.yml`、`de-DE.yml` 等），不使用底線。
