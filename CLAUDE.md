@@ -50,6 +50,7 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 - **顏色代碼機制**：
     - `Language.tl()` 智能支援 **MiniMessage**（如 `<red>`、`<gradient>`）與 **Legacy**（如 `&c`）格式。
     - 字串包含 MiniMessage 標籤（`<` 與 `>`）時優先使用 MiniMessage 解析，否則回退至 Legacy。
+    - **格式偏好**：新增的翻譯字串建議使用 MiniMessage 標籤（`<red>`、`<gradient:red:blue>`、`<bold>` 等）—— 語意更明確、支援漸層 / hex / 互動事件等進階特性。Legacy `&` 色碼**仍持續支援**，既有譯文與舊範本不需重寫，新貢獻者亦可使用熟悉的格式。不設退場時程。
 - **參數替換**：
     - **新方式（推薦）**：`tl("key", TagUtil.tag("arg", value))` 使用 `<arg>` 佔位符；搭配 `club.kid7.bannermaker.util.TagUtil` 進行安全轉義。
     - **舊方式**：`tl("key", arg1)` 使用 `{0}` 佔位符（已基本完全遷移，新程式碼不應再使用）。
