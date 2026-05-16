@@ -44,10 +44,15 @@ public class BannerInfoGUI {
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
         playerData.setViewInfoBanner(banner);
         playerData.setCurrentRecipePage(1);
-        show(player);
+        refresh(player);
     }
 
-    public static void show(Player player) {
+    /**
+     * 以玩家目前的 {@code PlayerData}（已記錄的 banner 與配方頁碼）重新繪製選單。
+     * 私有：外部呼叫者一律使用 {@link #open(Player, ItemStack)} 進入；內部於玩家動作後
+     * （取得旗幟、購買等）以此重整當前頁面。
+     */
+    private static void refresh(Player player) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
@@ -147,7 +152,7 @@ public class BannerInfoGUI {
                 mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                     InventoryUtil.give(player, banner);
                     messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
-                    BannerInfoGUI.show(player); // 重新整理當前頁面
+                    refresh(player); // 重新整理當前頁面
                     event.setCancelled(true);
                 }), 4, 5); // 修正為 (4, 5)
             } else {
@@ -173,7 +178,7 @@ public class BannerInfoGUI {
                             messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
                         }
                     }
-                    BannerInfoGUI.show(player); // 重新整理當前頁面
+                    refresh(player); // 重新整理當前頁面
                     event.setCancelled(true);
                 }), 4, 5); // 修正為 (4, 5)
             }

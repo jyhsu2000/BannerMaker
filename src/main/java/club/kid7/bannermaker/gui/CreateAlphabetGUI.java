@@ -84,9 +84,7 @@ public class CreateAlphabetGUI {
         // Slot 49 (4,5): 旗幟資訊
         ItemStack btnBannerInfo = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.banner-info")).build();
         mainPane.addItem(new GuiItem(btnBannerInfo, event -> {
-            playerData.setViewInfoBanner(currentAlphabetBanner.toItemStack());
-            playerData.setCurrentRecipePage(1);
-            BannerInfoGUI.show(player);
+            BannerInfoGUI.open(player, currentAlphabetBanner.toItemStack());
             event.setCancelled(true);
         }), 4, 5); // 修正為 (4, 5)
 
