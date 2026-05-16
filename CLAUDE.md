@@ -194,5 +194,5 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
 
 ## 已知議題與技術債
 
-- `Language.tl()` 是 static facade，caller 端 10+ 檔案透過 `import static` 使用。內部已改為 lookup via `BannerMaker.getLanguage()`（單例持有從 `Language` 內部 static field 搬到 BannerMaker，constructor 不再有自我 register 的副作用）。長期方向：caller 透過建構式注入 Language、移除 facade。
+- `Language.tl()` 是 static facade，caller 端 10+ 檔案透過 `import static` 使用。內部已改為 lookup via `BannerMaker.getLanguage()`（單例持有從 `Language` 內部 static field 搬到 BannerMaker，constructor 不再有自我 register 的副作用）。這個 facade 跟其他 service 的取用慣例（`BannerMaker.getInstance().getXxxService()`）對稱，無強烈替換動機；若個別 class 有單元測試需要 mock Language，再針對該 class 個別注入即可。
 - `BannerPatternLayout.getPatternRecipe()` 產出的 3x3 合成格圖示對應 1.14 之前的 vanilla 合成 recipe；自 1.14 起 vanilla 已移除 banner pattern 的 3x3 合成（只能用 loom）。BannerMaker GUI 仍展示這個 grid 作為視覺參考（玩家實際取得 banner 走插件內部的 buy / craft 路徑，不依賴 vanilla 合成）。長期可考慮改成 loom 樣式或加註說明。
