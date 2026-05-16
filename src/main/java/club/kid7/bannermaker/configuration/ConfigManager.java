@@ -13,6 +13,17 @@ public class ConfigManager {
     private static final Map<String, FileConfiguration> configs = new HashMap<>();
 
     /**
+     * 安全地透過插件 logger 印出警告訊息。
+     * 若 {@link BannerMaker#getInstance()} 在 disable 階段或測試 teardown 時回傳 null，靜默略過避免 NPE。
+     */
+    private static void warnConfigNotLoaded(String fileName) {
+        BannerMaker bm = BannerMaker.getInstance();
+        if (bm != null) {
+            bm.getLogger().warning("Config not loaded: " + fileName);
+        }
+    }
+
+    /**
      * 取得帶有 ".yml" 副檔名的檔案名稱
      * 並統一將路徑分隔符號轉換為 "/"
      *
@@ -85,7 +96,7 @@ public class ConfigManager {
     public static void set(String fileName, String path, Object value) {
         fileName = getFileName(fileName);
         if (!isFileLoaded(fileName)) {
-            BannerMaker.getInstance().getLogger().warning("Config not loaded: " + fileName);
+            warnConfigNotLoaded(fileName);
             return;
         }
         configs.get(fileName).set(path, value);
@@ -100,7 +111,7 @@ public class ConfigManager {
     public static void remove(String fileName, String path) {
         fileName = getFileName(fileName);
         if (!isFileLoaded(fileName)) {
-            BannerMaker.getInstance().getLogger().warning("Config not loaded: " + fileName);
+            warnConfigNotLoaded(fileName);
             return;
         }
         configs.get(fileName).set(path, null);
@@ -116,7 +127,7 @@ public class ConfigManager {
     public static boolean contains(String fileName, String path) {
         fileName = getFileName(fileName);
         if (!isFileLoaded(fileName)) {
-            BannerMaker.getInstance().getLogger().warning("Config not loaded: " + fileName);
+            warnConfigNotLoaded(fileName);
             return false;
         }
         return configs.get(fileName).contains(path);
@@ -130,7 +141,7 @@ public class ConfigManager {
     public static void reload(String fileName) {
         fileName = getFileName(fileName);
         if (!isFileLoaded(fileName)) {
-            BannerMaker.getInstance().getLogger().warning("Config not loaded: " + fileName);
+            warnConfigNotLoaded(fileName);
             return;
         }
         BannerMaker plugin = BannerMaker.getInstance();
@@ -150,7 +161,7 @@ public class ConfigManager {
     public static void save(String fileName) {
         fileName = getFileName(fileName);
         if (!isFileLoaded(fileName)) {
-            BannerMaker.getInstance().getLogger().warning("Config not loaded: " + fileName);
+            warnConfigNotLoaded(fileName);
             return;
         }
         BannerMaker plugin = BannerMaker.getInstance();
