@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static club.kid7.bannermaker.configuration.Language.tl;
 import static club.kid7.bannermaker.util.TagUtil.tag;
@@ -48,8 +49,12 @@ public class BannerInfoGUI {
      * 以指定旗幟與配方頁碼重新繪製選單。
      * 私有：外部呼叫者一律使用 {@link #open(Player, ItemStack)} 進入；內部於玩家動作後
      * （取得旗幟、購買等）以此重整當前頁面。
+     * <p>
+     * {@code initialRecipePage} 是進入本次 refresh 時要顯示的頁碼；之後 pagination 按鈕
+     * 會改動 closure 內共享的 {@link AtomicInteger} holder，讓「取得旗幟」按鈕在事件
+     * 觸發時讀到的是玩家目前實際停留的頁碼、而非進入時的初始頁。
      */
-    private static void refresh(Player player, ItemStack banner, int recipePage) {
+    private static void refresh(Player player, ItemStack banner, int initialRecipePage) {
         if (!BannerUtil.isBanner(banner)) {
             MainMenuGUI.show(player);
             return;
@@ -66,13 +71,15 @@ public class BannerInfoGUI {
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 
+        AtomicInteger currentRecipePage = new AtomicInteger(initialRecipePage);
+
         renderTopRow(mainPane, player, banner);
 
         if (BannerUtil.isCraftableInSurvival(banner)) {
-            renderCraftingRecipe(gui, mainPane, banner, recipePage);
+            renderCraftingRecipe(gui, mainPane, banner, currentRecipePage);
         }
 
-        renderActionBar(mainPane, player, banner, recipePage, playerData, messageService);
+        renderActionBar(mainPane, player, banner, currentRecipePage, playerData, messageService);
 
         gui.show(player);
     }
@@ -116,7 +123,8 @@ public class BannerInfoGUI {
     /**
      * 底部功能列：返回、刪除、取得、複製編輯、展示、生成指令。
      */
-    private static void renderActionBar(StaticPane mainPane, Player player, ItemStack banner, int recipePage,
+    private static void renderActionBar(StaticPane mainPane, Player player, ItemStack banner,
+                                       AtomicInteger currentRecipePage,
                                        PlayerData playerData, MessageService messageService) {
         // Slot 45: 返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
@@ -143,7 +151,7 @@ public class BannerInfoGUI {
 
         // Slot 49: 取得旗幟
         if (player.hasPermission("BannerMaker.getBanner")) {
-            renderGetBannerButton(mainPane, player, banner, recipePage, messageService);
+            renderGetBannerButton(mainPane, player, banner, currentRecipePage, messageService);
         }
 
         // Slot 51: 複製並編輯
@@ -174,7 +182,8 @@ public class BannerInfoGUI {
      * Slot 49：取得旗幟按鈕。
      * 依玩家權限與經濟系統可用性，提供「免費」或「合成 / 購買」分支。
      */
-    private static void renderGetBannerButton(StaticPane mainPane, Player player, ItemStack banner, int recipePage,
+    private static void renderGetBannerButton(StaticPane mainPane, Player player, ItemStack banner,
+                                             AtomicInteger currentRecipePage,
                                              MessageService messageService) {
         ItemStack btnGetBanner = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.get-this-banner")).build();
         final String showName = BannerUtil.getName(banner);
@@ -184,7 +193,7 @@ public class BannerInfoGUI {
             mainPane.addItem(new GuiItem(btnGetBanner, event -> {
                 InventoryUtil.give(player, banner);
                 messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
-                refresh(player, banner, recipePage);
+                refresh(player, banner, currentRecipePage.get());
                 event.setCancelled(true);
             }), 4, 5);
             return;
@@ -212,7 +221,7 @@ public class BannerInfoGUI {
                     messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
                 }
             }
-            refresh(player, banner, recipePage);
+            refresh(player, banner, currentRecipePage.get());
             event.setCancelled(true);
         }), 4, 5);
     }
@@ -241,9 +250,12 @@ public class BannerInfoGUI {
 
     /**
      * 合成表區塊：邊框、分頁按鈕、工作台/織布機圖示、3x3 材料與成品。
-     * 分頁按鈕點擊時遞迴呼叫自身以更新顯示，不重建整個 GUI。
+     * 分頁按鈕點擊時更新 holder 內頁碼並遞迴呼叫自身重繪此區塊，不重建整個 GUI。
+     * holder 為 {@link #refresh} 內共享的 {@link AtomicInteger}，「取得旗幟」按鈕透過它讀
+     * 玩家目前實際停留的頁碼。
      */
-    private static void renderCraftingRecipe(ChestGui gui, StaticPane mainPane, ItemStack banner, int currentRecipePage) {
+    private static void renderCraftingRecipe(ChestGui gui, StaticPane mainPane, ItemStack banner, AtomicInteger currentRecipePage) {
+        int page = currentRecipePage.get();
         int patternCount = ((BannerMeta) Objects.requireNonNull(banner.getItemMeta())).numberOfPatterns();
         int totalPage = patternCount + 1;
 
@@ -261,30 +273,32 @@ public class BannerInfoGUI {
         }
 
         // Slot 22: 上一頁
-        if (currentRecipePage > 1) {
-            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage - 1).name(tl(NamedTextColor.GREEN, "gui.prev-page")).build();
+        if (page > 1) {
+            ItemStack prevPage = new ItemBuilder(Material.ARROW).amount(page - 1).name(tl(NamedTextColor.GREEN, "gui.prev-page")).build();
             mainPane.addItem(new GuiItem(prevPage, event -> {
-                renderCraftingRecipe(gui, mainPane, banner, currentRecipePage - 1);
+                currentRecipePage.decrementAndGet();
+                renderCraftingRecipe(gui, mainPane, banner, currentRecipePage);
                 gui.update();
                 event.setCancelled(true);
             }), 4, 2);
         }
 
         // Slot 26: 下一頁
-        if (currentRecipePage < totalPage) {
-            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(currentRecipePage + 1).name(tl(NamedTextColor.GREEN, "gui.next-page")).build();
+        if (page < totalPage) {
+            ItemStack nextPage = new ItemBuilder(Material.ARROW).amount(page + 1).name(tl(NamedTextColor.GREEN, "gui.next-page")).build();
             mainPane.addItem(new GuiItem(nextPage, event -> {
-                renderCraftingRecipe(gui, mainPane, banner, currentRecipePage + 1);
+                currentRecipePage.incrementAndGet();
+                renderCraftingRecipe(gui, mainPane, banner, currentRecipePage);
                 gui.update();
                 event.setCancelled(true);
             }), 8, 2);
         }
 
         // Slot 6: 工作台 / 織布機圖示
-        HashMap<Integer, ItemStack> patternRecipe = BannerPatternLayout.getPatternRecipe(banner, currentRecipePage);
-        ItemStack workbench = new ItemBuilder(Material.CRAFTING_TABLE).amount(currentRecipePage)
+        HashMap<Integer, ItemStack> patternRecipe = BannerPatternLayout.getPatternRecipe(banner, page);
+        ItemStack workbench = new ItemBuilder(Material.CRAFTING_TABLE).amount(page)
             .name(tl(NamedTextColor.GREEN, "gui.pattern-layout"))
-            .lore(tl("gui.recipe-page", tag("page", currentRecipePage), tag("total", totalPage))).build();
+            .lore(tl("gui.recipe-page", tag("page", page), tag("total", totalPage))).build();
         if (BannerPatternLayout.isLoomRecipe(patternRecipe)) {
             workbench.setType(Material.LOOM);
         }
