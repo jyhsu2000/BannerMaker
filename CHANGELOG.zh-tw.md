@@ -25,6 +25,10 @@
 - 增加 Paper 1.21.7+ 上 Adventure `BukkitAudiences` ClickEvent / HoverEvent 遺失的繞道
   （對玩家發送的訊息改走 Spigot Chat API）
 - 升 JUnit 至 5.11.4（修正 CVE-2025-53103 安全漏洞）
+- 將 Minecraft 最低支援版本由 1.21.4 放寬至 1.21.0
+- 修正 `BRICKS` 旗幟圖案在 1.21.2+ 上顯示錯誤合成材料的問題：1.21.2 起 loom 要求
+  使用 `FIELD_MASONED_BANNER_PATTERN` 物品，現在會正確顯示；舊版伺服器
+  仍如過去顯示 `BRICK`，於執行階段透過 `Material.matchMaterial` 動態判斷
 - 優化程式碼、移除死碼
 
 ## v2.5.1 (for v1.21.x)

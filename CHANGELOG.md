@@ -29,6 +29,11 @@
 - Add workaround for Adventure `BukkitAudiences` ClickEvent / HoverEvent loss on
   Paper 1.21.7+ (route player-bound messages through Spigot Chat API as fallback)
 - Bump JUnit to 5.11.4 (security fix, CVE-2025-53103)
+- Lower minimum Minecraft version from 1.21.4 to 1.21.0
+- Fix `BRICKS` banner pattern showing the wrong material on 1.21.2+
+  (now correctly displays `FIELD_MASONED_BANNER_PATTERN` instead of plain
+  `BRICK` since the 1.21.2 loom change; older versions continue to show
+  `BRICK` as before, detected at runtime via `Material.matchMaterial`)
 - Optimize code; remove dead code
 
 ## v2.5.1 (for v1.21.x)

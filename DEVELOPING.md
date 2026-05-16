@@ -33,7 +33,7 @@ mvn package                    # 產出 target/BannerMaker.jar
 ## 本機伺服器測試
 
 1. `mvn package` 產出 `target/BannerMaker.jar`
-2. 把 jar 丟進你的 Paper/Spigot 1.21.4+ 伺服器的 `plugins/` 資料夾
+2. 把 jar 丟進你的 Paper/Spigot 1.21.0+ 伺服器的 `plugins/` 資料夾
 3. 啟動伺服器，進遊戲輸入 `/bm` 開選單
 
 ## 常見開發任務速查

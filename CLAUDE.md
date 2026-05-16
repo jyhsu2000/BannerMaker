@@ -9,14 +9,14 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 ## 技術堆疊
 
 - **語言**：Java 21
-- **平台**：Spigot / Paper 1.21.4+
+- **平台**：Spigot / Paper 1.21.0+
 - **建置**：Maven（含 `minimizeJar` 與 shade 重定位）
 - **關鍵函式庫**：
     - **Adventure**：`adventure-text-minimessage 4.17.0` + `adventure-platform-bukkit 4.4.1`，文字與訊息處理核心
     - **ACF (Paper)**：`0.5.1-SNAPSHOT`，指令管理系統
     - **InventoryFramework**：`0.10.14`，GUI 介面框架
     - **XSeries**：`11.3.0`，跨小版本材質與聲音相容
-    - **MockBukkit**：`4.41.1`（針對 1.21.4），單元測試框架
+    - **MockBukkit**：`4.41.1`（針對 1.21.x，測試端搭配 paper-api 1.21.4），單元測試框架
 
 ## 建置、測試與執行
 
@@ -112,11 +112,11 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
 
 ## 版本支援政策
 
-- **Minecraft 最低支援版本**：1.21.4（鎖在 `plugin.yml` 的 `api-version`）。
+- **Minecraft 最低支援版本**：1.21.0（鎖在 `plugin.yml` 的 `api-version: 1.21`）。
 - **不回頭支援更舊的 MC 主版本**（1.20、1.19 …）。舊版使用者應下載歷史 tag（v2.4.0 for 1.20、v2.3.2 for 1.17–1.19 等）。
 - 1.21.x 範圍內的小版本差異由 XSeries 與少數 workaround 處理（如 `MessageService` 對 Paper 1.21.7+ ClickEvent 的繞道）。
-- **禁止引入 Paper 專屬 API**（`io.papermc.paper.*`、`com.destroystokyo.paper.*`、NMS）。本插件需可同時在 Spigot 與 Paper 1.21.4+ 上執行；`co.aikar.commands.PaperCommandManager` 在 Spigot 上會自動降級。
-- 已決議將支援下限放寬至 1.21.0（L1，尚未實作）。
+- **禁止引入 Paper 專屬 API**（`io.papermc.paper.*`、`com.destroystokyo.paper.*`、NMS）。本插件需可同時在 Spigot 與 Paper 1.21.0+ 上執行；`co.aikar.commands.PaperCommandManager` 在 Spigot 上會自動降級。
+- 註：`pom.xml` 中 `paper.api.version` 仍綁在 1.21.4-R0.1-SNAPSHOT，這是給 MockBukkit 4.41.1 測試用的（其 BiomeMock 預期 Biome 為 interface，於 1.21.2+ 才如此）；真正的編譯目標由 `spigot.api.version` 1.21-R0.1-SNAPSHOT 控制。
 
 ## 開發慣例
 

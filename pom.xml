@@ -109,8 +109,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependency Versions -->
+        <!-- spigot-api 為真正的編譯目標（provided scope），鎖在最低支援的 1.21 -->
+        <!-- paper-api 僅供測試使用（test scope），需配合 MockBukkit 4.41.1 對 Biome 為 interface 的預期 -->
         <paper.api.version>1.21.4-R0.1-SNAPSHOT</paper.api.version>
-        <spigot.api.version>1.21.4-R0.1-SNAPSHOT</spigot.api.version>
+        <spigot.api.version>1.21-R0.1-SNAPSHOT</spigot.api.version>
         <vault.version>1.7</vault.version>
         <bstats.version>2.2.1</bstats.version>
         <annotations.version>19.0.0</annotations.version>
