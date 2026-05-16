@@ -129,6 +129,13 @@ public class BannerSerializer {
         throw new InvalidBannerFormatException("Unrecognized banner string format");
     }
 
+    /**
+     * v1 backward compat：解碼以 {@code rO0} 開頭的 Java OOS 包裝字串。內部 dataString 用
+     * pre-1.13 數字色碼與 {@link PatternType#getByIdentifier(String)} 的縮寫，後者已
+     * deprecated and marked for removal — 因屬 v1 本質要求、無法替換，整個 method 加
+     * {@link SuppressWarnings} 表明 intentional。
+     */
+    @SuppressWarnings({"deprecation", "removal"})
     private static ItemStack deserializeV1(String bannerString) {
         String dataString;
         try {

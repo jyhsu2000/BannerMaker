@@ -5,6 +5,9 @@ import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.PersistentDataUtil;
 import org.bukkit.DyeColor;
+import org.bukkit.Keyed;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -40,11 +43,13 @@ public class BannerRepository {
         String key = String.valueOf(System.currentTimeMillis());
         //旗幟資訊
         BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
-        //儲存
-        config.set(key + ".color", Objects.requireNonNull(DyeColorRegistry.getDyeColor(banner.getType())).toString());
+        //儲存（pattern 用 namespace key 後綴；色用 DyeColor.name() 明確意圖）
+        config.set(key + ".color", Objects.requireNonNull(DyeColorRegistry.getDyeColor(banner.getType())).name());
         List<String> patternList = new ArrayList<>();
         for (Pattern pattern : bm.getPatterns()) {
-            patternList.add(pattern.getPattern().getIdentifier() + ":" + pattern.getColor());
+            // 透過 Keyed interface 呼叫 getKey() 避開 PatternType class↔interface binary compat 雷區
+            Keyed patternType = (Keyed) pattern.getPattern();
+            patternList.add(patternType.getKey().getKey() + ":" + pattern.getColor().name());
         }
         if (!patternList.isEmpty()) {
             config.set(key + ".patterns", patternList);
@@ -110,15 +115,15 @@ public class BannerRepository {
         ItemStack banner;
         try {
             banner = new ItemStack(DyeColorRegistry.getBannerMaterial(DyeColor.valueOf(config.getString(key + ".color"))));
-            BannerMeta bm = (BannerMeta) banner.getItemMeta();
-            //新增Patterns
+            BannerMeta bm = Objects.requireNonNull((BannerMeta) banner.getItemMeta());
+            //新增 Patterns
             if (config.contains(key + ".patterns")) {
                 List<String> patternsList = config.getStringList(key + ".patterns");
                 for (String str : patternsList) {
                     String strPattern = str.split(":")[0];
                     String strColor = str.split(":")[1];
-                    Pattern pattern = new Pattern(DyeColor.valueOf(strColor), Objects.requireNonNull(PatternType.getByIdentifier(strPattern)));
-                    Objects.requireNonNull(bm).addPattern(pattern);
+                    Pattern pattern = new Pattern(DyeColor.valueOf(strColor), Objects.requireNonNull(resolvePatternType(strPattern)));
+                    bm.addPattern(pattern);
                 }
             }
             //將 key 藏於 PersistentData
@@ -129,6 +134,34 @@ public class BannerRepository {
         }
 
         return banner;
+    }
+
+    /**
+     * 解析 YAML 內 pattern 識別字串為 {@link PatternType}。
+     * 先嘗試新格式（namespace key 後綴，如 {@code stripe_left}），若 server 不認得才 fallback
+     * 試舊縮寫格式（如 {@code ls}）— 為了讀回 v2.5.x 以前儲存的玩家收藏。
+     *
+     * @param id YAML 內存的 pattern 識別字串
+     * @return 對應的 PatternType；若兩種格式皆無法解出回傳 {@code null}
+     */
+    private static PatternType resolvePatternType(String id) {
+        try {
+            NamespacedKey key = new NamespacedKey(NamespacedKey.MINECRAFT, id.toLowerCase());
+            PatternType modern = Registry.BANNER_PATTERN.get(key);
+            if (modern != null) {
+                return modern;
+            }
+        } catch (IllegalArgumentException ignored) {
+            // id 含 NamespacedKey 不接受的字元（如大寫），改試 legacy
+        }
+        return resolvePatternTypeLegacy(id);
+    }
+
+    @SuppressWarnings({"deprecation", "removal"})
+    private static PatternType resolvePatternTypeLegacy(String id) {
+        // PatternType.getByIdentifier 是 v1 YAML（與 v1 wire format）使用的舊縮寫對映表，
+        // 已 deprecated and marked for removal；保留作為 backward compat、隔離到單獨 method 標明意圖。
+        return PatternType.getByIdentifier(id);
     }
 
     /**
