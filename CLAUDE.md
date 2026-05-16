@@ -21,7 +21,7 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 ## 建置、測試與執行
 
 ```powershell
-# 跑全部測試（45 個 MockBukkit 測試，約 10 秒）
+# 跑全部測試（MockBukkit 套件，約 10 秒）
 & "C:\Users\jyhsu\AppData\Local\Programs\IntelliJ IDEA Ultimate\plugins\maven\lib\maven3\bin\mvn.cmd" test
 
 # 產出 shaded jar（輸出至 target/BannerMaker.jar）
@@ -97,7 +97,7 @@ gui / command
 BannerMaker（進入點）
 ```
 
-GUI 自身所需的「進入前狀態設定」邏輯，例如為 `BannerInfoGUI.show()` 預先填入 `PlayerData.viewInfoBanner`，應當收攏在 GUI class 內部（如 `BannerInfoGUI.open(Player, ItemStack)`），不應抽至 `util/`。
+GUI 自身所需的「進入前狀態設定」邏輯應當收攏在 GUI class 內部（透過 public 入口接收必要參數、再由 private renderer 渲染，如 `BannerInfoGUI.open(Player, ItemStack)` 委派給 `refresh(...)`），不應抽至 `util/`，也不應透過 `PlayerData` 在 GUI 間隱式傳遞臨時狀態。
 
 ### Service 取用慣例
 
@@ -180,12 +180,12 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
     - `gui/`：使用者介面實作（`MainMenuGUI` 等）
     - `command/acf/`：ACF 指令處理（`BannerMakerCommand`）
     - `service/`：核心服務（`MessageService`、`BannerService`、`EconomyService`、`BannerRepository`）
-    - `util/`：通用工具（`BannerUtil`、`ItemBuilder`、`TagUtil` 等）
+    - `util/`：通用工具
+        - `BannerUtil` / `BannerSerializer` / `BannerCost` / `BannerPatternLayout`：旗幟相關工具，職責拆分為「判斷類型」「序列化」「合成材料計算」「3x3 配方版面」
+        - `ItemBuilder` / `TagUtil` / `InventoryUtil` / `PersistentDataUtil` / `MaterialUtil` / `MessageComponentUtil` / `SerializationUtil`：通用基礎工具
     - `registry/`：列舉式靜態註冊（`DyeColorRegistry`）
 
 ## 已知議題與技術債
 
 - `Language.java` 仍是靜態單例。`Language.tl()` 依賴靜態 `instance`；測試若漏呼 `ConfigManager.reset()` 可能污染後續測試。長期可考慮改用依賴注入。
-- `AlphabetBanner.java`（643 行）字母繪製邏輯尾大不掉，可拆為 `PatternFactory` 或資料化為 YAML 描述。
-- `BannerUtil.java`（563 行）序列化、材料檢查、配方驗證混雜，可拆出 `BannerSerializer` 至 service 層。內含 4 處 `// TODO: 應該移到後面整個一起處理` 為長期技術債訊號。
-- `BannerUtil.getPatternRecipe()` 產出的 3x3 合成格圖示對應 1.14 之前的 vanilla 合成 recipe；自 1.14 起 vanilla 已移除 banner pattern 的 3x3 合成（只能用 loom）。BannerMaker GUI 仍展示這個 grid 作為視覺參考（玩家實際取得 banner 走外掛內部的 buy / craft 路徑，不依賴 vanilla 合成）。長期可考慮改成 loom 樣式或加註說明。
+- `BannerPatternLayout.getPatternRecipe()` 產出的 3x3 合成格圖示對應 1.14 之前的 vanilla 合成 recipe；自 1.14 起 vanilla 已移除 banner pattern 的 3x3 合成（只能用 loom）。BannerMaker GUI 仍展示這個 grid 作為視覺參考（玩家實際取得 banner 走外掛內部的 buy / craft 路徑，不依賴 vanilla 合成）。長期可考慮改成 loom 樣式或加註說明。
