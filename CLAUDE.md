@@ -170,6 +170,7 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
     - 必須使用 `MockBukkit` 模擬伺服器環境。
     - 透過 `isUnitTest()`（檢查 `MockBukkit` 類別）來避免測試中初始化 bStats Metrics 或其他外部連線。
     - 重載方法中對 `null` 參數的測試，請使用顯式轉型（例如 `(ItemStack) null`）避免編譯歧義。
+    - 要使用 `Language.tl()` 的測試 setUp **必須** `MockBukkit.load(BannerMaker.class)` — facade 透過 `BannerMaker.getInstance().getLanguage()` lookup，未經 plugin 載入會走 null fallback 回傳 `Component.empty()`，造成測試 assertion 對空字串、bug 不明顯。
 
 ## 提交訊息慣例
 
