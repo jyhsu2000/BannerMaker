@@ -30,6 +30,111 @@ import java.util.stream.Collectors;
 
 
 public class BannerUtil {
+
+    /**
+     * Pattern 對材料貢獻策略：給定一個材料累積 inventory 與該 pattern 的染色，
+     * 把這個 pattern 應消耗的所有 ItemStack 加入累積容器。
+     */
+    @FunctionalInterface
+    private interface PatternMaterialContributor {
+        void contribute(Inventory inv, DyeColor color);
+    }
+
+    /** N 個對應色染料的 contributor。 */
+    private static PatternMaterialContributor dyeOnly(int count) {
+        return (inv, color) -> inv.addItem(DyeColorRegistry.getDyeItemStack(color, count));
+    }
+
+    /** 一個特殊物品 + 1 個對應色染料（黑色為 base，不額外加色）。 */
+    private static PatternMaterialContributor specialWithOptionalDye(Material special) {
+        return (inv, color) -> {
+            inv.addItem(new ItemStack(special));
+            if (!color.equals(DyeColor.BLACK)) {
+                inv.addItem(DyeColorRegistry.getDyeItemStack(color, 1));
+            }
+        };
+    }
+
+    /** Loom 用的旗幟圖形物品：累積過程中只需要 1 個（可重複使用），每次 pattern 仍消耗 1 染料。 */
+    private static PatternMaterialContributor patternItem(Material item) {
+        return (inv, color) -> {
+            if (!inv.contains(item)) {
+                inv.addItem(new ItemStack(item));
+            }
+            inv.addItem(DyeColorRegistry.getDyeItemStack(color, 1));
+        };
+    }
+
+    /** BRICKS 的版本敏感 contributor：1.21.2+ 用 FIELD_MASONED_BANNER_PATTERN，否則 fallback BRICK。 */
+    private static PatternMaterialContributor bricksContributor() {
+        return (inv, color) -> {
+            Material fieldMasoned = Material.matchMaterial("FIELD_MASONED_BANNER_PATTERN");
+            inv.addItem(fieldMasoned != null
+                ? new ItemStack(fieldMasoned)
+                : new ItemStack(Material.BRICK));
+            if (!color.equals(DyeColor.BLACK)) {
+                inv.addItem(DyeColorRegistry.getDyeItemStack(color, 1));
+            }
+        };
+    }
+
+    /**
+     * 各 PatternType 對應的材料貢獻策略表。
+     * key 宣告為 Object 以避免 invokeinterface（詳見 getMaterials 內註解）。
+     */
+    private static final Map<Object, PatternMaterialContributor> MATERIAL_CONTRIBUTORS = Map.ofEntries(
+        // 1 染料 ── 方形角落與圓
+        Map.entry(PatternType.SQUARE_BOTTOM_LEFT, dyeOnly(1)),
+        Map.entry(PatternType.SQUARE_BOTTOM_RIGHT, dyeOnly(1)),
+        Map.entry(PatternType.SQUARE_TOP_LEFT, dyeOnly(1)),
+        Map.entry(PatternType.SQUARE_TOP_RIGHT, dyeOnly(1)),
+        Map.entry(PatternType.CIRCLE, dyeOnly(1)),
+        // 3 染料 ── 條紋、三角、對角
+        Map.entry(PatternType.STRIPE_BOTTOM, dyeOnly(3)),
+        Map.entry(PatternType.STRIPE_TOP, dyeOnly(3)),
+        Map.entry(PatternType.STRIPE_LEFT, dyeOnly(3)),
+        Map.entry(PatternType.STRIPE_RIGHT, dyeOnly(3)),
+        Map.entry(PatternType.STRIPE_CENTER, dyeOnly(3)),
+        Map.entry(PatternType.STRIPE_MIDDLE, dyeOnly(3)),
+        Map.entry(PatternType.STRIPE_DOWNRIGHT, dyeOnly(3)),
+        Map.entry(PatternType.STRIPE_DOWNLEFT, dyeOnly(3)),
+        Map.entry(PatternType.TRIANGLE_BOTTOM, dyeOnly(3)),
+        Map.entry(PatternType.TRIANGLE_TOP, dyeOnly(3)),
+        Map.entry(PatternType.TRIANGLES_BOTTOM, dyeOnly(3)),
+        Map.entry(PatternType.TRIANGLES_TOP, dyeOnly(3)),
+        Map.entry(PatternType.DIAGONAL_LEFT, dyeOnly(3)),
+        Map.entry(PatternType.DIAGONAL_RIGHT, dyeOnly(3)),
+        Map.entry(PatternType.DIAGONAL_UP_LEFT, dyeOnly(3)),
+        Map.entry(PatternType.DIAGONAL_UP_RIGHT, dyeOnly(3)),
+        // 4 染料 ── 小條紋、菱形、漸層
+        Map.entry(PatternType.SMALL_STRIPES, dyeOnly(4)),
+        Map.entry(PatternType.RHOMBUS, dyeOnly(4)),
+        Map.entry(PatternType.GRADIENT, dyeOnly(4)),
+        Map.entry(PatternType.GRADIENT_UP, dyeOnly(4)),
+        // 5 染料 ── 十字
+        Map.entry(PatternType.CROSS, dyeOnly(5)),
+        Map.entry(PatternType.STRAIGHT_CROSS, dyeOnly(5)),
+        // 6 染料 ── 半邊
+        Map.entry(PatternType.HALF_VERTICAL, dyeOnly(6)),
+        Map.entry(PatternType.HALF_HORIZONTAL, dyeOnly(6)),
+        Map.entry(PatternType.HALF_VERTICAL_RIGHT, dyeOnly(6)),
+        Map.entry(PatternType.HALF_HORIZONTAL_BOTTOM, dyeOnly(6)),
+        // 8 染料 ── 邊框
+        Map.entry(PatternType.BORDER, dyeOnly(8)),
+        // 特殊物品 + 染料
+        Map.entry(PatternType.CURLY_BORDER, specialWithOptionalDye(Material.VINE)),
+        Map.entry(PatternType.CREEPER, specialWithOptionalDye(Material.CREEPER_HEAD)),
+        Map.entry(PatternType.SKULL, specialWithOptionalDye(Material.WITHER_SKELETON_SKULL)),
+        Map.entry(PatternType.FLOWER, specialWithOptionalDye(Material.OXEYE_DAISY)),
+        Map.entry(PatternType.MOJANG, specialWithOptionalDye(Material.ENCHANTED_GOLDEN_APPLE)),
+        Map.entry(PatternType.BRICKS, bricksContributor()),
+        // 旗幟圖形物品（loom 用，可重複使用）
+        Map.entry(PatternType.PIGLIN, patternItem(Material.PIGLIN_BANNER_PATTERN)),
+        Map.entry(PatternType.GLOBE, patternItem(Material.GLOBE_BANNER_PATTERN)),
+        Map.entry(PatternType.FLOW, patternItem(Material.FLOW_BANNER_PATTERN)),
+        Map.entry(PatternType.GUSTER, patternItem(Material.GUSTER_BANNER_PATTERN))
+    );
+
     /**
      * 檢查 ItemStack 是否為旗幟
      *
@@ -108,110 +213,13 @@ public class BannerUtil {
         //Pattern材料
         Inventory materialInventory = Bukkit.createInventory(null, 54);
         BannerMeta bm = (BannerMeta) Objects.requireNonNull(banner.getItemMeta());
-        //逐Pattern計算
+        //逐 Pattern 累積材料：實際對應規則於 MATERIAL_CONTRIBUTORS 查表，
+        //patternType 宣告為 Object 是為了避開 PatternType class ↔ interface 二進位相容問題（詳 CLAUDE.md）。
         for (Pattern pattern : bm.getPatterns()) {
-            //所需染料
-            DyeColor dyeColor = pattern.getColor();
-            // 宣告為 Object 強制 .equals(...) 走 invokevirtual Object.equals，
-            // 使 bytecode 不依賴 PatternType 在 runtime 是 class 還是 interface
-            // （1.21.0 為 enum/class、1.21.x 後期改為 interface，二進位不相容）。
             Object patternType = pattern.getPattern();
-            if (patternType.equals(PatternType.SQUARE_BOTTOM_LEFT)
-                || patternType.equals(PatternType.SQUARE_BOTTOM_RIGHT)
-                || patternType.equals(PatternType.SQUARE_TOP_LEFT)
-                || patternType.equals(PatternType.SQUARE_TOP_RIGHT)
-                || patternType.equals(PatternType.CIRCLE)) {
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-            } else if (patternType.equals(PatternType.STRIPE_BOTTOM)
-                || patternType.equals(PatternType.STRIPE_TOP)
-                || patternType.equals(PatternType.STRIPE_LEFT)
-                || patternType.equals(PatternType.STRIPE_RIGHT)
-                || patternType.equals(PatternType.STRIPE_CENTER)
-                || patternType.equals(PatternType.STRIPE_MIDDLE)
-                || patternType.equals(PatternType.STRIPE_DOWNRIGHT)
-                || patternType.equals(PatternType.STRIPE_DOWNLEFT)
-                || patternType.equals(PatternType.TRIANGLE_BOTTOM)
-                || patternType.equals(PatternType.TRIANGLE_TOP)
-                || patternType.equals(PatternType.TRIANGLES_BOTTOM)
-                || patternType.equals(PatternType.TRIANGLES_TOP)
-                || patternType.equals(PatternType.DIAGONAL_LEFT)
-                || patternType.equals(PatternType.DIAGONAL_RIGHT)
-                || patternType.equals(PatternType.DIAGONAL_UP_LEFT)
-                || patternType.equals(PatternType.DIAGONAL_UP_RIGHT)) {
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 3));
-            } else if (patternType.equals(PatternType.SMALL_STRIPES)
-                || patternType.equals(PatternType.RHOMBUS)
-                || patternType.equals(PatternType.GRADIENT)
-                || patternType.equals(PatternType.GRADIENT_UP)) {
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 4));
-            } else if (patternType.equals(PatternType.CROSS)
-                || patternType.equals(PatternType.STRAIGHT_CROSS)) {
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 5));
-            } else if (patternType.equals(PatternType.HALF_VERTICAL)
-                || patternType.equals(PatternType.HALF_HORIZONTAL)
-                || patternType.equals(PatternType.HALF_VERTICAL_RIGHT)
-                || patternType.equals(PatternType.HALF_HORIZONTAL_BOTTOM)) {
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 6));
-            } else if (patternType.equals(PatternType.BORDER)) {
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 8));
-            } else if (patternType.equals(PatternType.CURLY_BORDER)) {
-                materialInventory.addItem(new ItemStack(Material.VINE));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-                }
-            } else if (patternType.equals(PatternType.CREEPER)) {
-                materialInventory.addItem(new ItemStack(Material.CREEPER_HEAD));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-                }
-            } else if (patternType.equals(PatternType.BRICKS)) {
-                // 1.21.2 起 loom 需要 FIELD_MASONED_BANNER_PATTERN 物品；舊版仍可直接用 BRICK
-                Material fieldMasoned = Material.matchMaterial("FIELD_MASONED_BANNER_PATTERN");
-                materialInventory.addItem(fieldMasoned != null
-                    ? new ItemStack(fieldMasoned)
-                    : new ItemStack(Material.BRICK));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-                }
-            } else if (patternType.equals(PatternType.SKULL)) {
-                materialInventory.addItem(new ItemStack(Material.WITHER_SKELETON_SKULL));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-                }
-            } else if (patternType.equals(PatternType.FLOWER)) {
-                materialInventory.addItem(new ItemStack(Material.OXEYE_DAISY));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-                }
-            } else if (patternType.equals(PatternType.MOJANG)) {
-                materialInventory.addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-                }
-            } else if (patternType.equals(PatternType.PIGLIN)) {// 圖形樣式材料不會被消耗，最多只會需要一個
-                // TODO: 應該移到後面整個一起處理
-                if (!materialInventory.contains(Material.PIGLIN_BANNER_PATTERN)) {
-                    materialInventory.addItem(new ItemStack(Material.PIGLIN_BANNER_PATTERN));
-                }
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-            } else if (patternType.equals(PatternType.GLOBE)) {// 圖形樣式材料不會被消耗，最多只會需要一個
-                // TODO: 應該移到後面整個一起處理
-                if (!materialInventory.contains(Material.GLOBE_BANNER_PATTERN)) {
-                    materialInventory.addItem(new ItemStack(Material.GLOBE_BANNER_PATTERN));
-                }
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-            } else if (patternType.equals(PatternType.FLOW)) {// 圖形樣式材料不會被消耗，最多只會需要一個
-                // TODO: 應該移到後面整個一起處理
-                if (!materialInventory.contains(Material.FLOW_BANNER_PATTERN)) {
-                    materialInventory.addItem(new ItemStack(Material.FLOW_BANNER_PATTERN));
-                }
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
-            } else if (patternType.equals(PatternType.GUSTER)) {// 圖形樣式材料不會被消耗，最多只會需要一個
-                // TODO: 應該移到後面整個一起處理
-                if (!materialInventory.contains(Material.GUSTER_BANNER_PATTERN)) {
-                    materialInventory.addItem(new ItemStack(Material.GUSTER_BANNER_PATTERN));
-                }
-                materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
+            PatternMaterialContributor contributor = MATERIAL_CONTRIBUTORS.get(patternType);
+            if (contributor != null) {
+                contributor.contribute(materialInventory, pattern.getColor());
             }
         }
         //加到暫存清單
