@@ -34,6 +34,9 @@
 - 修正 `BRICKS` 旗幟圖案在 1.21.2+ 上顯示錯誤合成材料的問題：1.21.2 起 loom 要求
   使用 `FIELD_MASONED_BANNER_PATTERN` 物品，現在會正確顯示；舊版伺服器
   仍如過去顯示 `BRICK`，於執行階段透過 `Material.matchMaterial` 動態判斷
+- 將旗幟圖樣 3x3 顯示的標題由「合成表」改為「圖樣配置」；對應的 YAML 鍵也由
+  `gui.craft-recipe` 改名為 `gui.pattern-layout`。若伺服器管理者曾自訂舊鍵的
+  內容，需手動將自訂值搬移至新鍵下。
 - 優化程式碼、移除死碼
 
 ## v2.5.1 (for v1.21.x)

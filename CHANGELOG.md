@@ -41,6 +41,11 @@
   (now correctly displays `FIELD_MASONED_BANNER_PATTERN` instead of plain
   `BRICK` since the 1.21.2 loom change; older versions continue to show
   `BRICK` as before, detected at runtime via `Material.matchMaterial`)
+- Rename the 3x3 banner pattern display label from "Craft Recipe" to
+  "Pattern Layout"; the corresponding YAML key was also renamed from
+  `gui.craft-recipe` to `gui.pattern-layout`. Server admins who
+  customized the old key will need to migrate their override to the
+  new key name.
 - Optimize code; remove dead code
 
 ## v2.5.1 (for v1.21.x)
