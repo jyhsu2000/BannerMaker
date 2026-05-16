@@ -48,7 +48,7 @@ gui:
   banner-info: Banner info
   pattern-s: pattern(s)
   no-patterns: No patterns
-  craft-recipe: Pattern Layout
+  pattern-layout: Pattern Layout
   get-this-banner: Get this banner
   get-banner: Get banner &r#<name>
   get-banner-for-free: Get banner for free

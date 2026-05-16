@@ -32,7 +32,7 @@ gui:
   banner-info: Banner információ
   pattern-s: mintázat(ok)
   no-patterns: Nincsenek minták
-  craft-recipe: Barkács Recept
+  pattern-layout: Barkács Recept
   get-this-banner: Szerezd meg ezt a bannert
   get-banner: 'Banner megszerezve &r#<name>'
   get-banner-for-free: Banner megszerzése ingyen

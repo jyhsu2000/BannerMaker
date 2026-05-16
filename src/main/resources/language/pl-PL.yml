@@ -32,7 +32,7 @@ gui:
   banner-info: informacje o banerze
   pattern-s: wzór / wzory
   no-patterns: Brak wzorów
-  craft-recipe: Przepis craftingu
+  pattern-layout: Przepis craftingu
   get-this-banner: Otrzymaj ten banner
   get-banner: 'Otrzymaj banner &r#<name>'
   get-banner-for-free: Dostań banner za darmo

@@ -32,7 +32,7 @@ gui:
   banner-info: Fabricación
   pattern-s: estandartes
   no-patterns: no hay Estandartes
-  craft-recipe: Receta de Fabricación
+  pattern-layout: Receta de Fabricación
   get-this-banner: Obtener este Estandarte
   get-banner: 'Obtener Estandarte &r#<name>'
   get-banner-for-free: Conseguir gratis

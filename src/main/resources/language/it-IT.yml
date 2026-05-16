@@ -32,7 +32,7 @@ gui:
   banner-info: Informazioni stendardo
   pattern-s: motivo/i
   no-patterns: Nessun motivo
-  craft-recipe: Crea la Ricetta
+  pattern-layout: Crea la Ricetta
   get-this-banner: Ottieni questo stendardo
   get-banner: 'Ottieni lo stendardo &r#<name>'
   get-banner-for-free: Ottieni lo stendardo gratuitamente

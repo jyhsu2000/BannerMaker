@@ -41,7 +41,7 @@ gui:
   banner-info: 旗帜信息
   pattern-s: 个图案
   no-patterns: 无图案
-  craft-recipe: 合成配方
+  pattern-layout: 合成配方
   get-this-banner: 获取该旗帜
   get-banner: '获取旗帜 &r#<name>'
   get-banner-for-free: 免费获取

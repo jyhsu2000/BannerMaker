@@ -249,7 +249,7 @@ public class BannerInfoGUI {
         // Slot 6 (6,0): 合成表工作台/織布機圖示
         HashMap<Integer, ItemStack> patternRecipe = BannerUtil.getPatternRecipe(banner, currentRecipePage);
         ItemStack workbench = new ItemBuilder(Material.CRAFTING_TABLE).amount(currentRecipePage)
-            .name(tl(NamedTextColor.GREEN, "gui.craft-recipe"))
+            .name(tl(NamedTextColor.GREEN, "gui.pattern-layout"))
             .lore(tl("gui.recipe-page", tag("page", currentRecipePage), tag("total", totalPage))).build();
         if (BannerUtil.isLoomRecipe(patternRecipe)) {
             workbench.setType(Material.LOOM);
