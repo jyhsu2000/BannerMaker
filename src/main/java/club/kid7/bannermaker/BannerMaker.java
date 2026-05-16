@@ -30,6 +30,7 @@ public class BannerMaker extends JavaPlugin {
     private BannerService bannerService;
     private BannerRepository bannerRepository;
     private PaperCommandManager commandManager;
+    private Language language;
 
     public static BannerMaker getInstance() {
         return instance;
@@ -104,6 +105,20 @@ public class BannerMaker extends JavaPlugin {
         return bannerRepository;
     }
 
+    public Language getLanguage() {
+        return language;
+    }
+
+    /**
+     * 重新建立並載入語言系統。供 {@link #reload()} 與測試使用。
+     * 每次呼叫都會 new 一個 Language instance 並寫入 {@link #language}，跟舊版每次 {@code reload()}
+     * 內 {@code new Language(this).loadLanguage()} 行為等價，只是 reference 現在有被保留。
+     */
+    public void reloadLanguage() {
+        language = new Language(this);
+        language.loadLanguage();
+    }
+
     public Economy getEconomy() {
         return econ;
     }
@@ -128,7 +143,7 @@ public class BannerMaker extends JavaPlugin {
         //Reload Config
         ConfigManager.reloadAll();
         //載入語言包
-        new Language(this).loadLanguage();
+        reloadLanguage();
         //Check Default Config
         new DefaultConfig(this).checkConfig();
         //經濟

@@ -31,8 +31,8 @@ class LanguageTest {
         // 強制設定使用英文，避免 Locale.getDefault() 導致測試環境不一致
         ConfigManager.get("config.yml").set("Language", "en-US");
 
-        // 初始化語言系統 (這會讀取 config.yml)
-        new Language(plugin).loadLanguage();
+        // 重新載入語言系統以套用上方 config.yml 的修改
+        plugin.reloadLanguage();
     }
 
     @AfterEach

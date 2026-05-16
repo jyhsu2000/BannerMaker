@@ -21,7 +21,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Language {
-    private static Language instance = null;
     private static final Locale DEFAULT_LOCALE = Locale.US; // en_US
     private final BannerMaker bm;
     private FileConfiguration defaultLanguageConfigResource;
@@ -30,7 +29,6 @@ public class Language {
 
     public Language(BannerMaker bm) {
         this.bm = bm;
-        instance = this;
     }
 
     private static Locale parseLocale(String localeName) {
@@ -89,11 +87,21 @@ public class Language {
         }
     }
 
+    /**
+     * 翻譯入口（static facade）：透過 {@link BannerMaker#getLanguage()} 找到當前 Language instance 並
+     * 委派給其 {@link #getRawString(String)}。
+     * <p>
+     * 設計刻意保留 static 簽名是為了讓 caller 端的 {@code import static Language.tl;} 使用方式不必改動；
+     * 真正的單例持有已從本 class 搬到 BannerMaker。若 plugin 未啟用或 Language 尚未載入，回傳
+     * {@link Component#empty()} 作為優雅 fallback，避免在生命週期外炸開。
+     */
     public static Component tl(String path, TagResolver... tags) {
-        if (instance == null) {
+        BannerMaker bm = BannerMaker.getInstance();
+        Language lang = (bm != null) ? bm.getLanguage() : null;
+        if (lang == null) {
             return Component.empty();
         }
-        String raw = instance.getRawString(path);
+        String raw = lang.getRawString(path);
         return MiniMessage.miniMessage().deserialize(raw, tags);
     }
 

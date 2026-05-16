@@ -33,7 +33,7 @@ class MainMenuGUITest {
         plugin = MockBukkit.load(BannerMaker.class);
 
         // Ensure language files are loaded for testing
-        new Language(plugin).loadLanguage();
+        plugin.reloadLanguage();
 
         player = server.addPlayer("TestPlayer");
     }
