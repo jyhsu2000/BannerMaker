@@ -8,30 +8,12 @@ public class PlayerData {
      * 選單狀態
      */
 
-    private ItemStack viewInfoBanner = null;
-    private Integer currentRecipePage = 1;
     private AlphabetBanner currentAlphabetBanner = null;
     private boolean alphabetBannerBordered = true;
     private ItemStack currentEditBanner = null;
     private boolean showMorePatterns = false;
     private DyeColor selectedColor = DyeColor.BLACK;
     private boolean inSimplePreviewMode = false;
-
-    public ItemStack getViewInfoBanner() {
-        return viewInfoBanner;
-    }
-
-    public void setViewInfoBanner(ItemStack viewInfoBanner) {
-        this.viewInfoBanner = viewInfoBanner;
-    }
-
-    public Integer getCurrentRecipePage() {
-        return currentRecipePage;
-    }
-
-    public void setCurrentRecipePage(Integer currentRecipePage) {
-        this.currentRecipePage = currentRecipePage;
-    }
 
     public AlphabetBanner getCurrentAlphabetBanner() {
         return currentAlphabetBanner;
