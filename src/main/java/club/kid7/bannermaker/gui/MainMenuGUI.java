@@ -3,7 +3,6 @@ package club.kid7.bannermaker.gui;
 import club.kid7.bannermaker.AlphabetBanner;
 import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.service.MessageService;
-import club.kid7.bannermaker.util.InventoryMenuUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
@@ -39,7 +38,7 @@ public class MainMenuGUI {
 
         for (ItemStack banner : banners) {
             GuiItem item = new GuiItem(banner, event -> {
-                InventoryMenuUtil.openBannerInfo(player, banner);
+                BannerInfoGUI.open(player, banner);
                 event.setCancelled(true);
             });
             bannerItems.add(item);

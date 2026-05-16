@@ -29,6 +29,24 @@ import static club.kid7.bannermaker.util.TagUtil.tag;
 
 public class BannerInfoGUI {
 
+    /**
+     * 為玩家設定要檢視的旗幟、重設配方頁碼，然後開啟資訊選單。
+     * 取代既有的 {@code InventoryMenuUtil.openBannerInfo}，
+     * 把進入此 GUI 所需的狀態設定收攏在 GUI 自身內。
+     *
+     * @param player 開啟選單的玩家
+     * @param banner 要展示的旗幟物品
+     */
+    public static void open(Player player, ItemStack banner) {
+        if (!BannerUtil.isBanner(banner)) {
+            return;
+        }
+        PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
+        playerData.setViewInfoBanner(banner);
+        playerData.setCurrentRecipePage(1);
+        show(player);
+    }
+
     public static void show(Player player) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);

@@ -1,10 +1,10 @@
 package club.kid7.bannermaker.command.acf;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.gui.BannerInfoGUI;
 import club.kid7.bannermaker.gui.MainMenuGUI;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
-import club.kid7.bannermaker.util.InventoryMenuUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
@@ -73,7 +73,7 @@ public class BannerMakerCommand extends BaseCommand {
         ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(blockState.getBaseColor()))
             .setPatterns(blockState.getPatterns()).build();
         //顯示旗幟
-        InventoryMenuUtil.openBannerInfo(player, banner);
+        BannerInfoGUI.open(player, banner);
     }
 
     @Subcommand("hand")
@@ -90,7 +90,7 @@ public class BannerMakerCommand extends BaseCommand {
         ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(itemStack.getType()))
             .setPatterns(Objects.requireNonNull(originalBannerMeta).getPatterns()).build();
         //顯示旗幟
-        InventoryMenuUtil.openBannerInfo(player, banner);
+        BannerInfoGUI.open(player, banner);
     }
 
     @Subcommand("view")
@@ -101,7 +101,7 @@ public class BannerMakerCommand extends BaseCommand {
         try {
             ItemStack banner = BannerUtil.deserialize(bannerString);
             //顯示旗幟
-            InventoryMenuUtil.openBannerInfo(player, banner);
+            BannerInfoGUI.open(player, banner);
         } catch (Exception e) {
             plugin.getMessageService().send(player, tl("command.invalid-banner-string"));
         }

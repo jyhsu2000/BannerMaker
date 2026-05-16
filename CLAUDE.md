@@ -82,6 +82,22 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 
 - `BannerUtil.isBanner()` 使用 `XTag.BANNERS` 判斷 `ItemStack` 或 `Material` 是否為旗幟。
 
+### 套件層級規約
+
+`util/`、`registry/`、`configuration/` 套件**禁止**反向 import `gui/`、`command/`、`service/`。整體層級為：
+
+```
+util / registry / configuration（底層）
+   ↓
+service
+   ↓
+gui / command
+   ↓
+BannerMaker（進入點）
+```
+
+GUI 自身所需的「進入前狀態設定」邏輯，例如為 `BannerInfoGUI.show()` 預先填入 `PlayerData.viewInfoBanner`，應當收攏在 GUI class 內部（如 `BannerInfoGUI.open(Player, ItemStack)`），不應抽至 `util/`。
+
 ### 跨版本相容性陷阱
 
 Bukkit API 在 1.21.x 期間有數次 binary-incompatible 變化，撰寫或修改相關邏輯時須注意：
@@ -161,7 +177,6 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
 - `Language.java` 仍是靜態單例。`Language.tl()` 依賴靜態 `instance`；測試若漏呼 `ConfigManager.reset()` 可能污染後續測試。長期可考慮改用依賴注入。
 - `AlphabetBanner.java`（643 行）字母繪製邏輯尾大不掉，可拆為 `PatternFactory` 或資料化為 YAML 描述。
 - `BannerUtil.java`（563 行）序列化、材料檢查、配方驗證混雜，可拆出 `BannerSerializer` 至 service 層。內含 4 處 `// TODO: 應該移到後面整個一起處理` 為長期技術債訊號。
-- `util/InventoryMenuUtil.java` 反向 import `gui.BannerInfoGUI`，違反 util 應為底層的原則。
 - `ConfigManager` 數處從 `BannerMaker.getInstance()` 取資料時未檢查 null，理論上插件未啟用時呼叫會 NPE。
 - `BannerRepository` 兩處 `new ItemStack(...)` 帶 `FIXME: 維持舊版相容性` 註解：用於解碼舊格式 banner 序列化資料，材料皆穩定，可視為設計性而非債務，但長期可考慮抽出為獨立 deserializer。
 - 三個新 service（`BannerService`、`EconomyService`、`BannerRepository`）目前無單元測試。
