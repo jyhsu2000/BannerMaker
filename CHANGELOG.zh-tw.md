@@ -25,6 +25,9 @@
 - 增加 Paper 1.21.7+ 上 Adventure `BukkitAudiences` ClickEvent / HoverEvent 遺失的繞道
   （對玩家發送的訊息改走 Spigot Chat API）
 - 升 JUnit 至 5.11.4（修正 CVE-2025-53103 安全漏洞）
+- **破壞性變更**：移除 v2.0.0 之前舊版 banner 存檔格式（以整數 `DyeColor` 序號儲存）的讀取支援。
+  2018 年之前儲存的收藏項目於載入時會被靜默略過；`loadBanner` 既有的 try/catch 確保不會崩潰。
+  v2.0.0 起的新格式（字串 `DyeColor` 名稱）一切照舊。
 - 將 Minecraft 最低支援版本由 1.21.4 放寬至 1.21.0
 - 修正 1.21.0 上執行 `/bm see` 或 `/bm hand` 時的 `IncompatibleClassChangeError`：
   `org.bukkit.block.banner.PatternType` 於 1.21.x 早期為 enum class、後期改為 interface，

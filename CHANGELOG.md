@@ -29,6 +29,12 @@
 - Add workaround for Adventure `BukkitAudiences` ClickEvent / HoverEvent loss on
   Paper 1.21.7+ (route player-bound messages through Spigot Chat API as fallback)
 - Bump JUnit to 5.11.4 (security fix, CVE-2025-53103)
+- **BREAKING**: Drop support for the pre-v2.0.0 banner save format
+  (integer-based `DyeColor` ordinals). Banner library entries saved
+  prior to 2018 will be silently skipped on load; the existing
+  try/catch in `loadBanner` keeps this from crashing. New saves and
+  any save from v2.0.0 onward use the string `DyeColor` name and are
+  unaffected.
 - Lower minimum Minecraft version from 1.21.4 to 1.21.0
 - Fix `IncompatibleClassChangeError` on 1.21.0 when `/bm see` or `/bm hand`
   inspected a banner: `org.bukkit.block.banner.PatternType` was an enum

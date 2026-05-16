@@ -189,6 +189,5 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
 - `AlphabetBanner.java`（643 行）字母繪製邏輯尾大不掉，可拆為 `PatternFactory` 或資料化為 YAML 描述。
 - `BannerUtil.java`（563 行）序列化、材料檢查、配方驗證混雜，可拆出 `BannerSerializer` 至 service 層。內含 4 處 `// TODO: 應該移到後面整個一起處理` 為長期技術債訊號。
 - `ConfigManager` 數處從 `BannerMaker.getInstance()` 取資料時未檢查 null，理論上插件未啟用時呼叫會 NPE。
-- `BannerRepository` 兩處 `new ItemStack(...)` 帶 `FIXME: 維持舊版相容性` 註解：用於解碼舊格式 banner 序列化資料，材料皆穩定，可視為設計性而非債務，但長期可考慮抽出為獨立 deserializer。
 - 三個新 service（`BannerService`、`EconomyService`、`BannerRepository`）目前無單元測試。
 - `BannerUtil.getPatternRecipe()` 產出的 3x3 合成格圖示對應 1.14 之前的 vanilla 合成 recipe；自 1.14 起 vanilla 已移除 banner pattern 的 3x3 合成（只能用 loom）。BannerMaker GUI 仍展示這個 grid 作為視覺參考（玩家實際取得 banner 走外掛內部的 buy / craft 路徑，不依賴 vanilla 合成）。長期可考慮改成 loom 樣式或加註說明。

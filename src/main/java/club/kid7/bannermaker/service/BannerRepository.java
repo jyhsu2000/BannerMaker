@@ -5,7 +5,6 @@ import club.kid7.bannermaker.registry.DyeColorRegistry;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.PersistentDataUtil;
 import org.bukkit.DyeColor;
-import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -104,19 +103,13 @@ public class BannerRepository {
         String fileName = getFileName(player);
         FileConfiguration config = ConfigManager.get(fileName);
         //檢查是否為正確格式
-        if ((!config.isInt(key + ".color") && !config.isString(key + ".color"))
+        if (!config.isString(key + ".color")
             || (config.contains(key + ".patterns") && !config.isList(key + ".patterns"))) {
             return null;
         }
         ItemStack banner;
-        //嘗試以新格式讀取（舊版整數 color 格式委派至 LegacyBannerDeserializer）
         try {
-            Material legacyMaterial = LegacyBannerDeserializer.tryReadBannerMaterial(config, key);
-            if (legacyMaterial != null) {
-                banner = new ItemStack(legacyMaterial);
-            } else {
-                banner = new ItemStack(DyeColorRegistry.getBannerMaterial(DyeColor.valueOf(config.getString(key + ".color"))));
-            }
+            banner = new ItemStack(DyeColorRegistry.getBannerMaterial(DyeColor.valueOf(config.getString(key + ".color"))));
             BannerMeta bm = (BannerMeta) banner.getItemMeta();
             //新增Patterns
             if (config.contains(key + ".patterns")) {
