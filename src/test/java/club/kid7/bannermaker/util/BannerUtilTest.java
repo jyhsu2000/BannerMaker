@@ -258,22 +258,4 @@ class BannerUtilTest {
         return player.getInventory();
     }
 
-    @Test
-    void serializeAndDeserialize_ShouldWorkCorrectly() {
-        ItemStack originalBanner = new ItemStack(Material.RED_BANNER);
-        BannerMeta meta = (BannerMeta) originalBanner.getItemMeta();
-        meta.addPattern(new Pattern(DyeColor.WHITE, PatternType.CROSS));
-        originalBanner.setItemMeta(meta);
-
-        String serialized = BannerUtil.serialize(originalBanner);
-        assertNotNull(serialized);
-
-        ItemStack deserializedBanner = BannerUtil.deserialize(serialized);
-        assertNotNull(deserializedBanner);
-
-        assertEquals(originalBanner.getType(), deserializedBanner.getType());
-        BannerMeta deserializedMeta = (BannerMeta) deserializedBanner.getItemMeta();
-        assertEquals(meta.numberOfPatterns(), deserializedMeta.numberOfPatterns());
-        assertEquals(meta.getPattern(0), deserializedMeta.getPattern(0));
-    }
 }

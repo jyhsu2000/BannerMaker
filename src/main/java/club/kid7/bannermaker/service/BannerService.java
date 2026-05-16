@@ -1,6 +1,7 @@
 package club.kid7.bannermaker.service;
 
 import club.kid7.bannermaker.BannerMaker;
+import club.kid7.bannermaker.util.BannerSerializer;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.InventoryUtil;
 import club.kid7.bannermaker.util.MessageComponentUtil;
@@ -128,7 +129,7 @@ public class BannerService {
      * 建立旗幟展示訊息組件（含懸停與點擊事件）
      */
     private Component buildBannerMessageComponent(ItemStack banner) {
-        String bannerString = BannerUtil.serialize(banner);
+        String bannerString = BannerSerializer.serialize(banner);
         return MessageComponentUtil.getTranslatableComponent(banner)
             .hoverEvent(MessageComponentUtil.getHoverEventItem(banner))
             .clickEvent(ClickEvent.runCommand("/bm view " + bannerString));
@@ -151,7 +152,7 @@ public class BannerService {
      */
     public void sendShareCommand(Player player, ItemStack banner) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
-        String bannerString = BannerUtil.serialize(banner);
+        String bannerString = BannerSerializer.serialize(banner);
         Component msg = tl("general.share-click-text")
             .hoverEvent(HoverEvent.showText(tl("general.share-hover-text")))
             .clickEvent(ClickEvent.copyToClipboard("/bm view " + bannerString));

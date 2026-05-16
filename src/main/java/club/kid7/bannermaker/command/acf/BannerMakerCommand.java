@@ -4,6 +4,7 @@ import club.kid7.bannermaker.BannerMaker;
 import club.kid7.bannermaker.gui.BannerInfoGUI;
 import club.kid7.bannermaker.gui.MainMenuGUI;
 import club.kid7.bannermaker.registry.DyeColorRegistry;
+import club.kid7.bannermaker.util.BannerSerializer;
 import club.kid7.bannermaker.util.BannerUtil;
 import club.kid7.bannermaker.util.ItemBuilder;
 import co.aikar.commands.BaseCommand;
@@ -99,7 +100,7 @@ public class BannerMakerCommand extends BaseCommand {
     @Syntax("<bannerString>")
     public void onView(Player player, String bannerString) {
         try {
-            ItemStack banner = BannerUtil.deserialize(bannerString);
+            ItemStack banner = BannerSerializer.deserialize(bannerString);
             //顯示旗幟
             BannerInfoGUI.open(player, banner);
         } catch (Exception e) {
