@@ -31,8 +31,6 @@ public class BannerInfoGUI {
 
     /**
      * 為玩家設定要檢視的旗幟、重設配方頁碼，然後開啟資訊選單。
-     * 取代既有的 {@code InventoryMenuUtil.openBannerInfo}，
-     * 把進入此 GUI 所需的狀態設定收攏在 GUI 自身內。
      *
      * @param player 開啟選單的玩家
      * @param banner 要展示的旗幟物品
@@ -128,7 +126,7 @@ public class BannerInfoGUI {
                 MainMenuGUI.show(player);
             }
             event.setCancelled(true);
-        }), 0, 5); // 修正為 (0, 5)
+        }), 0, 5);
 
         // Slot 47 (2,5): 刪除旗幟 (若已儲存)
         final String key = BannerUtil.getKey(banner);
@@ -139,7 +137,7 @@ public class BannerInfoGUI {
                 messageService.send(player, tl(NamedTextColor.GREEN, "io.remove-banner", tag("key", key)));
                 MainMenuGUI.show(player);
                 event.setCancelled(true);
-            }), 2, 5); // 修正為 (2, 5)
+            }), 2, 5);
         }
 
         // Slot 49 (4,5): 取得旗幟
@@ -154,7 +152,7 @@ public class BannerInfoGUI {
                     messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
                     refresh(player); // 重新整理當前頁面
                     event.setCancelled(true);
-                }), 4, 5); // 修正為 (4, 5)
+                }), 4, 5);
             } else {
                 btnGetBanner = new ItemBuilder(btnGetBanner).addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left").append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.get-banner-by-craft")))).build();
                 EconomyService economyService = BannerMaker.getInstance().getEconomyService();
@@ -180,7 +178,7 @@ public class BannerInfoGUI {
                     }
                     refresh(player); // 重新整理當前頁面
                     event.setCancelled(true);
-                }), 4, 5); // 修正為 (4, 5)
+                }), 4, 5);
             }
         }
 
@@ -190,7 +188,7 @@ public class BannerInfoGUI {
             playerData.setCurrentEditBanner(banner);
             CreateBannerGUI.show(player); // 開啟新版編輯介面
             event.setCancelled(true);
-        }), 6, 5); // 修正為 (6, 5)
+        }), 6, 5);
 
         // Slot 52 (7,5): 展示旗幟
         if (player.hasPermission("BannerMaker.show.nearby") || player.hasPermission("BannerMaker.show.all")) {
@@ -209,7 +207,7 @@ public class BannerInfoGUI {
                 }
                 player.closeInventory();
                 event.setCancelled(true);
-            }), 7, 5); // 修正為 (7, 5)
+            }), 7, 5);
         }
 
         // Slot 53 (8,5): 生成指令
@@ -219,7 +217,7 @@ public class BannerInfoGUI {
                 BannerMaker.getInstance().getBannerService().sendShareCommand(player, banner);
                 player.closeInventory();
                 event.setCancelled(true);
-            }), 8, 5); // 修正為 (8, 5)
+            }), 8, 5);
         }
 
         gui.show(player);
@@ -255,7 +253,7 @@ public class BannerInfoGUI {
                 updateCraftingRecipeSection(player, gui, mainPane, playerData, banner, messageService);
                 gui.update();
                 event.setCancelled(true);
-            }), 4, 2); // 修正為 (4, 2)
+            }), 4, 2);
         }
 
         // Slot 26 (8,2): 下一頁按鈕
@@ -266,7 +264,7 @@ public class BannerInfoGUI {
                 updateCraftingRecipeSection(player, gui, mainPane, playerData, banner, messageService);
                 gui.update();
                 event.setCancelled(true);
-            }), 8, 2); // 修正為 (8, 2)
+            }), 8, 2);
         }
 
         // Slot 6 (6,0): 合成表工作台/織布機圖示
@@ -277,7 +275,7 @@ public class BannerInfoGUI {
         if (BannerUtil.isLoomRecipe(patternRecipe)) {
             workbench.setType(Material.LOOM);
         }
-        mainPane.addItem(new GuiItem(workbench), 6, 0); // 修正為 (6, 0)
+        mainPane.addItem(new GuiItem(workbench), 6, 0);
 
         // 合成材料與結果 (Slots 14, 15, 16, 23, 24, 25, 32, 33, 34, 42)
         // 0-8 為材料，9 為結果

@@ -63,14 +63,14 @@ public class ChooseAlphabetGUI {
             playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
             ChooseAlphabetGUI.show(player); // 刷新以顯示變更
             event.setCancelled(true);
-        }), 4, 5); // 修正為 (4, 5)
+        }), 4, 5);
 
         // Slot 45 (0,5): 返回按鈕
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
         mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
             MainMenuGUI.show(player);
             event.setCancelled(true);
-        }), 0, 5); // 修正為 (0, 5)
+        }), 0, 5);
 
         gui.show(player);
     }

@@ -44,8 +44,7 @@ public class CreateAlphabetGUI {
         // Slot 0 (0,0): 預覽
         mainPane.addItem(new GuiItem(currentAlphabetBanner.toItemStack()), 0, 0);
 
-        // 底色選擇 (Slots 1-17, 第 0 和 1 行)
-        // 原始邏輯: i + 1 + (i / 8) -> Slot 1-8, 10-17
+        // 底色選擇 (Slots 1-8, 10-17，跳過第 9 格)
         for (int i = 0; i < 16; i++) {
             final ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(i)).build();
             int slot = i + 1 + (i / 8);
@@ -57,8 +56,7 @@ public class CreateAlphabetGUI {
             }), slot % 9, slot / 9);
         }
 
-        // 染料顏色選擇 (Slots 19-35, 第 2 和 3 行)
-        // 原始邏輯: 18 + i + 1 + (i / 8) -> Slot 19-26, 28-35
+        // 染料顏色選擇 (Slots 19-26, 28-35，跳過第 27 格)
         for (int i = 0; i < 16; i++) {
             final ItemStack dye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(i)).build();
             int slot = 18 + i + 1 + (i / 8);
@@ -79,21 +77,21 @@ public class CreateAlphabetGUI {
             playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
             CreateAlphabetGUI.show(player);
             event.setCancelled(true);
-        }), 1, 4); // 修正為 (1, 4)
+        }), 1, 4);
 
         // Slot 49 (4,5): 旗幟資訊
         ItemStack btnBannerInfo = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.banner-info")).build();
         mainPane.addItem(new GuiItem(btnBannerInfo, event -> {
             BannerInfoGUI.open(player, currentAlphabetBanner.toItemStack());
             event.setCancelled(true);
-        }), 4, 5); // 修正為 (4, 5)
+        }), 4, 5);
 
         // Slot 45 (0,5): 返回按鈕
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
         mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
             ChooseAlphabetGUI.show(player);
             event.setCancelled(true);
-        }), 0, 5); // 修正為 (0, 5)
+        }), 0, 5);
 
         gui.show(player);
     }
