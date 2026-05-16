@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.mockbukkit.mockbukkit.MockBukkit;
 import org.mockbukkit.mockbukkit.ServerMock;
 import org.mockbukkit.mockbukkit.entity.PlayerMock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -116,6 +118,50 @@ class BannerUtilTest {
         assertTrue(hasWool, "Should contain 6 white wool");
         assertTrue(hasRedDye, "Should contain 1 red dye");
         assertTrue(hasBlueDye, "Should contain 3 blue dye");
+    }
+
+    @Test
+    void getMaterials_BricksPattern_UsesFieldMasonedOnModernServer() {
+        // 1.21.2+ 的 loom 改用 FIELD_MASONED_BANNER_PATTERN 物品產生 bricks pattern。
+        // 測試環境綁定 paper-api 1.21.4，必定走此分支。
+        ItemStack banner = new ItemStack(Material.WHITE_BANNER);
+        BannerMeta meta = (BannerMeta) banner.getItemMeta();
+        meta.addPattern(new Pattern(DyeColor.RED, PatternType.BRICKS));
+        banner.setItemMeta(meta);
+
+        List<ItemStack> materials = BannerUtil.getMaterials(banner);
+
+        Material fieldMasoned = Material.matchMaterial("FIELD_MASONED_BANNER_PATTERN");
+        assertNotNull(fieldMasoned, "測試環境（paper-api 1.21.4）應有 FIELD_MASONED_BANNER_PATTERN");
+        assertTrue(
+            materials.stream().anyMatch(i -> i.getType() == fieldMasoned),
+            "1.21.2+ 應顯示 FIELD_MASONED_BANNER_PATTERN 作為 BRICKS pattern 的合成材料"
+        );
+        assertFalse(
+            materials.stream().anyMatch(i -> i.getType() == Material.BRICK),
+            "1.21.2+ 不應再顯示 BRICK 作為 BRICKS pattern 的合成材料"
+        );
+    }
+
+    @Test
+    void getMaterials_BricksPattern_FallsBackToBrickWhenFieldMasonedAbsent() {
+        // 模擬 1.21.0 / 1.21.1 環境：FIELD_MASONED_BANNER_PATTERN 物品尚未存在。
+        // 透過 Mockito 靜態模擬 Material.matchMaterial 對該名稱回傳 null。
+        try (MockedStatic<Material> mocked = Mockito.mockStatic(Material.class, Mockito.CALLS_REAL_METHODS)) {
+            mocked.when(() -> Material.matchMaterial("FIELD_MASONED_BANNER_PATTERN")).thenReturn(null);
+
+            ItemStack banner = new ItemStack(Material.WHITE_BANNER);
+            BannerMeta meta = (BannerMeta) banner.getItemMeta();
+            meta.addPattern(new Pattern(DyeColor.RED, PatternType.BRICKS));
+            banner.setItemMeta(meta);
+
+            List<ItemStack> materials = BannerUtil.getMaterials(banner);
+
+            assertTrue(
+                materials.stream().anyMatch(i -> i.getType() == Material.BRICK),
+                "舊版（1.21.0 / 1.21.1）找不到 FIELD_MASONED_BANNER_PATTERN 時應 fallback 至 BRICK"
+            );
+        }
     }
 
     @Test
