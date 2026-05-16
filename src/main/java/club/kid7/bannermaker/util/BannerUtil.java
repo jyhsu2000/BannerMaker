@@ -162,7 +162,11 @@ public class BannerUtil {
                     materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
                 }
             } else if (patternType.equals(PatternType.BRICKS)) {
-                materialInventory.addItem(new ItemStack(Material.BRICK));
+                // 1.21.2 起 loom 需要 FIELD_MASONED_BANNER_PATTERN 物品；舊版仍可直接用 BRICK
+                Material fieldMasoned = Material.matchMaterial("FIELD_MASONED_BANNER_PATTERN");
+                materialInventory.addItem(fieldMasoned != null
+                    ? new ItemStack(fieldMasoned)
+                    : new ItemStack(Material.BRICK));
                 if (!pattern.getColor().equals(DyeColor.BLACK)) {
                     materialInventory.addItem(DyeColorRegistry.getDyeItemStack(dyeColor, 1));
                 }
