@@ -3,56 +3,17 @@
 ## Unreleased Version
 
 - Update language system
-    - Language files now support MiniMessage format alongside legacy `&` formatting codes
-    - Most messages are now translatable; placeholders use `<name>` style tags via
-      Adventure TagResolver (replacing the legacy `{0}` style)
-    - **BREAKING**: Language file naming switched from underscore to IETF BCP 47 format
-      (e.g. `zh_TW.yml` → `zh-TW.yml`). Existing user-customized files are auto-migrated
-      on plugin startup; `config.yml`'s `Language` value still accepts both formats.
-    - Drop the stale per-file header comments; translator credits live in `CONTRIBUTORS.md`
-- Translations now sync automatically from Crowdin every week via GitHub Actions;
-  `zh-TW` and `en-US` remain locally maintained
-- `/bm help` now uses ACF's built-in help system with permission-aware filtering
-  and per-locale command descriptions
-- Modernize internals: migrate to Adventure (Component / MiniMessage), ACF
-  (Aikar's Command Framework, Paper variant), InventoryFramework, and XSeries
-- Refactor architecture: introduce service layer (`BannerService`, `EconomyService`,
-  `BannerRepository`, `MessageService`) replacing the legacy `EconUtil` / `IOUtil` /
-  `MessageUtil` utilities; introduce `ConfigManager` as the sole gateway for YAML
-  access; introduce `ItemBuilder` (XMaterial-aware) replacing manual
-  `new ItemStack(...)` patterns; replace `customMenu` package with `gui`
-- Introduce MockBukkit-based unit test suite (45 tests across Language, BannerUtil,
-  EconUtil, IOUtil, ItemBuilder, and MainMenuGUI)
-- Add pnpm-based Crowdin sync tooling (`pnpm run crowdin:*` scripts wrapping
-  `dotenv-cli` + `@crowdin/cli`)
-- Fix incorrect world comparison in `BannerInfoGUI` (`!=` → `.equals`)
-- Add workaround for Adventure `BukkitAudiences` ClickEvent / HoverEvent loss on
-  Paper 1.21.7+ (route player-bound messages through Spigot Chat API as fallback)
-- Bump JUnit to 5.11.4 (security fix, CVE-2025-53103)
-- **BREAKING**: Drop support for the pre-v2.0.0 banner save format
-  (integer-based `DyeColor` ordinals). Banner library entries saved
-  prior to 2018 will be silently skipped on load; the existing
-  try/catch in `loadBanner` keeps this from crashing. New saves and
-  any save from v2.0.0 onward use the string `DyeColor` name and are
-  unaffected.
+    - Support MiniMessage format alongside legacy `&` codes
+    - Use `<name>` style placeholders (replacing legacy `{0}`)
+    - **BREAKING**: Language filename uses BCP 47 format (e.g. `zh_TW.yml` → `zh-TW.yml`); existing files auto-migrate
+- `/bm help` uses ACF's help system with permission-aware filtering
+- Fix click / hover events lost in chat on Paper 1.21.7+
+- **BREAKING**: Drop pre-v2.0.0 banner save format; pre-2018 entries are skipped on load
 - Lower minimum Minecraft version from 1.21.4 to 1.21.0
-- Fix `IncompatibleClassChangeError` on 1.21.0 when `/bm see` or `/bm hand`
-  inspected a banner: `org.bukkit.block.banner.PatternType` was an enum
-  class in early 1.21.x and became an interface later in the line. The
-  produced bytecode emitted `invokeinterface` on `PatternType.equals(...)`,
-  which crashes on the enum form. Re-typed the pattern loop variable as
-  `Object` so the call resolves to `Object.equals` via `invokevirtual`
-  and works on both runtime shapes.
-- Fix `BRICKS` banner pattern showing the wrong material on 1.21.2+
-  (now correctly displays `FIELD_MASONED_BANNER_PATTERN` instead of plain
-  `BRICK` since the 1.21.2 loom change; older versions continue to show
-  `BRICK` as before, detected at runtime via `Material.matchMaterial`)
-- Rename the 3x3 banner pattern display label from "Craft Recipe" to
-  "Pattern Layout"; the corresponding YAML key was also renamed from
-  `gui.craft-recipe` to `gui.pattern-layout`. Server admins who
-  customized the old key will need to migrate their override to the
-  new key name.
-- Optimize code; remove dead code
+- Fix `IncompatibleClassChangeError` on 1.21.0 when inspecting a banner
+- Rename "Craft Recipe" label to "Pattern Layout" (YAML key `gui.craft-recipe` → `gui.pattern-layout`)
+- Upgrade `/bm view` shareable string encoding; legacy strings still accepted
+- Substantial internal modernization and refactoring
 
 ## v2.5.1 (for v1.21.x)
 
