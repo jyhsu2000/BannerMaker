@@ -112,7 +112,10 @@ public class BannerUtil {
         for (Pattern pattern : bm.getPatterns()) {
             //所需染料
             DyeColor dyeColor = pattern.getColor();
-            PatternType patternType = pattern.getPattern();
+            // 宣告為 Object 強制 .equals(...) 走 invokevirtual Object.equals，
+            // 使 bytecode 不依賴 PatternType 在 runtime 是 class 還是 interface
+            // （1.21.0 為 enum/class、1.21.x 後期改為 interface，二進位不相容）。
+            Object patternType = pattern.getPattern();
             if (patternType.equals(PatternType.SQUARE_BOTTOM_LEFT)
                 || patternType.equals(PatternType.SQUARE_BOTTOM_RIGHT)
                 || patternType.equals(PatternType.SQUARE_TOP_LEFT)
@@ -375,8 +378,8 @@ public class BannerUtil {
             int bannerPosition = 4;
             //染料位置
             List<Integer> dyePosition = Collections.emptyList();
-            //根據Pattern決定位置
-            PatternType patternType = pattern.getPattern();
+            //根據Pattern決定位置（宣告為 Object 以避免 invokeinterface，詳見 getMaterials 註解）
+            Object patternType = pattern.getPattern();
             if (patternType.equals(PatternType.SQUARE_BOTTOM_LEFT)) {
                 dyePosition = Collections.singletonList(6);
             } else if (patternType.equals(PatternType.SQUARE_BOTTOM_RIGHT)) {

@@ -26,6 +26,11 @@
   （對玩家發送的訊息改走 Spigot Chat API）
 - 升 JUnit 至 5.11.4（修正 CVE-2025-53103 安全漏洞）
 - 將 Minecraft 最低支援版本由 1.21.4 放寬至 1.21.0
+- 修正 1.21.0 上執行 `/bm see` 或 `/bm hand` 時的 `IncompatibleClassChangeError`：
+  `org.bukkit.block.banner.PatternType` 於 1.21.x 早期為 enum class、後期改為 interface，
+  原 bytecode 在 `patternType.equals(...)` 發出 `invokeinterface`，於 enum 形式上會崩潰。
+  將 pattern 迴圈變數宣告改為 `Object`，使呼叫透過 `invokevirtual` 解析到 `Object.equals`，
+  使同一份 bytecode 在兩種 runtime 形式上皆可運行。
 - 修正 `BRICKS` 旗幟圖案在 1.21.2+ 上顯示錯誤合成材料的問題：1.21.2 起 loom 要求
   使用 `FIELD_MASONED_BANNER_PATTERN` 物品，現在會正確顯示；舊版伺服器
   仍如過去顯示 `BRICK`，於執行階段透過 `Material.matchMaterial` 動態判斷

@@ -30,6 +30,13 @@
   Paper 1.21.7+ (route player-bound messages through Spigot Chat API as fallback)
 - Bump JUnit to 5.11.4 (security fix, CVE-2025-53103)
 - Lower minimum Minecraft version from 1.21.4 to 1.21.0
+- Fix `IncompatibleClassChangeError` on 1.21.0 when `/bm see` or `/bm hand`
+  inspected a banner: `org.bukkit.block.banner.PatternType` was an enum
+  class in early 1.21.x and became an interface later in the line. The
+  produced bytecode emitted `invokeinterface` on `PatternType.equals(...)`,
+  which crashes on the enum form. Re-typed the pattern loop variable as
+  `Object` so the call resolves to `Object.equals` via `invokevirtual`
+  and works on both runtime shapes.
 - Fix `BRICKS` banner pattern showing the wrong material on 1.21.2+
   (now correctly displays `FIELD_MASONED_BANNER_PATTERN` instead of plain
   `BRICK` since the 1.21.2 loom change; older versions continue to show
