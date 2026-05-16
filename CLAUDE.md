@@ -99,6 +99,16 @@ BannerMaker（進入點）
 
 GUI 自身所需的「進入前狀態設定」邏輯，例如為 `BannerInfoGUI.show()` 預先填入 `PlayerData.viewInfoBanner`，應當收攏在 GUI class 內部（如 `BannerInfoGUI.open(Player, ItemStack)`），不應抽至 `util/`。
 
+### Service 取用慣例
+
+整個專案沿用 service locator 模式：`BannerMaker.getInstance().getXxxService()` 取得 service 實例。重構時逐步往依賴注入靠攏，**新撰程式碼**遵循以下優先順序：
+
+1. **若已有 plugin 參考**（例如 class field `private final BannerMaker plugin;`、或方法收到 `BannerMaker bm` 參數）：用 `plugin.getXxxService()` / `bm.getXxxService()`，不要再呼叫 `BannerMaker.getInstance()`。
+2. **新建立的 class**：以建構式注入 plugin 或所需 service，而非在每個方法靜態取用。
+3. **既有程式碼**（已用 `BannerMaker.getInstance()` 散落各處）：**不溯及既往**，動到該段時順手改即可，不主動掃改。
+
+長期目標是讓 `BannerMaker.getInstance()` 只在進入點與絕對必要處出現。
+
 ### 跨版本相容性陷阱
 
 Bukkit API 在 1.21.x 期間有數次 binary-incompatible 變化，撰寫或修改相關邏輯時須注意：

@@ -365,6 +365,12 @@ public class BannerUtil {
         return "";
     }
 
+    /**
+     * 取得伺服器目前支援的所有 banner pattern 類型清單（已排除 BASE）。
+     * 結果依 namespaced key 排序，供 GUI 顯示與選擇使用。
+     *
+     * @return 可用的 PatternType 清單
+     */
     public static List<PatternType> getPatternTypeList() {
         return Registry.BANNER_PATTERN.stream()
             .sorted(Comparator.comparing(p -> p.getKey().toString()))
@@ -372,6 +378,17 @@ public class BannerUtil {
             .collect(Collectors.toList());
     }
 
+    /**
+     * 為指定 banner 的第 {@code step} 層 pattern 建構 GUI 上顯示的 3x3 配方圖示。
+     * 第 0 步顯示「材料準備」、第 1 步起每步顯示上一層的 banner 與當前 pattern 所需材料的擺放位置。
+     * <p>
+     * 注意：3x3 grid 為 pre-1.14 vanilla 合成配方版面，**現代 vanilla 已改用 loom**；
+     * 本方法僅供 BannerInfoGUI 視覺化展示，並非可在合成台執行的真實配方。
+     *
+     * @param banner 完整旗幟（含所有 pattern）
+     * @param step   配方步驟（1-based）；通常為 1 ~ 圖案數
+     * @return 9 格 grid（key 為 0–8 slot index）的物品擺放圖
+     */
     static public HashMap<Integer, ItemStack> getPatternRecipe(final ItemStack banner, int step) {
         HashMap<Integer, ItemStack> recipe = Maps.newHashMap();
         //填滿空氣
@@ -563,6 +580,14 @@ public class BannerUtil {
         return recipe;
     }
 
+    /**
+     * 將 banner（底色 + 所有 pattern）編碼為 Base64 字串，供 {@code /bm view} 分享指令或網路傳輸使用。
+     * 格式：{@code <colorCode>;<patternId>:<colorCode>;...} 之後再以 Base64 編碼。
+     *
+     * @param banner 欲序列化的旗幟
+     * @return Base64 編碼後的字串；若 banner 不是合法 banner，回傳 {@code null}
+     * @see #deserialize(String)
+     */
     static public String serialize(ItemStack banner) {
         //只檢查旗幟
         if (!isBanner(banner)) {
@@ -586,6 +611,15 @@ public class BannerUtil {
         return SerializationUtil.objectToBase64(dataString);
     }
 
+    /**
+     * 由 {@link #serialize(ItemStack)} 產生的 Base64 字串還原為 ItemStack。
+     * 解析失敗時拋出 {@link RuntimeException}，呼叫端應自行 try/catch 處理（例如顯示「無效的旗幟字串」訊息）。
+     *
+     * @param bannerString {@code /bm view} 指令傳入的 Base64 字串
+     * @return 還原後的 banner ItemStack
+     * @throws RuntimeException 若字串無法解碼或結構不符
+     * @see #serialize(ItemStack)
+     */
     static public ItemStack deserialize(String bannerString) {
         try {
             String dataString = SerializationUtil.objectFromBase64(bannerString);

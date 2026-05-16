@@ -21,7 +21,14 @@ import java.util.Set;
 
 public class BannerRepository {
 
-    //儲存旗幟
+    /**
+     * 將旗幟存入該玩家的個人收藏檔（{@code banner/<uuid>.yml}）。
+     * 索引值為儲存當下的時間戳記，故同玩家短時間連續儲存不會衝突。
+     *
+     * @param player 收藏該旗幟的玩家
+     * @param banner 欲儲存的旗幟物品
+     * @return 是否成功儲存；若 banner 不是合法旗幟回傳 {@code false}
+     */
     public boolean saveBanner(Player player, ItemStack banner) {
         //只處理旗幟
         if (!BannerUtil.isBanner(banner)) {
@@ -47,11 +54,24 @@ public class BannerRepository {
         return true;
     }
 
-    //讀取旗幟清單
+    /**
+     * 讀取玩家儲存的全部旗幟（不分頁）。
+     *
+     * @param player 旗幟收藏的擁有者
+     * @return 該玩家收藏的所有 banner ItemStack；無收藏時回傳空清單
+     */
     public List<ItemStack> loadBannerList(Player player) {
         return loadBannerList(player, 0);
     }
 
+    /**
+     * 讀取玩家儲存的旗幟（依頁分批）。每頁 45 筆。
+     * 強制重新讀取檔案以避免使用者於遊戲中異動後 GUI 內容沒更新。
+     *
+     * @param player 旗幟收藏的擁有者
+     * @param page   頁碼，1-based。傳 0 表示載入全部、不分頁
+     * @return 該頁的 banner 清單；無對應資料時為空清單
+     */
     public List<ItemStack> loadBannerList(Player player, int page) {
         List<ItemStack> bannerList = new ArrayList<>();
         //設定檔
@@ -118,7 +138,13 @@ public class BannerRepository {
         return banner;
     }
 
-    //刪除旗幟
+    /**
+     * 從玩家的收藏中移除指定 key 的旗幟。
+     *
+     * @param player 旗幟收藏的擁有者
+     * @param key    旗幟的索引值（儲存時的時間戳記）
+     * @return 永遠回傳 {@code true}（即使 key 不存在亦不視為錯誤）
+     */
     public boolean removeBanner(Player player, String key) {
         //設定檔
         String fileName = getFileName(player);
