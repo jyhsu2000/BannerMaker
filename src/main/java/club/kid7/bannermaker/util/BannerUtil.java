@@ -173,6 +173,129 @@ public class BannerUtil {
     );
 
     /**
+     * 用於 {@link #getPatternRecipe(ItemStack, int)} 的 3x3 配方展示。
+     * 在 contributor 執行期間累積：旗幟要放哪個格、染料要放哪些格、額外物品（如 CREEPER_HEAD）已直接寫入 recipe map。
+     */
+    private static final class RecipeContext {
+        private final DyeColor color;
+        private final HashMap<Integer, ItemStack> recipe;
+        int bannerSlot = 4;
+        List<Integer> dyeSlots = Collections.emptyList();
+
+        RecipeContext(DyeColor color, HashMap<Integer, ItemStack> recipe) {
+            this.color = color;
+            this.recipe = recipe;
+        }
+
+        RecipeContext bannerAt(int slot) {
+            this.bannerSlot = slot;
+            return this;
+        }
+
+        RecipeContext dyeAt(Integer... slots) {
+            this.dyeSlots = Arrays.asList(slots);
+            return this;
+        }
+
+        RecipeContext putAt(int slot, Material material) {
+            recipe.put(slot, new ItemStack(material));
+            return this;
+        }
+
+        /** 非黑色才需要額外染料；BLACK 色已是 base，不再加色。 */
+        RecipeContext dyeAtIfNotBlack(int slot) {
+            if (color != DyeColor.BLACK) {
+                this.dyeSlots = Collections.singletonList(slot);
+            }
+            return this;
+        }
+    }
+
+    @FunctionalInterface
+    private interface PatternRecipeContributor {
+        void contribute(RecipeContext ctx);
+    }
+
+    /** Banner 在預設位置 (4)，純擺染料於指定 slots。 */
+    private static PatternRecipeContributor dyes(Integer... slots) {
+        return ctx -> ctx.dyeAt(slots);
+    }
+
+    /** Banner 在指定位置，染料於後續 slots。 */
+    private static PatternRecipeContributor bannerAndDyes(int bannerSlot, Integer... dyeSlots) {
+        return ctx -> ctx.bannerAt(bannerSlot).dyeAt(dyeSlots);
+    }
+
+    /** 特殊物品於 slot 1，非黑色時再於 slot 7 加 1 染料。 */
+    private static PatternRecipeContributor specialItem(Material item) {
+        return ctx -> ctx.putAt(1, item).dyeAtIfNotBlack(7);
+    }
+
+    /** Loom 旗幟圖形物品於 slot 7，染料於 slot 5。 */
+    private static PatternRecipeContributor loomPatternItem(Material item) {
+        return ctx -> ctx.putAt(7, item).dyeAt(5);
+    }
+
+    /** BRICKS 版本敏感：1.21.2+ 用 FIELD_MASONED_BANNER_PATTERN，否則 BRICK；其餘同 specialItem。 */
+    private static PatternRecipeContributor bricksRecipeContributor() {
+        return ctx -> {
+            Material fieldMasoned = Material.matchMaterial("FIELD_MASONED_BANNER_PATTERN");
+            ctx.putAt(1, fieldMasoned != null ? fieldMasoned : Material.BRICK).dyeAtIfNotBlack(7);
+        };
+    }
+
+    /** PatternType → 3x3 配方位置的查表。 */
+    private static final Map<Object, PatternRecipeContributor> RECIPE_CONTRIBUTORS = Map.ofEntries(
+        // 1 染料、預設 banner 位置
+        Map.entry(PatternType.SQUARE_BOTTOM_LEFT, dyes(6)),
+        Map.entry(PatternType.SQUARE_BOTTOM_RIGHT, dyes(8)),
+        Map.entry(PatternType.SQUARE_TOP_LEFT, dyes(0)),
+        Map.entry(PatternType.SQUARE_TOP_RIGHT, dyes(2)),
+        // 3 染料、預設 banner 位置
+        Map.entry(PatternType.STRIPE_BOTTOM, dyes(6, 7, 8)),
+        Map.entry(PatternType.STRIPE_TOP, dyes(0, 1, 2)),
+        Map.entry(PatternType.STRIPE_LEFT, dyes(0, 3, 6)),
+        Map.entry(PatternType.STRIPE_RIGHT, dyes(2, 5, 8)),
+        Map.entry(PatternType.TRIANGLES_BOTTOM, dyes(3, 5, 7)),
+        Map.entry(PatternType.TRIANGLES_TOP, dyes(1, 3, 5)),
+        Map.entry(PatternType.DIAGONAL_LEFT, dyes(0, 1, 3)),
+        Map.entry(PatternType.DIAGONAL_RIGHT, dyes(1, 2, 5)),
+        Map.entry(PatternType.DIAGONAL_UP_LEFT, dyes(3, 6, 7)),
+        Map.entry(PatternType.DIAGONAL_UP_RIGHT, dyes(5, 7, 8)),
+        Map.entry(PatternType.SMALL_STRIPES, dyes(0, 2, 3, 5)),
+        Map.entry(PatternType.RHOMBUS, dyes(1, 3, 5, 7)),
+        Map.entry(PatternType.BORDER, dyes(0, 1, 2, 3, 5, 6, 7, 8)),
+        // banner 在非預設位置
+        Map.entry(PatternType.STRIPE_CENTER, bannerAndDyes(3, 1, 4, 7)),
+        Map.entry(PatternType.STRIPE_MIDDLE, bannerAndDyes(1, 3, 4, 5)),
+        Map.entry(PatternType.STRIPE_DOWNRIGHT, bannerAndDyes(1, 0, 4, 8)),
+        Map.entry(PatternType.STRIPE_DOWNLEFT, bannerAndDyes(1, 2, 4, 6)),
+        Map.entry(PatternType.CROSS, bannerAndDyes(1, 0, 2, 4, 6, 8)),
+        Map.entry(PatternType.STRAIGHT_CROSS, bannerAndDyes(0, 1, 3, 4, 5, 7)),
+        Map.entry(PatternType.TRIANGLE_BOTTOM, bannerAndDyes(7, 4, 6, 8)),
+        Map.entry(PatternType.TRIANGLE_TOP, bannerAndDyes(1, 0, 2, 4)),
+        Map.entry(PatternType.CIRCLE, bannerAndDyes(1, 4)),
+        Map.entry(PatternType.HALF_VERTICAL, bannerAndDyes(5, 0, 1, 3, 4, 6, 7)),
+        Map.entry(PatternType.HALF_HORIZONTAL, bannerAndDyes(7, 0, 1, 2, 3, 4, 5)),
+        Map.entry(PatternType.HALF_VERTICAL_RIGHT, bannerAndDyes(3, 1, 2, 4, 5, 7, 8)),
+        Map.entry(PatternType.HALF_HORIZONTAL_BOTTOM, bannerAndDyes(1, 3, 4, 5, 6, 7, 8)),
+        Map.entry(PatternType.GRADIENT, bannerAndDyes(1, 0, 2, 4, 7)),
+        Map.entry(PatternType.GRADIENT_UP, bannerAndDyes(7, 1, 4, 6, 8)),
+        // 特殊物品 + 條件染料
+        Map.entry(PatternType.CURLY_BORDER, specialItem(Material.VINE)),
+        Map.entry(PatternType.CREEPER, specialItem(Material.CREEPER_HEAD)),
+        Map.entry(PatternType.SKULL, specialItem(Material.WITHER_SKELETON_SKULL)),
+        Map.entry(PatternType.FLOWER, specialItem(Material.OXEYE_DAISY)),
+        Map.entry(PatternType.MOJANG, specialItem(Material.ENCHANTED_GOLDEN_APPLE)),
+        Map.entry(PatternType.BRICKS, bricksRecipeContributor()),
+        // Loom 旗幟圖形物品
+        Map.entry(PatternType.PIGLIN, loomPatternItem(Material.PIGLIN_BANNER_PATTERN)),
+        Map.entry(PatternType.GLOBE, loomPatternItem(Material.GLOBE_BANNER_PATTERN)),
+        Map.entry(PatternType.FLOW, loomPatternItem(Material.FLOW_BANNER_PATTERN)),
+        Map.entry(PatternType.GUSTER, loomPatternItem(Material.GUSTER_BANNER_PATTERN))
+    );
+
+    /**
      * 檢查 ItemStack 是否為旗幟
      *
      * @param itemStack 要檢查的物品
@@ -428,141 +551,16 @@ public class BannerUtil {
             //所需染料
             DyeColor dyeColor = pattern.getColor();
             ItemStack dyeItem = DyeColorRegistry.getDyeItemStack(dyeColor, 1);
-            //旗幟位置
-            int bannerPosition = 4;
-            //染料位置
-            List<Integer> dyePosition = Collections.emptyList();
-            //根據Pattern決定位置（宣告為 Object 以避免 invokeinterface，詳見 getMaterials 註解）
+            //配方版面由 RECIPE_CONTRIBUTORS 查表決定；patternType 宣告為 Object 是為了避開 PatternType class ↔ interface 二進位相容問題
             Object patternType = pattern.getPattern();
-            if (patternType.equals(PatternType.SQUARE_BOTTOM_LEFT)) {
-                dyePosition = Collections.singletonList(6);
-            } else if (patternType.equals(PatternType.SQUARE_BOTTOM_RIGHT)) {
-                dyePosition = Collections.singletonList(8);
-            } else if (patternType.equals(PatternType.SQUARE_TOP_LEFT)) {
-                dyePosition = Collections.singletonList(0);
-            } else if (patternType.equals(PatternType.SQUARE_TOP_RIGHT)) {
-                dyePosition = Collections.singletonList(2);
-            } else if (patternType.equals(PatternType.STRIPE_BOTTOM)) {
-                dyePosition = Arrays.asList(6, 7, 8);
-            } else if (patternType.equals(PatternType.STRIPE_TOP)) {
-                dyePosition = Arrays.asList(0, 1, 2);
-            } else if (patternType.equals(PatternType.STRIPE_LEFT)) {
-                dyePosition = Arrays.asList(0, 3, 6);
-            } else if (patternType.equals(PatternType.STRIPE_RIGHT)) {
-                dyePosition = Arrays.asList(2, 5, 8);
-            } else if (patternType.equals(PatternType.STRIPE_CENTER)) {
-                bannerPosition = 3;
-                dyePosition = Arrays.asList(1, 4, 7);
-            } else if (patternType.equals(PatternType.STRIPE_MIDDLE)) {
-                bannerPosition = 1;
-                dyePosition = Arrays.asList(3, 4, 5);
-            } else if (patternType.equals(PatternType.STRIPE_DOWNRIGHT)) {
-                bannerPosition = 1;
-                dyePosition = Arrays.asList(0, 4, 8);
-            } else if (patternType.equals(PatternType.STRIPE_DOWNLEFT)) {
-                bannerPosition = 1;
-                dyePosition = Arrays.asList(2, 4, 6);
-            } else if (patternType.equals(PatternType.SMALL_STRIPES)) {
-                dyePosition = Arrays.asList(0, 2, 3, 5);
-            } else if (patternType.equals(PatternType.CROSS)) {
-                bannerPosition = 1;
-                dyePosition = Arrays.asList(0, 2, 4, 6, 8);
-            } else if (patternType.equals(PatternType.STRAIGHT_CROSS)) {
-                bannerPosition = 0;
-                dyePosition = Arrays.asList(1, 3, 4, 5, 7);
-            } else if (patternType.equals(PatternType.TRIANGLE_BOTTOM)) {
-                bannerPosition = 7;
-                dyePosition = Arrays.asList(4, 6, 8);
-            } else if (patternType.equals(PatternType.TRIANGLE_TOP)) {
-                bannerPosition = 1;
-                dyePosition = Arrays.asList(0, 2, 4);
-            } else if (patternType.equals(PatternType.TRIANGLES_BOTTOM)) {
-                dyePosition = Arrays.asList(3, 5, 7);
-            } else if (patternType.equals(PatternType.TRIANGLES_TOP)) {
-                dyePosition = Arrays.asList(1, 3, 5);
-            } else if (patternType.equals(PatternType.DIAGONAL_LEFT)) {
-                dyePosition = Arrays.asList(0, 1, 3);
-            } else if (patternType.equals(PatternType.DIAGONAL_RIGHT)) {
-                dyePosition = Arrays.asList(1, 2, 5);
-            } else if (patternType.equals(PatternType.DIAGONAL_UP_LEFT)) {
-                dyePosition = Arrays.asList(3, 6, 7);
-            } else if (patternType.equals(PatternType.DIAGONAL_UP_RIGHT)) {
-                dyePosition = Arrays.asList(5, 7, 8);
-            } else if (patternType.equals(PatternType.CIRCLE)) {
-                bannerPosition = 1;
-                dyePosition = Collections.singletonList(4);
-            } else if (patternType.equals(PatternType.RHOMBUS)) {
-                dyePosition = Arrays.asList(1, 3, 5, 7);
-            } else if (patternType.equals(PatternType.HALF_VERTICAL)) {
-                bannerPosition = 5;
-                dyePosition = Arrays.asList(0, 1, 3, 4, 6, 7);
-            } else if (patternType.equals(PatternType.HALF_HORIZONTAL)) {
-                bannerPosition = 7;
-                dyePosition = Arrays.asList(0, 1, 2, 3, 4, 5);
-            } else if (patternType.equals(PatternType.HALF_VERTICAL_RIGHT)) {
-                bannerPosition = 3;
-                dyePosition = Arrays.asList(1, 2, 4, 5, 7, 8);
-            } else if (patternType.equals(PatternType.HALF_HORIZONTAL_BOTTOM)) {
-                bannerPosition = 1;
-                dyePosition = Arrays.asList(3, 4, 5, 6, 7, 8);
-            } else if (patternType.equals(PatternType.BORDER)) {
-                dyePosition = Arrays.asList(0, 1, 2, 3, 5, 6, 7, 8);
-            } else if (patternType.equals(PatternType.CURLY_BORDER)) {
-                recipe.put(1, new ItemStack(Material.VINE));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    dyePosition = Collections.singletonList(7);
-                }
-            } else if (patternType.equals(PatternType.CREEPER)) {
-                recipe.put(1, new ItemStack(Material.CREEPER_HEAD));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    dyePosition = Collections.singletonList(7);
-                }
-            } else if (patternType.equals(PatternType.GRADIENT)) {
-                bannerPosition = 1;
-                dyePosition = Arrays.asList(0, 2, 4, 7);
-            } else if (patternType.equals(PatternType.GRADIENT_UP)) {
-                bannerPosition = 7;
-                dyePosition = Arrays.asList(1, 4, 6, 8);
-            } else if (patternType.equals(PatternType.BRICKS)) {
-                // 1.21.2 起 loom 不再接受 brick；改為由 FIELD_MASONED_BANNER_PATTERN 物品產生 bricks pattern
-                Material fieldMasoned = Material.matchMaterial("FIELD_MASONED_BANNER_PATTERN");
-                recipe.put(1, fieldMasoned != null
-                    ? new ItemStack(fieldMasoned)
-                    : new ItemStack(Material.BRICK));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    dyePosition = Collections.singletonList(7);
-                }
-            } else if (patternType.equals(PatternType.SKULL)) {
-                recipe.put(1, new ItemStack(Material.WITHER_SKELETON_SKULL));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    dyePosition = Collections.singletonList(7);
-                }
-            } else if (patternType.equals(PatternType.FLOWER)) {
-                recipe.put(1, new ItemStack(Material.OXEYE_DAISY));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    dyePosition = Collections.singletonList(7);
-                }
-            } else if (patternType.equals(PatternType.MOJANG)) {
-                recipe.put(1, new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
-                if (!pattern.getColor().equals(DyeColor.BLACK)) {
-                    dyePosition = Collections.singletonList(7);
-                }
-            } else if (patternType.equals(PatternType.PIGLIN)) {
-                recipe.put(7, new ItemStack(Material.PIGLIN_BANNER_PATTERN));
-                dyePosition = Collections.singletonList(5);
-            } else if (patternType.equals(PatternType.GLOBE)) {
-                recipe.put(7, new ItemStack(Material.GLOBE_BANNER_PATTERN));
-                dyePosition = Collections.singletonList(5);
-            } else if (patternType.equals(PatternType.FLOW)) {
-                recipe.put(7, new ItemStack(Material.FLOW_BANNER_PATTERN));
-                dyePosition = Collections.singletonList(5);
-            } else if (patternType.equals(PatternType.GUSTER)) {
-                recipe.put(7, new ItemStack(Material.GUSTER_BANNER_PATTERN));
-                dyePosition = Collections.singletonList(5);
+            RecipeContext ctx = new RecipeContext(dyeColor, recipe);
+            PatternRecipeContributor contributor = RECIPE_CONTRIBUTORS.get(patternType);
+            if (contributor != null) {
+                contributor.contribute(ctx);
             }
             //放置旗幟與染料
-            recipe.put(bannerPosition, prevBanner);
-            for (int i : dyePosition) {
+            recipe.put(ctx.bannerSlot, prevBanner);
+            for (int i : ctx.dyeSlots) {
                 recipe.put(i, dyeItem.clone());
             }
         }
