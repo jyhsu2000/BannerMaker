@@ -1,30 +1,22 @@
 package tw.jyhsu.bannermaker;
 
-import com.google.common.collect.Maps;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class PlayerDataMap {
-    /**
-     * 所有玩家資料實例
-     */
-    private final HashMap<UUID, PlayerData> allPlayerData = Maps.newHashMap();
+
+    private final Map<UUID, PlayerData> allPlayerData = new HashMap<>();
 
     /**
-     * 取得玩家資料實例
+     * 取得玩家的 {@link PlayerData}；尚未存在則 lazily 建立。
      *
      * @param player 玩家
-     * @return 玩家資料
+     * @return 該玩家的資料；同一玩家多次呼叫回傳同一物件
      */
     public PlayerData get(Player player) {
-        UUID uuid = player.getUniqueId();
-        PlayerData playerData = allPlayerData.get(uuid);
-        if (playerData == null) {
-            playerData = new PlayerData();
-            allPlayerData.put(uuid, playerData);
-        }
-        return playerData;
+        return allPlayerData.computeIfAbsent(player.getUniqueId(), k -> new PlayerData());
     }
 }
