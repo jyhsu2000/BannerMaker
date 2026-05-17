@@ -92,12 +92,14 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 
 ### 套件層級規約
 
-`util/`、`registry/`、`configuration/` 套件**禁止**反向 import `gui/`、`command/`、`service/`。整體層級為：
+底層套件**禁止**反向 import 較高層套件。整體層級為：
 
 ```
-util / registry / configuration（底層）
+util / registry / configuration（純基礎、無 domain 偏好）
    ↓
-service
+banner（核心領域：旗幟序列化、合成、判斷、字母旗幟）
+   ↓
+state / service（中介層：per-player 暫態 / 業務服務）
    ↓
 gui / command
    ↓
@@ -182,16 +184,19 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
 
 - `src/main/java/tw/jyhsu/bannermaker/`
     - `BannerMaker.java`：插件進入點，初始化 services 與 managers
+    - `banner/`：旗幟核心領域
+        - `AlphabetBanner`：字母旗幟（內含字母圖案資料表）
+        - `BannerUtil` / `BannerSerializer` / `BannerCost` / `BannerPatternLayout`：判斷類型 / wire format / 合成材料計算 / 3x3 配方版面
+        - `BannerDeserializationException` + 三個子類：deserialize 失敗例外
+    - `command/`：ACF 指令處理（`BannerMakerCommand`）
     - `configuration/`：
         - `ConfigManager.java`：中央 YAML 存取
         - `Language.java`：多語系系統（MiniMessage/Legacy 雙模式）
-    - `gui/`：使用者介面實作（`MainMenuGUI` 等）
-    - `command/acf/`：ACF 指令處理（`BannerMakerCommand`）
-    - `service/`：核心服務（`MessageService`、`BannerService`、`EconomyService`、`BannerRepository`）
-    - `util/`：通用工具
-        - `BannerUtil` / `BannerSerializer` / `BannerCost` / `BannerPatternLayout`：旗幟相關工具，職責拆分為「判斷類型」「序列化」「合成材料計算」「3x3 配方版面」
-        - `ItemBuilder` / `TagUtil` / `InventoryUtil` / `PersistentDataUtil` / `MaterialUtil` / `MessageComponentUtil` / `SerializationUtil`：通用基礎工具
+    - `gui/`：使用者介面實作（`MainMenuGUI` 等）+ `GuiUtil`
     - `registry/`：列舉式靜態註冊（`DyeColorRegistry`）
+    - `service/`：核心服務（`MessageService`、`BannerService`、`EconomyService`、`BannerRepository`）
+    - `state/`：per-player 暫態（`PlayerData`、`PlayerDataMap`；後者同時是 PlayerQuit listener 自動清理離線玩家資料）
+    - `util/`：通用工具（`ItemBuilder` / `TagUtil` / `InventoryUtil` / `PersistentDataUtil` / `MaterialUtil` / `MessageComponentUtil` / `SerializationUtil`）
 
 ## 已知議題與技術債
 

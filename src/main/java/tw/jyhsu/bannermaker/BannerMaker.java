@@ -201,6 +201,6 @@ public class BannerMaker extends JavaPlugin {
         // getCommand("BannerMaker").setTabCompleter(bmCommand);
 
         // New ACF Command Registration
-        commandManager.registerCommand(new tw.jyhsu.bannermaker.command.acf.BannerMakerCommand(this));
+        commandManager.registerCommand(new tw.jyhsu.bannermaker.command.BannerMakerCommand(this));
     }
 }

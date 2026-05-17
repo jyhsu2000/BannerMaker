@@ -1,4 +1,4 @@
-package tw.jyhsu.bannermaker.command.acf;
+package tw.jyhsu.bannermaker.command;
 
 import tw.jyhsu.bannermaker.BannerMaker;
 import tw.jyhsu.bannermaker.gui.BannerInfoGUI;
