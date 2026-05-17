@@ -6,11 +6,11 @@ about: Something isn't working as expected 🤔.
 ## Bug Report
 <!-- Please fill all the following items -->
 ### Environment
-- OS: <!-- Example: Windows 10 -->
-- Java version: <!-- Example: 1.8.0_121(Java 8 Update 121) -->
-- Server version: <!-- Example: Spigot 1.11.2-R0.1-SNAPSHOT -->
-- Minecraft version: <!-- Example: 1.11.2 -->
-- BannerMaker version: <!-- Example: 1.5.0 build #88 (add build number if you downloaded it from Jenkins) -->
+- OS: <!-- Example: Windows 11 -->
+- Java version: <!-- Example: 21 (BannerMaker requires Java 21+) -->
+- Server software: <!-- Example: Paper 1.21.4 / Spigot 1.21.4 -->
+- Minecraft version: <!-- Example: 1.21.4 (BannerMaker supports 1.21.0 and newer) -->
+- BannerMaker version: <!-- Example: 2.5.1 -->
 
 ### Expected Behaviour
 <!-- A clear and concise description of what you expected to happen. -->
