@@ -31,7 +31,7 @@ public class ChooseAlphabetGUI {
         // 清除當前編輯中的字母旗幟
         playerData.setCurrentAlphabetBanner(null);
 
-        boolean alphabetBorder = playerData.isAlphabetBannerBordered();
+        boolean alphabetBorder = playerData.isDefaultAlphabetBordered();
 
         // 填充字母物品（覆蓋 row 0-4，row 5 留給工具列）
         List<String> characters = AlphabetBanner.SUPPORTED_CHARACTERS;
@@ -58,7 +58,7 @@ public class ChooseAlphabetGUI {
             .name(tl(NamedTextColor.GREEN, "gui.toggle-border"))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER)).build();
         GuiUtil.putAt(mainPane, 4, 5, btnBorderedBanner, event -> {
-            playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
+            playerData.setDefaultAlphabetBordered(!playerData.isDefaultAlphabetBordered());
             ChooseAlphabetGUI.show(player); // 刷新以顯示變更
         });
 

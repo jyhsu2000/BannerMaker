@@ -22,7 +22,11 @@ public class PlayerData {
     // === 字母旗幟編輯 ===
 
     private AlphabetBanner currentAlphabetBanner = null;
-    private boolean alphabetBannerBordered = true;
+    /**
+     * 「下次建立字母旗幟」時要不要帶外框的玩家偏好；跟 {@link AlphabetBanner#bordered}
+     * （已建立中的某個字母當下的邊框狀態）是兩件不同的事，名稱務必區分。
+     */
+    private boolean defaultAlphabetBordered = true;
 
     /**
      * 回傳當前正在編輯的旗幟 ItemStack。
@@ -78,11 +82,11 @@ public class PlayerData {
         this.currentAlphabetBanner = currentAlphabetBanner;
     }
 
-    public boolean isAlphabetBannerBordered() {
-        return alphabetBannerBordered;
+    public boolean isDefaultAlphabetBordered() {
+        return defaultAlphabetBordered;
     }
 
-    public void setAlphabetBannerBordered(boolean alphabetBannerBordered) {
-        this.alphabetBannerBordered = alphabetBannerBordered;
+    public void setDefaultAlphabetBordered(boolean defaultAlphabetBordered) {
+        this.defaultAlphabetBordered = defaultAlphabetBordered;
     }
 }
