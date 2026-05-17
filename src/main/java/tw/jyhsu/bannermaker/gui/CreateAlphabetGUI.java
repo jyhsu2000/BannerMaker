@@ -4,7 +4,6 @@ import tw.jyhsu.bannermaker.AlphabetBanner;
 import tw.jyhsu.bannermaker.BannerMaker;
 import tw.jyhsu.bannermaker.PlayerData;
 import tw.jyhsu.bannermaker.registry.DyeColorRegistry;
-import tw.jyhsu.bannermaker.service.MessageService;
 import tw.jyhsu.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
@@ -24,7 +23,6 @@ import static tw.jyhsu.bannermaker.configuration.Language.tl;
 public class CreateAlphabetGUI {
 
     public static void show(Player player) {
-        MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
         Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.alphabet-and-number"));
@@ -50,7 +48,6 @@ public class CreateAlphabetGUI {
             int slot = i + 1 + (i / 8);
             mainPane.addItem(new GuiItem(banner, event -> {
                 currentAlphabetBanner.setBaseColor(DyeColorRegistry.getDyeColor(banner.getType()));
-                playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CreateAlphabetGUI.show(player);
                 event.setCancelled(true);
             }), slot % 9, slot / 9);
@@ -62,7 +59,6 @@ public class CreateAlphabetGUI {
             int slot = 18 + i + 1 + (i / 8);
             mainPane.addItem(new GuiItem(dye, event -> {
                 currentAlphabetBanner.setDyeColor(DyeColorRegistry.getDyeColor(dye.getType()));
-                playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
                 CreateAlphabetGUI.show(player);
                 event.setCancelled(true);
             }), slot % 9, slot / 9);
@@ -74,7 +70,6 @@ public class CreateAlphabetGUI {
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER)).build();
         mainPane.addItem(new GuiItem(btnBorderedBanner, event -> {
             currentAlphabetBanner.setBordered(!currentAlphabetBanner.isBordered());
-            playerData.setCurrentAlphabetBanner(currentAlphabetBanner);
             CreateAlphabetGUI.show(player);
             event.setCancelled(true);
         }), 1, 4);

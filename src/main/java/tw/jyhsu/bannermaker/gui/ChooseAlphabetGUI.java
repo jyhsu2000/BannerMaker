@@ -3,7 +3,6 @@ package tw.jyhsu.bannermaker.gui;
 import tw.jyhsu.bannermaker.AlphabetBanner;
 import tw.jyhsu.bannermaker.BannerMaker;
 import tw.jyhsu.bannermaker.PlayerData;
-import tw.jyhsu.bannermaker.service.MessageService;
 import tw.jyhsu.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
@@ -23,7 +22,6 @@ import static tw.jyhsu.bannermaker.configuration.Language.tl;
 public class ChooseAlphabetGUI {
 
     public static void show(Player player) {
-        MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
         Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.alphabet-and-number"));

@@ -2,7 +2,6 @@ package tw.jyhsu.bannermaker.gui;
 
 import tw.jyhsu.bannermaker.AlphabetBanner;
 import tw.jyhsu.bannermaker.BannerMaker;
-import tw.jyhsu.bannermaker.service.MessageService;
 import tw.jyhsu.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
@@ -23,7 +22,6 @@ import static tw.jyhsu.bannermaker.configuration.Language.tl;
 public class MainMenuGUI {
 
     public static void show(Player player) {
-        MessageService messageService = BannerMaker.getInstance().getMessageService();
         Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.main-menu"));
         // InventoryFramework 標題需要 Legacy String
         String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
@@ -54,7 +52,7 @@ public class MainMenuGUI {
         GuiUtil.fillToolbarRow(navigationPane, 0);
 
         // 初始化導航按鈕（上一頁 slot 0、下一頁 slot 8）
-        updateNavigation(navigationPane, paginatedPane, gui, messageService);
+        updateNavigation(navigationPane, paginatedPane, gui);
 
         // 製作旗幟按鈕（slot 4，永遠顯示）
         ItemStack btnCreateBanner = new ItemBuilder(Material.LIME_WOOL)
@@ -80,7 +78,7 @@ public class MainMenuGUI {
         gui.show(player);
     }
 
-    private static void updateNavigation(StaticPane navigationPane, PaginatedPane paginatedPane, ChestGui gui, MessageService messageService) {
+    private static void updateNavigation(StaticPane navigationPane, PaginatedPane paginatedPane, ChestGui gui) {
         // 上一頁（slot 0，無上一頁時 fallback 為灰玻璃以維持工具列視覺）
         if (paginatedPane.getPage() > 0) {
             ItemStack prevPage = new ItemBuilder(Material.ARROW)
@@ -89,7 +87,7 @@ public class MainMenuGUI {
                 .build();
             GuiUtil.putAt(navigationPane, 0, 0, prevPage, event -> {
                 paginatedPane.setPage(paginatedPane.getPage() - 1);
-                updateNavigation(navigationPane, paginatedPane, gui, messageService);
+                updateNavigation(navigationPane, paginatedPane, gui);
                 gui.update();
                 event.setCancelled(true);
             });
@@ -106,7 +104,7 @@ public class MainMenuGUI {
                 .build();
             GuiUtil.putAt(navigationPane, 8, 0, nextPage, event -> {
                 paginatedPane.setPage(paginatedPane.getPage() + 1);
-                updateNavigation(navigationPane, paginatedPane, gui, messageService);
+                updateNavigation(navigationPane, paginatedPane, gui);
                 gui.update();
                 event.setCancelled(true);
             });

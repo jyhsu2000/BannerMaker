@@ -136,7 +136,6 @@ public class CreateBannerGUI {
                 BannerMeta currentBm = (BannerMeta) currentBanner.getItemMeta();
                 Objects.requireNonNull(currentBm).addPattern(new Pattern(selectedColor, patternType));
                 currentBanner.setItemMeta(currentBm);
-                playerData.setCurrentEditBanner(currentBanner);
                 CreateBannerGUI.show(player); // 重新開啟以反映變更
                 event.setCancelled(true);
             }), slot % 9, slot / 9);
@@ -159,7 +158,6 @@ public class CreateBannerGUI {
                 BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
                 bm.removePattern(bm.numberOfPatterns() - 1);
                 currentBanner.setItemMeta(bm);
-                playerData.setCurrentEditBanner(currentBanner);
                 CreateBannerGUI.show(player); // 重新開啟以反映變更
                 event.setCancelled(true);
             });
