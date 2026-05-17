@@ -13,6 +13,10 @@
 - Fix `IncompatibleClassChangeError` on 1.21.0 when inspecting a banner
 - Rename "Craft Recipe" label to "Pattern Layout" (YAML key `gui.craft-recipe` → `gui.pattern-layout`)
 - Upgrade `/bm view` shareable string encoding; legacy strings still accepted
+- Improve `/bm reload` behavior:
+    - In-flight banner edits are preserved across reload (no longer wiped)
+    - Players inside a BannerMaker GUI are dismissed on reload to avoid showing stale prices / translations; their edits are kept and restored on next open
+- Add `BannerMaker.getBanner.complex-craft` to the `BannerMaker.admin` permission group
 - Substantial internal modernization and refactoring
 
 ## v2.5.1 (for v1.21.x)

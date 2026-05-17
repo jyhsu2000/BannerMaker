@@ -13,6 +13,10 @@
 - 修正 1.21.0 上檢視旗幟時的錯誤
 - 將旗幟圖樣 3x3 顯示標題由「合成表」改為「圖樣配置」（YAML 鍵 `gui.craft-recipe` → `gui.pattern-layout`）
 - 升級 `/bm view` 旗幟分享字串編碼；舊字串仍可解析
+- 改善 `/bm reload` 行為：
+    - 重新載入時保留玩家編輯中的旗幟狀態（不再清空）
+    - 重新載入時關閉開著的 BannerMaker 選單，避免顯示過時的價格／譯文；編輯狀態保留、下次開啟可從上次繼續
+- 將 `BannerMaker.getBanner.complex-craft` 加入 `BannerMaker.admin` 權限集合
 - 大幅內部現代化與重構
 
 ## v2.5.1 (for v1.21.x)
