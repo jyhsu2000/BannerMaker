@@ -1,5 +1,5 @@
 name: ${project.artifactId}
-main: club.kid7.bannermaker.BannerMaker
+main: tw.jyhsu.bannermaker.BannerMaker
 version: ${project.version}
 author: KID
 softdepend: [ Vault ]

@@ -37,14 +37,14 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 
 ### 設定與資料
 
-- **必須**使用 `club.kid7.bannermaker.configuration.ConfigManager` 進行所有 YAML 檔案存取。
+- **必須**使用 `tw.jyhsu.bannermaker.configuration.ConfigManager` 進行所有 YAML 檔案存取。
 - **禁止**直接實例化 `YamlConfiguration` 或使用 Bukkit API 的預設 config 方法（除非在 `ConfigManager` 內部）。
 - **單元測試**：`tearDown` **必須**呼叫 `ConfigManager.reset()` 以清除靜態狀態、防止測試間污染。
 - `Language.java` 中翻譯鍵值若在執行時缺漏，**不會**再觸發同步磁碟寫入（避免效能瓶頸）。
 
 ### 訊息處理
 
-- **必須**使用 `club.kid7.bannermaker.service.MessageService` 發送訊息。
+- **必須**使用 `tw.jyhsu.bannermaker.service.MessageService` 發送訊息。
 - **禁止**使用 `player.sendMessage()` 或 `Bukkit.broadcastMessage()`。
 - `Language.tl()` 返回 Adventure `Component`。
 - **顏色代碼機制**：
@@ -52,7 +52,7 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
     - 字串包含 MiniMessage 標籤（`<` 與 `>`）時優先使用 MiniMessage 解析，否則回退至 Legacy。
     - **格式偏好**：新增的翻譯字串建議使用 MiniMessage 標籤（`<red>`、`<gradient:red:blue>`、`<bold>` 等）—— 語意更明確、支援漸層 / hex / 互動事件等進階特性。Legacy `&` 色碼**仍持續支援**，既有譯文與舊範本不需重寫，新貢獻者亦可使用熟悉的格式。不設退場時程。
 - **參數替換**：
-    - **新方式（推薦）**：`tl("key", TagUtil.tag("arg", value))` 使用 `<arg>` 佔位符；搭配 `club.kid7.bannermaker.util.TagUtil` 進行安全轉義。
+    - **新方式（推薦）**：`tl("key", TagUtil.tag("arg", value))` 使用 `<arg>` 佔位符；搭配 `tw.jyhsu.bannermaker.util.TagUtil` 進行安全轉義。
     - **舊方式**：`tl("key", arg1)` 使用 `{0}` 佔位符（已基本完全遷移，新程式碼不應再使用）。
 - 推薦使用 `Language.tl(NamedTextColor color, String path, Object... args)` 重載方法以簡化帶顏色的翻譯 Component 建立。
 
@@ -66,7 +66,7 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 ### GUI 開發
 
 - **必須**使用 `InventoryFramework` 實作所有選單。
-- GUI 類別位於 `club.kid7.bannermaker.gui` 套件下，已取代舊有的 `customMenu` 系統。
+- GUI 類別位於 `tw.jyhsu.bannermaker.gui` 套件下，已取代舊有的 `customMenu` 系統。
 - GUI 標題若必須為 `String`，請使用 `LegacyComponentSerializer.legacySection().serialize(component)` 轉換。
 - GUI 標題透過 `gui.title.*` 鍵值統一管理，所有語系檔已對齊。
 
@@ -75,7 +75,7 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 規則拆分為「跨版本相容」與「複雜建構」兩個獨立關注點：
 
 - **跨版本相容**：對於**可能在最低支援版本（1.21.0）不存在的材料**（典型：1.21.2+ 才加入的 `FIELD_MASONED_BANNER_PATTERN`、`BORDURE_INDENTED_BANNER_PATTERN`），**必須**使用 `Material.matchMaterial("NAME")`（檢查 null）或 `XMaterial.X.isSupported()` + `parseItem()` 動態探測。**禁止**寫死 `Material.NEWER_THING` 而不做 null 處理。
-- **複雜建構**：當 ItemStack 需要設置 name、lore、enchantments 等 metadata 時，使用 `club.kid7.bannermaker.util.ItemBuilder` 保持鏈式 API 一致。
+- **複雜建構**：當 ItemStack 需要設置 name、lore、enchantments 等 metadata 時，使用 `tw.jyhsu.bannermaker.util.ItemBuilder` 保持鏈式 API 一致。
 - **基礎穩定材料**（如 `STICK`、`BRICK`、`VINE`、`CREEPER_HEAD`、`OXEYE_DAISY`、各色 dye/wool 等自 1.13 以前已穩定者，含 1.21.0 已存在的 `PIGLIN_BANNER_PATTERN`、`FLOW_BANNER_PATTERN` 等）：直接 `new ItemStack(Material.X)` **允許**，不需強制走 `ItemBuilder`。
 - `ItemBuilder` 支援 `name(Component)`、`lore(Component...)`、`addLore(Component...)`。
 
@@ -180,7 +180,7 @@ pnpm run crowdin:status           # 查詢各語系翻譯進度
 
 ## 專案地圖
 
-- `src/main/java/club/kid7/bannermaker/`
+- `src/main/java/tw/jyhsu/bannermaker/`
     - `BannerMaker.java`：插件進入點，初始化 services 與 managers
     - `configuration/`：
         - `ConfigManager.java`：中央 YAML 存取

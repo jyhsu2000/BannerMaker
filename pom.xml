@@ -2,7 +2,7 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <!-- The Basics -->
-    <groupId>club.kid7</groupId>
+    <groupId>tw.jyhsu</groupId>
     <artifactId>BannerMaker</artifactId>
     <version>2.5.1</version>
     <dependencies>
@@ -180,32 +180,32 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>club.kid7.bannermaker.lib.bstats</shadedPattern>
+                            <shadedPattern>tw.jyhsu.bannermaker.lib.bstats</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>co.aikar.commands</pattern>
-                            <shadedPattern>club.kid7.bannermaker.lib.acf</shadedPattern>
+                            <shadedPattern>tw.jyhsu.bannermaker.lib.acf</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>co.aikar.locales</pattern>
-                            <shadedPattern>club.kid7.bannermaker.lib.locales</shadedPattern>
+                            <shadedPattern>tw.jyhsu.bannermaker.lib.locales</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>net.kyori</pattern>
-                            <shadedPattern>club.kid7.bannermaker.lib.kyori</shadedPattern>
+                            <shadedPattern>tw.jyhsu.bannermaker.lib.kyori</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.github.stefvanschie.inventoryframework</pattern>
-                            <shadedPattern>club.kid7.bannermaker.lib.if</shadedPattern>
+                            <shadedPattern>tw.jyhsu.bannermaker.lib.if</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.cryptomorin.xseries</pattern>
-                            <shadedPattern>club.kid7.bannermaker.lib.xseries</shadedPattern>
+                            <shadedPattern>tw.jyhsu.bannermaker.lib.xseries</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
                         <filter>
-                            <artifact>club.kid7:BannerMaker</artifact>
+                            <artifact>tw.jyhsu:BannerMaker</artifact>
                             <includes>
                                 <include>**</include>
                             </includes>
