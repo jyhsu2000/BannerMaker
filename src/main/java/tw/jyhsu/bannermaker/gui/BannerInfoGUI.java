@@ -143,13 +143,13 @@ public class BannerInfoGUI {
     /**
      * 底部操作列（Row 5）。採「位置固定 + 無權限即灰玻璃」設計：
      * <ul>
-     *   <li>slot 0 返回（永遠）</li>
-     *   <li>slot 1 灰玻璃（永遠，視覺分隔）</li>
+     *   <li>slot 0 返回（永遠顯示）</li>
+     *   <li>slot 1 灰玻璃（永遠顯示，視覺分隔）</li>
      *   <li>slot 2 刪除（僅當 banner 為個人收藏時）</li>
-     *   <li>slot 3 灰玻璃（永遠，視覺分隔）</li>
+     *   <li>slot 3 灰玻璃（永遠顯示，視覺分隔）</li>
      *   <li>slot 4 取得（合成 / 免費，依 free 權限切換 icon）</li>
      *   <li>slot 5 購買（僅當無 free 權限且 economy 可用）</li>
-     *   <li>slot 6 複製並編輯（永遠）</li>
+     *   <li>slot 6 複製並編輯（永遠顯示）</li>
      *   <li>slot 7 附近展示（僅當有 show.nearby 權限）</li>
      *   <li>slot 8 全服展示（僅當有 show.all 權限）</li>
      * </ul>
@@ -191,7 +191,7 @@ public class BannerInfoGUI {
             renderGetBannerButtons(mainPane, player, banner, currentRecipePage, messageService);
         }
 
-        // slot 6: 複製並編輯（永遠）
+        // slot 6: 複製並編輯（永遠顯示）
         GuiUtil.putAt(mainPane, 6, 5,
             new ItemBuilder(Material.WRITABLE_BOOK).name(tl(NamedTextColor.BLUE, "gui.clone-and-edit")).build(),
             event -> {

@@ -56,7 +56,7 @@ public class MainMenuGUI {
         // 初始化導航按鈕（上一頁 slot 0、下一頁 slot 8）
         updateNavigation(navigationPane, paginatedPane, gui, messageService);
 
-        // 製作旗幟按鈕（slot 4，永遠）
+        // 製作旗幟按鈕（slot 4，永遠顯示）
         ItemStack btnCreateBanner = new ItemBuilder(Material.LIME_WOOL)
             .name(tl(NamedTextColor.GREEN, "gui.create-banner"))
             .build();
