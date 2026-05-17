@@ -226,6 +226,11 @@
                                 <exclude>com/google/errorprone/annotations/**</exclude>
                                 <!-- Exclude InventoryFramework font resources -->
                                 <exclude>fonts/*.csv</exclude>
+                                <!-- 排除 InventoryFramework 1.21 之前的 NMS adapter（BannerMaker
+                                     最低支援版本為 1.21.0；minimizeJar 因 IF 走 reflection 載入
+                                     adapter，無法靜態判定為 unused，故顯式排除以縮減 jar size） -->
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_1*/**</exclude>
+                                <exclude>com/github/stefvanschie/inventoryframework/nms/v1_20_*/**</exclude>
                             </excludes>
                         </filter>
                     </filters>
