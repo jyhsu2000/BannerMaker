@@ -15,7 +15,6 @@ import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -88,11 +87,7 @@ public class BannerInfoGUI {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
-        Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.banner-info"));
-        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
-        ChestGui gui = new ChestGui(6, title);
-        gui.setOnGlobalClick(event -> event.setCancelled(true));
-
+        ChestGui gui = GuiUtil.createChestGui("gui.title.banner-info");
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 

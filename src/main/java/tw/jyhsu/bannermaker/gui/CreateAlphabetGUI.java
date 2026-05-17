@@ -8,9 +8,7 @@ import tw.jyhsu.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -25,11 +23,7 @@ public class CreateAlphabetGUI {
     public static void show(Player player) {
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
-        Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.alphabet-and-number"));
-        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
-        ChestGui gui = new ChestGui(6, title);
-        gui.setOnGlobalClick(event -> event.setCancelled(true));
-
+        ChestGui gui = GuiUtil.createChestGui("gui.title.alphabet-and-number");
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 
@@ -45,7 +39,7 @@ public class CreateAlphabetGUI {
         // 底色選擇 (Slots 1-8, 10-17，跳過第 9 格)
         for (int i = 0; i < 16; i++) {
             final ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(i)).build();
-            int slot = i + 1 + (i / 8);
+            int slot = GuiUtil.gridSlot(1, i);
             mainPane.addItem(new GuiItem(banner, event -> {
                 currentAlphabetBanner.setBaseColor(DyeColorRegistry.getDyeColor(banner.getType()));
                 CreateAlphabetGUI.show(player);
@@ -55,7 +49,7 @@ public class CreateAlphabetGUI {
         // 染料顏色選擇 (Slots 19-26, 28-35，跳過第 27 格)
         for (int i = 0; i < 16; i++) {
             final ItemStack dye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(i)).build();
-            int slot = 18 + i + 1 + (i / 8);
+            int slot = GuiUtil.gridSlot(19, i);
             mainPane.addItem(new GuiItem(dye, event -> {
                 currentAlphabetBanner.setDyeColor(DyeColorRegistry.getDyeColor(dye.getType()));
                 CreateAlphabetGUI.show(player);

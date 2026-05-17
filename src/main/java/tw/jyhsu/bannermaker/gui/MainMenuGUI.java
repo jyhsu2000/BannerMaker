@@ -7,9 +7,7 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -22,12 +20,7 @@ import static tw.jyhsu.bannermaker.configuration.Language.tl;
 public class MainMenuGUI {
 
     public static void show(Player player) {
-        Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.main-menu"));
-        // InventoryFramework 標題需要 Legacy String
-        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
-
-        ChestGui gui = new ChestGui(6, title);
-        gui.setOnGlobalClick(event -> event.setCancelled(true));
+        ChestGui gui = GuiUtil.createChestGui("gui.title.main-menu");
 
         // 1. 旗幟列表分頁面 (Paginated Pane)
         PaginatedPane paginatedPane = new PaginatedPane(0, 0, 9, 5);

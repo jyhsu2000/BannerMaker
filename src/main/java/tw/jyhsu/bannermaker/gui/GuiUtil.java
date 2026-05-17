@@ -2,21 +2,40 @@ package tw.jyhsu.bannermaker.gui;
 
 import tw.jyhsu.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
+import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Consumer;
 
+import static tw.jyhsu.bannermaker.configuration.Language.tl;
+
 /**
- * GUI 共用 helper：工具列灰玻璃填充、安全 add（先 removeItem 再 addItem）等。
- * 主要服務於採「位置固定 + 灰玻璃填空」設計的 GUI 工具列。
+ * GUI 共用 helper：ChestGui 樣板、工具列灰玻璃填充、安全 add（先 removeItem 再 addItem）、
+ * 跨行 slot 計算等。
+ * 主要服務於採「位置固定 + 灰玻璃填空」設計的 GUI。
  */
 class GuiUtil {
 
     private GuiUtil() {
         // Utility class
+    }
+
+    /**
+     * 建立一個 6 row 高的 ChestGui，標題為 {@code gui.title.prefix + tl(titleKey)}，
+     * 並預設 onGlobalClick → cancel 防止物品被搬出。pane 的設定由 caller 自行決定
+     * （多數 GUI 一張 9x6 StaticPane，MainMenuGUI 則用 PaginatedPane + 9x1 StaticPane）。
+     */
+    static ChestGui createChestGui(String titleKey) {
+        Component titleComponent = tl("gui.title.prefix").append(tl(titleKey));
+        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
+        ChestGui gui = new ChestGui(6, title);
+        gui.setOnGlobalClick(event -> event.setCancelled(true));
+        return gui;
     }
 
     /**
@@ -49,5 +68,18 @@ class GuiUtil {
             pane.removeItem(x, y);
             pane.addItem(grayPaneFiller(), x, y);
         }
+    }
+
+    /**
+     * 算 16 / 24 個 item 在 9 寬網格中跨 row 的 slot：每填滿 8 格就跳過 row 末尾那一格
+     * （slot 8、17、26、35），讓兩側留出邊界對齊欄。
+     * <p>
+     * 例：{@code gridSlot(1, 0..15)} → 1, 2, ..., 8, 10, 11, ..., 17（16 格、跳過 slot 9）。
+     *
+     * @param startSlot 第一個 item 的 slot；應是某 row 起始 + 1（如 1、19）
+     * @param index     從 0 起算的 item index
+     */
+    static int gridSlot(int startSlot, int index) {
+        return startSlot + index + (index / 8);
     }
 }

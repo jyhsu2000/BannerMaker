@@ -12,7 +12,6 @@ import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -31,11 +30,7 @@ public class CreateBannerGUI {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
 
-        Component titleComponent = tl("gui.title.prefix").append(tl("gui.title.create-banner"));
-        String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
-        ChestGui gui = new ChestGui(6, title);
-        gui.setOnGlobalClick(event -> event.setCancelled(true));
-
+        ChestGui gui = GuiUtil.createChestGui("gui.title.create-banner");
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 
@@ -64,7 +59,7 @@ public class CreateBannerGUI {
     private static void renderBaseColorPicker(StaticPane mainPane, PlayerData playerData, Player player) {
         for (int i = 0; i < 16; i++) {
             ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(i)).build();
-            int slot = i + 1 + (i / 8);
+            int slot = GuiUtil.gridSlot(1, i);
             mainPane.addItem(new GuiItem(banner, event -> {
                 playerData.setCurrentEditBanner(banner);
                 CreateBannerGUI.show(player); // 重新開啟以進入編輯模式
@@ -104,7 +99,7 @@ public class CreateBannerGUI {
     private static void renderDyeColorPicker(StaticPane mainPane, PlayerData playerData, Player player) {
         for (int i = 0; i < 16; i++) {
             ItemStack dye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(DyeColorRegistry.getDyeColor(i))).build();
-            int slot = i + 1 + (i / 8);
+            int slot = GuiUtil.gridSlot(1, i);
             mainPane.addItem(new GuiItem(dye, event -> {
                 playerData.setSelectedColor(DyeColorRegistry.getDyeColor(dye.getType()));
                 CreateBannerGUI.show(player); // 重新開啟以刷新圖案
@@ -158,7 +153,7 @@ public class CreateBannerGUI {
             ItemStack patternItem = new ItemBuilder(baseBannerForPreview.clone())
                 .pattern(new Pattern(selectedColorForPreview, patternType)).build();
 
-            int slot = i + 19 + (i / 8);
+            int slot = GuiUtil.gridSlot(19, i);
             mainPane.addItem(new GuiItem(patternItem, event -> {
                 BannerMeta currentBm = (BannerMeta) currentBanner.getItemMeta();
                 Objects.requireNonNull(currentBm).addPattern(new Pattern(selectedColor, patternType));
