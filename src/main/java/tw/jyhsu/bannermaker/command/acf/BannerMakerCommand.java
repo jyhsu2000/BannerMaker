@@ -42,8 +42,6 @@ public class BannerMakerCommand extends BaseCommand {
     @Description("{@@command.description.default}")
     @CommandPermission("BannerMaker.use")
     public void onDefault(Player player) {
-        // 開啟選單
-        // TODO: (GUI 遷移) 未來若有需要，可考慮整合 PlayerData 中的頁碼記憶功能。
         MainMenuGUI.show(player);
     }
 

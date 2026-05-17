@@ -18,6 +18,7 @@ permissions:
     children:
       BannerMaker.player: true
       BannerMaker.getBanner.free: true
+      BannerMaker.getBanner.complex-craft: true
       BannerMaker.reload: true
   BannerMaker.player:
     description: Permissions for normal players
