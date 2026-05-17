@@ -369,13 +369,12 @@ public class BannerInfoGUI {
     }
 
     /**
-     * 操作列上「無動作」位置的視覺填充：純灰玻璃，無 displayName 無 lore，hover 顯示 vanilla
-     * 預設「Gray Stained Glass Pane」，玩家無從推測該位置潛在有功能。
+     * 操作列上「無動作」位置的視覺填充：純灰玻璃，displayName 設為單一空格以隱藏 vanilla
+     * 預設名（跟合成表 brown glass 邊框同手法），玩家 hover 不會看到「Gray Stained Glass Pane」
+     * 這類預設名稱、也無從推測該位置潛在有功能。
      */
     private static GuiItem grayPaneFiller() {
-        ItemStack pane = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
-            .name(Component.empty())
-            .build();
+        ItemStack pane = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).name(" ").build();
         return new GuiItem(pane);
     }
 }
