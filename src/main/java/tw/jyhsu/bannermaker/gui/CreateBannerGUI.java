@@ -26,6 +26,12 @@ import static tw.jyhsu.bannermaker.configuration.Language.tl;
 
 public class CreateBannerGUI {
 
+    /**
+     * 圖案選擇區一頁可容納的數量（row 2-4 共 3 row、每 row 8 格跳過末欄 = 24）；同時也是 more-patterns
+     * 按下後切到第二頁時的 index offset。
+     */
+    private static final int PATTERNS_PER_PAGE = 24;
+
     public static void show(Player player) {
         MessageService messageService = BannerMaker.getInstance().getMessageService();
         PlayerData playerData = BannerMaker.getInstance().getPlayerDataMap().get(player);
@@ -34,7 +40,7 @@ public class CreateBannerGUI {
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 
-        // 工具列風格：row 5 永遠先填灰玻璃（兩個 stage 都套用），下方按鈕用 GuiUtil.putAt 覆蓋
+        // 工具列風格：row 5 永遠先填灰玻璃（兩個 stage 都套用），之後 row 5 的按鈕用 GuiUtil.putAt 覆蓋
         GuiUtil.fillToolbarRow(mainPane, 5);
 
         // slot 0: 返回（兩個 stage 都顯示）
@@ -141,11 +147,8 @@ public class CreateBannerGUI {
             selectedColorForPreview = selectedColor;
         }
 
-        for (int i = 0; i < 24; i++) {
-            int patternIndex = i;
-            if (playerData.isShowMorePatterns()) {
-                patternIndex += 24;
-            }
+        for (int i = 0; i < PATTERNS_PER_PAGE; i++) {
+            int patternIndex = i + (playerData.isShowMorePatterns() ? PATTERNS_PER_PAGE : 0);
             if (patternIndex >= BannerPatternLayout.getPatternTypeList().size()) {
                 break;
             }

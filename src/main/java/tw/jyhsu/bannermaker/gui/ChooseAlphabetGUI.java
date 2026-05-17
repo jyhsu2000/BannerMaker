@@ -44,7 +44,7 @@ public class ChooseAlphabetGUI {
             }), i % 9, i / 9);
         }
 
-        // 工具列風格：row 5 先填灰玻璃、覆蓋字母列表落到 row 5 部分（字母至 slot 38 不會碰到 row 5、純為視覺一致）
+        // row 5 為工具列，跟其他 GUI 對齊
         GuiUtil.fillToolbarRow(mainPane, 5);
 
         // slot 0: 返回

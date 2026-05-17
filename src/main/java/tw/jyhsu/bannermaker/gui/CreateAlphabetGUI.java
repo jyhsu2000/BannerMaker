@@ -27,6 +27,8 @@ public class CreateAlphabetGUI {
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 
+        // 進入 Create 介面但 PlayerData 內沒有「正在編輯的字母」── 通常是直接從外部 caller 進來
+        // 而非從 Choose 點字母選進來。引導回 Choose 讓玩家先挑字。
         final AlphabetBanner currentAlphabetBanner = playerData.getCurrentAlphabetBanner();
         if (currentAlphabetBanner == null) {
             ChooseAlphabetGUI.show(player);

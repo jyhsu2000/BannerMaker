@@ -22,7 +22,7 @@ public class MainMenuGUI {
     public static void show(Player player) {
         ChestGui gui = GuiUtil.createChestGui("gui.title.main-menu");
 
-        // 1. 旗幟列表分頁面 (Paginated Pane)
+        // row 0-4：玩家收藏的旗幟列表，跨頁顯示
         PaginatedPane paginatedPane = new PaginatedPane(0, 0, 9, 5);
         List<ItemStack> banners = BannerMaker.getInstance().getBannerRepository().loadBannerList(player);
         List<GuiItem> bannerItems = new ArrayList<>();
@@ -37,13 +37,10 @@ public class MainMenuGUI {
         paginatedPane.populateWithGuiItems(bannerItems);
         gui.addPane(paginatedPane);
 
-        // 2. 靜態控制面板 (Static Pane) - 用於放置導航和功能按鈕
+        // row 5 工具列：分頁箭頭 + 「製作旗幟 / 製作字母」入口，跟 BannerInfoGUI 同模式
         StaticPane navigationPane = new StaticPane(0, 5, 9, 1);
-
-        // 採「位置固定 + 灰玻璃填空」工具列設計，跟 BannerInfoGUI 對齊
         GuiUtil.fillToolbarRow(navigationPane, 0);
 
-        // 初始化導航按鈕（上一頁 slot 0、下一頁 slot 8）
         updateNavigation(navigationPane, paginatedPane, gui);
 
         // 製作旗幟按鈕（slot 4，永遠顯示）
@@ -76,10 +73,10 @@ public class MainMenuGUI {
         navigationPane.removeItem(8, 0);
         navigationPane.addItem(GuiUtil.grayPaneFiller(), 8, 0);
 
-        // slot 0: 上一頁
+        // slot 0: 上一頁。amount = 當前頁碼，藉由 ItemStack 右下角的數字標示頁次。
         if (paginatedPane.getPage() > 0) {
             ItemStack prevPage = new ItemBuilder(Material.ARROW)
-                .amount(paginatedPane.getPage()) // 將當前頁碼設為物品數量（視覺效果）
+                .amount(paginatedPane.getPage())
                 .name(tl(NamedTextColor.GREEN, "gui.prev-page"))
                 .build();
             GuiUtil.putAt(navigationPane, 0, 0, prevPage, event -> {
@@ -89,10 +86,10 @@ public class MainMenuGUI {
             });
         }
 
-        // slot 8: 下一頁
+        // slot 8: 下一頁。amount = 下一頁頁碼（getPage() 0-based + 2 = 下一頁 1-based）。
         if (paginatedPane.getPage() < paginatedPane.getPages() - 1) {
             ItemStack nextPage = new ItemBuilder(Material.ARROW)
-                .amount(paginatedPane.getPage() + 2) // 將下一頁碼設為物品數量（視覺效果）
+                .amount(paginatedPane.getPage() + 2)
                 .name(tl(NamedTextColor.GREEN, "gui.next-page"))
                 .build();
             GuiUtil.putAt(navigationPane, 8, 0, nextPage, event -> {

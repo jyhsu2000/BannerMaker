@@ -178,7 +178,6 @@ public class BannerInfoGUI {
     private static void renderActionBar(StaticPane mainPane, Player player, ItemStack banner,
                                        AtomicInteger currentRecipePage,
                                        PlayerData playerData, MessageService messageService) {
-        // 先把 row 5 全部填灰玻璃，後面個別按鈕條件性覆蓋
         GuiUtil.fillToolbarRow(mainPane, 5);
 
         // slot 0: 返回
@@ -230,14 +229,14 @@ public class BannerInfoGUI {
     private static void renderGetBannerButtons(StaticPane mainPane, Player player, ItemStack banner,
                                               AtomicInteger currentRecipePage,
                                               MessageService messageService) {
-        final String showName = BannerUtil.getName(banner);
+        final String displayName = BannerUtil.getName(banner);
 
         if (player.hasPermission("BannerMaker.getBanner.free")) {
             GuiUtil.putAt(mainPane, 4, 5,
                 new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.get-banner-for-free")).build(),
                 event -> {
                     InventoryUtil.give(player, banner);
-                    messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
+                    messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", displayName)));
                     refresh(player, banner, currentRecipePage.get());
                 });
             return;
@@ -253,7 +252,7 @@ public class BannerInfoGUI {
         GuiUtil.putAt(mainPane, 4, 5, craftBuilder.build(), event -> {
             boolean success = BannerMaker.getInstance().getBannerService().craft(player, banner);
             if (success) {
-                messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
+                messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", displayName)));
             } else {
                 messageService.send(player, tl(NamedTextColor.RED, "gui.materials.not-enough"));
             }
@@ -275,7 +274,7 @@ public class BannerInfoGUI {
             GuiUtil.putAt(mainPane, 5, 5, buyBuilder.build(), event -> {
                 boolean success = BannerMaker.getInstance().getBannerService().buy(player, banner);
                 if (success) {
-                    messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
+                    messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", displayName)));
                 }
                 refresh(player, banner, currentRecipePage.get());
             });
@@ -356,7 +355,7 @@ public class BannerInfoGUI {
         }
         mainPane.addItem(new GuiItem(workbench), WORKBENCH_SLOT % 9, WORKBENCH_SLOT / 9);
 
-        // 合成材料與結果（前 9 為材料、第 10 為結果）
+        // 依 CRAFT_POSITIONS 順序：前 9 格為 3x3 材料、最後 1 格為結果（slot 42 覆蓋邊框）
         for (int i = 0; i < CRAFT_POSITIONS.size(); i++) {
             int position = CRAFT_POSITIONS.get(i);
             ItemStack itemStack = patternRecipe.get(i);
