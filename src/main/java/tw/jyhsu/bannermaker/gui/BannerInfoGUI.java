@@ -2,7 +2,7 @@ package tw.jyhsu.bannermaker.gui;
 
 import tw.jyhsu.bannermaker.banner.AlphabetBanner;
 import tw.jyhsu.bannermaker.BannerMaker;
-import tw.jyhsu.bannermaker.PlayerData;
+import tw.jyhsu.bannermaker.state.PlayerData;
 import tw.jyhsu.bannermaker.service.EconomyService;
 import tw.jyhsu.bannermaker.service.MessageService;
 import tw.jyhsu.bannermaker.banner.BannerCost;

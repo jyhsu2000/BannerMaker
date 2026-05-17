@@ -1,4 +1,4 @@
-package tw.jyhsu.bannermaker;
+package tw.jyhsu.bannermaker.state;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

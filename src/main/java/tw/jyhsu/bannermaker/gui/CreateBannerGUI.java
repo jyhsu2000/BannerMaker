@@ -1,7 +1,7 @@
 package tw.jyhsu.bannermaker.gui;
 
 import tw.jyhsu.bannermaker.BannerMaker;
-import tw.jyhsu.bannermaker.PlayerData;
+import tw.jyhsu.bannermaker.state.PlayerData;
 import tw.jyhsu.bannermaker.registry.DyeColorRegistry;
 import tw.jyhsu.bannermaker.service.BannerRepository;
 import tw.jyhsu.bannermaker.service.MessageService;

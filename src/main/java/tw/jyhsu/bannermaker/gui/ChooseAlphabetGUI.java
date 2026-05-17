@@ -2,7 +2,7 @@ package tw.jyhsu.bannermaker.gui;
 
 import tw.jyhsu.bannermaker.banner.AlphabetBanner;
 import tw.jyhsu.bannermaker.BannerMaker;
-import tw.jyhsu.bannermaker.PlayerData;
+import tw.jyhsu.bannermaker.state.PlayerData;
 import tw.jyhsu.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;

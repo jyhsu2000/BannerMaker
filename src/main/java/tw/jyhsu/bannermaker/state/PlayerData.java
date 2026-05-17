@@ -1,4 +1,4 @@
-package tw.jyhsu.bannermaker;
+package tw.jyhsu.bannermaker.state;
 
 import tw.jyhsu.bannermaker.banner.AlphabetBanner;
 import org.bukkit.DyeColor;
