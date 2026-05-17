@@ -48,50 +48,75 @@ public class CreateBannerGUI {
             MainMenuGUI.show(player);
         });
 
-        // 取得當前正在編輯的旗幟
         ItemStack currentBanner = playerData.getCurrentEditBanner();
-
         if (currentBanner == null) {
-            // 初次開啟，選擇底色 (使用與顏色選擇相同的佈局邏輯)
-            for (int i = 0; i < 16; i++) {
-                final int colorIndex = i;
-                ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(colorIndex)).build();
-                int slot = i + 1 + (i / 8);
-                mainPane.addItem(new GuiItem(banner, event -> {
-                    playerData.setCurrentEditBanner(banner);
-                    CreateBannerGUI.show(player); // 重新開啟以進入編輯模式
-                }), slot % 9, slot / 9);
-            }
-            gui.show(player);
-            return;
+            renderBaseColorPicker(mainPane, playerData, player);
+        } else {
+            renderEditMode(mainPane, playerData, currentBanner, player, messageService);
         }
 
-        // --- 編輯模式 ---
+        gui.show(player);
+    }
 
-        // Slot 0 (0,0): 當前編輯中的旗幟
+    /**
+     * Stage 1：尚未選底色時，row 0-1 給玩家挑 16 種底色 banner。
+     */
+    private static void renderBaseColorPicker(StaticPane mainPane, PlayerData playerData, Player player) {
+        for (int i = 0; i < 16; i++) {
+            ItemStack banner = new ItemBuilder(DyeColorRegistry.getBannerMaterial(i)).build();
+            int slot = i + 1 + (i / 8);
+            mainPane.addItem(new GuiItem(banner, event -> {
+                playerData.setCurrentEditBanner(banner);
+                CreateBannerGUI.show(player); // 重新開啟以進入編輯模式
+            }), slot % 9, slot / 9);
+        }
+    }
+
+    /**
+     * Stage 2：已選底色後的完整編輯介面。
+     */
+    private static void renderEditMode(StaticPane mainPane, PlayerData playerData, ItemStack currentBanner,
+                                       Player player, MessageService messageService) {
+        renderBannerPreviewAndWarning(mainPane, currentBanner);
+        renderDyeColorPicker(mainPane, playerData, player);
+        renderPreviewToggle(mainPane, playerData, player);
+        renderPatternPicker(mainPane, playerData, currentBanner, player);
+        renderEditActionBar(mainPane, playerData, currentBanner, player, messageService);
+    }
+
+    /**
+     * Slot 0 預覽、Slot 9 圖案 > 6 的「不可合成」警告（僅警告觸發時顯示）。
+     */
+    private static void renderBannerPreviewAndWarning(StaticPane mainPane, ItemStack currentBanner) {
         mainPane.addItem(new GuiItem(currentBanner), 0, 0);
 
-        // Slot 9 (0,1): 圖案過多警告
         if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 6) {
             ItemStack warning = new ItemBuilder(Material.OAK_SIGN)
                 .name(tl(NamedTextColor.RED, "gui.uncraftable-warning"))
                 .lore(tl("gui.more-than-6-patterns")).build();
             mainPane.addItem(new GuiItem(warning), 0, 1);
         }
+    }
 
-        // 顏色選擇 (i=0-15)
-        // 放置在 Slot 1-8 (Row 0) 和 Slot 10-17 (Row 1)
+    /**
+     * Row 0/1 slot 1-8 + 10-17：16 種染料 —— 點擊後設為當前 selected pattern color。
+     */
+    private static void renderDyeColorPicker(StaticPane mainPane, PlayerData playerData, Player player) {
         for (int i = 0; i < 16; i++) {
-            final int colorIndex = i;
-            ItemStack dye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(DyeColorRegistry.getDyeColor(colorIndex))).build();
+            ItemStack dye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(DyeColorRegistry.getDyeColor(i))).build();
             int slot = i + 1 + (i / 8);
             mainPane.addItem(new GuiItem(dye, event -> {
                 playerData.setSelectedColor(DyeColorRegistry.getDyeColor(dye.getType()));
                 CreateBannerGUI.show(player); // 重新開啟以刷新圖案
             }), slot % 9, slot / 9);
         }
+    }
 
-        // Slot 18 (0,2): 選擇的顏色與預覽模式切換
+    /**
+     * Slot 18：顯示當前選的染料色，點擊切換 simple-preview-mode（白底黑 pattern 易讀，
+     * 否則用實際底色）。
+     */
+    private static void renderPreviewToggle(StaticPane mainPane, PlayerData playerData, Player player) {
         DyeColor selectedColor = playerData.getSelectedColor();
         boolean isInSimplePreviewMode = playerData.isInSimplePreviewMode();
         ItemStack previewDye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(selectedColor))
@@ -101,8 +126,16 @@ public class CreateBannerGUI {
             playerData.setInSimplePreviewMode(!isInSimplePreviewMode);
             CreateBannerGUI.show(player); // 重新開啟以刷新圖案
         }), 0, 2);
+    }
 
-        // 圖案預覽邏輯
+    /**
+     * Row 2-4：24 個圖案選擇（more-patterns toggle 切第二頁）。預覽底色依
+     * simple-preview-mode 改用「白底黑 pattern」或「實際底色 + 玩家選色」。
+     */
+    private static void renderPatternPicker(StaticPane mainPane, PlayerData playerData, ItemStack currentBanner, Player player) {
+        DyeColor selectedColor = playerData.getSelectedColor();
+        boolean isInSimplePreviewMode = playerData.isInSimplePreviewMode();
+
         final ItemStack baseBannerForPreview;
         final DyeColor selectedColorForPreview;
         if (isInSimplePreviewMode) {
@@ -113,8 +146,6 @@ public class CreateBannerGUI {
             selectedColorForPreview = selectedColor;
         }
 
-        // 圖案選擇 (i=0-23)
-        // 放置在 Slot 19-26 (Row 2), 28-35 (Row 3), 37-44 (Row 4)
         for (int i = 0; i < 24; i++) {
             int patternIndex = i;
             if (playerData.isShowMorePatterns()) {
@@ -135,9 +166,14 @@ public class CreateBannerGUI {
                 CreateBannerGUI.show(player); // 重新開啟以反映變更
             }), slot % 9, slot / 9);
         }
+    }
 
-        // Row 5 編輯模式專屬按鈕（返回按鈕已在 show 開頭、兩個 stage 共用）
-
+    /**
+     * Row 5 編輯模式專屬按鈕：slot 2 重置、slot 4 移除上一個 pattern（僅 pattern > 0 顯示）、
+     * slot 6 切換 more-patterns、slot 8 儲存。slot 0 的返回由 show() 開頭、兩 stage 共用。
+     */
+    private static void renderEditActionBar(StaticPane mainPane, PlayerData playerData, ItemStack currentBanner,
+                                            Player player, MessageService messageService) {
         // slot 2: 重置（刪除當前編輯旗幟）
         ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.delete")).build();
         GuiUtil.putAt(mainPane, 2, 5, btnDelete, event -> {
@@ -176,7 +212,5 @@ public class CreateBannerGUI {
             playerData.setCurrentEditBanner(null);
             MainMenuGUI.show(player); // 返回主選單
         });
-
-        gui.show(player);
     }
 }

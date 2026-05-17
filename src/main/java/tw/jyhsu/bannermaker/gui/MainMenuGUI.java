@@ -76,7 +76,14 @@ public class MainMenuGUI {
     }
 
     private static void updateNavigation(StaticPane navigationPane, PaginatedPane paginatedPane, ChestGui gui) {
-        // 上一頁（slot 0，無上一頁時 fallback 為灰玻璃以維持工具列視覺）
+        // 跟 BannerInfoGUI 工具列同模式：先把 slot 0/8 重設為灰玻璃，有按鈕時再覆蓋。
+        // 不依賴外層 fillToolbarRow，遞迴呼叫時也能獨立把箭頭換回灰玻璃。
+        navigationPane.removeItem(0, 0);
+        navigationPane.addItem(GuiUtil.grayPaneFiller(), 0, 0);
+        navigationPane.removeItem(8, 0);
+        navigationPane.addItem(GuiUtil.grayPaneFiller(), 8, 0);
+
+        // slot 0: 上一頁
         if (paginatedPane.getPage() > 0) {
             ItemStack prevPage = new ItemBuilder(Material.ARROW)
                 .amount(paginatedPane.getPage()) // 將當前頁碼設為物品數量（視覺效果）
@@ -87,12 +94,9 @@ public class MainMenuGUI {
                 updateNavigation(navigationPane, paginatedPane, gui);
                 gui.update();
             });
-        } else {
-            navigationPane.removeItem(0, 0);
-            navigationPane.addItem(GuiUtil.grayPaneFiller(), 0, 0);
         }
 
-        // 下一頁（slot 8，無下一頁時 fallback 為灰玻璃）
+        // slot 8: 下一頁
         if (paginatedPane.getPage() < paginatedPane.getPages() - 1) {
             ItemStack nextPage = new ItemBuilder(Material.ARROW)
                 .amount(paginatedPane.getPage() + 2) // 將下一頁碼設為物品數量（視覺效果）
@@ -103,9 +107,6 @@ public class MainMenuGUI {
                 updateNavigation(navigationPane, paginatedPane, gui);
                 gui.update();
             });
-        } else {
-            navigationPane.removeItem(8, 0);
-            navigationPane.addItem(GuiUtil.grayPaneFiller(), 8, 0);
         }
     }
 }
