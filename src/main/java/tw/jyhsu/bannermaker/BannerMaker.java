@@ -3,6 +3,7 @@ package tw.jyhsu.bannermaker;
 import tw.jyhsu.bannermaker.configuration.ConfigManager;
 import tw.jyhsu.bannermaker.configuration.DefaultConfig;
 import tw.jyhsu.bannermaker.configuration.Language;
+import tw.jyhsu.bannermaker.gui.GuiUtil;
 import tw.jyhsu.bannermaker.service.BannerRepository;
 import tw.jyhsu.bannermaker.service.BannerService;
 import tw.jyhsu.bannermaker.service.EconomyService;
@@ -163,7 +164,11 @@ public class BannerMaker extends JavaPlugin {
             enableComplexBannerCraft = config.getBoolean("ComplexBannerCraft.Enable", false);
         }
         // playerDataMap 在 onEnable() 時建立、不在 reload() 重建：玩家正在 GUI 編輯時若 admin
-        // 跑 /bm reload，他的 currentEditBanner / 字母旗幟編輯等狀態不該被清空。
+        // 跑 /bm reload，他的 currentEditBanner / 字母旗幟編輯等狀態不該被清空。但強制關掉所有
+        // 開著的本插件 GUI，避免玩家看到 stale 譯文 / 價格 / 已關閉功能的按鈕；編輯狀態保留在
+        // PlayerData，重開 GUI 後可從上次繼續。onEnable 內第一次 reload() 時 onlinePlayers
+        // 為空，closeAllOurGuis() 是 no-op，不需特判。
+        GuiUtil.closeAllOurGuis();
     }
 
     private boolean setupEconomy() {

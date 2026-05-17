@@ -1,6 +1,7 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: Reload config
+  gui-closed-by-reload: GUI closed because configuration was reloaded. Reopen to continue.
   no-money: Not enough money
   money-transaction: Use <amount> to get banner. Now you have <balance>
   economy-not-supported: 'Error: Economy not supported'

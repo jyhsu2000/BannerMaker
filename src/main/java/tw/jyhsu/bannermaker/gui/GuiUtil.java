@@ -1,15 +1,23 @@
 package tw.jyhsu.bannermaker.gui;
 
+import tw.jyhsu.bannermaker.BannerMaker;
 import tw.jyhsu.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.StaticPane;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.function.Consumer;
 
 import static tw.jyhsu.bannermaker.configuration.Language.tl;
@@ -19,7 +27,17 @@ import static tw.jyhsu.bannermaker.configuration.Language.tl;
  * 跨行 slot 計算等。
  * 主要服務於採「位置固定 + 灰玻璃填空」設計的 GUI。
  */
-class GuiUtil {
+public class GuiUtil {
+
+    /**
+     * 追蹤本插件透過 {@link #createChestGui(String)} 建立的所有 ChestGui，用於 {@code /bm reload}
+     * 時辨識「哪些開著的 inventory 是我們的、可以安全關閉」。
+     * <p>
+     * 使用 weak reference set：ChestGui 被 IF 釋放後自動 evict，不需要 listener 手動清，
+     * 也不會誤傷其他同樣用 IF 的插件 ── 它們的 ChestGui 不會被加進這個 set。
+     */
+    private static final Set<ChestGui> openedGuis =
+        Collections.newSetFromMap(new WeakHashMap<>());
 
     private GuiUtil() {
         // Utility class
@@ -29,13 +47,36 @@ class GuiUtil {
      * 建立一個 6 row 高的 ChestGui，標題為 {@code gui.title.prefix + tl(titleKey)}，
      * 並預設 onGlobalClick → cancel 防止物品被搬出。pane 的設定由 caller 自行決定
      * （多數 GUI 一張 9x6 StaticPane，MainMenuGUI 則用 PaginatedPane + 9x1 StaticPane）。
+     * <p>
+     * 同時把建出的 ChestGui 加入 {@link #openedGuis} 以便 reload 時識別並強制關閉。
      */
     static ChestGui createChestGui(String titleKey) {
         Component titleComponent = tl("gui.title.prefix").append(tl(titleKey));
         String title = LegacyComponentSerializer.legacySection().serialize(titleComponent);
         ChestGui gui = new ChestGui(6, title);
         gui.setOnGlobalClick(event -> event.setCancelled(true));
+        openedGuis.add(gui);
         return gui;
+    }
+
+    /**
+     * 強制關閉所有目前開著的本插件 GUI，並通知玩家原因。
+     * <p>
+     * 用於 {@code /bm reload} 結尾，避免玩家在 reload 後的 GUI 內看到 stale 譯文 / 價格 /
+     * 已關閉功能的按鈕。PlayerData 內的編輯狀態（{@code currentEditBanner} 等）不動，
+     * 玩家重開 GUI 後從上次的狀態繼續。
+     * <p>
+     * 只關 {@link #openedGuis} 內紀錄過的 ChestGui，不會誤傷其他插件的 GUI 或 vanilla 工作台。
+     */
+    public static void closeAllOurGuis() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            InventoryHolder holder = player.getOpenInventory().getTopInventory().getHolder();
+            if (holder instanceof ChestGui chestGui && openedGuis.contains(chestGui)) {
+                player.closeInventory();
+                BannerMaker.getInstance().getMessageService()
+                    .send(player, tl(NamedTextColor.YELLOW, "general.gui-closed-by-reload"));
+            }
+        }
     }
 
     /**

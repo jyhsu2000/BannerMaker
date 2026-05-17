@@ -1,6 +1,7 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: 重新載入
+  gui-closed-by-reload: 因設定已重新載入，選單已關閉，請重新開啟以繼續。
   no-money: 金錢不足
   money-transaction: 使用 <amount> 取得旗幟，現在你還有 <balance>
   economy-not-supported: '錯誤：不支援經濟系統'
