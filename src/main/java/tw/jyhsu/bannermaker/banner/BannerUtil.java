@@ -1,6 +1,7 @@
-package tw.jyhsu.bannermaker.util;
+package tw.jyhsu.bannermaker.banner;
 
 import tw.jyhsu.bannermaker.BannerMaker;
+import tw.jyhsu.bannermaker.util.PersistentDataUtil;
 import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XTag;
 import org.bukkit.Material;

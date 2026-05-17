@@ -1,4 +1,4 @@
-package tw.jyhsu.bannermaker.util;
+package tw.jyhsu.bannermaker.banner;
 
 /**
  * 旗幟字串引用了當前 server 不認得的 pattern key。

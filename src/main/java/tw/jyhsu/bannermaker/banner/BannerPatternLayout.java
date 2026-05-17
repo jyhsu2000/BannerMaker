@@ -1,4 +1,4 @@
-package tw.jyhsu.bannermaker.util;
+package tw.jyhsu.bannermaker.banner;
 
 import tw.jyhsu.bannermaker.registry.DyeColorRegistry;
 import com.google.common.collect.Maps;

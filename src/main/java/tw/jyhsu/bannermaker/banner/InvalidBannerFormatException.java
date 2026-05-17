@@ -1,4 +1,4 @@
-package tw.jyhsu.bannermaker.util;
+package tw.jyhsu.bannermaker.banner;
 
 /**
  * 旗幟字串結構不符預期（base64 解碼失敗、缺少分隔符、欄位個數錯誤、版本號不支援等）。

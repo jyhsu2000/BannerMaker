@@ -1,6 +1,6 @@
 package tw.jyhsu.bannermaker.gui;
 
-import tw.jyhsu.bannermaker.AlphabetBanner;
+import tw.jyhsu.bannermaker.banner.AlphabetBanner;
 import tw.jyhsu.bannermaker.BannerMaker;
 import tw.jyhsu.bannermaker.util.ItemBuilder;
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;

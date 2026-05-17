@@ -1,4 +1,4 @@
-package tw.jyhsu.bannermaker.util;
+package tw.jyhsu.bannermaker.banner;
 
 /**
  * 旗幟字串引用了不存在的 {@link org.bukkit.DyeColor}（v2：色名字面不匹配 enum；

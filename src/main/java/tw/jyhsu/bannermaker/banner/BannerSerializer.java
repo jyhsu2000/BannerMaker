@@ -1,6 +1,8 @@
-package tw.jyhsu.bannermaker.util;
+package tw.jyhsu.bannermaker.banner;
 
+import tw.jyhsu.bannermaker.BannerMaker;
 import tw.jyhsu.bannermaker.registry.DyeColorRegistry;
+import tw.jyhsu.bannermaker.util.SerializationUtil;
 import org.bukkit.DyeColor;
 import org.bukkit.Keyed;
 import org.bukkit.Material;

@@ -2,7 +2,7 @@ package tw.jyhsu.bannermaker.service;
 
 import tw.jyhsu.bannermaker.configuration.ConfigManager;
 import tw.jyhsu.bannermaker.registry.DyeColorRegistry;
-import tw.jyhsu.bannermaker.util.BannerUtil;
+import tw.jyhsu.bannermaker.banner.BannerUtil;
 import tw.jyhsu.bannermaker.util.PersistentDataUtil;
 import org.bukkit.DyeColor;
 import org.bukkit.Keyed;

@@ -1,4 +1,4 @@
-package tw.jyhsu.bannermaker.util;
+package tw.jyhsu.bannermaker.banner;
 
 /**
  * 旗幟反序列化失敗時拋出的例外基底。

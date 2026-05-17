@@ -1,6 +1,7 @@
 package tw.jyhsu.bannermaker.util;
 
 import tw.jyhsu.bannermaker.BannerMaker;
+import tw.jyhsu.bannermaker.banner.BannerUtil;
 import tw.jyhsu.bannermaker.configuration.ConfigManager;
 import tw.jyhsu.bannermaker.service.BannerRepository;
 import org.bukkit.DyeColor;

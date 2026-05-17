@@ -1,5 +1,6 @@
 package tw.jyhsu.bannermaker;
 
+import tw.jyhsu.bannermaker.banner.AlphabetBanner;
 import org.bukkit.DyeColor;
 import org.bukkit.inventory.ItemStack;
 
