@@ -41,7 +41,7 @@ mvn package                    # 產出 target/BannerMaker.jar
 | 想做什麼 | 從哪裡下手 | 規範 |
 |---|---|---|
 | 加新訊息 | 改 `language/en-US.yml` + `zh-TW.yml`，Java 用 `Language.tl("your.key")` | 不要手動編輯其餘 11 個語系（Crowdin 管） |
-| 加新指令 | 編輯 `command/acf/BannerMakerCommand.java`，用 ACF `@Subcommand` | 不要寫手動 `CommandExecutor` |
+| 加新指令 | 編輯 `command/BannerMakerCommand.java`，用 ACF `@Subcommand` | 不要寫手動 `CommandExecutor` |
 | 改 GUI | 編輯 `gui/*.java`，使用 InventoryFramework | 不要用 Bukkit 原生 Inventory |
 | 建立 ItemStack | 需要設定 name/lore 等屬性時用 `util.ItemBuilder`；穩定材料可直接 `new ItemStack(Material.X)` | 對 1.21.2+ 才有的材料須用 `Material.matchMaterial()` 探測 |
 | 發送訊息給玩家 | 使用 `service.MessageService` | 不要用 `player.sendMessage()` |

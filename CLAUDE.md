@@ -60,15 +60,17 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 
 - **自動 Help 系統**：使用 ACF 內建的 `@HelpCommand` 自動生成 `/bm help`。
 - **權限過濾**：Help 訊息會依玩家權限自動過濾顯示。
-- **語言同步**：ACF 系統訊息（如「未知指令」）依 `config.yml` 的 `Language` 設定自動切換（`zh_TW`、`en`、`auto`）。
+- **語言同步**：ACF 系統訊息（如「未知指令」）依 `config.yml` 的 `Language` 設定自動切換（`zh-TW`、`en`、`auto`）。
 - **指令描述多語系**：`language/*.yml` 中的 `command.description.*` 已透過 `Language.registerCommandDescriptions()` 注入 ACF Locales。
 
 ### GUI 開發
 
 - **必須**使用 `InventoryFramework` 實作所有選單。
-- GUI 類別位於 `tw.jyhsu.bannermaker.gui` 套件下，已取代舊有的 `customMenu` 系統。
+- GUI 類別位於 `tw.jyhsu.bannermaker.gui` 套件下。
 - GUI 標題若必須為 `String`，請使用 `LegacyComponentSerializer.legacySection().serialize(component)` 轉換。
 - GUI 標題透過 `gui.title.*` 鍵值統一管理，所有語系檔已對齊。
+- 建立 ChestGui 請統一透過 `GuiUtil.createChestGui(String titleKey)`：自動處理「prefix + 標題」、Legacy serialize、global click cancel、註冊到 reload 追蹤集合等共用樣板。
+- 工具列風格的灰玻璃填充（`fillToolbarRow` / `putAt` / `grayPaneFiller`）與跨行 slot 計算（`gridSlot`）也都在 `GuiUtil` 內。
 
 ### 物品建構
 
@@ -79,9 +81,9 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 - **基礎穩定材料**（如 `STICK`、`BRICK`、`VINE`、`CREEPER_HEAD`、`OXEYE_DAISY`、各色 dye/wool 等自 1.13 以前已穩定者，含 1.21.0 已存在的 `PIGLIN_BANNER_PATTERN`、`FLOW_BANNER_PATTERN` 等）：直接 `new ItemStack(Material.X)` **允許**，不需強制走 `ItemBuilder`。
 - `ItemBuilder` 支援 `name(Component)`、`lore(Component...)`、`addLore(Component...)`。
 
-### 工具類
+### Banner 判斷
 
-- `BannerUtil.isBanner()` 使用 `XTag.BANNERS` 判斷 `ItemStack` 或 `Material` 是否為旗幟。
+- 判斷 `ItemStack` 或 `Material` 是否為旗幟一律用 `tw.jyhsu.bannermaker.banner.BannerUtil.isBanner()`（內部走 `XTag.BANNERS`），**不要**手寫 `RED_BANNER || BLUE_BANNER || ...` 列舉，否則新色旗幟（或未來新增的 banner 類 material）會漏判。
 
 ### 旗幟 wire format（`/bm view` 字串）
 
