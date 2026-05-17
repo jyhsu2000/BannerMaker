@@ -49,7 +49,6 @@ public class CreateAlphabetGUI {
             mainPane.addItem(new GuiItem(banner, event -> {
                 currentAlphabetBanner.setBaseColor(DyeColorRegistry.getDyeColor(banner.getType()));
                 CreateAlphabetGUI.show(player);
-                event.setCancelled(true);
             }), slot % 9, slot / 9);
         }
 
@@ -60,7 +59,6 @@ public class CreateAlphabetGUI {
             mainPane.addItem(new GuiItem(dye, event -> {
                 currentAlphabetBanner.setDyeColor(DyeColorRegistry.getDyeColor(dye.getType()));
                 CreateAlphabetGUI.show(player);
-                event.setCancelled(true);
             }), slot % 9, slot / 9);
         }
 
@@ -71,7 +69,6 @@ public class CreateAlphabetGUI {
         mainPane.addItem(new GuiItem(btnBorderedBanner, event -> {
             currentAlphabetBanner.setBordered(!currentAlphabetBanner.isBordered());
             CreateAlphabetGUI.show(player);
-            event.setCancelled(true);
         }), 1, 4);
 
         // 工具列風格：row 5 先填灰玻璃
@@ -81,14 +78,12 @@ public class CreateAlphabetGUI {
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
         GuiUtil.putAt(mainPane, 0, 5, btnBackToMenu, event -> {
             ChooseAlphabetGUI.show(player);
-            event.setCancelled(true);
         });
 
         // slot 4: 旗幟資訊
         ItemStack btnBannerInfo = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.banner-info")).build();
         GuiUtil.putAt(mainPane, 4, 5, btnBannerInfo, event -> {
             BannerInfoGUI.open(player, currentAlphabetBanner.toItemStack());
-            event.setCancelled(true);
         });
 
         gui.show(player);

@@ -136,7 +136,6 @@ public class BannerInfoGUI {
         mainPane.addItem(new GuiItem(btnGenerateCommand, event -> {
             BannerMaker.getInstance().getBannerService().sendShareCommand(player, banner);
             player.closeInventory();
-            event.setCancelled(true);
         }), 3, 0);
     }
 
@@ -170,7 +169,6 @@ public class BannerInfoGUI {
             } else {
                 MainMenuGUI.show(player);
             }
-            event.setCancelled(true);
         });
 
         // slot 2: 刪除（若為個人收藏）
@@ -182,7 +180,6 @@ public class BannerInfoGUI {
                     BannerMaker.getInstance().getBannerRepository().removeBanner(player, key);
                     messageService.send(player, tl(NamedTextColor.GREEN, "io.remove-banner", tag("key", key)));
                     MainMenuGUI.show(player);
-                    event.setCancelled(true);
                 });
         }
 
@@ -197,7 +194,6 @@ public class BannerInfoGUI {
             event -> {
                 playerData.setCurrentEditBanner(banner);
                 CreateBannerGUI.show(player);
-                event.setCancelled(true);
             });
 
         // slot 7 / slot 8: 展示旗幟
@@ -224,7 +220,6 @@ public class BannerInfoGUI {
                     InventoryUtil.give(player, banner);
                     messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
                     refresh(player, banner, currentRecipePage.get());
-                    event.setCancelled(true);
                 });
             return;
         }
@@ -244,7 +239,6 @@ public class BannerInfoGUI {
                 messageService.send(player, tl(NamedTextColor.RED, "gui.materials.not-enough"));
             }
             refresh(player, banner, currentRecipePage.get());
-            event.setCancelled(true);
         });
 
         // 購買（slot 5，若 economy 可用）：餘額不足時 name 改紅 + lore 提示
@@ -265,7 +259,6 @@ public class BannerInfoGUI {
                     messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
                 }
                 refresh(player, banner, currentRecipePage.get());
-                event.setCancelled(true);
             });
         }
     }
@@ -280,7 +273,6 @@ public class BannerInfoGUI {
                 event -> {
                     BannerMaker.getInstance().getBannerService().showToNearby(player, banner, 16);
                     player.closeInventory();
-                    event.setCancelled(true);
                 });
         }
         if (player.hasPermission("BannerMaker.show.all")) {
@@ -289,7 +281,6 @@ public class BannerInfoGUI {
                 event -> {
                     BannerMaker.getInstance().getBannerService().showToAll(player, banner);
                     player.closeInventory();
-                    event.setCancelled(true);
                 });
         }
     }
@@ -325,7 +316,6 @@ public class BannerInfoGUI {
                 currentRecipePage.decrementAndGet();
                 renderCraftingRecipe(gui, mainPane, banner, currentRecipePage);
                 gui.update();
-                event.setCancelled(true);
             }), 4, 2);
         }
 
@@ -336,7 +326,6 @@ public class BannerInfoGUI {
                 currentRecipePage.incrementAndGet();
                 renderCraftingRecipe(gui, mainPane, banner, currentRecipePage);
                 gui.update();
-                event.setCancelled(true);
             }), 8, 2);
         }
 

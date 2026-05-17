@@ -37,7 +37,6 @@ public class MainMenuGUI {
         for (ItemStack banner : banners) {
             GuiItem item = new GuiItem(banner, event -> {
                 BannerInfoGUI.open(player, banner);
-                event.setCancelled(true);
             });
             bannerItems.add(item);
         }
@@ -60,7 +59,6 @@ public class MainMenuGUI {
             .build();
         GuiUtil.putAt(navigationPane, 4, 0, btnCreateBanner, event -> {
             CreateBannerGUI.show(player);
-            event.setCancelled(true);
         });
 
         // 製作字母按鈕（slot 6，若啟用 AlphabetAndNumber、否則維持灰玻璃）
@@ -70,7 +68,6 @@ public class MainMenuGUI {
                 .build();
             GuiUtil.putAt(navigationPane, 6, 0, btnCreateAlphabet, event -> {
                 ChooseAlphabetGUI.show(player);
-                event.setCancelled(true);
             });
         }
 
@@ -89,7 +86,6 @@ public class MainMenuGUI {
                 paginatedPane.setPage(paginatedPane.getPage() - 1);
                 updateNavigation(navigationPane, paginatedPane, gui);
                 gui.update();
-                event.setCancelled(true);
             });
         } else {
             navigationPane.removeItem(0, 0);
@@ -106,7 +102,6 @@ public class MainMenuGUI {
                 paginatedPane.setPage(paginatedPane.getPage() + 1);
                 updateNavigation(navigationPane, paginatedPane, gui);
                 gui.update();
-                event.setCancelled(true);
             });
         } else {
             navigationPane.removeItem(8, 0);

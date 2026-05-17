@@ -46,7 +46,6 @@ public class CreateBannerGUI {
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
         GuiUtil.putAt(mainPane, 0, 5, btnBackToMenu, event -> {
             MainMenuGUI.show(player);
-            event.setCancelled(true);
         });
 
         // 取得當前正在編輯的旗幟
@@ -61,7 +60,6 @@ public class CreateBannerGUI {
                 mainPane.addItem(new GuiItem(banner, event -> {
                     playerData.setCurrentEditBanner(banner);
                     CreateBannerGUI.show(player); // 重新開啟以進入編輯模式
-                    event.setCancelled(true);
                 }), slot % 9, slot / 9);
             }
             gui.show(player);
@@ -90,7 +88,6 @@ public class CreateBannerGUI {
             mainPane.addItem(new GuiItem(dye, event -> {
                 playerData.setSelectedColor(DyeColorRegistry.getDyeColor(dye.getType()));
                 CreateBannerGUI.show(player); // 重新開啟以刷新圖案
-                event.setCancelled(true);
             }), slot % 9, slot / 9);
         }
 
@@ -103,7 +100,6 @@ public class CreateBannerGUI {
         mainPane.addItem(new GuiItem(previewDye, event -> {
             playerData.setInSimplePreviewMode(!isInSimplePreviewMode);
             CreateBannerGUI.show(player); // 重新開啟以刷新圖案
-            event.setCancelled(true);
         }), 0, 2);
 
         // 圖案預覽邏輯
@@ -137,7 +133,6 @@ public class CreateBannerGUI {
                 Objects.requireNonNull(currentBm).addPattern(new Pattern(selectedColor, patternType));
                 currentBanner.setItemMeta(currentBm);
                 CreateBannerGUI.show(player); // 重新開啟以反映變更
-                event.setCancelled(true);
             }), slot % 9, slot / 9);
         }
 
@@ -148,7 +143,6 @@ public class CreateBannerGUI {
         GuiUtil.putAt(mainPane, 2, 5, btnDelete, event -> {
             playerData.setCurrentEditBanner(null);
             CreateBannerGUI.show(player); // 重新開啟以回到底色選擇
-            event.setCancelled(true);
         });
 
         // slot 4: 移除上一個圖案（條件性、有 pattern 才顯示）
@@ -159,7 +153,6 @@ public class CreateBannerGUI {
                 bm.removePattern(bm.numberOfPatterns() - 1);
                 currentBanner.setItemMeta(bm);
                 CreateBannerGUI.show(player); // 重新開啟以反映變更
-                event.setCancelled(true);
             });
         }
 
@@ -168,7 +161,6 @@ public class CreateBannerGUI {
         GuiUtil.putAt(mainPane, 6, 5, btnMorePattern, event -> {
             playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
             CreateBannerGUI.show(player); // 重新開啟以顯示更多圖案
-            event.setCancelled(true);
         });
 
         // slot 8: 建立 / 儲存旗幟
@@ -183,7 +175,6 @@ public class CreateBannerGUI {
             }
             playerData.setCurrentEditBanner(null);
             MainMenuGUI.show(player); // 返回主選單
-            event.setCancelled(true);
         });
 
         gui.show(player);

@@ -46,7 +46,6 @@ public class ChooseAlphabetGUI {
             mainPane.addItem(new GuiItem(alphabetItem, event -> {
                 playerData.setCurrentAlphabetBanner(alphabetBanner);
                 CreateAlphabetGUI.show(player);
-                event.setCancelled(true);
             }), i % 9, i / 9);
         }
 
@@ -57,7 +56,6 @@ public class ChooseAlphabetGUI {
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
         GuiUtil.putAt(mainPane, 0, 5, btnBackToMenu, event -> {
             MainMenuGUI.show(player);
-            event.setCancelled(true);
         });
 
         // slot 4: 切換邊框
@@ -67,7 +65,6 @@ public class ChooseAlphabetGUI {
         GuiUtil.putAt(mainPane, 4, 5, btnBorderedBanner, event -> {
             playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
             ChooseAlphabetGUI.show(player); // 刷新以顯示變更
-            event.setCancelled(true);
         });
 
         gui.show(player);
