@@ -21,16 +21,41 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 import static tw.jyhsu.bannermaker.configuration.Language.tl;
 import static tw.jyhsu.bannermaker.util.TagUtil.tag;
 
 public class BannerInfoGUI {
+
+    /** 上方資訊列旁 4x4 材料展示區的 slot 位置（row 1-4，左側 4 欄）。 */
+    private static final List<Integer> MATERIAL_POSITIONS = List.of(
+        9, 10, 11, 12,
+        18, 19, 20, 21,
+        27, 28, 29, 30,
+        36, 37, 38, 39);
+
+    /** 合成表 5x4 區塊的 brown glass 邊框位置（含中間隔行的兩格箭頭位置）。 */
+    private static final List<Integer> BORDER_POSITIONS = List.of(
+        4, 5, 7, 8,
+        13, 17,
+        22, 26,
+        31, 35,
+        40, 41, 42, 43, 44);
+
+    /** 合成表內 3x3 材料（前 9 格）與成品（最後 1 格 = slot 42，會覆蓋邊框）的位置。 */
+    private static final List<Integer> CRAFT_POSITIONS = List.of(
+        14, 15, 16,
+        23, 24, 25,
+        32, 33, 34,
+        42);
+
+    /** 合成表工作台 / 織布機圖示位置。 */
+    private static final int WORKBENCH_SLOT = 6;
 
     /**
      * 開啟旗幟資訊選單，頁碼自第一頁起。
@@ -112,10 +137,9 @@ public class BannerInfoGUI {
                 : new ItemBuilder(Material.OAK_SIGN).name(tl(NamedTextColor.RED, "gui.materials.not-enough")).build();
             mainPane.addItem(new GuiItem(enoughMaterials), 2, 0);
 
-            List<Integer> materialPositions = Arrays.asList(9, 10, 11, 12, 18, 19, 20, 21, 27, 28, 29, 30, 36, 37, 38, 39);
             List<ItemStack> materialList = BannerCost.getMaterials(banner);
-            for (int i = 0; i < materialList.size() && i < materialPositions.size(); i++) {
-                int slot = materialPositions.get(i);
+            for (int i = 0; i < materialList.size() && i < MATERIAL_POSITIONS.size(); i++) {
+                int slot = MATERIAL_POSITIONS.get(i);
                 mainPane.addItem(new GuiItem(materialList.get(i)), slot % 9, slot / 9);
             }
         }
@@ -296,16 +320,14 @@ public class BannerInfoGUI {
         int patternCount = ((BannerMeta) Objects.requireNonNull(banner.getItemMeta())).numberOfPatterns();
         int totalPage = patternCount + 1;
 
-        // 清除舊的合成表相關物品（在換頁時刷新）
-        List<Integer> slotsToClear = Arrays.asList(4, 5, 7, 8, 13, 17, 22, 26, 31, 35, 40, 41, 42, 43, 44, 6, 14, 15, 16, 23, 24, 25, 32, 33, 34, 42);
-        for (int slot : slotsToClear) {
-            mainPane.removeItem(slot % 9, slot / 9);
-        }
+        // 清除舊的合成表相關物品（換頁時刷新）
+        Stream.of(BORDER_POSITIONS, CRAFT_POSITIONS, List.of(WORKBENCH_SLOT))
+            .flatMap(List::stream)
+            .forEach(slot -> mainPane.removeItem(slot % 9, slot / 9));
 
         // 邊框
         ItemStack border = new ItemBuilder(Material.BROWN_STAINED_GLASS_PANE).name(" ").build();
-        List<Integer> borderPositions = Arrays.asList(4, 5, 7, 8, 13, 17, 22, 26, 31, 35, 40, 41, 42, 43, 44);
-        for (int pos : borderPositions) {
+        for (int pos : BORDER_POSITIONS) {
             mainPane.addItem(new GuiItem(border.clone()), pos % 9, pos / 9);
         }
 
@@ -337,12 +359,11 @@ public class BannerInfoGUI {
         if (BannerPatternLayout.isLoomRecipe(patternRecipe)) {
             workbench.setType(Material.LOOM);
         }
-        mainPane.addItem(new GuiItem(workbench), 6, 0);
+        mainPane.addItem(new GuiItem(workbench), WORKBENCH_SLOT % 9, WORKBENCH_SLOT / 9);
 
         // 合成材料與結果（前 9 為材料、第 10 為結果）
-        List<Integer> craftPositions = Arrays.asList(14, 15, 16, 23, 24, 25, 32, 33, 34, 42);
-        for (int i = 0; i < 10; i++) {
-            int position = craftPositions.get(i);
+        for (int i = 0; i < CRAFT_POSITIONS.size(); i++) {
+            int position = CRAFT_POSITIONS.get(i);
             ItemStack itemStack = patternRecipe.get(i);
             if (itemStack != null && !itemStack.getType().isAir()) {
                 mainPane.addItem(new GuiItem(itemStack), position % 9, position / 9);

@@ -17,6 +17,8 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 import static tw.jyhsu.bannermaker.configuration.Language.tl;
 
 public class ChooseAlphabetGUI {
@@ -36,12 +38,11 @@ public class ChooseAlphabetGUI {
         playerData.setCurrentAlphabetBanner(null);
 
         boolean alphabetBorder = playerData.isAlphabetBannerBordered();
-        char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.".toCharArray();
 
-        // 填充字母物品（共 39 個，放置在 slot 0-38，覆蓋 row 0-4 大部分）
-        for (int i = 0; i < alphabetArray.length && i < 54; i++) {
-            char alphabet = alphabetArray[i];
-            final AlphabetBanner alphabetBanner = new AlphabetBanner(String.valueOf(alphabet), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
+        // 填充字母物品（覆蓋 row 0-4，row 5 留給工具列）
+        List<String> characters = AlphabetBanner.SUPPORTED_CHARACTERS;
+        for (int i = 0; i < characters.size() && i < 45; i++) {
+            final AlphabetBanner alphabetBanner = new AlphabetBanner(characters.get(i), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
             ItemStack alphabetItem = alphabetBanner.toItemStack();
             mainPane.addItem(new GuiItem(alphabetItem, event -> {
                 playerData.setCurrentAlphabetBanner(alphabetBanner);

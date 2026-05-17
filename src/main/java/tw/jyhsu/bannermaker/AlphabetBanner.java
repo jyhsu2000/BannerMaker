@@ -51,6 +51,18 @@ import static org.bukkit.block.banner.PatternType.TRIANGLE_TOP;
  */
 public class AlphabetBanner {
 
+    /**
+     * GUI 展示用的字元清單與順序：A–Z、0–9、?、!、.。
+     * 跟 {@link #UNBORDERED}/{@link #BORDERED} 的 key set 一致（HashMap 無序，這份 List 才是
+     * 對外的展示順序 source of truth）。
+     */
+    public static final List<String> SUPPORTED_CHARACTERS = List.of(
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "?", "!", "."
+    );
+
     private final String alphabet;
     private DyeColor baseColor;
     private DyeColor dyeColor;
