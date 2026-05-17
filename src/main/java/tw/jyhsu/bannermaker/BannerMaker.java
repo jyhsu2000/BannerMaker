@@ -46,6 +46,7 @@ public class BannerMaker extends JavaPlugin {
         bannerService = new BannerService();
         bannerRepository = new BannerRepository();
         playerDataMap = new PlayerDataMap();
+        getServer().getPluginManager().registerEvents(playerDataMap, this);
 
         // 初始化 ACF Command Manager
         commandManager = new PaperCommandManager(this);
