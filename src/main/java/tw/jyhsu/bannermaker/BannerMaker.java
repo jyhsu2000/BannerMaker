@@ -45,6 +45,7 @@ public class BannerMaker extends JavaPlugin {
         economyService = new EconomyService();
         bannerService = new BannerService();
         bannerRepository = new BannerRepository();
+        playerDataMap = new PlayerDataMap();
 
         // 初始化 ACF Command Manager
         commandManager = new PaperCommandManager(this);
@@ -160,8 +161,8 @@ public class BannerMaker extends JavaPlugin {
             //複雜旗幟合成
             enableComplexBannerCraft = config.getBoolean("ComplexBannerCraft.Enable", false);
         }
-        //玩家資料
-        playerDataMap = new PlayerDataMap();
+        // playerDataMap 在 onEnable() 時建立、不在 reload() 重建：玩家正在 GUI 編輯時若 admin
+        // 跑 /bm reload，他的 currentEditBanner / 字母旗幟編輯等狀態不該被清空。
     }
 
     private boolean setupEconomy() {
