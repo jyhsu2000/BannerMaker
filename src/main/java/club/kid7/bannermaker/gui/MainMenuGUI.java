@@ -50,27 +50,30 @@ public class MainMenuGUI {
         // 2. 靜態控制面板 (Static Pane) - 用於放置導航和功能按鈕
         StaticPane navigationPane = new StaticPane(0, 5, 9, 1);
 
-        // 初始化導航按鈕
+        // 採「位置固定 + 灰玻璃填空」工具列設計，跟 BannerInfoGUI 對齊
+        GuiUtil.fillToolbarRow(navigationPane, 0);
+
+        // 初始化導航按鈕（上一頁 slot 0、下一頁 slot 8）
         updateNavigation(navigationPane, paginatedPane, gui, messageService);
 
-        // 製作旗幟按鈕
+        // 製作旗幟按鈕（slot 4，永遠）
         ItemStack btnCreateBanner = new ItemBuilder(Material.LIME_WOOL)
             .name(tl(NamedTextColor.GREEN, "gui.create-banner"))
             .build();
-        navigationPane.addItem(new GuiItem(btnCreateBanner, event -> {
+        GuiUtil.putAt(navigationPane, 4, 0, btnCreateBanner, event -> {
             CreateBannerGUI.show(player);
             event.setCancelled(true);
-        }), 4, 0);
+        });
 
-        // 製作字母按鈕 (若啟用)
+        // 製作字母按鈕（slot 6，若啟用 AlphabetAndNumber、否則維持灰玻璃）
         if (BannerMaker.getInstance().isEnableAlphabetAndNumber()) {
-            ItemStack btnCreateAlphabet = AlphabetBanner.get("A");
-            ItemBuilder btnBuilder = new ItemBuilder(btnCreateAlphabet);
-            btnBuilder.name(tl(NamedTextColor.GREEN, "gui.alphabet-and-number"));
-            navigationPane.addItem(new GuiItem(btnBuilder.build(), event -> {
+            ItemStack btnCreateAlphabet = new ItemBuilder(AlphabetBanner.get("A"))
+                .name(tl(NamedTextColor.GREEN, "gui.alphabet-and-number"))
+                .build();
+            GuiUtil.putAt(navigationPane, 6, 0, btnCreateAlphabet, event -> {
                 ChooseAlphabetGUI.show(player);
                 event.setCancelled(true);
-            }), 6, 0); // Slot 51 是最後一行的第 7 格 (索引 6)
+            });
         }
 
         gui.addPane(navigationPane);
@@ -78,42 +81,38 @@ public class MainMenuGUI {
     }
 
     private static void updateNavigation(StaticPane navigationPane, PaginatedPane paginatedPane, ChestGui gui, MessageService messageService) {
-        // 清除舊的導航按鈕 (僅清除 Slot 45 和 53，即 StaticPane 的 (0,0) 和 (8,0))
-        // 注意: StaticPane (0, 5, 9, 1) 使用本地座標。
-        // Slot 45 對應本地 (0, 0)。 Slot 53 對應本地 (8, 0)。
-
-        // 上一頁
+        // 上一頁（slot 0，無上一頁時 fallback 為灰玻璃以維持工具列視覺）
         if (paginatedPane.getPage() > 0) {
             ItemStack prevPage = new ItemBuilder(Material.ARROW)
-                .amount(paginatedPane.getPage()) // 將當前頁碼設為物品數量 (視覺效果)
+                .amount(paginatedPane.getPage()) // 將當前頁碼設為物品數量（視覺效果）
                 .name(tl(NamedTextColor.GREEN, "gui.prev-page"))
                 .build();
-
-            navigationPane.addItem(new GuiItem(prevPage, event -> {
+            GuiUtil.putAt(navigationPane, 0, 0, prevPage, event -> {
                 paginatedPane.setPage(paginatedPane.getPage() - 1);
                 updateNavigation(navigationPane, paginatedPane, gui, messageService);
                 gui.update();
                 event.setCancelled(true);
-            }), 0, 0);
+            });
         } else {
             navigationPane.removeItem(0, 0);
+            navigationPane.addItem(GuiUtil.grayPaneFiller(), 0, 0);
         }
 
-        // 下一頁
+        // 下一頁（slot 8，無下一頁時 fallback 為灰玻璃）
         if (paginatedPane.getPage() < paginatedPane.getPages() - 1) {
             ItemStack nextPage = new ItemBuilder(Material.ARROW)
-                .amount(paginatedPane.getPage() + 2) // 將下一頁碼設為物品數量 (視覺效果)
+                .amount(paginatedPane.getPage() + 2) // 將下一頁碼設為物品數量（視覺效果）
                 .name(tl(NamedTextColor.GREEN, "gui.next-page"))
                 .build();
-
-            navigationPane.addItem(new GuiItem(nextPage, event -> {
+            GuiUtil.putAt(navigationPane, 8, 0, nextPage, event -> {
                 paginatedPane.setPage(paginatedPane.getPage() + 1);
                 updateNavigation(navigationPane, paginatedPane, gui, messageService);
                 gui.update();
                 event.setCancelled(true);
-            }), 8, 0);
+            });
         } else {
             navigationPane.removeItem(8, 0);
+            navigationPane.addItem(GuiUtil.grayPaneFiller(), 8, 0);
         }
     }
 }

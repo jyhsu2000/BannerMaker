@@ -39,12 +39,15 @@ public class CreateBannerGUI {
         StaticPane mainPane = new StaticPane(0, 0, 9, 6);
         gui.addPane(mainPane);
 
-        // Slot 45 (0,5): 返回按鈕
+        // 工具列風格：row 5 永遠先填灰玻璃（兩個 stage 都套用），下方按鈕用 GuiUtil.putAt 覆蓋
+        GuiUtil.fillToolbarRow(mainPane, 5);
+
+        // slot 0: 返回（兩個 stage 都顯示）
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
-        mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
+        GuiUtil.putAt(mainPane, 0, 5, btnBackToMenu, event -> {
             MainMenuGUI.show(player);
             event.setCancelled(true);
-        }), 0, 5);
+        });
 
         // 取得當前正在編輯的旗幟
         ItemStack currentBanner = playerData.getCurrentEditBanner();
@@ -139,17 +142,40 @@ public class CreateBannerGUI {
             }), slot % 9, slot / 9);
         }
 
-        // Slot 51 (6,5): 更多圖案按鈕
+        // Row 5 編輯模式專屬按鈕（返回按鈕已在 show 開頭、兩個 stage 共用）
+
+        // slot 2: 重置（刪除當前編輯旗幟）
+        ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.delete")).build();
+        GuiUtil.putAt(mainPane, 2, 5, btnDelete, event -> {
+            playerData.setCurrentEditBanner(null);
+            CreateBannerGUI.show(player); // 重新開啟以回到底色選擇
+            event.setCancelled(true);
+        });
+
+        // slot 4: 移除上一個圖案（條件性、有 pattern 才顯示）
+        if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 0) {
+            ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.remove-last-pattern")).build();
+            GuiUtil.putAt(mainPane, 4, 5, btnRemovePattern, event -> {
+                BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
+                bm.removePattern(bm.numberOfPatterns() - 1);
+                currentBanner.setItemMeta(bm);
+                playerData.setCurrentEditBanner(currentBanner);
+                CreateBannerGUI.show(player); // 重新開啟以反映變更
+                event.setCancelled(true);
+            });
+        }
+
+        // slot 6: 更多圖案
         ItemStack btnMorePattern = new ItemBuilder(Material.NETHER_STAR).name(tl(NamedTextColor.GREEN, "gui.more-patterns")).build();
-        mainPane.addItem(new GuiItem(btnMorePattern, event -> {
+        GuiUtil.putAt(mainPane, 6, 5, btnMorePattern, event -> {
             playerData.setShowMorePatterns(!playerData.isShowMorePatterns());
             CreateBannerGUI.show(player); // 重新開啟以顯示更多圖案
             event.setCancelled(true);
-        }), 6, 5);
+        });
 
-        // Slot 53 (8,5): 建立/儲存旗幟
+        // slot 8: 建立 / 儲存旗幟
         ItemStack btnCreate = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.create")).build();
-        mainPane.addItem(new GuiItem(btnCreate, event -> {
+        GuiUtil.putAt(mainPane, 8, 5, btnCreate, event -> {
             BannerRepository bannerRepository = BannerMaker.getInstance().getBannerRepository();
             boolean saved = bannerRepository.saveBanner(player, currentBanner);
             if (saved) {
@@ -160,28 +186,7 @@ public class CreateBannerGUI {
             playerData.setCurrentEditBanner(null);
             MainMenuGUI.show(player); // 返回主選單
             event.setCancelled(true);
-        }), 8, 5);
-
-        // Slot 47 (2,5): 刪除當前編輯旗幟
-        ItemStack btnDelete = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.delete")).build();
-        mainPane.addItem(new GuiItem(btnDelete, event -> {
-            playerData.setCurrentEditBanner(null);
-            CreateBannerGUI.show(player); // 重新開啟以回到底色選擇
-            event.setCancelled(true);
-        }), 2, 5);
-
-        // Slot 49 (4,5): 移除上一個圖案
-        if (currentBanner.hasItemMeta() && ((BannerMeta) Objects.requireNonNull(currentBanner.getItemMeta())).numberOfPatterns() > 0) {
-            ItemStack btnRemovePattern = new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.remove-last-pattern")).build();
-            mainPane.addItem(new GuiItem(btnRemovePattern, event -> {
-                BannerMeta bm = (BannerMeta) currentBanner.getItemMeta();
-                bm.removePattern(bm.numberOfPatterns() - 1);
-                currentBanner.setItemMeta(bm);
-                playerData.setCurrentEditBanner(currentBanner);
-                CreateBannerGUI.show(player); // 重新開啟以反映變更
-                event.setCancelled(true);
-            }), 4, 5);
-        }
+        });
 
         gui.show(player);
     }

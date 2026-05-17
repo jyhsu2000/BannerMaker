@@ -40,8 +40,7 @@ public class ChooseAlphabetGUI {
         boolean alphabetBorder = playerData.isAlphabetBannerBordered();
         char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.".toCharArray();
 
-        // 填充字母物品 (i=0-53)
-        // 放置在 Slot 0-53 (整個介面)
+        // 填充字母物品（共 39 個，放置在 slot 0-38，覆蓋 row 0-4 大部分）
         for (int i = 0; i < alphabetArray.length && i < 54; i++) {
             char alphabet = alphabetArray[i];
             final AlphabetBanner alphabetBanner = new AlphabetBanner(String.valueOf(alphabet), DyeColor.WHITE, DyeColor.BLACK, alphabetBorder);
@@ -53,24 +52,25 @@ public class ChooseAlphabetGUI {
             }), i % 9, i / 9);
         }
 
-        // Slot 49 (4,5): 切換邊框
-        // 注意：這會覆蓋掉字母列表在 Slot 49 的項目（如果有的話）
-        // 字母列表最多到 '.' (index 38)，所以 Slot 49 是安全的。
+        // 工具列風格：row 5 先填灰玻璃、覆蓋字母列表落到 row 5 部分（字母至 slot 38 不會碰到 row 5、純為視覺一致）
+        GuiUtil.fillToolbarRow(mainPane, 5);
+
+        // slot 0: 返回
+        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
+        GuiUtil.putAt(mainPane, 0, 5, btnBackToMenu, event -> {
+            MainMenuGUI.show(player);
+            event.setCancelled(true);
+        });
+
+        // slot 4: 切換邊框
         ItemStack btnBorderedBanner = new ItemBuilder(Material.WHITE_BANNER)
             .name(tl(NamedTextColor.GREEN, "gui.toggle-border"))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER)).build();
-        mainPane.addItem(new GuiItem(btnBorderedBanner, event -> {
+        GuiUtil.putAt(mainPane, 4, 5, btnBorderedBanner, event -> {
             playerData.setAlphabetBannerBordered(!playerData.isAlphabetBannerBordered());
             ChooseAlphabetGUI.show(player); // 刷新以顯示變更
             event.setCancelled(true);
-        }), 4, 5);
-
-        // Slot 45 (0,5): 返回按鈕
-        ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
-        mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
-            MainMenuGUI.show(player);
-            event.setCancelled(true);
-        }), 0, 5);
+        });
 
         gui.show(player);
     }

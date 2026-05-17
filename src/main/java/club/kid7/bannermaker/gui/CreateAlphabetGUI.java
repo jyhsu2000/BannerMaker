@@ -68,7 +68,7 @@ public class CreateAlphabetGUI {
             }), slot % 9, slot / 9);
         }
 
-        // Slot 37 (1,4): 切換邊框
+        // Slot 37 (1,4): 切換邊框（位置維持 row 4，不在工具列風格範圍內）
         ItemStack btnBorderedBanner = new ItemBuilder(Material.WHITE_BANNER)
             .name(tl(NamedTextColor.GREEN, "gui.toggle-border"))
             .pattern(new Pattern(DyeColor.BLACK, PatternType.BORDER)).build();
@@ -79,19 +79,22 @@ public class CreateAlphabetGUI {
             event.setCancelled(true);
         }), 1, 4);
 
-        // Slot 49 (4,5): 旗幟資訊
-        ItemStack btnBannerInfo = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.banner-info")).build();
-        mainPane.addItem(new GuiItem(btnBannerInfo, event -> {
-            BannerInfoGUI.open(player, currentAlphabetBanner.toItemStack());
-            event.setCancelled(true);
-        }), 4, 5);
+        // 工具列風格：row 5 先填灰玻璃
+        GuiUtil.fillToolbarRow(mainPane, 5);
 
-        // Slot 45 (0,5): 返回按鈕
+        // slot 0: 返回
         ItemStack btnBackToMenu = new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build();
-        mainPane.addItem(new GuiItem(btnBackToMenu, event -> {
+        GuiUtil.putAt(mainPane, 0, 5, btnBackToMenu, event -> {
             ChooseAlphabetGUI.show(player);
             event.setCancelled(true);
-        }), 0, 5);
+        });
+
+        // slot 4: 旗幟資訊
+        ItemStack btnBannerInfo = new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.banner-info")).build();
+        GuiUtil.putAt(mainPane, 4, 5, btnBannerInfo, event -> {
+            BannerInfoGUI.open(player, currentAlphabetBanner.toItemStack());
+            event.setCancelled(true);
+        });
 
         gui.show(player);
     }

@@ -161,12 +161,10 @@ public class BannerInfoGUI {
                                        AtomicInteger currentRecipePage,
                                        PlayerData playerData, MessageService messageService) {
         // 先把 row 5 全部填灰玻璃，後面個別按鈕條件性覆蓋
-        for (int x = 0; x < 9; x++) {
-            mainPane.addItem(grayPaneFiller(), x, 5);
-        }
+        GuiUtil.fillToolbarRow(mainPane, 5);
 
         // slot 0: 返回
-        putAt(mainPane, 0, 5, new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build(), event -> {
+        GuiUtil.putAt(mainPane, 0, 5, new ItemBuilder(Material.RED_WOOL).name(tl(NamedTextColor.RED, "gui.back")).build(), event -> {
             if (AlphabetBanner.isAlphabetBanner(banner)) {
                 CreateAlphabetGUI.show(player);
             } else {
@@ -178,7 +176,7 @@ public class BannerInfoGUI {
         // slot 2: 刪除（若為個人收藏）
         final String key = BannerUtil.getKey(banner);
         if (key != null) {
-            putAt(mainPane, 2, 5,
+            GuiUtil.putAt(mainPane, 2, 5,
                 new ItemBuilder(Material.BARRIER).name(tl(NamedTextColor.RED, "gui.delete")).build(),
                 event -> {
                     BannerMaker.getInstance().getBannerRepository().removeBanner(player, key);
@@ -194,7 +192,7 @@ public class BannerInfoGUI {
         }
 
         // slot 6: 複製並編輯（永遠）
-        putAt(mainPane, 6, 5,
+        GuiUtil.putAt(mainPane, 6, 5,
             new ItemBuilder(Material.WRITABLE_BOOK).name(tl(NamedTextColor.BLUE, "gui.clone-and-edit")).build(),
             event -> {
                 playerData.setCurrentEditBanner(banner);
@@ -220,7 +218,7 @@ public class BannerInfoGUI {
         final String showName = BannerUtil.getName(banner);
 
         if (player.hasPermission("BannerMaker.getBanner.free")) {
-            putAt(mainPane, 4, 5,
+            GuiUtil.putAt(mainPane, 4, 5,
                 new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.get-banner-for-free")).build(),
                 event -> {
                     InventoryUtil.give(player, banner);
@@ -231,37 +229,44 @@ public class BannerInfoGUI {
             return;
         }
 
-        // 合成
-        putAt(mainPane, 4, 5,
-            new ItemBuilder(Material.LIME_WOOL).name(tl(NamedTextColor.GREEN, "gui.get-banner-by-craft")).build(),
-            event -> {
-                boolean success = BannerMaker.getInstance().getBannerService().craft(player, banner);
-                if (success) {
-                    messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
-                } else {
-                    messageService.send(player, tl(NamedTextColor.RED, "gui.materials.not-enough"));
-                }
-                refresh(player, banner, currentRecipePage.get());
-                event.setCancelled(true);
-            });
+        // 合成（slot 4）：材料不足時 name 改紅 + lore 提示，仍允許點擊以便玩家收到具體訊息
+        boolean enoughMaterials = BannerCost.hasEnoughMaterials(player.getInventory(), banner);
+        ItemBuilder craftBuilder = new ItemBuilder(Material.LIME_WOOL)
+            .name(tl(enoughMaterials ? NamedTextColor.GREEN : NamedTextColor.RED, "gui.get-banner-by-craft"));
+        if (!enoughMaterials) {
+            craftBuilder.lore(tl(NamedTextColor.RED, "gui.materials.not-enough"));
+        }
+        GuiUtil.putAt(mainPane, 4, 5, craftBuilder.build(), event -> {
+            boolean success = BannerMaker.getInstance().getBannerService().craft(player, banner);
+            if (success) {
+                messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
+            } else {
+                messageService.send(player, tl(NamedTextColor.RED, "gui.materials.not-enough"));
+            }
+            refresh(player, banner, currentRecipePage.get());
+            event.setCancelled(true);
+        });
 
-        // 購買（若 economy 可用）
+        // 購買（slot 5，若 economy 可用）：餘額不足時 name 改紅 + lore 提示
         EconomyService economyService = BannerMaker.getInstance().getEconomyService();
         if (economyService.isAvailable()) {
             double price = economyService.getPrice(banner);
             String priceStr = economyService.format(price);
-            putAt(mainPane, 5, 5,
-                new ItemBuilder(Material.EMERALD)
-                    .name(tl(NamedTextColor.GREEN, "gui.buy-banner-in-price", tag("price", priceStr)))
-                    .build(),
-                event -> {
-                    boolean success = BannerMaker.getInstance().getBannerService().buy(player, banner);
-                    if (success) {
-                        messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
-                    }
-                    refresh(player, banner, currentRecipePage.get());
-                    event.setCancelled(true);
-                });
+            boolean enoughBalance = economyService.has(player, price);
+            ItemBuilder buyBuilder = new ItemBuilder(Material.EMERALD)
+                .name(tl(enoughBalance ? NamedTextColor.GREEN : NamedTextColor.RED,
+                    "gui.buy-banner-in-price", tag("price", priceStr)));
+            if (!enoughBalance) {
+                buyBuilder.lore(tl(NamedTextColor.RED, "general.no-money"));
+            }
+            GuiUtil.putAt(mainPane, 5, 5, buyBuilder.build(), event -> {
+                boolean success = BannerMaker.getInstance().getBannerService().buy(player, banner);
+                if (success) {
+                    messageService.send(player, tl(NamedTextColor.GREEN, "gui.get-banner", tag("name", showName)));
+                }
+                refresh(player, banner, currentRecipePage.get());
+                event.setCancelled(true);
+            });
         }
     }
 
@@ -270,7 +275,7 @@ public class BannerInfoGUI {
      */
     private static void renderShowBannerButtons(StaticPane mainPane, Player player, ItemStack banner) {
         if (player.hasPermission("BannerMaker.show.nearby")) {
-            putAt(mainPane, 7, 5,
+            GuiUtil.putAt(mainPane, 7, 5,
                 new ItemBuilder(Material.BELL).name(tl(NamedTextColor.BLUE, "gui.show-to-nearby")).build(),
                 event -> {
                     BannerMaker.getInstance().getBannerService().showToNearby(player, banner, 16);
@@ -279,7 +284,7 @@ public class BannerInfoGUI {
                 });
         }
         if (player.hasPermission("BannerMaker.show.all")) {
-            putAt(mainPane, 8, 5,
+            GuiUtil.putAt(mainPane, 8, 5,
                 new ItemBuilder(Material.NOTE_BLOCK).name(tl(NamedTextColor.BLUE, "gui.show-to-all")).build(),
                 event -> {
                     BannerMaker.getInstance().getBannerService().showToAll(player, banner);
@@ -356,25 +361,4 @@ public class BannerInfoGUI {
         }
     }
 
-    // ===== Helpers =====
-
-    /**
-     * 將指定 ItemStack 與 click handler 放到 pane 的某個位置，先 remove 既有 item 再 add
-     * 以確保覆蓋 row 5 預先填的灰玻璃。
-     */
-    private static void putAt(StaticPane pane, int x, int y, ItemStack item,
-                              java.util.function.Consumer<org.bukkit.event.inventory.InventoryClickEvent> handler) {
-        pane.removeItem(x, y);
-        pane.addItem(new GuiItem(item, handler::accept), x, y);
-    }
-
-    /**
-     * 操作列上「無動作」位置的視覺填充：純灰玻璃，displayName 設為單一空格以隱藏 vanilla
-     * 預設名（跟合成表 brown glass 邊框同手法），玩家 hover 不會看到「Gray Stained Glass Pane」
-     * 這類預設名稱、也無從推測該位置潛在有功能。
-     */
-    private static GuiItem grayPaneFiller() {
-        ItemStack pane = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).name(" ").build();
-        return new GuiItem(pane);
-    }
 }
