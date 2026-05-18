@@ -28,7 +28,6 @@ gui:
   remove-last-pattern: Supprimer le dernier pattern
   banner-info: Info de la bannière
   no-patterns: Aucuns patterns
-  pattern-layout: Recette de fabrication
   get-this-banner: Obtenir cette bannière
   get-banner: 'Obtention de la bannière &r#<name>'
   clone-and-edit: 'Cloner & Éditer'

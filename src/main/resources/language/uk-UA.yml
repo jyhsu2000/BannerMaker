@@ -32,7 +32,6 @@ gui:
   banner-info: Інформація про стяг
   pattern-s: візерунок(ки)
   no-patterns: Немає візерунків
-  pattern-layout: Рецепт Крафту
   get-this-banner: Отримати стяг
   get-banner: 'Отримати стяг &r#<name>'
   get-banner-for-free: Отримати безкоштовно
