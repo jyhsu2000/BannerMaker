@@ -32,7 +32,6 @@ gui:
   banner-info: Информация о баннере
   pattern-s: узор(ы)
   no-patterns: Нет узоров
-  pattern-layout: Рецепт крафта
   get-this-banner: Получить этот баннер
   get-banner: 'Получен баннер &r#<name>'
   get-banner-for-free: Получитm баннер бесплатно

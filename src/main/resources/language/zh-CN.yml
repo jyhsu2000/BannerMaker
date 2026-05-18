@@ -2,8 +2,16 @@
 general:
   prefix: '&6[&aBannerMaker&6]&r '
   reload: 重载配置
+  gui-closed-by-reload: 菜单因配置重载已自动关闭，请重启打开以继续。
   no-money: 余额不足
   money-transaction: 花费 <amount> 获取该旗帜，当前余额：<balance>
+  economy-not-supported: '错误：未安装经济系统'
+  economy-transaction-error: '错误：<message>'
+  economy-enabled: '&a已发现 Vault 前置！启用经济系统支持'
+  economy-disabled: '&c已停用经济系统支持'
+  show-banner-message: '&e<sender>&7 向你展示了旗帜 &f<banner>&8（点击查看）'
+  share-click-text: '[点击此处将命令复制到剪贴板]'
+  share-hover-text: 将命令复制到剪贴板
 io:
   save-failed: 保存失败
   save-success: 保存成功
@@ -11,6 +19,7 @@ io:
 command:
   not-banner-hand: 您所手持物品不是旗帜
   not-banner-see: 您所看着的方块不是旗帜
+  invalid-banner-string: '&c无效的旗帜代码'
   description:
     default: 显示 BannerMaker 菜单
     help: 显示帮助信息
@@ -41,7 +50,7 @@ gui:
   banner-info: 旗帜信息
   pattern-s: 个图案
   no-patterns: 无图案
-  pattern-layout: 合成配方
+  pattern-layout: 图案布局
   get-this-banner: 获取该旗帜
   get-banner: '获取旗帜 &r#<name>'
   get-banner-for-free: 免费获取
@@ -58,3 +67,8 @@ gui:
     right: 右键点击
   selected-pattern-color: 已选图案颜色
   toggle-preview-mode: 切换预览模式
+  show-banner: 向其他玩家展示旗帜
+  show-to-nearby: 展示给附近玩家
+  show-to-all: 展示给所有玩家
+  get-share-command: 获取分享命令
+  recipe-page: '(<page>/<total>)'
