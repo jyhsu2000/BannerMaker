@@ -1,0 +1,132 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v3.0.0). The tag must already exist in the repo.'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Resolve tag and version
+        id: meta
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ inputs.tag }}"
+          else
+            TAG="${GITHUB_REF#refs/tags/}"
+          fi
+
+          if [[ ! "$TAG" =~ ^v[0-9] ]]; then
+            echo "::error::Tag '$TAG' must start with 'v' followed by a digit (e.g. v3.0.0)"
+            exit 1
+          fi
+
+          VERSION="${TAG#v}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Verify version consistency
+        shell: bash
+        run: |
+          VERSION="${{ steps.meta.outputs.version }}"
+
+          POM_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+
+          if [ "$POM_VERSION" != "$VERSION" ]; then
+            echo "::error::pom.xml version ($POM_VERSION) does not match tag version ($VERSION)"
+            exit 1
+          fi
+
+          if [[ "$POM_VERSION" == *-SNAPSHOT ]]; then
+            echo "::error::Refusing to release SNAPSHOT version ($POM_VERSION)"
+            exit 1
+          fi
+
+          if ! grep -q "^## v${VERSION} (for " CHANGELOG.md; then
+            echo "::error::CHANGELOG.md is missing a sealed '## v${VERSION} (for ...)' section"
+            exit 1
+          fi
+
+          if ! grep -q "^## v${VERSION} (for " CHANGELOG.zh-tw.md; then
+            echo "::error::CHANGELOG.zh-tw.md is missing a sealed '## v${VERSION} (for ...)' section"
+            exit 1
+          fi
+
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots package --file pom.xml
+
+      - name: Compose release notes
+        shell: bash
+        run: |
+          VERSION="${{ steps.meta.outputs.version }}"
+
+          extract() {
+            awk -v v="$VERSION" '
+              $0 ~ "^## v" v " [(]for " {flag=1; print; next}
+              /^## v[0-9]/ {if (flag) exit}
+              flag {print}
+            ' "$1"
+          }
+
+          EN=$(extract CHANGELOG.md)
+          ZH=$(extract CHANGELOG.zh-tw.md)
+
+          if [ -z "$EN" ] || [ -z "$ZH" ]; then
+            echo "::error::Failed to extract changelog section for v${VERSION}"
+            exit 1
+          fi
+
+          {
+            echo "$EN"
+            echo
+            echo "---"
+            echo
+            echo "$ZH"
+          } > release-notes.md
+
+          echo "--- Generated release notes ---"
+          cat release-notes.md
+
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: BannerMaker ${{ steps.meta.outputs.tag }}
+          body_path: release-notes.md
+          files: target/BannerMaker.jar
+          draft: true
+          prerelease: ${{ contains(steps.meta.outputs.tag, '-') }}
+          fail_on_unmatched_files: true
