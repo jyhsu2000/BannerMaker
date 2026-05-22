@@ -20,6 +20,7 @@
 - Improve `/bm reload` behavior:
     - In-flight banner edits are preserved across reload (no longer wiped)
     - Players inside a BannerMaker GUI are dismissed on reload to avoid showing stale prices / translations; their edits are kept and restored on next open
+- Unify GUI clicks: any mouse button activates buttons (previously some toggles required a specific button)
 - Add `BannerMaker.getBanner.complex-craft` to the `BannerMaker.admin` permission group
 - Substantial internal modernization and refactoring
 

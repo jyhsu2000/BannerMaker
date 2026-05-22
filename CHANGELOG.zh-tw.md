@@ -20,6 +20,7 @@
 - 改善 `/bm reload` 行為：
     - 重新載入時保留玩家編輯中的旗幟狀態（不再清空）
     - 重新載入時關閉開著的 BannerMaker 選單，避免顯示過時的價格／譯文；編輯狀態保留、下次開啟可從上次繼續
+- 統一 GUI 點擊行為：任何滑鼠按鍵都能觸發按鈕（過去部分切換需指定按鍵）
 - 將 `BannerMaker.getBanner.complex-craft` 加入 `BannerMaker.admin` 權限集合
 - 大幅內部現代化與重構
 

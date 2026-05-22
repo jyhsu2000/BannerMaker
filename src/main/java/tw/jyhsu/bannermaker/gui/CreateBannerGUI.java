@@ -122,7 +122,7 @@ public class CreateBannerGUI {
         boolean isInSimplePreviewMode = playerData.isInSimplePreviewMode();
         ItemStack previewDye = new ItemBuilder(DyeColorRegistry.getDyeMaterial(selectedColor))
             .name(tl(NamedTextColor.BLUE, "gui.selected-pattern-color"))
-            .addLore(Component.text("[", NamedTextColor.YELLOW).append(tl("gui.click.left")).append(Component.text("] ", NamedTextColor.YELLOW)).append(tl(NamedTextColor.GREEN, "gui.toggle-preview-mode"))).build();
+            .addLore(tl(NamedTextColor.GREEN, "gui.toggle-preview-mode")).build();
         mainPane.addItem(new GuiItem(previewDye, event -> {
             playerData.setInSimplePreviewMode(!isInSimplePreviewMode);
             CreateBannerGUI.show(player); // 重新開啟以刷新圖案
