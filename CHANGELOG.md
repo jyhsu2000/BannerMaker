@@ -2,6 +2,10 @@
 
 ## Unreleased Version
 
+- None
+
+## v3.0.0 (for v1.21.x)
+
 - Update language system
     - Support MiniMessage format alongside legacy `&` codes
     - Use `<name>` style placeholders (replacing legacy `{0}`)
