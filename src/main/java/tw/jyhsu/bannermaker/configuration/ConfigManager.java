@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -68,10 +69,25 @@ public class ConfigManager {
      * @param fileName 要載入的檔案
      */
     public static void load(String fileName) {
+        load(fileName, true);
+    }
+
+    /**
+     * 將檔案設定載入到記憶體中
+     *
+     * @param fileName 要載入的檔案
+     */
+    public static void load(String fileName, boolean resource) {
         fileName = getFileName(fileName);
         BannerMaker plugin = requirePlugin("load");
         File file = new File(plugin.getDataFolder(), fileName);
-        if (!file.exists()) {
+        if (!isFileLoaded(fileName)) {
+            configs.put(fileName, YamlConfiguration.loadConfiguration(file));
+        }
+
+        if (file.exists()) return;
+
+        if (resource) {
             try {
                 plugin.saveResource(fileName, false);
             } catch (Exception e) {
@@ -79,10 +95,15 @@ public class ConfigManager {
                 // 但如果是語言檔或設定檔，這可能是一個問題，所以在 debug 模式下或是測試時這很有用
                 plugin.getLogger().warning("Could not save resource: " + fileName + " (" + e.getMessage() + ")");
             }
+        } else {
+            file.getParentFile().mkdirs();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                plugin.getLogger().warning("Could not create file: " + fileName + " (" + e.getMessage() + ")");
+            }
         }
-        if (!isFileLoaded(fileName)) {
-            configs.put(fileName, YamlConfiguration.loadConfiguration(file));
-        }
+
     }
 
     /**
@@ -94,7 +115,9 @@ public class ConfigManager {
     public static FileConfiguration get(String fileName) {
         fileName = getFileName(fileName);
         if (!isFileLoaded(fileName)) {
-            load(fileName);
+            load(fileName, false);
+            BannerMaker plugin = requirePlugin("get");
+            plugin.getLogger().warning("Lazy load: " + fileName + " on ConfigManager#get - not known if it's a resource file or not. Treating it as non resource file.");
         }
         return configs.get(fileName);
     }

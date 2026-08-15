@@ -80,7 +80,7 @@ public class BannerRepository {
         List<ItemStack> bannerList = new ArrayList<>();
         //設定檔
         String fileName = getFileName(player);
-        ConfigManager.load(fileName);
+        ConfigManager.load(fileName, false);
         //強制重新讀取，以避免選單內容未即時更新
         ConfigManager.reload(fileName);
         FileConfiguration config = ConfigManager.get(fileName);

@@ -121,7 +121,7 @@ class BannerRepositoryTest {
         // 模擬 v2.5.x 以前儲存的玩家收藏：pattern 用舊縮寫 ("ts" = STRIPE_TOP)
         PlayerMock player = server.addPlayer();
         String fileName = "banner" + File.separator + player.getUniqueId() + ".yml";
-        ConfigManager.load(fileName);
+        ConfigManager.load(fileName, false);
         FileConfiguration config = ConfigManager.get(fileName);
         // 手刻一份「舊格式」資料
         config.set("1700000000000.color", "RED");
