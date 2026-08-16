@@ -4,6 +4,10 @@
 
 - 尚無
 
+## v3.0.2 (for v1.21.x)
+
+- GitHub Release 頁面額外附上帶版本號的 jar（如 `BannerMaker-3.0.2.jar`），固定檔名的 `BannerMaker.jar` 維持不變
+
 ## v3.0.1 (for v1.21.x)
 
 - 修正無旗幟存檔的玩家開啟選單時，反覆出現的 `Could not save resource` / `Could not reload config` 錯誤訊息

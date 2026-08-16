@@ -4,6 +4,10 @@
 
 - None
 
+## v3.0.2 (for v1.21.x)
+
+- Attach an additional version-numbered jar (e.g. `BannerMaker-3.0.2.jar`) to each GitHub Release; the fixed-name `BannerMaker.jar` stays unchanged
+
 ## v3.0.1 (for v1.21.x)
 
 - Fix recurring `Could not save resource` / `Could not reload config` log noise when a player with no saved banners opens the menu
