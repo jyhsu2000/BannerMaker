@@ -104,8 +104,8 @@
         </dependency>
     </dependencies>
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <!-- 用 release 而非 source/target：以較新 JDK 編譯時 API 表面一併鎖在 21，防止誤用新版 API -->
+        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependency Versions -->
@@ -261,8 +261,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <release>21</release>
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
