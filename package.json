@@ -13,7 +13,7 @@
     "crowdin:status": "dotenv -- crowdin status"
   },
   "devDependencies": {
-    "@crowdin/cli": "^4.0.0",
+    "@crowdin/cli": "^4.15.0",
     "dotenv-cli": "^7.4.2"
   }
 }
