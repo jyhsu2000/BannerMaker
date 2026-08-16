@@ -36,8 +36,9 @@ public class BannerRepository {
         if (!BannerUtil.isBanner(banner)) {
             return false;
         }
-        //設定檔
+        //設定檔（玩家資料檔，非 jar 內附資源）
         String fileName = getFileName(player);
+        ConfigManager.load(fileName, false);
         FileConfiguration config = ConfigManager.get(fileName);
         //索引值（時間戳記，不會重複）
         String key = String.valueOf(System.currentTimeMillis());
@@ -78,9 +79,9 @@ public class BannerRepository {
      */
     public List<ItemStack> loadBannerList(Player player, int page) {
         List<ItemStack> bannerList = new ArrayList<>();
-        //設定檔
+        //設定檔（玩家資料檔，非 jar 內附資源）
         String fileName = getFileName(player);
-        ConfigManager.load(fileName);
+        ConfigManager.load(fileName, false);
         //強制重新讀取，以避免選單內容未即時更新
         ConfigManager.reload(fileName);
         FileConfiguration config = ConfigManager.get(fileName);

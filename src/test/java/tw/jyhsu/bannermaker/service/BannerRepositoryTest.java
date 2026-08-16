@@ -17,8 +17,12 @@ import org.mockbukkit.mockbukkit.ServerMock;
 import org.mockbukkit.mockbukkit.entity.PlayerMock;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -52,6 +56,37 @@ class BannerRepositoryTest {
         return banner;
     }
 
+    /**
+     * 捕捉 action 執行期間 plugin logger 收到的 WARNING（含）以上訊息。
+     * 用於驗證 issue #35：玩家資料檔缺檔屬正常狀態，不應產生警告或錯誤 log。
+     */
+    private List<LogRecord> captureWarnings(Runnable action) {
+        List<LogRecord> records = new ArrayList<>();
+        Handler handler = new Handler() {
+            @Override
+            public void publish(LogRecord record) {
+                if (record.getLevel().intValue() >= Level.WARNING.intValue()) {
+                    records.add(record);
+                }
+            }
+
+            @Override
+            public void flush() {
+            }
+
+            @Override
+            public void close() {
+            }
+        };
+        plugin.getLogger().addHandler(handler);
+        try {
+            action.run();
+        } finally {
+            plugin.getLogger().removeHandler(handler);
+        }
+        return records;
+    }
+
     @Test
     void saveBanner_ReturnsTrue_ForValidBanner() {
         PlayerMock player = server.addPlayer();
@@ -72,6 +107,33 @@ class BannerRepositoryTest {
         PlayerMock player = server.addPlayer();
         List<ItemStack> banners = repository.loadBannerList(player);
         assertTrue(banners.isEmpty(), "未儲存任何旗幟時清單應為空");
+    }
+
+    @Test
+    void loadBannerList_DoesNotLogOrCreateFile_WhenNothingSaved() {
+        // issue #35：無存檔玩家開啟選單，過去會誤走 saveResource（WARN）
+        // 且 reload 對不存在的檔案噴 SEVERE + stack trace
+        PlayerMock player = server.addPlayer();
+
+        List<LogRecord> warnings = captureWarnings(() ->
+            assertTrue(repository.loadBannerList(player).isEmpty(), "未儲存任何旗幟時清單應為空"));
+
+        assertTrue(warnings.isEmpty(), "讀取不存在的收藏不應產生 WARNING 以上的 log，實際："
+            + warnings.stream().map(LogRecord::getMessage).toList());
+        File file = new File(plugin.getDataFolder(), "banner" + File.separator + player.getUniqueId() + ".yml");
+        assertFalse(file.exists(), "讀取不存在的收藏不應在磁碟建立檔案");
+    }
+
+    @Test
+    void saveBanner_DoesNotLogWarnings_OnFirstSave() {
+        // 玩家首次儲存旗幟時檔案尚不存在，不應觸發 saveResource 的 WARN
+        PlayerMock player = server.addPlayer();
+
+        List<LogRecord> warnings = captureWarnings(() ->
+            assertTrue(repository.saveBanner(player, simpleBanner()), "合法旗幟應成功儲存"));
+
+        assertTrue(warnings.isEmpty(), "首次儲存不應產生 WARNING 以上的 log，實際："
+            + warnings.stream().map(LogRecord::getMessage).toList());
     }
 
     @Test
@@ -121,7 +183,7 @@ class BannerRepositoryTest {
         // 模擬 v2.5.x 以前儲存的玩家收藏：pattern 用舊縮寫 ("ts" = STRIPE_TOP)
         PlayerMock player = server.addPlayer();
         String fileName = "banner" + File.separator + player.getUniqueId() + ".yml";
-        ConfigManager.load(fileName);
+        ConfigManager.load(fileName, false);
         FileConfiguration config = ConfigManager.get(fileName);
         // 手刻一份「舊格式」資料
         config.set("1700000000000.color", "RED");

@@ -63,20 +63,30 @@ public class ConfigManager {
     }
 
     /**
-     * 將檔案設定載入到記憶體中
+     * 將檔案設定載入到記憶體中（視為 jar 內附的資源檔）
      *
      * @param fileName 要載入的檔案
      */
     public static void load(String fileName) {
+        load(fileName, true);
+    }
+
+    /**
+     * 將檔案設定載入到記憶體中
+     *
+     * @param fileName 要載入的檔案
+     * @param resource 是否為 jar 內附的資源檔；資源檔缺檔時解壓預設檔，
+     *                 資料檔（如玩家旗幟收藏）缺檔屬正常狀態，檔案留待 {@link #save} 時建立
+     */
+    public static void load(String fileName, boolean resource) {
         fileName = getFileName(fileName);
         BannerMaker plugin = requirePlugin("load");
         File file = new File(plugin.getDataFolder(), fileName);
-        if (!file.exists()) {
+        if (resource && !file.exists()) {
             try {
                 plugin.saveResource(fileName, false);
             } catch (Exception e) {
-                // 忽略錯誤，可能是因為 jar 中沒有對應的資源檔（例如玩家資料）
-                // 但如果是語言檔或設定檔，這可能是一個問題，所以在 debug 模式下或是測試時這很有用
+                // 資源檔解壓失敗屬異常（打包缺檔等），印出警告以利診斷
                 plugin.getLogger().warning("Could not save resource: " + fileName + " (" + e.getMessage() + ")");
             }
         }
@@ -159,6 +169,11 @@ public class ConfigManager {
         }
         BannerMaker plugin = requirePlugin("reload");
         File file = new File(plugin.getDataFolder(), fileName);
+        if (!file.exists()) {
+            // 檔案不存在（資料檔從未儲存、或被外部刪除）屬正常狀態：記憶體同步為空、與磁碟一致
+            configs.put(fileName, new YamlConfiguration());
+            return;
+        }
         try {
             configs.get(fileName).load(file);
         } catch (Exception e) {
