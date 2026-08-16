@@ -4,6 +4,10 @@
 
 - 尚無
 
+## v3.0.1 (for v1.21.x)
+
+- 修正無旗幟存檔的玩家開啟選單時，反覆出現的 `Could not save resource` / `Could not reload config` 錯誤訊息
+
 ## v3.0.0 (for v1.21.x)
 
 - 更新語言系統

@@ -4,6 +4,10 @@
 
 - None
 
+## v3.0.1 (for v1.21.x)
+
+- Fix recurring `Could not save resource` / `Could not reload config` log noise when a player with no saved banners opens the menu
+
 ## v3.0.0 (for v1.21.x)
 
 - Update language system
