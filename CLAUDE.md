@@ -22,10 +22,10 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
 
 ```powershell
 # 跑全部測試（MockBukkit 套件，約 10 秒）
-& "C:\Users\jyhsu\AppData\Local\Programs\IntelliJ IDEA Ultimate\plugins\maven\lib\maven3\bin\mvn.cmd" test
+& "C:\Users\jyhsu\AppData\Local\Programs\IntelliJ IDEA\plugins\maven-plugin\lib\maven3\bin\mvn.cmd" test
 
 # 產出 shaded jar（輸出至 target/BannerMaker.jar）
-& "C:\Users\jyhsu\AppData\Local\Programs\IntelliJ IDEA Ultimate\plugins\maven\lib\maven3\bin\mvn.cmd" package
+& "C:\Users\jyhsu\AppData\Local\Programs\IntelliJ IDEA\plugins\maven-plugin\lib\maven3\bin\mvn.cmd" package
 
 # 跑單一測試類別
 & "..\mvn.cmd" test -Dtest=LanguageTest
