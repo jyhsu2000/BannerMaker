@@ -88,6 +88,9 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package --file pom.xml
 
+      - name: Copy versioned jar
+        run: cp target/BannerMaker.jar "target/BannerMaker-${{ steps.meta.outputs.version }}.jar"
+
       - name: Compose release notes
         shell: bash
         run: |
@@ -126,7 +129,9 @@ jobs:
           tag_name: ${{ steps.meta.outputs.tag }}
           name: BannerMaker ${{ steps.meta.outputs.tag }}
           body_path: release-notes.md
-          files: target/BannerMaker.jar
+          files: |
+            target/BannerMaker.jar
+            target/BannerMaker-${{ steps.meta.outputs.version }}.jar
           draft: true
           prerelease: ${{ contains(steps.meta.outputs.tag, '-') }}
           fail_on_unmatched_files: true
