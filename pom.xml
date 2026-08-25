@@ -4,7 +4,7 @@
     <!-- The Basics -->
     <groupId>tw.jyhsu</groupId>
     <artifactId>BannerMaker</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.3</version>
     <dependencies>
         <!-- Paper API (Test Scope) - Must be before spigot-api for MockBukkit compatibility -->
         <dependency>
@@ -123,7 +123,7 @@
         <adventure.version>4.17.0</adventure.version>
         <adventure.platform.version>4.4.1</adventure.platform.version>
         <inventory.framework.version>0.10.14</inventory.framework.version>
-        <xseries.version>11.3.0</xseries.version>
+        <xseries.version>13.7.1</xseries.version>
     </properties>
 
     <!-- More Project Information -->
