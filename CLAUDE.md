@@ -15,7 +15,7 @@ BannerMaker 是一個 Spigot/Paper Minecraft 插件，讓玩家透過 GUI 設計
     - **Adventure**：`adventure-text-minimessage 4.17.0` + `adventure-platform-bukkit 4.4.1`，文字與訊息處理核心
     - **ACF (Paper)**：`0.5.1-SNAPSHOT`，指令管理系統
     - **InventoryFramework**：`0.10.14`，GUI 介面框架
-    - **XSeries**：`11.3.0`，跨小版本材質與聲音相容
+    - **XSeries**：`13.7.1`，跨小版本材質與聲音相容
     - **MockBukkit**：`4.41.1`（針對 1.21.x，測試端搭配 paper-api 1.21.4），單元測試框架
 
 ## 建置、測試與執行
