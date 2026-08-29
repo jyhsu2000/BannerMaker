@@ -4,6 +4,10 @@
 
 - None
 
+## v3.0.3 (for v1.21.x ~ v26.2)
+
+- Update XSeries to 13.7.1 for Minecraft 26.2 compatibility (verified on 1.21.11 and 26.2)
+
 ## v3.0.2 (for v1.21.x)
 
 - Attach an additional version-numbered jar (e.g. `BannerMaker-3.0.2.jar`) to each GitHub Release; the fixed-name `BannerMaker.jar` stays unchanged

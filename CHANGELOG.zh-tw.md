@@ -4,6 +4,10 @@
 
 - 尚無
 
+## v3.0.3 (for v1.21.x ~ v26.2)
+
+- 將 XSeries 升級至 13.7.1 以支援 Minecraft 26.2（已於 1.21.11 與 26.2 上驗證）
+
 ## v3.0.2 (for v1.21.x)
 
 - GitHub Release 頁面額外附上帶版本號的 jar（如 `BannerMaker-3.0.2.jar`），固定檔名的 `BannerMaker.jar` 維持不變
